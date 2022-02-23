@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.Entities\Sample.Entities.csproj" />
+    <ProjectReference Include="..\Sample.Models\Sample.Models.csproj" />
+    <ProjectReference Include="..\Sample.Request\Sample.Request.csproj" />
+    <ProjectReference Include="..\Sample.Utilities\Sample.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

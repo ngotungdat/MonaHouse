@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+
+namespace Sample.Models.DomainModels
+{
+    public class AppDomainModel
+    {
+        /// <summary>
+        /// Số thứ tự
+        /// </summary>
+        //public long RowNumber { get; set; }
+        /// <summary>
+        /// Khóa chính
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Ngày tạo
+        /// </summary>
+        public DateTime? CreatedDate { get; set; }
+        /// <summary>
+        /// Tạo bởi
+        /// </summary>
+        public string CreatedBy { get; set; }
+        /// <summary>
+        /// Ngày cập nhật
+        /// </summary>
+        public DateTime? ModifiedDate { get; set; }
+        /// <summary>
+        /// Người cập nhật
+        /// </summary>
+        public string ModifiedBy { get; set; }
+        /// <summary>
+        /// Cờ xóa
+        /// </summary>
+        [DefaultValue(false)]
+        public bool Deleted { get; set; }
+        /// <summary>
+        /// Cờ active
+        /// </summary>
+        [DefaultValue(true)]
+        public bool Active { get; set; }
+    }
+}
