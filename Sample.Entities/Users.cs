@@ -306,5 +306,7 @@ namespace Sample.Entities
         ///// </summary>
         //[DefaultValue(false)]
         //public bool IsLoginGoogle { get; set; }
+
+        ///ghi chú
     }
 }
