@@ -15,6 +15,7 @@ namespace MyHouse.MVC
     {
         public Startup(IConfiguration configuration)
         {
+
             Configuration = configuration;
         }
 
@@ -24,6 +25,7 @@ namespace MyHouse.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             //In-Memory
             services.AddDistributedMemoryCache();
             services.AddSession(options => {

@@ -65,7 +65,7 @@
                         <div class="house-wrap col-md-6">
                             <div class="house-item">
                                 <div class="media ">
-                                    <img src="" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
                                     <div class="media-body ">
                                         <div class="group-top">
                                             <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
@@ -82,17 +82,15 @@
                                                 <p>
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
                                             </div>
-                                            @*<div class="house-description">
-                            <p class="mg-b-0">@house.Description</p>
-                        </div>*@
                                         </div>
                                         <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
                                         <div class="house-address">
-                                            <p class="mg-b-0"><strong>Địa chỉ:</strong> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</p>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a href="#js-addelectronicwater" data-toggle="modal" class="btn btn-sm btn-info write-ew" data-id="1"><i data-feather="edit-3" class="wd-20 ht-20 mg-r-5"></i> Ghi điện/nước</a>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +116,6 @@
                                                                     <th>Tiền dư/nợ</th>
                                                                     <th>Trạng thái</th>
                                                                     <th>Ghi chú</th>
-                                                                    <th class="tx-right">Chi tiết</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -128,12 +125,579 @@
                                                                     <td data-title="Tiền Dư/Nợ">3.000.000</td>
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
-                                                                    <td data-title="Thao tác">
-                                                                        <a href=""
-                                                                           class="d-inline-block pd-5">
-                                                                            <i data-feather="arrow-right-circle"></i>
-                                                                        </a>
-                                                                    </td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="house-wrap col-md-6">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <img src="~/img/Branch/house1.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media-footer mg-t-15">
+                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
+                                        <input type="checkbox" class="hidden">
+                                        <span></span>
+                                    </label>
+                                    <div class="collapse mg-t-5" id="room-list-1">
+                                        <div class="list__room">
+                                            <div class="table__filter__wrap">
+                                                <div class="table__filter-wrap">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
+                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
+                                                    </div>
+                                                    <div class="table-responsive mg-t-15">
+                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Phòng</th>
+                                                                    <th>Giá phòng</th>
+                                                                    <th>Tiền dư/nợ</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td data-title="Tên">Phòng 10</td>
+                                                                    <td data-title="Giá phòng">2.000.000</td>
+                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
+                                                                    <td data-title="Trạng thái">Đang thuê</td>
+                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
+                                                                    @*<td data-title="Thao tác">
+                                                        <a href=""
+                                                           class="d-inline-block pd-5">
+                                                            <i data-feather="arrow-right-circle"></i>
+                                                        </a>
+                                                    </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -147,88 +711,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
-                    <div class="row row-xs">
-                        <div class="col">
-                            <div class="table__filter__wrap bd-t pd-t-15">
-                                <div class="table__filter-header mg-t-0-f mg-b-15 filter-room-list">
-                                    <div class="table__header-left d-flex">
-                                        <div class="table__header-left mg-r-10">
-                                            <a href="#modal-add-fee-house" class="btn btn-primary" data-toggle="modal"><i class="fas fa-dollar-sign"></i> Thêm chi phí</a>
-                                        </div>
-                                        <div class="form-group mg-sm-b-0 group-select mg-r-10">
-                                            <label class="mg-b-0"><i data-feather="home"></i></label>
-                                            <select id="ddl-house-fee" class="form-control">
-                                                <option value="0">--- Tất cả ---</option>
-                                                @*@{
-                                                    foreach (var h in houses)
-                                                    {
-                                                        <option value="@h.ID">@h.MotelName</option>
-                                                    }
-                                                }*@
-                                            </select>
-                                        </div>
-                                        <div class="form-group mg-sm-b-0 group-select mg-r-10">
-                                            <label class="mg-b-0"><i data-feather="calendar"></i></label>
-                                            <select id="ddl-month-fee" class="form-control">
-                                                <option value="1">Tháng 01</option>
-                                                <option value="2">Tháng 02</option>
-                                                <option value="3">Tháng 03</option>
-                                                <option value="4">Tháng 04</option>
-                                                <option value="5">Tháng 05</option>
-                                                <option value="6">Tháng 06</option>
-                                                <option value="7">Tháng 07</option>
-                                                <option value="8">Tháng 08</option>
-                                                <option value="9">Tháng 09</option>
-                                                <option value="10">Tháng 10</option>
-                                                <option value="11">Tháng 11</option>
-                                                <option value="12">Tháng 12</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group mg-sm-b-0 group-select">
-                                            <label class="mg-b-0"><i data-feather="calendar"></i></label>
-                                            <select id="ddl-year-fee" class="form-control">
-                                                <option value="2020">Năm 2020</option>
-                                                <option value="2021">Năm 2021</option>
-                                                <option value="2022">Năm 2022</option>
-                                                <option value="2023">Năm 2023</option>
-                                                <option value="2024">Năm 2024</option>
-                                                <option value="2025">Năm 2025</option>
-                                                <option value="2026">Năm 2026</option>
-                                                <option value="2027">Năm 2027</option>
-                                                <option value="2028">Năm 2028</option>
-                                                <option value="2029">Năm 2029</option>
-                                                <option value="2030">Năm 2030</option>
-                                            </select>
-                                            <script>
-                                                $('#ddl-month-fee').val(@DateTime.Now.Month);
-                                                $('#ddl-year-fee').val(@DateTime.Now.Year);
-                                            </script>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__filter-wrap bd-t pd-t-15">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-centered table-block-mobile" id="js-visibility-column">
-                                            <thead class="">
-                                                <tr>
-                                                    <th class="sort-label text-left">Nhà/Dãy trọ</th>
-                                                    <th class="sort-label text-left">Tháng</th>
-                                                    <th class="sort-label text-left">Phòng</th>
-                                                    <th class="sort-label text-left">Người thuê</th>
-                                                    <th class="sort-label text-left">Chi phí phát sinh</th>
-                                                    <th class="sort-label text-left">Số tiền <span id="p-total" style="color: #007eff;"></span></th>
-                                                    <th class="sort-label text-left">Ngày nhập</th>
-                                                    <th class="sort-label text-left"></th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- row -->
-                </div><!-- container -->
+
             </div>
         </div>
     </div>
@@ -240,7 +723,7 @@
     @Html.AntiForgeryToken()
     <div class="modal fade" id="modal-add-house" tabindex="-1" role="dialog" aria-hidden="true">
 
-        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" style="max-width: 50%" role="document">
             <div class="modal-content">
                 <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
                     <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
@@ -257,13 +740,68 @@
                 <div class="modal-body pd-sm-t-30 pd-sm-x-30">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ:</label>
-                                <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
+                                <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Dãy nhà 1">
                             </div>
-                            <div class="col-sm-3">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số phòng:</label>
-                                <input type="number" name="txt-quantity-room" required class="form-control" placeholder="05">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại:</label>
+                                <select name="dll-house-type" class="form-control">
+                                    <option value="1">Cửa hàng,kiot</option>
+                                    <option value="2">Nhà trọ</option>
+                                    <option value="3">Nhà nguyên căn</option>
+                                    <option value="4">Ký túc xá</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ:</label>
+                                <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại hình cho thuê:</label>
+                                <select name="dll-house-rantalForm" class="form-control">
+                                    <option value="1">Bao phòng</option>
+                                    <option value="2">Ký túc xá</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP:</label>
+                                <select name="dll-house-area" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện:</label>
+                                <select name="dll-house-district" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã:</label>
+                                <select name="dll-house-ward" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện trên 1 kwH:</label>
+                                <input type="number" name="txt-house-electricFee" class="form-control" placeholder="Ví dụ: 3500">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại tiền nước:</label>
+                                <select name="dll-house-waterFeeType" class="form-control">
+                                    <option value="1">Tính theo khối</option>
+                                    <option value="2">Tính theo người</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước:</label>
+                                <input type="number" name="txt-house-waterFee" class="form-control" placeholder="Ví dụ: 18000">
                             </div>
                         </div>
 
@@ -327,91 +865,6 @@
         </div><!-- modal-dialog -->
         }
     </div><!-- modal -->
-}
-@using (Html.BeginForm("AddWriteElectrictWater", "ManagerElectrictWater", FormMethod.Post, new { id = "form-add-electrictwater", @enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <!-- Popup customize -->
-    <div class="modal fade" id="js-addelectronicwater">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-                    <a href="javascript:;" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Ghi điện nước</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0"></p>
-                        </div>
-                    </div><!-- media -->
-                </div><!-- modal-header -->
-                <div class="modal-body ">
-                    <div class="form-row">
-                        <div class="col-sm-6  form-group">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhà/dãy trọ:</label>
-                            <select name="ddl-motel" onchange="chooseroom($(this).val())" class="form-control" required>
-                                <option value="">---Chọn nhà---</option>
-                                @*@{
-                                    foreach (var item in houses)
-                                    {
-                                        <option value="@item.ID">@item.MotelName</option>
-                                    }
-                                }*@
-                            </select>
-                        </div>
-                        <div class="col-sm-3 col-6 form-group">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tháng:</label>
-                            <select name="ddl-month" class="form-control" required>
-                                <option value="">---Chọn tháng---</option>
-                                <option value="1">Tháng 01</option>
-                                <option value="2">Tháng 02</option>
-                                <option value="3">Tháng 03</option>
-                                <option value="4">Tháng 04</option>
-                                <option value="5">Tháng 05</option>
-                                <option value="6">Tháng 06</option>
-                                <option value="7">Tháng 07</option>
-                                <option value="8">Tháng 08</option>
-                                <option value="9">Tháng 09</option>
-                                <option value="10">Tháng 10</option>
-                                <option value="11">Tháng 11</option>
-                                <option value="12">Tháng 12</option>
-                            </select>
-                            <script>
-                                $('select[name=ddl-month]').val(@DateTime.Now.Month)
-                            </script>
-                        </div>
-                        <div class="col-sm-3 col-6 form-group">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Năm:</label>
-                            <select name="ddl-year" class="form-control" required>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                                <option value="2026">2026</option>
-                                <option value="2027">2027</option>
-                                <option value="2028">2028</option>
-                                <option value="2029">2029</option>
-                                <option value="2030">2030</option>
-                            </select>
-                            <script>
-                                $('select[name=ddl-year]').val(@DateTime.Now.Year)
-                            </script>
-                        </div>
-                    </div>
-                    <div id="div-list-room"></div>
-                </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="submit" id="CreateElectric" class="btn btn-primary">Ghi</button>
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
-    </div>
 }
 <div class="modal fade" id="modal-add-room" tabindex="-1" role="dialog" aria-hidden="true">
     @using (Html.BeginForm("AddRoom", "House", FormMethod.Post))
@@ -478,60 +931,6 @@
     }
 </div><!-- modal -->
 
-@using (Html.BeginForm("AddFeeHouse", "House", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="modal fade" id="modal-add-fee-house" tabindex="-1" role="dialog" aria-hidden="true">
-
-        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-            <div class="modal-content">
-                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Thêm chi phí nhà/dãy trọ</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0">Thêm chi phí vào danh sách.</p>
-                        </div>
-                    </div><!-- media -->
-                </div><!-- modal-header -->
-                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhà/dãy trọ:</label>
-                                <select name="ddl-fee-house" required class="form-control">
-                                    <option value="">---</option>
-                                    @*@{
-                                        foreach (var h in houses)
-                                        {
-                                            <option value="@h.ID">@h.MotelName</option>
-                                        }
-                                    }*@
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số tiền:</label>
-                                <input type="text" name="txt-fee-house" required class="form-control" placeholder="200.000" data-type="currency" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại phí:</label>
-                        <textarea rows="1" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Tiền điện của nhà hàng tháng"></textarea>
-                    </div>
-                </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="submit" class="btn btn-primary">Thêm phí</button>
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
-    </div><!-- modal -->
-}
 
 <script src="~/App_Themes/HouseMona/DataTables/jquery.dataTables.min.js"></script>
 <script>
@@ -597,8 +996,6 @@
         $('#ddl-year-fee').change(function () {
             pagesearchajax();
         })
-
-
         $('.update-house').click(function () {
             var id = $(this).attr('data-id');
             $('input[name=hdf-id]').val(id);
