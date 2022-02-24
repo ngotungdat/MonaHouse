@@ -33,11 +33,13 @@ namespace Sample.API.Controllers
     public class AreaController : BaseController<Area, AreaModel, AreaRequest, BaseSearch>
     {
         protected IAreaService areaService;
+        private IConfiguration configuration;
         public AreaController(IServiceProvider serviceProvider, ILogger<BaseController<Area, AreaModel, AreaRequest, BaseSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.domainService = serviceProvider.GetRequiredService<IAreaService>();
+            this.configuration = configuration;
         }
     }
 }

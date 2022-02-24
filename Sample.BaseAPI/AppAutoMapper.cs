@@ -62,6 +62,14 @@ namespace Sample.Models.AutoMapper
 
             #endregion
 
+            CreateMap<BranchModel, Branch>().ReverseMap();
+            CreateMap<BranchRequest, Branch>().ReverseMap();
+            CreateMap<PagedList<BranchModel>, PagedList<Branch>>().ReverseMap();
+
+            CreateMap<AreaModel, Area>().ReverseMap();
+            CreateMap<AreaRequest, Area>().ReverseMap();
+            CreateMap<PagedList<AreaModel>, PagedList<Area>>().ReverseMap();
+
         }
 
     }

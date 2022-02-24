@@ -17,7 +17,7 @@ namespace Sample.Entities.DomainEntities
         /// <summary>
         /// ID chủ của User
         /// </summary>
-        public int TenantId { get; set; }
+        public int TenantId { get; set; } = 0;
         /// <summary>
         /// STT
         /// </summary>
