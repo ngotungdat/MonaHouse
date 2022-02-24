@@ -11,7 +11,7 @@ namespace Sample.Entities.DomainEntities
         int PageIndex { set; get; }
         int PageSize { set; get; }
         string SearchContent { set; get; }
-        string OrderBy { set; get; }
+        int OrderBy { set; get; }
     }
 
     public class BaseSearch : IBaseSearch
@@ -37,7 +37,11 @@ namespace Sample.Entities.DomainEntities
         /// <summary>
         /// Cột sắp xếp
         /// </summary>
-        [DefaultValue("Id desc")]
-        public string OrderBy { set; get; }
+        [DefaultValue(0)]
+        public int OrderBy { set; get; }
+        /// <summary>
+        /// Không cần truyền
+        /// </summary>
+        public int TenantId { get; set; }
     }
 }

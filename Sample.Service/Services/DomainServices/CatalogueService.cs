@@ -115,7 +115,7 @@ namespace Sample.Service.Services.DomainServices
             pagedList = new PagedList<E>()
             {
                 TotalItem = (int)itemCount,
-                Items = await items.OrderBy(baseSearch.OrderBy).Skip(skip).Take(baseSearch.PageSize).ToListAsync(),
+                Items = await items.OrderBy("Id DESC").Skip(skip).Take(baseSearch.PageSize).ToListAsync(),
                 PageIndex = baseSearch.PageIndex,
                 PageSize = baseSearch.PageSize,
             };

@@ -14,7 +14,10 @@ namespace Sample.Entities.DomainEntities
         {
             //Created = DateTime.Now;
         }
-
+        /// <summary>
+        /// ID chủ của User
+        /// </summary>
+        public int TenantId { get; set; }
         /// <summary>
         /// STT
         /// </summary>
@@ -34,7 +37,6 @@ namespace Sample.Entities.DomainEntities
         /// Khóa chính
         /// </summary>
         public int Id { get; set; }
-
         /// <summary>
         /// Ngày tạo
         /// </summary>

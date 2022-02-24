@@ -54,7 +54,34 @@ namespace Sample.Utilities
             Download = 8,
             Export = 9
         }
-
+        public enum EnumBranchType
+        { 
+            Cuahang = 1,
+            NhaTro = 2,
+            NhaNguyenCan = 3,
+            KyTucXa = 4,
+        }
+        public enum EnumRentalForm
+        { 
+            BaoPhong = 1,
+            KyTucXa = 2,
+        }
+        public enum EnumRoomStatus
+        { 
+            PhongTrong = 1,
+            DaCoc = 2,
+            DangO = 3,
+        }
+        public enum EnumCustomerStatus
+        { 
+            DangO = 1,
+            DaChuyenDi = 2,
+        }
+        public enum EnumContractStatus
+        {
+           ConHan = 1,
+           HetHan = 2,
+        }
         //#region SMS Template
         ///// <summary>
         ///// Xác nhận OTP SMS
