@@ -89,6 +89,7 @@ namespace Sample.Entities
         /// </summary>
         [NotMapped]
         public int UserGroupId { get; set; }
+        public string Avatar { get; set; }
 
         /// <summary>
         /// Giới tính
