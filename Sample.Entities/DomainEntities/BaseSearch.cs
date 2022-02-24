@@ -39,5 +39,9 @@ namespace Sample.Entities.DomainEntities
         /// </summary>
         [DefaultValue(0)]
         public int OrderBy { set; get; }
+        /// <summary>
+        /// Không cần truyền
+        /// </summary>
+        public int TenantId { get; set; }
     }
 }
