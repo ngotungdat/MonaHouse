@@ -57,8 +57,8 @@ namespace Sample.Extensions
             }
             else
             {
-                //var userCheckResult = userService.HasPermission(LoginContext.Instance.CurrentUser.UserId, controllerName, Permissions);
-                //hasPermit = userCheckResult.Result;
+                var userCheckResult = userService.HasPermission(LoginContext.Instance.CurrentUser.UserId, controllerName, Permissions);
+                hasPermit = userCheckResult.Result;
             }
 
             if (!hasPermit)

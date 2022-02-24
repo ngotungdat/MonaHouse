@@ -1,0 +1,54 @@
+﻿<li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
+<li class="nav-item @ViewBag.Dashboard">
+    <a href="@Url.Action("Dashboard", "Home", new { area = "" })" class="nav-link"><i data-feather="bar-chart"></i> Báo cáo</a>
+</li>
+<li class="nav-item @ViewBag.ListHouse">
+    <a href="@Url.Action("ListHouse", "House", new { area = "" })" class="nav-link"><i data-feather="home"></i> Nhà/Dãy trọ</a>
+</li>
+<li class="nav-item @ViewBag.ListRoom">
+    <a href="@Url.Action("ListRoom", "House", new { area = "" })" class="nav-link"><i data-feather="layout"></i> Phòng</a>
+</li>
+<li class="nav-item @ViewBag.ElectrictWater">
+    <a href="@Url.Action("ElectrictWater", "ManagerElectrictWater", new { area = "" })" class="nav-link"><i data-feather="zap"></i> Ghi điện nước</a>
+</li>
+<li class="nav-item @ViewBag.CollectList">
+    <a href="@Url.Action("CollectList", "CollectMoney", new { area = "" })" class="nav-link"><i data-feather="dollar-sign"></i> Lịch sử thu tiền</a>
+</li>
+<li class="nav-item with-sub">
+    <a href="javascript:;" class="nav-link"><i data-feather="settings"></i> Cấu hình</a>
+    <ul class="navbar-menu-sub">
+        <li class="nav-sub-item"><a href="@Url.Action("Option", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="box"></i>Cấu hình giá phòng, điện, nước</a></li>
+        <li class="nav-sub-item"><a href="@Url.Action("RenterList", "Renter", new { area = "" })" class="nav-sub-link"><i data-feather="users"></i>Danh sách khách thuê</a></li>
+        <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
+        <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>
+    </ul>
+</li>
+@*<li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
+<li class="nav-item nav-Dashboard">
+    <a href="@Url.Action("Dashboard", "Home", new { area = "Admin" })" class="nav-link"><i data-feather="bar-chart"></i> Báo cáo</a>
+</li>
+<li class="nav-item  nav-CustomerList">
+    <a href="@Url.Action("CustomerList", "Customer", new { area = "Admin" })" class="nav-link"><i data-feather="home"></i> Danh sách khách hàng</a>
+</li>
+<li class="nav-item nav-SessionPayment">
+    <a href="@Url.Action("SessionPayment", "Customer", new { area = "Admin" })" class="nav-link"><i data-feather="layout"></i> Danh sách phiên thanh toán</a>
+</li>*@
+<script>
+    function setActive(path) {
+        console.log(path);
+        if (path.toLowerCase().indexOf('/dashboard') != -1) {
+            console.log(path);
+            $('.nav-Dashboard').addClass('active')
+        }
+        if (path.toLowerCase().indexOf('/customerlist') != -1 || path.toLowerCase().indexOf('/listlouse') != -1 || path.toLowerCase().indexOf('/listroom') != -1) {
+            $('.nav-CustomerList').addClass('active')
+            console.log(path);
+        }
+        if (path.toLowerCase().indexOf('/sessionpayment') != -1) {
+            $('.nav-SessionPayment').addClass('active')
+            console.log(path);
+        }
+    }
+</script>
+
+

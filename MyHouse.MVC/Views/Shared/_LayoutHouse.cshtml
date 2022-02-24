@@ -1,0 +1,212 @@
+﻿@*@using Motel.Models;
+@using MB.Extensions;
+@using Motel.TableSQL;
+@{
+    tbl_Account aclog = new tbl_Account();
+    if (Session["UID"] != null)
+    {
+        aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt());
+
+    }
+    else
+    {
+        Response.Redirect(Url.Action("Signin", "Login", new { area = "" }));
+    }
+    string av = "/house/images/invis-user.png";
+    if (!string.IsNullOrEmpty(aclog.AvatarThumbnail))
+    {
+        av = aclog.AvatarThumbnail;
+    }
+    List<tbl_NotificationSingle> noti = NotificationSingleTable.GetByUIDNew(aclog.ID);
+}*@
+
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title>Mona House - Design and developed by Mona Media</title>
+    <link rel="apple-touch-icon" href="app-~/house/assets/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/house/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- vendor css -->
+    <link href="~/house/lib/@("@fortawesome")/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="~/house/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/house/lib/datetimepicker-2.5.20/jquery.datetimepicker.min.css" rel="stylesheet">
+    <link href="~/house/lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="~/house/lib/filepond/filepond.css" rel="stylesheet">
+    <link href="~/house/lib/filepond-preview/filepond-plugin-media-preview.min.css" rel="stylesheet">
+    <link href="~/house/lib/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+    <!-- Mona CSS -->
+    <link rel="stylesheet" href="~/house/assets/css/dashforge.min.css?v=1.3">
+    @*<link rel="stylesheet" href="~/house/assets/css/custom.min.css?v=1.4">*@
+    <link href="~/house/assets/css/custom.css?v=1.4" rel="stylesheet" />
+    <link href="~/house/dropify/css/dropify.min.css" rel="stylesheet" />
+    <link href="~/house/assets/dev/csscustom.css" rel="stylesheet" />
+    <!-- some additional css here -->
+    <script src="~/house/lib/jquery/jquery.min.js"></script>
+    <script src="~/house/lib/tablefilter/js/table-filter.js" type="module"></script>
+</head>
+<!-- END: Head-->
+<body class="">
+    <style>
+        #loading {
+            background-color: white;
+            position: fixed;
+            display: block;
+            top: 0;
+            bottom: 0;
+            z-index: 1000000;
+            opacity: 0.5;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+            #loading img {
+                margin: auto;
+                display: block;
+                top: 20%;
+                left: calc(50% - 200px);
+                position: absolute;
+                z-index: 999999;
+            }
+    </style>
+    <div id="loading" style="display:none">
+        <img src="~/house/loading.gif" alt="Loading..." />
+    </div>
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="./" class="df-logo"><img src="~/house/assets/img/logo.png" alt="logo"></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="./" class="df-logo">Mona<span>House</span></a>
+                <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                @await Html.PartialAsync("_MenuPartial")
+            </ul>
+        </div><!-- navbar-menu-wrapper -->
+        <div class="navbar-right">
+            <a href="tel:1900636648"><i data-feather="phone-call" style="width:16px; margin-right:5px;"></i>1900 636 648</a>
+            <div class="dropdown dropdown-notification">
+                <a href="javascript:;" class="dropdown-link new-indicator" data-toggle="dropdown">
+                    <i data-feather="bell"></i>
+                    <span>99</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">Notifications</div>
+                   
+                    <div class="dropdown-footer"><a href="@Url.Action("Notification", "Account", new { area = "" })">View all Notifications</a></div>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+            <div class="dropdown dropdown-profile">
+                <a href="javascript:;" class="dropdown-link" data-toggle="dropdown" data-display="static">
+                    <div class="avatar avatar-sm">
+                        <img src="" class="rounded-circle" alt="">
+                    </div>
+                </a><!-- dropdown-link -->
+                <div class="dropdown-menu dropdown-menu-right tx-13">
+                    <div class="avatar avatar-lg mg-b-15">
+                        <img src="" class="rounded-circle" alt="">
+                    </div>
+                    <h6 class="tx-semibold mg-b-5">Ngô Tùng Đạt</h6>
+                    <p class="mg-b-5 tx-12 tx-color-03">Loại tài khoản: <span class="badge badge-primary">Premium</span></p>
+                    <p class="mg-b-25 tx-12 tx-color-03">Hết hạn: <span class="tx-bold">25/04/2020</span></p>
+                    <a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="dropdown-item"><i data-feather="user"></i> Thông tin tài khoản</a>
+                    <a href="@Url.Action("Price", "PriceTable", new { area = "" })" class="dropdown-item"><i data-feather="chevrons-up"></i> Nâng cấp tài khoản</a>
+                    <a href="tel:1900636648" class="dropdown-item"><i data-feather="phone-call" style="font-size:16px;"></i> Hỗ trợ: 1900 636 648</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="@Url.Action("Signout", "Login", new { area = "" })" class="dropdown-item"><i data-feather="log-out"></i>Đăng xuất</a>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+        </div><!-- navbar-right -->
+    </header><!-- navbar -->
+    <!-- side chat -->
+    <div class="content content-fixed">
+        @RenderBody()
+    </div><!-- content -->
+    <footer class="footer">
+        <div>
+            <span>&copy; 2019 MONA.HOUSE v1.0.0. </span>
+            <span>Created by <a href="http://mona.media">Mona Media</a></span>
+        </div>
+        <div>
+            <nav class="nav">
+                <a href="https://mona.media" class="nav-link">Licenses</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="~/house/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/house/lib/feather-icons/feather.min.js"></script>
+    <script src="~/house/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/house/lib/datetimepicker-2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/house/lib/select2/js/select2.min.js"></script>
+    <script src="~/house/lib/filepond/filepond.js"></script>
+    <script src="~/house/lib/filepond-preview/filepond-plugin-media-preview.min.js"></script>
+    <script src="~/house/assets/js/dashforge.js"></script>
+
+    <script src="~/house/lib/lightgallery/js/lightgallery-all.min.js"></script>
+    <script src="~/house/assets/js/custom.js"></script>
+    <script src="~/house/dropify/js/dropify.min.js"></script>
+    <!-- append theme customizer -->
+    <script src="~/house/assets/dev/jscustom.js"></script>
+</body>
+</html>
+<script src="~/house/lib/chart.js/Chart.bundle.min.js"></script>
+@*<script src="~/house/lib/chart.js/chartjs-plugin-datalabels.js"></script>*@
+<script>
+
+    $(document).ready(function () {
+        if ('@TempData["AlertMessage"]' != '') {
+            toast.create({
+                title: 'Notification!',
+                text: '@TempData["AlertMessage"]',
+                icon: '@TempData["Icon"]',
+                classBackground: '@TempData["Class"]',
+                timeout: 3000
+            })
+        }
+        $('.dropify').dropify();
+
+        $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+            placement: 'right'
+        })
+
+        $('form').submit(function () {
+            $(this).find('button[type=submit]').prop('disabled', true);
+        });
+        setActive(window.location.pathname);
+    });
+    function ckstring(str) { //check null empty
+        return (!str || /^\s*$/.test(str));
+    }
+    function moneyfm(e) {
+        var cus = $(e).val().replace(/,/g, '');
+
+        var regex = /^[0-9]+$/;
+
+        if (!cus.match(regex)) {
+            return $(e).val(0);
+        }
+        cus = cus.replace(/,/g, "");
+        $(e).val(dinhdangtien(cus, ','));
+    }
+    var dinhdangtien = function (n, dp) {// format money
+        var s = '' + (Math.floor(n)), d = n % 1, i = s.length, r = '';
+        while ((i -= 3) > 0) { r = ',' + s.substr(i, 3) + r; }
+        return s.substr(0, i + 3) + r +
+            (d ? '.' + Math.round(d * Math.pow(10, dp || 2)) : '');
+    };
+
+</script>

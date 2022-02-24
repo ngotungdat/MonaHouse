@@ -1,0 +1,1340 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <!-- Basic -->
+    <meta charset="UTF-8">
+
+    <title>Table custom</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- css-->
+    <link rel="stylesheet" href="fonts/font-awesome-4.7/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-4.3.1-dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/table-filter.css?v=1" media="all">
+    <link rel="stylesheet" href="css/responsive.css?v=1" media="all">
+    <!-- jquery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+</head>
+
+<body>
+    <section class="body">
+        <div class="table__filter__wrap">
+            <div class="table__filter-header">
+                <div class="table__header-left">
+                    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
+                </div>
+                <div class="table__header-right">
+                    <div class="header__right-action">
+                        <div class="search__box control">
+                            <input type="text" class="form-control search__box-area input-style" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon "><i class="fa fa-search"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                        <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter"
+                                aria-hidden="true"></i></a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="table__filter-form">
+                <div class="filter__form__wrap">
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Họ tên</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Quốc gia</label>
+                            <select name="" id="" class="form-control">
+                                <option value="" selected>---</option>
+                                <option value="1">option 1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Họ tên</label>
+                            <select name="" id="" class="form-control">
+                                    <option value="" selected>---</option>
+                                    <option value="1">option 1</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Tỉnh</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Dự án</label>
+                            <select name="" id="" class="form-control">
+                                    <option value="" selected>---</option>
+                                    <option value="1">option 1</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Doanh thu từ</label>
+                            <input type="text" class="form-control" data-type="currency">
+                        </div>
+                    </div>
+                    <div class="filter__form-col">
+                        <div class="form__group">
+                            <label>Doanh thu đến :</label>
+                            <input type="text" class="form-control" data-type="currency">
+                        </div>
+                    </div>
+                </div>
+                <div class="filter__form-submit">
+                    <a href="javascript:;" class="btn btn-primary" id="js-filter-submit">Tìm nâng cao</a>
+                </div>
+            </div>
+            <div class="table__filter-wrap">
+                <div class="table__filter-head">
+                    <div class="table__head-checkbox">
+                        <div class="checkbox__action">
+                            <a href="#" class="table-action btn btn-sm btn-outline-info">(<span class="check-num">3</span>) Actions <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 class="table__head-name">TABLE BASIC</h3>
+                    <div class="table__head-action">
+                        <a href="#" class="btn btn-primary js-customize-column" data-target="js-visibility-column">Customize Column</a>
+                        <a href="#" class="table-action"><i class="fa fa-caret-square-down" aria-hidden="true"></i></a>
+                        <ul class="drop-menu">
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-centered" id="js-visibility-column" data-hidden='["quocgia","hoten"]'>
+                        <thead class="">
+                            <tr>
+                                <th class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="" class="checkbox-all">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </th>
+                                <th class="checkbox-col">
+                                </th>
+                                <th class="sort-label" data-column="hoten">Họ tên <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="quocgia">Quốc gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="tinh">Tỉnh <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="duan">Dự án tham gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="doanhthu">Doanh thu <i class="fa fa-sort"></i></th>
+                                <th class="action-col"></th>
+                            </tr>
+                            <tr class="tr-search">
+                                <th class="checkbox-col">
+
+                                </th>
+                                <th class="checkbox-col"></th>
+                                <th class="" data-column="hoten">
+                                    <input type="text" class="form-control" id="nameinput" placeholder="">
+                                </th>
+                                <th data-column="quocgia">
+                                    <select name="" id="" class="form-control">
+                                        <option value="1">Việt Nam</option>
+                                        <option value="">Campuchia</option>
+                                    </select>
+                                </th>
+                                <th data-column="tinh">
+                                    <select name="" id="" class="form-control">
+                                        <option value="1">Đồng Nai</option>
+                                        <option value="1">Hồ Chí Minh</option>
+                                    </select>
+                                </th>
+                                <th data-column="duan" data-column="hoten">
+                                    <input type="text" class="form-control" placeholder="">
+                                </th>
+                                <th class="compare-col" data-column="doanhthu">
+                                    <div class="compare">
+                                        <select name="" id="" class="form-control">
+                                            <option value="">&#62;</option>
+                                            <option value="">&#60;</option>
+                                            <option value="">=</option>
+                                        </select>
+                                        <input type="text" class="form-control" placeholder="" data-type="currency">
+
+                                    </div>
+                                </th>
+                                <th class="action-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="table__filter__wrap">
+            <div class="table__filter-wrap">
+                <div class="table__filter-head">
+                    <div class="table__head-checkbox">
+                        <div class="checkbox__action">
+                            <a href="#" class="table-action btn btn-sm btn-outline-info">(<span class="check-num">3</span>) Actions <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 class="table__head-name">TABLE FIXED HEADER</h3>
+                    <div class="table__head-action">
+                        <a href="#" class="btn btn-primary js-customize-column" data-target="table-fixed-scroll">Customize Column</a>
+                        <a href="#" class="table-action"><i class="fa fa-caret-square-down" aria-hidden="true"></i></a>
+                        <ul class="drop-menu">
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive height-fixed">
+                    <table class="table table-bordered table-centered fixed-header" id="table-fixed-scroll">
+                        <thead class="">
+                            <tr>
+                                <th class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                    <input type="checkbox" value="" class="checkbox-all">
+                                                    <span></span>
+                                                </label>
+                                    </div>
+                                </th>
+                                <th class="checkbox-col">
+                                </th>
+                                <th class="sort-label" data-column="hoten">Họ tên <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="quocgia">Quốc gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="tinh">Tỉnh <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="duan">Dự án tham gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label" data-column="doanhthu">Doanh thu <i class="fa fa-sort"></i></th>
+                                <th class="action-col"></th>
+                            </tr>
+                            <tr class="tr-search">
+                                <th class="checkbox-col">
+
+                                </th>
+                                <th class="checkbox-col"></th>
+                                <th class="" data-column="hoten">
+                                    <input type="text" class="form-control" id="nameinput" placeholder="">
+                                </th>
+                                <th data-column="quocgia">
+                                    <select name="" id="" class="form-control">
+                                                <option value="1">Việt Nam</option>
+                                                <option value="">Campuchia</option>
+                                            </select>
+                                </th>
+                                <th data-column="tinh">
+                                    <select name="" id="" class="form-control">
+                                                <option value="1">Đồng Nai</option>
+                                                <option value="1">Hồ Chí Minh</option>
+                                            </select>
+                                </th>
+                                <th data-column="duan" data-column="hoten">
+                                    <input type="text" class="form-control" placeholder="">
+                                </th>
+                                <th class="compare-col" data-column="doanhthu">
+                                    <div class="compare">
+                                        <select name="" id="" class="form-control">
+                                                    <option value="">&#62;</option>
+                                                    <option value="">&#60;</option>
+                                                    <option value="">=</option>
+                                                </select>
+                                        <input type="text" class="form-control" placeholder="" data-type="currency">
+
+                                    </div>
+                                </th>
+                                <th class="action-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                    <input type="checkbox" value="">
+                                                    <span></span>
+                                                </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                        <input type="checkbox" value="">
+                                                        <span></span>
+                                                    </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                            <input type="checkbox" value="">
+                                                            <span></span>
+                                                        </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                                <input type="checkbox" value="">
+                                                                <span></span>
+                                                            </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                                    <input type="checkbox" value="">
+                                                                    <span></span>
+                                                                </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                    <input type="checkbox" value="">
+                                                    <span></span>
+                                                </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                    <input type="checkbox" value="">
+                                                    <span></span>
+                                                </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-col">
+                                    <div class="custom-checkbox">
+                                        <label>
+                                                    <input type="checkbox" value="">
+                                                    <span></span>
+                                                </label>
+                                    </div>
+                                </td>
+                                <td class="checkbox-col">
+                                    <a href="javascript:;" class="toggle-collapse"><i class="fa fa-chevron-circle-down"></i></a>
+                                </td>
+                                <td data-column="hoten">Trương Văn Lam</td>
+                                <td data-column="quocgia">Việt Nam</td>
+                                <td data-column="tinh">Đồng Nai</td>
+                                <td data-column="duan">PM Mona Media Management</td>
+                                <td data-column="doanhthu">900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collape-row">
+                                <td colspan="8">
+                                    <div class="table-content">
+                                        <table class="table">
+                                            <caption>Table in table</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Heading 1</th>
+                                                    <th>Heading 2</th>
+                                                    <th>Heading 3</th>
+                                                    <th>Heading 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                    <td>Table in table</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="table__filter__wrap">
+
+            <div class="table__filter-wrap">
+                <div class="table__filter-head">
+                    <div class="table__head-checkbox">
+                        <div class="checkbox__action">
+                            <a href="#" class="table-action btn btn-sm btn-outline-info">(<span class="check-num">3</span>) Actions <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 class="table__head-name">TABLE FIXED LEFT FIRST COLUMN </h3>
+                    <div class="table__head-action">
+                        <a href="#" class="table-action"><i class="fa fa-caret-square-down" aria-hidden="true"></i></a>
+                        <ul class="drop-menu">
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-centered fixed-left-column">
+                        <thead class="">
+                            <tr>
+                                <th class="sort-label">Họ tên <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Quốc gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Tỉnh <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Dự án tham gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Doanh thu <i class="fa fa-sort"></i></th>
+                                <th class="action-col"></th>
+                            </tr>
+                            <tr class="tr-search">
+
+                                <th>
+                                    <input type="text" class="form-control" id="nameinput" placeholder="">
+                                </th>
+                                <th>
+                                    <select name="" id="" class="form-control">
+                                            <option value="1">Việt Nam</option>
+                                            <option value="">Campuchia</option>
+                                        </select>
+                                </th>
+                                <th>
+                                    <select name="" id="" class="form-control">
+                                            <option value="1">Đồng Nai</option>
+                                            <option value="1">Hồ Chí Minh</option>
+                                        </select>
+                                </th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="">
+                                </th>
+                                <th class="compare-col">
+                                    <div class="compare">
+                                        <select name="" id="" class="form-control">
+                                                <option value="">&#62;</option>
+                                                <option value="">&#60;</option>
+                                                <option value="">=</option>
+                                            </select>
+                                        <input type="text" class="form-control" placeholder="" data-type="currency">
+
+                                    </div>
+                                </th>
+                                <th class="action-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td>Trương Văn Lam</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>Trương Văn Lam</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>Hoàng Vân Thức</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>Nguyễn Văn Đậu</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="table__filter__wrap">
+
+            <div class="table__filter-wrap">
+                <div class="table__filter-head">
+                    <div class="table__head-checkbox">
+                        <div class="checkbox__action">
+                            <a href="#" class="table-action btn btn-sm btn-outline-info">(<span class="check-num">3</span>) Actions <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="drop-menu">
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                                <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 class="table__head-name">TABLE HOVER ACTION </h3>
+                    <div class="table__head-action">
+                        <a href="#" class="table-action"><i class="fa fa-caret-square-down" aria-hidden="true"></i></a>
+                        <ul class="drop-menu">
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 1</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 2</a></li>
+                            <li class="drop-menu-item"><a href="#" class="item-link">Action 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-centered hover-action">
+                        <thead class="">
+                            <tr>
+
+                                <th class="sort-label">Họ tên <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Quốc gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Tỉnh <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Dự án tham gia <i class="fa fa-sort"></i></th>
+                                <th class="sort-label">Doanh thu <i class="fa fa-sort"></i></th>
+                                <th class="action-col"></th>
+                            </tr>
+                            <tr class="tr-search">
+
+                                <th>
+                                    <input type="text" class="form-control" id="nameinput" placeholder="">
+                                </th>
+                                <th>
+                                    <select name="" id="" class="form-control">
+                                                <option value="1">Việt Nam</option>
+                                                <option value="">Campuchia</option>
+                                            </select>
+                                </th>
+                                <th>
+                                    <select name="" id="" class="form-control">
+                                                <option value="1">Đồng Nai</option>
+                                                <option value="1">Hồ Chí Minh</option>
+                                            </select>
+                                </th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="">
+                                </th>
+                                <th class="compare-col">
+                                    <div class="compare">
+                                        <select name="" id="" class="form-control">
+                                                    <option value="">&#62;</option>
+                                                    <option value="">&#60;</option>
+                                                    <option value="">=</option>
+                                                </select>
+                                        <input type="text" class="form-control" placeholder="" data-type="currency">
+
+                                    </div>
+                                </th>
+                                <th class="action-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td>Trương Văn Lam</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>Trương Văn Lam</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>Hoàng Vân Thức</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>Nguyễn Văn Đậu</td>
+                                <td>Việt Nam</td>
+                                <td>Đồng Nai</td>
+                                <td>PM Mona Media Management</td>
+                                <td>900.000.000 VNĐ</td>
+                                <td class="action-col">
+                                    <div class="dropdown__wrap">
+                                        <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <ul class="drop-menu">
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-plus"></i></span>Action 1</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-circle"></i></span>Action 2</a></li>
+                                            <li class="drop-menu-item"><a href="#" class="item-link"><span class="icon"><i class="fa fa-calendar"></i></span>Action 3</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Popup customize -->
+    <div class="customize-popup pop__up table__filter__wrap">
+        <div class="bg-overlay"></div>
+        <div class="popup__wrap">
+            <div class="popup-header">
+                <h5>Customize column</h5>
+            </div>
+            <div class="popup-content">
+                <div class="list__column__wrap">
+                    <ul class="list__column">
+                        <li class="column-item">
+                            <div class="custom-checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    <span>Họ tên</span>
+                                </label>
+                            </div>
+
+                        </li>
+                        <li class="column-item">
+                            <div class="custom-checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    <span>Tỉnh</span>
+                                </label>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="popup-footer">
+                <a href="javascript:;" class="btn btn-primary" id="js-apply-filter">Apply filter</a>
+                <a href="javascript:;" class="btn btn-secondary cancel-popup">Huỷ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor -->
+
+
+    <script src="js/popper.min.js"></script>
+    <script src="css/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="js/table-filter.js" type="module"></script>
+
+</body>
+
+
+</html

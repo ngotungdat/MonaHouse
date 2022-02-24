@@ -31,8 +31,8 @@ namespace Sample.BaseAPI.Controllers
     public class UserController : BaseController<Users, UserModel, UserRequest, UserSearch>
     {
         protected IUserService userService;
-        //protected IUserInGroupService userInGroupService;
-        //protected IUserGroupService userGroupService;
+        protected IUserInGroupService userInGroupService;
+        protected IUserGroupService userGroupService;
         //protected IUserLevelService userLevelService;
         private IConfiguration configuration;
         public UserController(IServiceProvider serviceProvider, ILogger<BaseController<Users, UserModel, UserRequest, UserSearch>> logger
@@ -41,8 +41,8 @@ namespace Sample.BaseAPI.Controllers
         {
             this.domainService = serviceProvider.GetRequiredService<IUserService>();
             this.userService = serviceProvider.GetRequiredService<IUserService>();
-            //userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
-            //userGroupService = serviceProvider.GetRequiredService<IUserGroupService>();
+            userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
+            userGroupService = serviceProvider.GetRequiredService<IUserGroupService>();
             //userLevelService = serviceProvider.GetRequiredService<IUserLevelService>();
             this.configuration = configuration;
         }

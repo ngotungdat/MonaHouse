@@ -8,4 +8,12 @@
     <PackageReference Include="RestSharp" Version="106.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.Utilities\Sample.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

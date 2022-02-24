@@ -1,0 +1,1775 @@
+﻿@*@using Motel.Models
+@using Motel.TableSQL
+@using System.Data.SqlClient
+@using MB.Extensions;
+@{
+    ViewBag.Title = "ListRoom";
+    ViewBag.ListRoom = "active";
+    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
+    List<tbl_Motel> houses = ViewBag.Motel;
+}*@
+<style>
+    /*input.form-control:disabled {
+        background: none;
+    }*/
+
+    .room .room-header a.item-link {
+        color: #46CED0;
+    }
+
+    .room-header .dropdown__wrap {
+        right: 15px;
+        position: absolute;
+    }
+
+    .room .room-info {
+        padding-top: 30px;
+    }
+
+    .result-goout .tx-row .lb {
+        flex: 0 0 250px;
+    }
+
+    .room .lb {
+        margin-bottom: 2px;
+    }
+
+    .ls-room {
+        text-align: left;
+    }
+
+    .form-control {
+        height: initial;
+    }
+
+    .input-group-text {
+        padding: initial;
+    }
+</style>
+<div class="fixed-filter sticky-top pd-b-15">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-flex align-items-center flex-wrap">
+            <h4 class="mg-md-b-0 tx-spacing--1 mg-r-15">Danh sách phòng</h4>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                        <label class="mg-b-0"><i data-feather="home"></i></label>
+                        <select id="ddl-house" class="form-control">
+                            <option value="0">Tất cả nhà / dãy trọ</option>
+                            @*@{
+                                foreach (tbl_Motel house in houses)
+                                {
+                                    <option value="@house.ID">@house.MotelName</option>
+                                }
+                            }*@
+                        </select>
+                    </div>
+                    <div class="form-group mg-sm-b-0 group-select">
+                        <label class="mg-b-0"><i data-feather="calendar"></i></label>
+                        <select id="ddl-month" class="form-control">
+                            <option value="1">Tháng 01</option>
+                            <option value="2">Tháng 02</option>
+                            <option value="3">Tháng 03</option>
+                            <option value="4">Tháng 04</option>
+                            <option value="5">Tháng 05</option>
+                            <option value="6">Tháng 06</option>
+                            <option value="7">Tháng 07</option>
+                            <option value="8">Tháng 08</option>
+                            <option value="9">Tháng 09</option>
+                            <option value="10">Tháng 10</option>
+                            <option value="11">Tháng 11</option>
+                            <option value="12">Tháng 12</option>
+                        </select>
+                    </div>
+                </div>
+                <a href="javascript:;" class="btn btn-style control toggle-view active mg-l-15 mg-r-5" data-t="0" data-target="js-table-layout"><i class="fa fa-table" aria-hidden="true"></i></a>
+                <a href="javascript:;" class="btn btn-style control toggle-view" data-t="1" data-target="js-grid-layout"><i class="fa fa-grip-horizontal" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap bd-t pd-t-15">
+                <div class="table__filter-header mg-t-0-f filter-room-list">
+                    <div class="table__header-left d-flex">
+                        <div class="search__box control">
+                            <input type="text" id="qsearch" class="form-control search__box-area input-style" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select id="ddl-sort" class="form-control">
+                                    <option value="0">---</option>
+                                    <option value="1">Tên nhà/trọ ↑</option>
+                                    <option value="2">Tên nhà/trọ ↓</option>
+                                    <option value="3">Tên phòng ↑</option>
+                                    <option value="4">Tên phòng ↓</option>
+                                    <option value="5">Tiền nợ ↑</option>
+                                    <option value="6">Tiền nợ ↓</option>
+                                </select>
+                            </div>
+                            <div class="select-sort">
+                                <span>Trạng thái: </span>
+                                <select id="ddl-status" class="form-control">
+                                    <option value="0">Tất cả</option>
+                                    <option value="1">Phòng trống</option>
+                                    <option value="2">Đang thuê</option>
+                                    <option value="3">Sắp hết hợp đồng</option>
+                                    <option value="4">Sắp dọn vào</option>
+                                    <option value="5">Chưa thu tiền</option>
+                                    <option value="6">Đã thu tiền</option>
+                                    <option value="7">Chưa ghi số điện, nước</option>
+                                    <option value="8">Đã ghi số điện, nước</option>
+                                </select>
+                            </div>
+                            @*<div class="mg-b-15 toggle-view-wrap">
+                                    <a href="javascript:;" class="btn btn-style control js-toggle-filter" id="js-toggle-filter">
+                                        <i class="fa fa-filter" aria-hidden="true"></i>
+                                    </a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-form">
+                    <div class="filter__form__wrap">
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Trạng thái phòng</label>
+                                <select name="" class="form-control">
+                                    <option value="" selected>-Tất cả-</option>
+                                    <option value="1">Sắp chuyển vào</option>
+                                    <option value="1">Sắp dọn ra</option>
+                                    <option value="1">Đang ở</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Điện nước</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected>Chưa ghi</option>
+                                    <option value="1" selected>Đã ghi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Phòng sắp trống</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date"
+                                               placeholder="Từ ngày">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date"
+                                               placeholder="Đến ngày">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Ngày dọn vào</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date"
+                                               placeholder="Từ ngày">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date"
+                                               placeholder="Đến ngày">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Nhà / dãy trọ</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected>319 CMT7, Trương Định</option>
+                                    <option value="1">64 Út Tịch</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Thu tiền</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected>Chưa thu tiền</option>
+                                    <option value="2" selected>Đã thu tiền</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Loại phòng</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected>Ngắn hạn</option>
+                                    <option value="2" selected>Dài hạn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Tiền nợ</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected>Đang có nợ</option>
+                                    <option value="2" selected>Không nợ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter__form-submit">
+                        <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
+                    </div>
+                </div>
+
+                <div class="table__filter-wrap panel-content show" id="js-table-layout" style="display:block;">
+                    <div class="table-responsive">
+                        <table class="table tx-14 table-striped table-hover" id="table-list-room">
+                            <thead class="">
+                                <tr>
+                                    <th class="checkbox-col">
+                                    </th>
+                                    <th class="sort-label" data-column="col-house">Nhà / dãy trọ</th>
+                                    <th class="sort-label" data-column="col-room">Tên phòng</th>
+                                    <th class="sort-label" data-column="col-money">Giá tiền</th>
+                                    <th class="sort-label" data-column="col-person">Người ở</th>
+                                    <th class="sort-label" data-column="col-status">Trạng thái</th>
+                                    <th class="sort-label" data-column="col-electric">Thu tiền</th>
+                                    <th class="sort-label" data-column="col-people">Điện / nước</th>
+                                    <th class="sort-label" data-column="col-deposit">Tiền dư / nợ</th>
+                                    <th class="action-col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="body-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-content grid__wrap mg-t-5" id="js-grid-layout">
+                    <div class="row" id="div-grid">
+                        <!-- Các loại room -->
+                        <!-- Các loại room -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div><!-- container -->
+<div class="modal fade" id="js-electronicNote">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-ew-roomname">Phòng số 01</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class="d-flex align-items-center owner-wrap mg-b-15">
+                    <div class="owner-avatar d-flex align-items-center">
+                        <span class="avatar overflow-hidden rounded-circle">
+                            <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+                        </span>
+                    </div>
+                    <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                        <div class="info">
+                            <p class="name mg-b-0 tx-color-01 tx-medium" id="lb-ew-renter-name">Trương Văn Lam</p>
+                            <p class="affliate mg-b-0 mg-t-0 ">
+                                <a href="tel:+0" id="lb-ew-renter-email"
+                                   class="tx-color-03">vanlam@gmail.com</a>
+                            </p>
+                        </div>
+                        <div class="quick-contact">
+                            <a href="tel:+0" id="lb-ew-renter-phone"><i data-feather="phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-row col-6">
+                        <div class="col-sm-12  form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
+                            <input type="number" class="form-control number-val" name="txt-electric-current-month" placeholder="0 0 0 0 0">
+                        </div>
+
+                    </div>
+                    <div class="form-row col-6">
+                        <div class="col-sm-12  form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số Số nước</label>
+                            <input type="number" class="form-control number-val" name="txt-water-current-month" placeholder="0 0 0 0 0">
+                        </div>
+
+                    </div>
+                    <div class="form-row col-6">
+                        <div class="col-12 upload-box mg-b-20">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ điện
+                            </a>
+                            <input type="file" class="hidden upload-image-renter" accept="image/*">
+                            <input type="hidden" name="hdfElectricIMG" class="submit-image" value="0" />
+                            <div class="preview-image"></div>
+                        </div>
+                    </div>
+                    <div class="form-row col-6">
+                        <div class="col-12 upload-box mg-b-20">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ nước
+                            </a>
+                            <input type="file" class="hidden upload-image-renter" accept="image/*">
+                            <input type="hidden" name="hdfWaterIMG" value="0" class="submit-image" />
+                            <div class="preview-image"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-write-ew">Cập nhật</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-goOut">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0 lb-go-roomname">Phòng số 01</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class="d-flex align-items-center owner-wrap mg-b-15">
+                    <div class="owner-avatar d-flex align-items-center">
+                        <span class="avatar overflow-hidden rounded-circle">
+                            <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+                        </span>
+                    </div>
+                    <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                        <div class="info">
+                            <p class="name mg-b-0 tx-color-01 tx-medium lb-go-renter-name">Trương Văn Lam</p>
+                            <p class="affliate mg-b-0 mg-t-0"><a href="mailto:vanlam@gmail.com" class="tx-color-03 lb-go-renter-email">vanlam@gmail.com</a></p>
+                        </div>
+                        <div class="quick-contact">
+                            <a href="tel:+0" class="lb-go-renter-phone"><i data-feather="phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
+                            <div class="input-icon">
+                                <input type="tel" class="form-control" name="txt-go-datein" placeholder="dd/mm/yyyy" value="20/10/2019" disabled>
+                                <a href="javascript:;" class="datepicker-trigger icon">
+                                    <i class="" data-feather="calendar"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Hợp đồng</label>
+                            <div class="input-icon">
+                                <input type="tel" class="form-control" name="txt-go-dateout-contract" placeholder="dd/mm/yyyy" disabled>
+                                <a href="javascript:;" class="datepicker-trigger icon">
+                                    <i class="" data-feather="calendar"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
+                            <div class="input-icon">
+                                <input type="tel" class="form-control datetimepicker date-only" name="txt-go-dateout" value="@DateTime.Now.ToString("dd/MM/yyyy")" placeholder="dd/mm/yyyy">
+                                <a href="javascript:;" class="datepicker-trigger icon">
+                                    <i class="" data-feather="calendar"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-row">
+                            <div class="col-12 form-group">
+                                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng này</label>
+                                <input type="number" name="txt-go-electric" class="form-control number-val" placeholder="0">
+                            </div>
+                            <div class="col-12 upload-box mg-b-15">
+                                <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ điện
+                                </a>
+                                <input type="file" class="hidden upload-image-renter" accept="image/*">
+                                <input type="hidden" name="hdfGoOutElectricIMG" class="submit-image" value="0" />
+                                <div class="preview-image"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-row">
+                            <div class="col-12 form-group">
+                                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Nước tháng này</label>
+                                <input type="number" name="txt-go-water" class="form-control number-val" placeholder="0">
+                            </div>
+                            <div class="col-12 upload-box mg-b-15">
+                                <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ nước
+                                </a>
+                                <input type="file" class="hidden upload-image-renter" accept="0/*">
+                                <input type="hidden" name="hdfGoOutWaterIMG" class="submit-image" value="0" />
+                                <div class="preview-image"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-success go-out-step2">Dọn ra</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-goOut-success">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0 lb-go-roomname">Phòng số 01</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class="d-flex align-items-center owner-wrap mg-b-15">
+                    <div class="owner-avatar d-flex align-items-center">
+                        <span class="avatar overflow-hidden rounded-circle">
+                            <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+                        </span>
+                    </div>
+                    <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                        <div class="info">
+                            <p class="name mg-b-0 tx-color-01 tx-medium lb-go-renter-name">Trương Văn Lam</p>
+                            <p class="affliate mg-b-0 mg-t-0 ">
+                                <a href="mailto:vanlam@gmail.com" class="tx-color-03 lb-go-renter-email">vanlam@gmail.com</a>
+                            </p>
+                        </div>
+                        <div class="quick-contact">
+                            <a href="tel:+0" class="lb-go-renter-phone"><i data-feather="phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-goout">
+                    <div id="div-result-goout">
+
+                    </div>
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Trả cọc:</span>
+                        </div>
+                        <div class="col">
+                            <input type="text" data-type="currency" name="txt-refund-deposit" class="form-control" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Thực nhận của khách:</span>
+                        </div>
+                        <div class="col">
+                            <input type="text" data-type="currency" name="txt-go-money" class="form-control" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Hình thức:</span>
+                        </div>
+                        <div class="col">
+                            <select name="ddl-go-type" class="form-control">
+                                <option value="1">Tiền mặt</option>
+                                <option value="2">Chuyển khoản</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-warning go-out" data-dismiss="modal">Quay lại</a>
+                <a href="javascript:;" class="btn btn-primary update-go-out" data-dismiss="modal">Dọn ra</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-payMoney">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-cl-roomname">Phòng</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class="d-flex align-items-center owner-wrap mg-b-15">
+                    <div class="owner-avatar d-flex align-items-center">
+                        <span class="avatar overflow-hidden rounded-circle">
+                            <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+                        </span>
+                    </div>
+                    <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                        <div class="info">
+                            <p class="name mg-b-0 tx-color-01 tx-medium" id="lb-cl-renter-name"></p>
+                            <p class="affliate mg-b-0 mg-t-0 ">
+                                <a href="mailto:vanlam@gmail.com"
+                                   class="tx-color-03" id="lb-cl-renter-email"></a>
+                            </p>
+                        </div>
+                        <div class="quick-contact">
+                            <a href="tel:+0" id="lb-cl-renter-phone"><i data-feather="phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="lb">Tiền phòng</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-01 tx-medium" name="sp-room-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="lb">Điện tháng trước:</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-01 tx-medium" name="sp-electric-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="lb">Nước tháng trước:</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-01 tx-medium" name="sp-water-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="lb">Phí dịch vụ:</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-01 tx-medium" name="sp-addon-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="lb lb-debt-name">Tiền nợ:</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-01 tx-medium" name="sp-debt-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <div class="row mg-b-10">
+                    <div class="col">
+                        <span class="lb tx-medium">Tổng thu:</span>
+                    </div>
+                    <div class="col tx-right">
+                        <span class="value tx-color-03 tx-medium tx-danger" name="sp-total-price">0 <sup>đ</sup></span>
+                    </div>
+                </div>
+                <hr class="mg-b-15 mg-t-5" />
+                <div class="row mg-b-10 align-items-center">
+                    <div class="col">
+                        <span class="lb">Đã nhận:</span>
+                    </div>
+                    <div class="col">
+                        <input type="text" data-type="currency" name="txt-collect-money" class="form-control" placeholder="0">
+                    </div>
+                </div>
+                <div class="row mg-b-10 align-items-center">
+                    <div class="col">
+                        <span class="lb">Hình thức:</span>
+                    </div>
+                    <div class="col">
+                        <select name="ddl-collect-type" class="form-control">
+                            <option value="1">Tiền mặt</option>
+                            <option value="2">Chuyển khoản</option>
+                        </select>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-collect-money">Lưu lại</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-edit-cus">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-room-name">Phòng số 01</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class=" room-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="col wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên khách:</span>
+                                </div>
+                                <div class="col flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="user" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="Tên khách" required class="form-control" value="" name="txt-renter-name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="phone"
+                                               class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số người" class="form-control" required value="" name="txt-renter-phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="calendar" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="__/__/____" name="txt-renter-datein" class="form-control datetimepicker date-only" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                                        Ngày
+                                        dọn ra:
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="calendar" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="__/__/____" name="txt-renter-dateout" class="form-control datetimepicker date-only" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số người ở:</span>
+                                </div>
+                                <div class=" flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="users" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số người" class="form-control" value="" name="txt-renter-quantity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Avatar:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group upload-box upload-avatar" style="flex-wrap:nowrap">
+                                    <a href="javascript:;" class="btn btn-outline-primary btn-upload">
+                                        <i data-feather="camera"></i>
+                                    </a>
+                                    <input type="file" class="hidden upload-image-renter" accept="image/*">
+                                    <input type="hidden" name="hdfAvatar" class="submit-image" />
+                                    <div class="preview-image" id="div-avatar" style="overflow: unset ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-update-renterinfo">Lưu lại</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-edit-service">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Dịch vụ và phí</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body " id="form-update-service">
+                <div class=" room-info">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng / tháng:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="dollar-sign" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số nước" class="form-control" name="txt-room-price" required value="" data-type="currency">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá điện / kW:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="zap" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="0" name="txt-room-priceelectric" data-type="currency" required class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá nước / m<sup>3</sup>:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="droplet"
+                                               class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="0" required name="txt-room-pricewater" data-type="currency" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-form-label">
+                                <span class="tx-uppercase tx-medium tx-spacing-1 d-inline-block">Dịch vụ phòng</span>
+                            </div>
+                            <div class="list-services">
+
+                            </div>
+                            <a href="javascript:;" class="btn btn-outline-primary js-add-service">
+                                <i data-feather="plus"></i> Thêm dịch vụ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-update-service">Lưu lại</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-addAdditionFee">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Thêm phí khác</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body">
+
+                <div class="form-row">
+                    <div class="col-md-4  form-group">
+                        <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số tiền</label>
+                        <input type="tel" class="form-control" name="txt-fee-price" data-type="currency" placeholder="0" value="">
+                    </div>
+                    <div class="col-md-8  form-group">
+                        <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ghi chú</label>
+                        <input type="text" class="form-control" name="txt-fee-note" placeholder="Ghi chú">
+                    </div>
+
+                </div>
+
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary add-renter-fee">Thêm</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<input type="hidden" name="hdfRenterID" value="0" />
+<input type="hidden" name="hdfRoomID" value="0" />
+<input name="hdfObjService" type="hidden" />
+<script>
+    $(document).ready(function () {
+        $('#ddl-month').val(@DateTime.Now.Month);
+        $(window).scroll(function () {
+            let scrollY = $(window).scrollTop();
+            if (scrollY > 30) {
+                $('body').addClass('remove-hd-fixed');
+            } else {
+                $('body').removeClass('remove-hd-fixed');
+            }
+        });
+
+        function showView() {
+            let $toggle = $('.toggle-view.active');
+            $toggle.each(function (index, element) {
+                let id = $(element).attr('data-target');
+                $('#' + id).show();
+                $('.panel-content').not($('#' + id)).hide();
+            })
+        };
+
+        $('.toggle-view').on('click', function () {
+            t = $(this).attr('data-t');
+            let id = $(this).attr('data-target');
+            $(this).addClass('active');
+            $(this).siblings('.toggle-view').not($(this)).removeClass('active');
+            showView();
+
+            loaddata();
+        });
+        //gọi hàm
+        var t = 0;
+        loaddata();
+        $('#ddl-house').change(function () {
+            loaddata();
+        })
+        $('#ddl-month').change(function () {
+            loaddata();
+        })
+        $('#qsearch').keyup(function (event) {
+            if (event.keyCode === 13) {
+                loaddata();
+            }
+        });
+        $('#ddl-status').change(function () {
+            loaddata();
+        })
+        $('#ddl-sort').change(function () {
+            loaddata();
+        })
+
+        function loaddata() {
+            var h = $('#ddl-house').val();
+            var m = $('#ddl-month').val();
+            var s = $('#ddl-status').val();
+            var so = $('#ddl-sort').val();
+            $.ajax({
+                type: "POST",
+                url: "/House/LoadDataListRoom",
+                data: '{t: ' + t + ', house:' + h + ', month:' + m + ', qsearch:"' + $('#qsearch').val() + '", status:' + s + ', sort:' + so + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (t == 0) {
+                        $('#body-table').empty();
+                        $('#body-table').append(msg.data);
+                    }
+                    else {
+                        $('#div-grid').empty();
+                        $('#div-grid').append(msg.data);
+                    }
+                    $('[data-toggle="popover"]').popover({
+                        html: true,
+                        hover: true
+                    });
+                    feather.replace();
+                },
+                error: function (xmlhttprequest, textstatus, errorthrow) {
+                    alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                }
+            });
+        }
+        $(document).on('click', '.load-dt', function (event) {
+            var id = $(this).attr('data-id');
+            var op = $('#div-info-' + id + '').get(0).childElementCount;
+            if (op == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/House/LoadDetailRoom",
+                    data: '{id: ' + id + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $('#div-info-' + id + '').empty();
+                        $('#div-info-' + id + '').append(msg.data);
+
+                        $('#tbody-info-' + id + '').empty();
+                        $('#tbody-info-' + id + '').append(msg.tr);
+
+                        feather.replace();
+                        $('[data-toggle="popover"]').popover({
+                            html: true,
+                            hover: true
+                        });
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+            }
+        });
+        $(document).on('click', '.edit-cus-info', function (event) {
+            var id = $(this).attr('data-id');
+            let roomname = $(this).attr('data-roomname');
+            let roomid = $(this).attr('data-roomid');
+            $('#lb-room-name').html(roomname);
+            if (id != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/House/LoadRenterInfo",
+                    data: '{id: ' + id + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.rs) {
+                            $('input[name="hdfRenterID"]').val(msg.data.RenterID)
+                            $('input[name="hdfRoomID"]').val(roomid)
+                            $('input[name="txt-renter-name"]').val(msg.data.RenterName);
+                            $('input[name="txt-renter-datein"]').val(msg.data.DateIn);
+                            $('input[name="txt-renter-dateout"]').val(msg.data.DateOut);
+                            $('input[name="txt-renter-quantity"]').val(msg.data.Quantity);
+                            $('input[name="txt-renter-phone"]').val(msg.data.Phone);
+                            if (msg.data.Avatar != "") {
+                                var html = ` <div class="image-wrap">
+                                            <div class="image-box lightgallery">
+                                                <a href="${msg.data.Avatar}">
+                                                    <img src="${msg.data.AvatarThumbnail}" class="img" alt="avatar">
+                                                </a>
+                                            </div>
+                                        </div>`;
+                                $('#div-avatar').empty();
+                                $('#div-avatar').append(html);
+                            }
+                            $('#js-edit-cus').modal();
+                        } else {
+                            $('input[name="hdfRenterID"]').val(0);
+                            $('input[name="hdfRoomID"]').val(roomid);
+                            $('input[name="txt-renter-name"]').val('');
+                            $('input[name="txt-renter-datein"]').val('');
+                            $('input[name="txt-renter-dateout"]').val('');
+                            $('input[name="txt-renter-quantity"]').val('');
+                            $('input[name="txt-renter-phone"]').val('');
+                            $('input[name="hdfAvatar"]').val(0);
+                            $('#js-edit-cus').modal();
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+            }
+            else {
+                $('input[name="hdfRenterID"]').val(0);
+                $('input[name="txt-renter-name"]').val('');
+                $('input[name="txt-renter-datein"]').val('');
+                $('input[name="txt-renter-dateout"]').val('');
+                $('input[name="txt-renter-quantity"]').val('');
+                $('input[name="txt-renter-phone"]').val('');
+                $('input[name="hdfAvatar"]').val(0);
+                $('#div-avatar').empty();
+                $('#js-edit-cus').modal();
+            }
+        });
+        $(document).on('click', '.edit-service-info', function (event) {
+            var id = $(this).attr('data-id');
+            var roomID = $(this).attr('data-roomID');
+            $.ajax({
+                type: "POST",
+                url: "/House/LoadRoomService",
+                data: '{roomid: ' + roomID + ',renterid:' + id + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('input[name="hdfRenterID"]').val(id);
+                    $('input[name="hdfRoomID"]').val(roomID);
+                    $('input[name="txt-room-price"]').val(msg.room.PriceRoom);
+                    $('input[name="txt-room-priceelectric"]').val(msg.room.PriceElectric);
+                    $('input[name="txt-room-pricewater"]').val(msg.room.PriceWater);
+                    $('.list-services').empty();
+                    $('.list-services').append(msg.addons);
+                    feather.replace();
+                    $('#js-edit-service').modal();
+                },
+                error: function (xmlhttprequest, textstatus, errorthrow) {
+                    alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                }
+            });
+        });
+        $(document).on('click', '.add-fee', function (e) {
+            let renterid = $(this).attr('data-renterid');
+            $('input[name="hdfRenterID"]').val(renterid);
+            let roomid = $(this).attr('data-roomid');
+            $('input[name="hdfRoomID"]').val(roomid);
+            $('#js-addAdditionFee').modal();
+        })
+        $(document).on('click', '.write-ew', function (e) {
+            let renterid = $(this).attr('data-renterid');
+            $('input[name="hdfRenterID"]').val(renterid);
+            let roomid = $(this).attr('data-roomid');
+             $('input[name="hdfRoomID"]').val(roomid);
+            if (renterid != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/House/LoadFormEditEW",
+                    data: '{roomid: ' + roomid + ',renterid:' + renterid + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.rs) {
+                            $('#lb-ew-roomname').html(msg.room.NameRoom);
+                            $('#lb-ew-renter-name').html(msg.renter.FullName);
+                            $('#lb-ew-renter-phone').prop('href', `tel:${msg.renter.Phone}`);
+                            $('#lb-ew-renter-email').prop('href', `tel:${msg.renter.Phone}`);
+                            $('#lb-ew-renter-email').html(msg.renter.Phone);
+                            $('input[name="hdfWaterIMG"]').val(0);
+                            $('input[name="hdfElectricIMG"]').val(0);
+                            $('#js-electronicNote').modal();
+                        }
+                        else {
+                            toast.create({
+                                title: 'Thông báo!',
+                                text: msg.message,
+                                icon: 'error_outline',
+                                classBackground: 'noti-warning',
+                                timeout: 3000
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+            } else {
+                toast.create({
+                             title: 'Thông báo!',
+                             text: 'Phòng không có người thuê',
+                            icon: 'error_outline',
+                            classBackground: 'noti-warning',
+                            timeout: 3000
+                         });
+            }
+        });
+        $(document).on('click', '.collect-money', function () {
+            let renterid = $(this).attr('data-renterid');
+            $('input[name="hdfRenterID"]').val(renterid);
+            let roomid = $(this).attr('data-roomid');
+            $('input[name="hdfRoomID"]').val(roomid);
+            if (renterid != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/House/LoadDetailColect",
+                    data: '{roomid: ' + roomid + ',renterid:' + renterid + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.rs) {
+                            $('#lb-cl-roomname').html(msg.room.NameRoom);
+                            $('#lb-cl-renter-name').html(msg.renter.FullName);
+                            $('#lb-cl-renter-phone').prop('href',`tel:${msg.renter.Phone}`);
+                            $('#lb-cl-renter-email').prop('href', `mailto:${msg.renter.Email}`);
+                            $('span[name="sp-room-price"]').html(`${msg.tienphong} <sup>đ</sup>`);
+                            $('span[name="sp-electric-price"]').html(`${msg.dien} <sup>đ</sup>`);
+                            $('span[name="sp-water-price"]').html(`${msg.nuoc} <sup>đ</sup>`);
+                            $('span[name="sp-debt-price"]').html(`${msg.duno} <sup>đ</sup>`);
+                            $('span[name="sp-total-price"]').html(`${msg.total} <sup>đ</sup>`);
+                            if (msg.isDebt == true) {
+                                $('.lb-debt-name').html('Tiền nợ:');
+                            } else {
+                                 $('.lb-debt-name').html('Tiền dư:');
+                            }
+                             $('#js-payMoney').modal();
+                        }
+                        else {
+                            toast.create({
+                                title: 'Thông báo!',
+                                text: msg.message,
+                                icon: 'error_outline',
+                                classBackground: 'noti-warning',
+                                timeout: 3000
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+            } else {
+                toast.create({
+                             title: 'Thông báo!',
+                             text: 'Phòng không có người thuê',
+                            icon: 'error_outline',
+                            classBackground: 'noti-warning',
+                            timeout: 3000
+                         });
+            }
+
+
+        });
+        $(document).on('click', '.go-out', function () {
+            let renterid = $(this).attr('data-renterid');
+            $('input[name="hdfRenterID"]').val(renterid);
+            let roomid = $(this).attr('data-roomid');
+            $('input[name="hdfRoomID"]').val(roomid);
+
+            var backstep = $('#js-goOut-success').find('.go-out');
+            backstep.attr('data-renterid', renterid);
+            backstep.attr('data-roomid', roomid);
+
+            if (renterid != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/House/LoadSimpleInfo",
+                    data: '{roomid: ' + roomid + ',renterid:' + renterid + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.rs) {
+                            $('.lb-go-roomname').html(msg.room.NameRoom);
+                            $('.lb-go-renter-name').html(msg.renter.FullName);
+                            $('.lb-go-renter-phone').prop('href',`tel:${msg.renter.Phone}`);
+                            $('.lb-go-renter-email').prop('href', `tel:${msg.renter.Phone}`);
+                            $('.lb-go-renter-email').text(`${msg.renter.Phone}`);
+                            $('input[name="txt-go-datein"]').val(msg.datein);
+                            $('input[name="txt-go-dateout-contract"]').val(msg.dateout);
+                            $('#js-goOut').modal();
+                        }
+                        else {
+                            toast.create({
+                                title: 'Thông báo!',
+                                text: msg.message,
+                                icon: 'error_outline',
+                                classBackground: 'noti-warning',
+                                timeout: 3000
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+            } else {
+                toast.create({
+                             title: 'Thông báo!',
+                             text: 'Phòng không có người thuê',
+                            icon: 'error_outline',
+                            classBackground: 'noti-warning',
+                            timeout: 3000
+                         });
+            }
+
+
+        });
+        $(document).on('click', '.go-out-step2', function () {
+            let roomid = $('input[name="hdfRoomID"]').val();
+            let renterid = $('input[name="hdfRenterID"]').val();
+            let dateout = $('input[name="txt-go-dateout"]').val();
+            if (dateout == "") {
+                toast.create({
+                        title: 'Thông báo!',
+                        text: 'Vui lòng chọn ngày dọn ra',
+                        icon: 'error_outline',
+                        classBackground: 'noti-warning',
+                        timeout: 3000
+                });
+                return false;
+            }
+            let electric = $('input[name="txt-go-electric"]').val();
+            //if (electric == "") {
+            //    toast.create({
+            //        title: 'Thông báo!',
+            //        text: 'Vui lòng nhập số điện tháng này',
+            //        icon: 'error_outline',
+            //        classBackground: 'noti-warning',
+            //        timeout: 3000
+            //  });
+            //  return false;
+            //}
+            let electricIMG = $('input[name="hdfGoOutElectricIMG"]').val();
+            let water = $('input[name="txt-go-water"]').val();
+            //if (water == "") {
+            //    toast.create({
+            //            title: 'Thông báo!',
+            //            text: 'Vui lòng nhập số nước tháng này',
+            //            icon: 'error_outline',
+            //            classBackground: 'noti-warning',
+            //            timeout: 3000
+            //    });
+            //    return false;
+            //}
+            let waterIMG = $('input[name="hdfGoOutWaterIMG"]').val();
+            let data = {
+                roomid: roomid,
+                renterid: renterid,
+                dateout: dateout,
+                electric: electric,
+                water: water
+            }
+
+            $.ajax({
+                    type: "POST",
+                    url: "/House/TinhTien",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.rs) {
+                            $('#div-result-goout').empty();
+                            $('#div-result-goout').prepend(msg.html);
+                               $('#js-goOut').modal("hide");
+                                $('#js-goOut-success').modal();
+                        }
+                        else {
+                            toast.create({
+                                title: 'Thông báo!',
+                                text: msg.message,
+                                icon: 'error_outline',
+                                classBackground: 'noti-warning',
+                                timeout: 3000
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrow) {
+                        alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+                    }
+                });
+        });
+        $('.js-add-service').on('click', function () {
+            const html = `
+                            <div class="row align-items-center mg-b-20" name="service-block" data-id="0">
+                                <div class="col pl-r-5">
+                                    <input type="text" class="form-control" name="service-name" placeholder="Tên dịch vụ" ata-type="currency" required value="">
+                                </div>
+                                <div class="col pd-l-5">
+                                    <input type="text" class="form-control" name="service-price" placeholder="Giá" data-type="currency" required value="">
+                                </div>
+                                <div class="col pd-l-0 flex-grow-0">
+                                    <a href="javascript:;" class="tx-danger delete-service"><i data-feather="minus-square"></i></a>
+                                </div>
+                            </div>`;
+            $('.list-services').append(html);
+            feather.replace();
+        });
+        $('.list-services').on('click', '.delete-service', function () {
+            var obj = this;
+            let id = $(this).closest('.row').attr('data-id');
+            if (id != 0) {
+                var r = confirm("Bạn có muốn xóa dịch vụ này!");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Room/DeleteAddon",
+                        data: '{ID: ' + id + ',RenterID:' + $('input[name="hdfRenterID"]').val() + '}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            if (msg.rs) {
+                                $(obj).closest('.row').remove();
+                                toast.create({
+                                    title: 'Thông báo!',
+                                    text: 'Thành công',
+                                    icon: 'notifications_active',
+                                    classBackground: 'noti-success',
+                                    timeout: 3000
+                                });
+                                LoadRoomDetail();
+                            }
+                            else {
+                                toast.create({
+                                    title: 'Thông báo!',
+                                    text: 'Không thành công',
+                                    icon: 'error_outline',
+                                    classBackground: 'noti-warning',
+                                    timeout: 3000
+                                })
+                                 LoadRoomDetail();
+                            }
+                        },
+                        error: function (xmlhttprequest, textstatus, errorthrow) {
+                            console.log("update-house");
+                        }
+                    });
+                }
+            } else {
+                $(this).closest('.row').remove();
+            }
+        });
+
+    });
+    function LoadRoomDetail() {
+        let id = $('input[name="hdfRoomID"]').val();
+        $.ajax({
+            type: "POST",
+            url: "/House/LoadDetailRoom",
+            data: '{id: ' + id + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+            $('#div-info-' + id + '').empty();
+            $('#div-info-' + id + '').append(msg.data);
+            $('#tbody-info-' + id + '').empty();
+            $('#tbody-info-' + id + '').append(msg.tr);
+            feather.replace();
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                hover: true
+            });
+            },
+                error: function (xmlhttprequest, textstatus, errorthrow) {
+                alert('Lỗi tải dữ liệu, liên hệ người quản trị');
+            }
+
+        });
+    }
+    function UpdateInfo(renterID, name, datein, dateout, quantity, avatar, status, phone) {
+        $.ajax({
+            type: "POST",
+            url: "/Room/UpdateInfo",
+            data: '{renterID:' + renterID + ',name:"' + name + '",datein:"' + datein + '",dateout:"' + dateout + '",quantity:"' + quantity + '",avatar:"' + avatar + '",status:"' + status + '",phone:"' + phone + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                    LoadRoomDetail();
+                    $('#js-edit-cus').modal("hide");
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 3000
+                    });
+                    //LoadRoomDetail();
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+            }
+        });
+    }
+    $('.btn-update-renterinfo').click(function () {
+        let inputs = $('#js-edit-cus').find('*:required');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "") {
+                $('#js-edit-cus').addClass('was-validated');
+                return false;
+                break;
+            }
+        }
+        let renterID = $('input[name="hdfRenterID"]').val();
+        let name = $('input[name="txt-renter-name"]').val();
+        let datein = $('input[name="txt-renter-datein"]').val();
+        let quantity = $('input[name="txt-renter-quantity"]').val();
+        let avatar = $('input[name="hdfAvatar"]').val();
+        let phone = $('input[name="txt-renter-phone"]').val();
+        let dateout = $('input[name="txt-renter-dateout"]').val();
+        UpdateInfo(renterID, name, datein, dateout, quantity, avatar, "", phone);
+    });
+    $('.btn-update-service').click(function () {
+        let inputs = $('#form-update-service').find('*:required');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "") {
+                $('#form-update-service').addClass('was-validated');
+                return false;
+                break;
+            }
+        }
+        var data = [];
+        $('div[name="service-block"]').each(function (e) {
+            var addon = {};
+            addon["ID"] = $(this).attr('data-id');
+            addon["Name"] = $(this).find('input[name="service-name"]').val();
+            addon["Price"] = $(this).find('input[name="service-price"]').val();
+            data.push(addon);
+        });
+        $('input[name="hdfObjService"]').val(JSON.stringify(data));
+        let RenterID = $('input[name="hdfRenterID"]').val();
+        let RoomID = $('input[name="hdfRoomID"]').val();
+        let PriceRoom = $('input[name="txt-room-price"]').val();
+        let PriceWater = $('input[name="txt-room-pricewater"]').val();
+        let PriceElectric = $('input[name="txt-room-priceelectric"]').val();
+        let formdata = {
+            roomid:RoomID,
+            renterid:RenterID,
+            priceroom:PriceRoom,
+            pricewater:PriceWater,
+            priceelectric:PriceElectric,
+            objaddon:JSON.stringify(data)
+        };
+        let $this =this;
+        $.ajax({
+            type: "POST",
+            url: "/House/UpdateRoomService",
+            data: JSON.stringify(formdata),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                    LoadRoomDetail();
+                    $('#js-edit-service').modal("hide");
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 3000
+                    });
+                    LoadRoomDetail();
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+
+            }
+        });
+    });
+    $('.btn-write-ew').click(function () {
+        let roomid = $('input[name="hdfRoomID"]').val();
+        let renterid = $('input[name="hdfRenterID"]').val();
+        let electric = $('input[name="txt-electric-current-month"]').val();
+        let water = $('input[name="txt-water-current-month"]').val();
+        let electricIMG = $('input[name="hdfElectricIMG"]').val();
+        let waterIMG = $('input[name="hdfWaterIMG"]').val();
+        let data = {
+            roomid: roomid,
+            renterid: renterid,
+            electric: electric,
+            electricIMG: electricIMG,
+            water: water,
+            waterIMG:waterIMG
+        }
+        $.ajax({
+            type: "POST",
+            url: "/House/WriteEW",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 3000
+                    });
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+            }
+        });
+    });
+    $('.add-renter-fee').click(function () {
+        let roomid = $('input[name="hdfRoomID"]').val();
+        let renterid = $('input[name="hdfRenterID"]').val();
+        let feeprice = $('input[name="txt-fee-price"]').val();
+        let feenote = $('input[name="txt-fee-note"]').val();
+        let data = {
+            roomid: roomid,
+            renterid: renterid,
+            feeprice: feeprice,
+            feenote: feenote
+        }
+        $.ajax({
+            type: "POST",
+            url: "/House/AddCustomFee",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                     $('#js-addAdditionFee').modal("hide");
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 3000
+                    });
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+
+            }
+        });
+    });
+    $('.btn-collect-money').click(function () {
+        let roomid = $('input[name="hdfRoomID"]').val();
+        let renterid = $('input[name="hdfRenterID"]').val();
+        let money = $('input[name="txt-collect-money"]').val();
+        let type = $('select[name="ddl-collect-type"]').val();
+       let data = {
+            roomid: roomid,
+            renterid: renterid,
+            money: money,
+            type: type
+        }
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            url: "/House/AddCollect",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                     $('#js-payMoney').modal("hide");
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 3000
+                    });
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+
+            }
+        });
+    });
+    $('.update-go-out').click(function () {
+        let roomid = $('input[name="hdfRoomID"]').val();
+        let renterid = $('input[name="hdfRenterID"]').val();
+        let money = $('input[name="txt-go-money"]').val();
+        let refund = $('input[name="txt-refund-deposit"]').val();
+        let type = $('select[name="ddl-go-type"]').val();
+        let dateout = $('input[name="txt-go-dateout"]').val();
+        let electric = $('input[name="txt-go-electric"]').val();
+        let water = $('input[name="txt-go-water"]').val();
+        let hdfEIMG = $('input[name="hdfGoOutElectricIMG"]').val();
+        let hdfWIMG = $('input[name="hdfGoOutWaterIMG"]').val();
+        if (dateout == "") {
+                toast.create({
+                        title: 'Thông báo!',
+                        text: 'Vui lòng chọn ngày dọn ra',
+                        icon: 'error_outline',
+                        classBackground: 'noti-warning',
+                        timeout: 3000
+                });
+                return false;
+        }
+        //if (electric == "") {
+        //    toast.create({
+        //            title: 'Thông báo!',
+        //            text: 'Vui lòng nhập số điện tháng này',
+        //            icon: 'error_outline',
+        //            classBackground: 'noti-warning',
+        //            timeout: 3000
+        //    });
+        //    return false;
+        //}
+        //if (water == "") {
+        //    toast.create({
+        //            title: 'Thông báo!',
+        //            text: 'Vui lòng nhập số nước tháng này',
+        //            icon: 'error_outline',
+        //            classBackground: 'noti-warning',
+        //            timeout: 3000
+        //    });
+        //    return false;
+        //}
+        let data = {
+            roomid: roomid,
+            renterid: renterid,
+            dateout: dateout,
+            electric: electric,
+            heimg:hdfEIMG,
+            water:water,
+            waimg:hdfWIMG,
+            money: money,
+            refund: refund,
+            type:type
+        }
+        $.ajax({
+            type: "POST",
+            url: "/House/DonRa",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                    $('#js-goOut-success').modal("hide");
+                    location.reload();
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.message,
+                        icon: 'error_outline',
+                        classBackground: 'noti-error',
+                        timeout: 5000
+                    });
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("load fails");
+
+            }
+        });
+
+    });
+</script>

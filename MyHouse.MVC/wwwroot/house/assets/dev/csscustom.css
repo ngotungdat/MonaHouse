@@ -1,0 +1,173 @@
+﻿/*Toast Notification*/
+#cooltoast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: auto;
+    z-index: 99999;
+    /*   font-family: 'Helvetica'; */
+}
+
+.cooltoast-toast {
+    background: #1fc500;
+    color: white;
+    position: relative;
+    padding: 8px 12px;
+    margin: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    animation-duration: .3s;
+    animation-name: cooltoast;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.toast-content {
+    overflow: hidden;
+    padding-left: 15px;
+}
+
+.cooltoast-fadeOut {
+    animation-name: cooltoastFadeOut;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-fill-mode: forwards;
+}
+
+#cooltoast-container p,
+#cooltoast-container h4 {
+    margin: 3px 0 !important;
+}
+
+.cooltoast-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.cooltoast-text {
+    font-size: 14px;
+    color: white;
+}
+
+.cooltoast-icon {
+    float: left;
+    font-size: 38px;
+}
+
+.cooltoast-toast a, .cooltoast-toast a:hover {
+    color: #549EDB !important;
+    text-decoration: none !important;
+}
+
+/** toast types */
+.cooltoast-success {
+    border-bottom: 2px solid #51C625;
+}
+
+.cooltoast-warning {
+    border-bottom: 2px solid #DB9215;
+}
+
+.cooltoast-error {
+    border-bottom: 2px solid #DB2B1D;
+}
+
+.cooltoast-info {
+    border-bottom: 2px solid #27ABDB;
+}
+
+@keyframes cooltoast {
+    from {
+        transform: translate3d(400px, 0, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes cooltoastFadeOut {
+    from {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate3d(400px, 0, 0);
+        opacity: 0;
+    }
+}
+
+.noti-error {
+    background: #F44336;
+}
+
+.noti-warning {
+    background: #ffc61a;
+}
+.preview-image .image-wrap .confirm-delete-image {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #ec0000;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.preview-image .avatar-wrap .avatar-box img {
+    width: 80px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.upload-avatar > a {
+    height: 38px;
+}
+
+.upload-avatar .preview-image .image-wrap {
+    margin-top: 0px;
+    margin-left: 10px;
+    padding: 0px;
+    flex: 0 0 100px;
+    position: relative;
+}
+select[name=js-visibility-column_length] {
+    height: 30px;
+    width: 60px;
+    padding: 5px;
+    margin: 0 5px;
+}
+.table__filter__wrap .sort-label .fa {
+    margin-left: auto;
+    float: right;
+}
+
+a.toggle-room-detail {
+    font-size: 24px;
+    line-height: 1;
+    color: #aaa;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    color: #02342b;
+}
+    a.toggle-room-detail.active {
+        color: #46CED0;
+    }
+#table-list-room tr:not(.collapse-row):hover + tr:not(.collapse-row) {
+    background-color: transparent;
+}
+.select2-container {
+    display: block;
+}
