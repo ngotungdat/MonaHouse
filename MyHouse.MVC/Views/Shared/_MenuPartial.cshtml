@@ -9,13 +9,13 @@
     <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i data-feather="home"></i> Nhà/Dãy trọ</a>
 </li>
 <li class="nav-item @ViewBag.ListRoom">
-    <a href="@Url.Action("ListRoom", "House", new { area = "" })" class="nav-link"><i data-feather="layout"></i> Phòng</a>
+    <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i data-feather="layout"></i> Phòng</a>
 </li>
 <li class="nav-item @ViewBag.ElectrictWater">
-    <a href="@Url.Action("ElectrictWater", "ManagerElectrictWater", new { area = "" })" class="nav-link"><i data-feather="zap"></i> Ghi điện nước</a>
+    <a href="@Url.Action("RecordList", "Record", new { area = "" })" class="nav-link"><i data-feather="zap"></i> Ghi điện nước</a>
 </li>
 <li class="nav-item @ViewBag.CollectList">
-    <a href="@Url.Action("CollectList", "CollectMoney", new { area = "" })" class="nav-link"><i data-feather="dollar-sign"></i> Lịch sử thu tiền</a>
+    <a href="@Url.Action("PaymentHistoryList", "PaymentHistory", new { area = "" })" class="nav-link"><i data-feather="dollar-sign"></i> Lịch sử thu tiền</a>
 </li>
 <li class="nav-item with-sub">
     <a href="javascript:;" class="nav-link"><i data-feather="settings"></i> Cấu hình</a>
