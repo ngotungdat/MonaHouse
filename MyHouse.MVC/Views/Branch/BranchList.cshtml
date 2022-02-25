@@ -1,20 +1,19 @@
 ﻿@*@using Motel.Models
-@using Motel.TableSQL
-@using MB.Extensions
-@{
-    ViewBag.Title = "ListHouse";
-    ViewBag.ListHouse = "active";
-    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
-    List<tbl_Motel> houses = Model;
-    tbl_Account aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt(0));
-}*@
+    @using Motel.TableSQL
+    @using MB.Extensions
+    @{
+        ViewBag.Title = "ListHouse";
+        ViewBag.ListHouse = "active";
+        Layout = "~/Views/Shared/_LayoutMotel.cshtml";
+        List<tbl_Motel> houses = Model;
+        tbl_Account aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt(0));
+    }*@
 <style>
     .house-item img {
         width: 180px;
         height: 208px;
         object-fit: inherit;
     }
-
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
     }
@@ -37,6 +36,10 @@
 
     .table__filter__wrap .table-centered tr th, .table__filter__wrap .table-centered tr td {
         text-align: left
+    }
+
+    .modal-dialog {
+        max-width: 50%
     }
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -83,7 +86,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -126,11 +129,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -164,7 +167,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -207,11 +210,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -245,7 +248,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -288,11 +291,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -326,7 +329,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -369,11 +372,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -407,7 +410,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -450,11 +453,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -488,7 +491,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -531,11 +534,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -569,7 +572,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -612,11 +615,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -650,7 +653,7 @@
                                                     <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
                                                 </p>
                                                 <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb" 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -693,11 +696,11 @@
                                                                     <td data-title="Trạng thái">Đang thuê</td>
                                                                     <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
                                                                     @*<td data-title="Thao tác">
-                                                        <a href=""
-                                                           class="d-inline-block pd-5">
-                                                            <i data-feather="arrow-right-circle"></i>
-                                                        </a>
-                                                    </td>*@
+                                                                            <a href=""
+                                                                               class="d-inline-block pd-5">
+                                                                                <i data-feather="arrow-right-circle"></i>
+                                                                            </a>
+                                                                        </td>*@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -723,7 +726,7 @@
     @Html.AntiForgeryToken()
     <div class="modal fade" id="modal-add-house" tabindex="-1" role="dialog" aria-hidden="true">
 
-        <div class="modal-dialog modal-dialog-centered wd-sm-650" style="max-width: 50%" role="document">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
             <div class="modal-content">
                 <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
                     <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
@@ -733,7 +736,7 @@
                         <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
                         <div class="media-body mg-sm-l-20">
                             <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Thêm nhà/dãy trọ mới</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0">Thêm nhà/dãy trọ mới vào danh sách.</p>
+                            <p class="tx-13 tx-color-03 mg-b-0">Thêm nhà/dãy trọ mới vào danh sách</p>
                         </div>
                     </div><!-- media -->
                 </div><!-- modal-header -->
@@ -811,60 +814,230 @@
                         <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
                     </div>
                     <div class="form-group">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nội quy:</label>
+                        <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h"></textarea>
+                    </div>
+                    <div class="form-group">
                         <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Hình ảnh:</label>
                         <input type="file" class="dropify" name="photo" />
                     </div>
                 </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="submit" class="btn btn-primary">Tạo mới</button>
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30 modal-body-border-top">
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="tv" class="wd-60 ht-60"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tiện ích</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Tiện ích của dãy trọ</p>
+                        </div>
+                    </div><!-- media -->
+                    <div class="form-group">
+                        <div class="row checked-in-form">
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch-1" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch-1">Gác</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Gác</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Bàn ghế</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top:50px" >
+                        <p>Nếu nhà của bạn có tiện ích không xuất hiện trong danh sách. Hãy ấn nút "Bổ sung tiện ích" để thêm</p>
+                        <button type="button" class="btn btn-primary">Bổ sung tiện ích</button>
+                    </div>
                 </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-primary">Tạo mới</button>
+                </div>
+                </div><!-- modal-content -->
+            </div><!-- modal-dialog -->
     </div><!-- modal -->
 }
 
 @using (Html.BeginForm("EditHouse", "House", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <div class="modal fade" id="modal-edit-house" tabindex="-1" role="dialog" aria-hidden="true">
-        <input type="hidden" name="hdf-id" />
-        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-            <div class="modal-content">
-                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Cập nhật nhà/dãy trọ</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0">Cập nhật nhà/dãy trọ trong danh sách.</p>
+<div class="modal fade" id="modal-edit-house" tabindex="-1" role="dialog" aria-hidden="true">
+    <input type="hidden" name="hdf-id" />
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Cập nhật nhà/dãy trọ</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Cập nhật thông tin nhà/dãy trọ vào </p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ:</label>
+                            <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Dãy nhà 1">
                         </div>
-                    </div><!-- media -->
-                </div><!-- modal-header -->
-                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
-                    <div class="form-group">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ:</label>
-                        <input type="text" name="txt-house-name-edit" required class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại:</label>
+                            <select name="dll-house-type" class="form-control">
+                                <option value="1">Cửa hàng,kiot</option>
+                                <option value="2">Nhà trọ</option>
+                                <option value="3">Nhà nguyên căn</option>
+                                <option value="4">Ký túc xá</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
-                        <textarea rows="1" name="txt-house-description-edit" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ:</label>
+                            <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại hình cho thuê:</label>
+                            <select name="dll-house-rantalForm" class="form-control">
+                                <option value="1">Bao phòng</option>
+                                <option value="2">Ký túc xá</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Hình ảnh:</label>
-                        <input type="file" id="photo-add-house" class="dropify" name="photo" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP:</label>
+                            <select name="dll-house-area" class="form-control">
+                                <option value="0">-----</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện:</label>
+                            <select name="dll-house-district" class="form-control">
+                                <option value="0">-----</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã:</label>
+                            <select name="dll-house-ward" class="form-control">
+                                <option value="0">-----</option>
+                            </select>
+                        </div>
                     </div>
-                </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện trên 1 kwH:</label>
+                            <input type="number" name="txt-house-electricFee" class="form-control" placeholder="Ví dụ: 3500">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại tiền nước:</label>
+                            <select name="dll-house-waterFeeType" class="form-control">
+                                <option value="1">Tính theo khối</option>
+                                <option value="2">Tính theo người</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước:</label>
+                            <input type="number" name="txt-house-waterFee" class="form-control" placeholder="Ví dụ: 18000">
+                        </div>
+                    </div>
+
                 </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
-        }
-    </div><!-- modal -->
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
+                    <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nội quy:</label>
+                    <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Hình ảnh:</label>
+                    <input type="file" class="dropify" name="photo" />
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30 modal-body-border-top">
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i data-feather="tv" class="wd-60 ht-60"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tiện ích</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Tiện ích của dãy trọ</p>
+                    </div>
+                </div><!-- media -->
+                <div class="form-group">
+                    <div class="row checked-in-form">
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch-1" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch-1">Gác</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Bàn ghế</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Gác</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                        </div>
+                        <div class="form-check form-switch col-sm-3 mt-3">
+                            <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                            <label class="form-check-label" for="mySwitch">Bàn ghế</label>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:50px">
+                    <p>Nếu nhà của bạn có tiện ích không xuất hiện trong danh sách. Hãy ấn nút "Bổ sung tiện ích" để thêm</p>
+                    <button type="button" class="btn btn-primary">Bổ sung tiện ích</button>
+                </div>
+            </div>
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+    }
+</div><!-- modal -->
 }
 <div class="modal fade" id="modal-add-room" tabindex="-1" role="dialog" aria-hidden="true">
     @using (Html.BeginForm("AddRoom", "House", FormMethod.Post))
@@ -890,11 +1063,11 @@
                         <select name="ddl-house" class="form-control" required>
                             <option value="">---Chọn nhà/dãy trọ---</option>
                             @*@{
-                                foreach (var item in houses)
-                                {
-                                    <option value="@item.ID">@item.MotelName</option>
-                                }
-                            }*@
+                                    foreach (var item in houses)
+                                    {
+                                        <option value="@item.ID">@item.MotelName</option>
+                                    }
+                                }*@
                         </select>
                     </div>
                     <div class="row">
