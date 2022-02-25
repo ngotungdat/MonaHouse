@@ -1,341 +1,309 @@
-﻿
-
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-    </a>
-</div>
-
-<!-- Content Row -->
-<div class="row">
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Earnings (Monthly)
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
+﻿@*@using Motel.Models
+@using Motel.TableSQL
+@using System.Data.SqlClient
+@using MB.Extensions;
+@{
+    ViewBag.Dashboard = "active";
+    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
+    tbl_Account aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt(0));
+}*@
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+        <div>
+            <h4 class="mg-b-0 tx-spacing--1">Dashboard</h4>
         </div>
-    </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Earnings (Annual)
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
+        @*<div class="d-none d-md-flex">
+                <div class="form-group mb-0 mg-r-10">
+                    <select name="branch" id="jsft-branch" class="form-control">
+                        <option value="#">Tất cả chi nhánh</option>
+                        <option value="#">Chi nhánh 2</option>
+                        <option value="#">Chi nhánh 3</option>
+                    </select>
                 </div>
-            </div>
-        </div>
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="sliders" class="wd-10 mg-r-5"></i> Lọc dữ liệu</button>
+            </div>*@
     </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Tasks
+    <div class="row row-xs">
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">100</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Nhà</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số nhà hiện có</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">99</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng hiện có</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">89 <span class="tx-color-04">/ 90</span></h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng đang thuê</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Số lượng phòng đang thuê</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">70</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Sắp dọn ra</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Phòng sắp dọn ra trong 2 tháng tới</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-12 mg-b-30">
+            <div class="card seperate-card">
+                <div class="card-header bd-b-0 pd-t-20 pd-lg-t-25 pd-l-20 pd-lg-l-25">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <p class="mg-b-5 tx-color-03"><span class="tx-medium tx-color-01">Tổng doanh thu</span></p>
+                            <p class="tx-24 mg-b-0">@ViewBag.Total</p>
                         </div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                    </div>
+                </div><!-- card-header -->
+                <div class="card-body pd-lg-x-25 pd-lg-t-0">
+                    <div class="row align-items-sm-end">
+                        <div class="col-12">
+                            <div class="chart-six" style="height:325px;">
+                                <canvas id="js-customer-chart"></canvas>
                             </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar"
-                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                         aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                            <div id="legend-area"></div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- card -->
         </div>
-    </div>
-
-    <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Pending Requests
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+        <div class="col-12">
+            <h4 class="mg-b-15 tx-spacing--1">Xem thống kê</h4>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="chart-ref">
+                        <a href="@Url.Action("Reportew", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <span class="chart-image">
+                            <img src="~/house/assets/img/line-chart.svg" alt="chart">
+                        </span>
+                        <h6>Thống kê điện nước</h6>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                </div>
+                <div class="col-lg-2">
+                    <div class="chart-ref">
+                        <a href="@Url.Action("Reportempty", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <span class="chart-image">
+                            <img src="~/house/assets/img/spear-chart.svg" alt="chart">
+                        </span>
+                        <h6>Tỉ lệ lấp đầy</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="chart-ref">
+                        <a href="@Url.Action("Reportdebt", "Home", new { area = "" })" class="link" rel="noopener"> </a>
+                        <span class="chart-image">
+                            <img src="~/house/assets/img/bar-chart.svg" alt="chart">
+                        </span>
+                        <h6>Thống kê nợ</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="chart-ref">
+                        <a href="@Url.Action("Reporttype", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <span class="chart-image">
+                            <img src="~/house/assets/img/pie-chart.svg" alt="chart">
+                        </span>
+                        <h6>Thống kê loại phòng</h6>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="chart-ref">
+                        <a href="@Url.Action("Reporthouse", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <span class="chart-image">
+                            <img src="~/house/assets/img/spear-chart.svg" alt="chart">
+                        </span>
+                        <h6>Danh thu nhà và chi phí</h6>
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
-</div>
+        <!-- Endd ====== ================ -->
+    </div><!-- row -->
+</div><!-- container -->
 
-<!-- Content Row -->
+<script src="~/App_Themes/HouseMona/lib/chart.js/Chart.bundle.min.js"></script>
+<script>
 
-<div class="row">
+    // tải data
+    var filterValues = {};
+    $(document).ready(function () {
+        //For padding between chart and legend
+        Chart.Legend.prototype.afterFit = function () {
+            this.height = this.height + 25;
+        };
+        //Random data
+        function getRandom(length, min, max, currency) {
+            const arr = [];
+            for (let i = 0; i <= length; i++) {
+                if (currency == true) {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min) * 1000;
+                } else {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min);
+                }
+            }
+            return arr;
+        }
+        const convertArrToFlotData = arr => {
+            return arr.map((x, index) => {
+                return [index, x];
+            });
+        }
+        const currencyFormat = value => value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        var ctx1 = document.getElementById('js-customer-chart').getContext('2d');
+        const shortMonth = ['TH1', 'TH2', 'TH3', 'TH4', 'TH5', 'TH6', 'TH7', 'TH8', 'TH9', 'TH10', 'TH11', 'TH12'];
+        const longMonth = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+        const revenueChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: longMonth,
+                datasets: @Html.Raw(ViewBag.Data)
+            },
+            options: {
+                maintainAspectRatio: false,
+                title: {
+                    text: 'Doanh thu năm nay',
+                    display: false,
+                    position: 'top'
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        display: true,
+                        padding: 20,
+                    },
+                    position: 'bottom',
+                },
+                legendCallback: function (chart) {
+                    var text = [];
+                    text.push('<ul class="' + chart.id + '-legend legend-chart">');
+                    for (let i = 0; i < chart.data.datasets.length; i++) {
+                        text.push('<li><span class="block-color" style="background-color:' +
+                            chart.data.datasets[i].backgroundColor + '"></span>');
+                        if (chart.data.datasets[i].label) {
+                            text.push(chart.data.datasets[i].label);
+                        }
+                        text.push('</li>');
+                    }
+                    text.push('</ul>');
+                    return text.join("");
+                },
 
-    <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            dipslay: false,
+                            color: '#ebeef3'
+                        },
+                        ticks: {
+                            fontColor: '#8392a5',
+                            fontSize: 10,
+                            callback: function (value, index, values) {
+                                if (parseInt(value) >= 1000000 && parseInt(value) < 1000000000) {
+                                    return (value / 1000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ",") + ' Triệu';
+                                } else if ((parseInt(value) >= 1000000000)) {
+                                    return (value / 1000000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g, ",") + ' Tỉ';
+                                }
+                                return value;
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            //  console.log(data);
+                            //  console.log(tooltipItem);
+                            var label = data.datasets[tooltipItem.datasetIndex].label;
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
 
-    <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                         aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                </div>
-                <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Referral
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                            if (parseInt(value) >= 1000) {
+                                return label + ': ' + value.toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                            } else {
+                                return label + ': ' + value + ' VNĐ';
+                            }
 
-<!-- Content Row -->
-<div class="row">
+                        }
+                    }
+                },
+            }
+        });
 
-    <!-- Content Column -->
-    <div class="col-lg-6 mb-4">
 
-        <!-- Project Card Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-            </div>
-            <div class="card-body">
-                <h4 class="small font-weight-bold">
-                    Server Migration <span class="float-right">20%</span>
-                </h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <h4 class="small font-weight-bold">
-                    Sales Tracking <span class="float-right">40%</span>
-                </h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <h4 class="small font-weight-bold">
-                    Customer Database <span class="float-right">60%</span>
-                </h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <h4 class="small font-weight-bold">
-                    Payout Details <span class="float-right">80%</span>
-                </h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <h4 class="small font-weight-bold">
-                    Account Setup <span class="float-right">Complete!</span>
-                </h4>
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
+        let monthRevenue = getRandom(30, 1000, 2000, true);
+        let dataCurrentMonth = convertArrToFlotData(monthRevenue); //Data for test
+        let totalRevenueMonth = monthRevenue.reduce((value, cur) => value + cur, 0);
+        let thisMonthRevenue = document.getElementById('total-revenue-month');
+        // let legendArea = document.getElementById('legend-area');
+        thisMonthRevenue ? thisMonthRevenue.textContent = currencyFormat(totalRevenueMonth) : null;
+        // legendArea.innerHTML = revenueChart.generateLegend();
 
-        <!-- Color System -->
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-light text-black shadow">
-                    <div class="card-body">
-                        Light
-                        <div class="text-black-50 small">#f8f9fc</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-dark text-white shadow">
-                    <div class="card-body">
-                        Dark
-                        <div class="text-white-50 small">#5a5c69</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        const showSeperate = event => {
+            let target = event.target;
+            let card = target.closest('.seperate-card');
+            card.classList.add('show');
+        }
+        const closeSeperate = event => {
+            let target = event.target;
+            let card = target.closest('.seperate-card');
+            card.classList.remove('show');
+        }
+        let seperateBtn = document.querySelectorAll('.show-seperate');
+        let closeBtn = document.querySelectorAll('.close-seperate');
+        [...seperateBtn].map(btn => btn.addEventListener('click', showSeperate));
+        [...closeBtn].map(btn => btn.addEventListener('click', closeSeperate));
 
-    <div class="col-lg-6 mb-4">
+        // load chart
+        loadchart()
+        function loadchart() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetDataReporthouse",
+                data: '{id: ' + $('#ddl-house').val() + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    //barChart.data.labels = JSON.parse(msg.data).labels;
+                    revenueChart.data.datasets[0].data = msg.chi;
+                    revenueChart.data.datasets[1].data = msg.thu;
+                    revenueChart.update();
 
-        <!-- Illustrations -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-            </div>
-            <div class="card-body">
-                <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                         src="img/undraw_posting_photo.svg" alt="...">
-                </div>
-                <p>
-                    Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                    constantly updated collection of beautiful svg images that you can use
-                    completely free and without attribution!
-                </p>
-                <a target="_blank" rel="nofollow" href="https://undraw.co/">
-                    Browse Illustrations on
-                    unDraw &rarr;
-                </a>
-            </div>
-        </div>
-
-        <!-- Approach -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-            </div>
-            <div class="card-body">
-                <p>
-                    SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                    custom components and custom utility classes.
-                </p>
-                <p class="mb-0">
-                    Before working with this theme, you should become familiar with the
-                    Bootstrap framework, especially the utility classes.
-                </p>
-            </div>
-        </div>
-
-    </div>
-</div>
+                    $('#tong-thu').text(msg.tongthu);
+                    $('#tong-chi').text(msg.tongchi);
+                },
+                error: function (xmlhttprequest, textstatus, errorthrow) {
+                    console.log("loadchart");
+                }
+            });
+        }
+    });
+</script>
