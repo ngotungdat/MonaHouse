@@ -36,5 +36,9 @@ namespace MyHouse.MVC.Controllers
             ModelState.AddModelError("", response.Data.ResultMessage);
             return View("Login");
         }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }

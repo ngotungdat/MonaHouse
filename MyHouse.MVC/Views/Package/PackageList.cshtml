@@ -1,0 +1,240 @@
+﻿<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <h4 class="mg-b-15 tx-spacing--1">CÁC GÓI PHẦN MỀM</h4>
+    <div class="row row-xs">
+        <div class="table__filter__wrap ">
+            <div class="table__filter-header mg-t-0-f">
+                <div class="table__header-left">
+                    <a href="#modal-add-house" class="btn btn-primary" data-toggle="modal"><i class="fas fa-home"></i> Thêm gói phần mềm</a>
+                </div>
+                <div class="table__header-right">
+                    <div class="header__right-action">
+                        <div class="search__box control mg-md-r-5">
+                            <input type="text" name="search" class="form-control search__box-area input-style" placeholder="Tìm kiếm..." value="@ViewBag.Search" />
+                            <a href="javascript:;" id="btn-search" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="house-layout-list mg-t-15">
+                <div class="row justify-content-md-center">
+                    <div class="col-4 mg-t-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gói dùng thử</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Dùng thử</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mg-t-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Đặt mua</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mg-t-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Đặt mua</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mg-t-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Đặt mua</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mg-t-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Đặt mua</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("AddHouse", "House", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="modal-add-house" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Thêm nhà/dãy trọ mới</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Thêm nhà/dãy trọ mới vào danh sách</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ:</label>
+                                <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Dãy nhà 1">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại:</label>
+                                <select name="dll-house-type" class="form-control">
+                                    <option value="1">Cửa hàng,kiot</option>
+                                    <option value="2">Nhà trọ</option>
+                                    <option value="3">Nhà nguyên căn</option>
+                                    <option value="4">Ký túc xá</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ:</label>
+                                <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại hình cho thuê:</label>
+                                <select name="dll-house-rantalForm" class="form-control">
+                                    <option value="1">Bao phòng</option>
+                                    <option value="2">Ký túc xá</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP:</label>
+                                <select name="dll-house-area" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện:</label>
+                                <select name="dll-house-district" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã:</label>
+                                <select name="dll-house-ward" class="form-control">
+                                    <option value="0">-----</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện trên 1 kwH:</label>
+                                <input type="number" name="txt-house-electricFee" class="form-control" placeholder="Ví dụ: 3500">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại tiền nước:</label>
+                                <select name="dll-house-waterFeeType" class="form-control">
+                                    <option value="1">Tính theo khối</option>
+                                    <option value="2">Tính theo người</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước:</label>
+                                <input type="number" name="txt-house-waterFee" class="form-control" placeholder="Ví dụ: 18000">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
+                        <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nội quy:</label>
+                        <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Hình ảnh:</label>
+                        <input type="file" class="dropify" name="photo" />
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30 modal-body-border-top">
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="tv" class="wd-60 ht-60"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tiện ích</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Tiện ích của dãy trọ</p>
+                        </div>
+                    </div><!-- media -->
+                    <div class="form-group">
+                        <div class="row checked-in-form">
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch-1" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch-1">Gác</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Gác</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
+                            </div>
+                            <div class="form-check form-switch col-sm-3 mt-3">
+                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                <label class="form-check-label" for="mySwitch">Bàn ghế</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top:50px">
+                        <p>Nếu nhà của bạn có tiện ích không xuất hiện trong danh sách. Hãy ấn nút "Bổ sung tiện ích" để thêm</p>
+                        <button type="button" class="btn btn-primary">Bổ sung tiện ích</button>
+                    </div>
+                </div>
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="submit" class="btn btn-primary">Tạo mới</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+}
+
