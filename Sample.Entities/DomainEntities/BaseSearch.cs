@@ -42,6 +42,7 @@ namespace Sample.Entities.DomainEntities
         /// <summary>
         /// Không cần truyền
         /// </summary>
+        [DefaultValue(0)]
         public int TenantId { get; set; }
     }
 }
