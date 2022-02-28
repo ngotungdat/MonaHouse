@@ -1,0 +1,205 @@
+﻿<style>
+    .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
+        min-width: 80px;
+    }
+</style>
+<input type="hidden" name="connection-string" value="@ViewBag.ConnectionString" />
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách Tỉnh/TP</li>
+                </ol>
+            </nav>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Tỉnh/TP</h4>
+        </div>
+    </div>
+
+    <div class="row row-xs">
+
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                        <div class="search__box control mg-md-r-5">
+                            <input type="text" class="form-control search__box-area input-style" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="from-to-group d-flex flex-wrap ">
+                                <div class="select-sort wd-lg-200">
+                                    <span>Từ ngày: </span>
+                                    <input type="text" class="form-control datetimepicker date-only from-date" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                                <div class="select-sort wd-lg-200">
+                                    <span>Đến ngày: </span>
+                                    <input type="text" class="form-control datetimepicker date-only to-date" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control">
+                                    <option value="">--- Tất cả ---</option>
+                                    <option value="">Tên trọ A-Z ↓</option>
+                                    <option value="">Tên trọ Z-A ↑</option>
+                                    <option value="" selected="">Tiền nợ ↓</option>
+                                    <option value="">Tiền nợ ↑</option>
+                                </select>
+                            </div>
+
+                            <div class="mg-b-15">
+                                <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-style js-customize-column m-0" data-target="js-visibility-column"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="table__filter-form">
+                    <div class="filter__form__wrap">
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Trạng thái phòng</label>
+                                <select name="" class="form-control">
+                                    <option value="" selected="">-Tất cả-</option>
+                                    <option value="1">Sắp chuyển vào</option>
+                                    <option value="1">Sắp dọn ra</option>
+                                    <option value="1">Đang ở</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Điện nước</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Chưa ghi</option>
+                                    <option value="1" selected="">Đã ghi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Phòng sắp trống</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Ngày dọn vào</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Nhà / dãy trọ</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">319 CMT7, Trương Định</option>
+                                    <option value="1">64 Út Tịch</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Thu tiền</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Chưa thu tiền</option>
+                                    <option value="2" selected="">Đã thu tiền</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Loại phòng</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Ngắn hạn</option>
+                                    <option value="2" selected="">Dài hạn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Tiền nợ</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Đang có nợ</option>
+                                    <option value="2" selected="">Không nợ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter__form-submit">
+                        <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
+                    </div>
+                </div>*@
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-block-mobile table-striped table-history-payment" id="js-visibility-column">
+                            <thead class="">
+                                <tr>
+                                    <th class="sort-label" data-column="col-name">ID<i class="fa fa-sort"></i></th>
+                                    <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP<i class="fa fa-sort"></i></th>
+                                    <th class="sort-label" data-column="col-water">Người tạo <i class="fa fa-sort"></i></th>
+                                    <th class="sort-label" data-column="col-service">Thao tác</th>
+                                </tr>
+
+                            </thead>
+                            <tbody id="tbody-area">
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation text-right">
+                        <ul class="pagination mg-b-0">
+                            <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+<script>
+    var siteurl = $('input[name="connection-string"]').val();
+    console.log(siteurl);
+    $.ajax({
+        type: 'GET',
+        dataType: "jsonp",
+        url: siteurl + 'api/Area/3',
+        headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOmZhbHNlfSx7XCJSb2xlTmFtZVwiOlwiQXJlYVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pc3Npb25cIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJGaWxlXCIsXCJJc1ZpZXdcIjp0cnVlfV19IiwibmJmIjoxNjQ1NzgzMTI4LCJleHAiOjE2NDU4OTQ3MjgsImlhdCI6MTY0NTc4MzEyOH0.jlOfY4PvC6WTWYbwq6PrDh4K9J8NCsmwYWo6I-lkjk4',
+        },
+        success: function (data, status, xhr) {
+            console.log('data: ', data);
+            console.log('a');
+        }
+    });
+</script>
