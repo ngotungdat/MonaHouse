@@ -88,10 +88,7 @@ namespace Sample.BaseAPI.Controllers.Auth
                         appDomainResult = new AppDomainResult()
                         {
                             Success = true,
-                            Data = new
-                            {
-                                token = token,
-                            },
+                            Data = token,
                             ResultCode = (int)HttpStatusCode.OK
                         };
 

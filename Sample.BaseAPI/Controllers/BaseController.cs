@@ -87,9 +87,11 @@ namespace Sample.BaseAPI.Controllers
             if (ModelState.IsValid)
             {
                 var item = mapper.Map<E>(itemModel);
-                item.TenantId = userService.GetById(LoginContext.Instance.CurrentUser.UserId).TenantId;
+                var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
                 if (item != null)
                 {
+                    item.TenantId = user.TenantId;
+                    item.CreatedBy = user.UserName;
                     // Kiểm tra item có tồn tại chưa?
                     var messageUserCheck = await this.domainService.GetExistItemMessage(item);
                     if (!string.IsNullOrEmpty(messageUserCheck))
@@ -184,6 +186,7 @@ namespace Sample.BaseAPI.Controllers
 
             if (ModelState.IsValid)
             {
+                baseSearch.SearchContent = baseSearch.SearchContent ?? "";
                 baseSearch.TenantId = userService.GetById(LoginContext.Instance.CurrentUser.UserId).TenantId;
                 PagedList<E> pagedData = await this.domainService.GetPagedListData(baseSearch);
                 PagedList<T> pagedDataModel = mapper.Map<PagedList<T>>(pagedData);

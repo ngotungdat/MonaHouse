@@ -51,6 +51,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<Customer>(x => x.ToTable("Customer"));
             modelBuilder.Entity<Vehicle>(x => x.ToTable("Vehicle"));
             modelBuilder.Entity<SampleConfig>(x => x.ToTable("SampleConfig"));
+            modelBuilder.Entity<Package>(x => x.ToTable("Package"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -90,6 +91,7 @@ namespace Sample.AppDbContext
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Vehicle> Vehicle { get; set; }
         public DbSet<SampleConfig> SampleConfig { get; set; }
+        public DbSet<Package> Package { get; set; } //gói phần mềm cho thuê
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

@@ -33,7 +33,6 @@ namespace Sample.BaseAPI.Controllers
         protected IUserService userService;
         protected IUserInGroupService userInGroupService;
         protected IUserGroupService userGroupService;
-        //protected IUserLevelService userLevelService;
         private IConfiguration configuration;
         public UserController(IServiceProvider serviceProvider, ILogger<BaseController<Users, UserModel, UserRequest, UserSearch>> logger
             , IConfiguration configuration
@@ -43,7 +42,6 @@ namespace Sample.BaseAPI.Controllers
             this.userService = serviceProvider.GetRequiredService<IUserService>();
             userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
             userGroupService = serviceProvider.GetRequiredService<IUserGroupService>();
-            //userLevelService = serviceProvider.GetRequiredService<IUserLevelService>();
             this.configuration = configuration;
         }
 
@@ -210,6 +208,24 @@ namespace Sample.BaseAPI.Controllers
                 throw new AppException(ModelState.GetErrorMessage());
 
             return appDomainResult;
+        }
+
+        /// <summary>
+        /// Lấy user hiện tại theo token
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getcurrentuser")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> GetCurrentUser()
+        {
+            Users user = await domainService.GetByIdAsync(LoginContext.Instance.CurrentUser.UserId);
+            return new AppDomainResult()
+            {
+                Data = user,
+                ResultCode = (int)HttpStatusCode.OK,
+                Success = true
+            };
         }
     }
 }

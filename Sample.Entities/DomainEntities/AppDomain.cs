@@ -12,7 +12,7 @@ namespace Sample.Entities.DomainEntities
     {
         public AppDomain()
         {
-            //Created = DateTime.Now;
+            Created = DateTime.Now;
         }
         /// <summary>
         /// ID chủ của User

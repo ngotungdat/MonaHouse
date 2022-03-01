@@ -70,6 +70,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<AreaRequest, Area>().ReverseMap();
             CreateMap<PagedList<AreaModel>, PagedList<Area>>().ReverseMap();
 
+            CreateMap<PackageModel, Package>().ReverseMap();
+            CreateMap<PackageRequest, Package>().ReverseMap();
+            CreateMap<PagedList<PackageModel>, PagedList<Package>>().ReverseMap();
+
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,10 @@ namespace MyHouse.MVC.Controllers
     {
         public IActionResult PackageList()
         {
+            string token = HttpContext.Session.GetString("token");
+            if(string.IsNullOrEmpty(token))
+                return RedirectToAction("Login", "Login");
+            ViewBag.Token = token;
             return View();
         }
     }

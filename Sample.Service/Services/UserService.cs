@@ -415,5 +415,10 @@ namespace Sample.Service.Services
 
             return result;
         }
+
+        public async Task<Users> GetByToken(string token)
+        {
+            return await this.unitOfWork.Repository<Users>().GetQueryable().Where(e => e.Token == token).FirstOrDefaultAsync();
+        }
     }
 }
