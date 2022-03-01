@@ -25,7 +25,7 @@
                     <div class="table__header-left">
                         <div class="search__box control mg-md-r-5">
                             <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
-                            <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="javascript:;" class="search__box-icon"  id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="table__header-right">
@@ -56,22 +56,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <span class="span-row-page"><b>0/Trang</b></span>
                     <nav aria-label="Page navigation text-right" class="page-nav">
-                        <ul class="pagination mg-b-0">
-                            <li class="page-item disabled">
-                                <a class="page-link page-link-icon" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
-                                        <polyline points="15 18 9 12 15 6">
-                                        </polyline>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
-                        </ul>
+                        <ul class="pagination mg-b-0"></ul>
                     </nav>
+                    <span class="span-totalrow"><b>Tổng cộng: 0</b></span>
                 </div>
             </div>
         </div>
@@ -81,10 +70,12 @@
     let PageIndex = 1;
     let PageSize = 20;
     let SearchContent = '';
-    let OrderBy = 2;
+    let OrderBy = 1;
     let domain = $('input[name="domain"]').val();
     let Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJBcmVhXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiUGVybWlzc2lvblwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkZpbGVcIixcIklzVmlld1wiOnRydWV9XX0iLCJuYmYiOjE2NDYwMzI5OTEsImV4cCI6MTY0NjE0NDU5MCwiaWF0IjoxNjQ2MDMyOTkxfQ.7soAIKXrRgN62wRo9sEA341Z3wvB6lj-P-v7XOC2xD4'
     domain += 'api/Area?';
+    let totalItem = 0;
+    let totalPage = 0;
 
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
@@ -120,6 +111,9 @@
                     html += '</tr>';
                 }
                 $('#tbody-area').html(html);
+                totalItem = data.Data.TotalItem;
+                totalPage = data.Data.TotalPage;
+                load_page(pagination(PageIndex, totalPage), PageIndex, totalPage, totalItem);
             },
             error: function (xhr, status, error) {
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -143,16 +137,6 @@
     function sort_data(val) {
         OrderBy = val;
         load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
-    }
-    //Phân trang
-    function GetTotalPage(totalRow) {
-        totalRow = totalRow;
-        var totalPage = 0;
-        totalPage = Math.floor(totalRow / PageSize);
-        if (totalRow > (totalPage * PageSize)) {
-            totalPage = totalPage + 1;
-        }
-        return totalPage;
     }
     function pagination(c, m) {
         var current = c,
@@ -184,5 +168,40 @@
 
         return rangeWithDots;
     }
-    console.log(`Selected page ${20}:`, pagination(20, 50));
+    
+    function load_page(pag, p, t, totalRow) {
+        $('.span-totalrow').html('<b>Tổng cộng: ' + totalRow + '</b>');
+        $('.span-row-page').html('<b>'+ PageSize +'/Trang</b>');
+        $('.pagination').html('');
+        if (p != 1) {
+            let back = p - 1;
+            $('.pagination').append('<li class="page-item">');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back+')" href="javascript:;"> <<');
+            $('.pagination').append('</a>');
+            $('.pagination').append('</li>');
+        }
+        for (let i of pag) {
+            if (i == '...') {
+                $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
+            }
+            else if (i == p) {
+                $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                
+            } else {
+                $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+            }
+        }
+        if (p != t) {
+            let next = p + 1;
+            $('.pagination').append('<li class="page-item">');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
+            $('.pagination').append('</a>');
+            $('.pagination').append('</li>');
+        }
+    }
+    function load_data_page(val) {
+        PageIndex = val;
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        load_page(pagination(PageIndex, totalPage), PageIndex, totalPage);
+    }
 </script>
