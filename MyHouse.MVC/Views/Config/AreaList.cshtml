@@ -3,7 +3,7 @@
         min-width: 80px;
     }
 </style>
-<input type="hidden" name="connection-string" value="@ViewBag.ConnectionString" />
+<input type="hidden" name="domain" value="@ViewBag.domain" />
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-sm-flex align-items-center justify-content-between ">
         <div>
@@ -188,18 +188,57 @@
     </div><!-- row -->
 </div>
 <script>
-    var siteurl = $('input[name="connection-string"]').val();
-    console.log(siteurl);
-    $.ajax({
-        type: 'GET',
-        dataType: "jsonp",
-        url: siteurl + 'api/Area/3',
-        headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOmZhbHNlfSx7XCJSb2xlTmFtZVwiOlwiQXJlYVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pc3Npb25cIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJGaWxlXCIsXCJJc1ZpZXdcIjp0cnVlfV19IiwibmJmIjoxNjQ1NzgzMTI4LCJleHAiOjE2NDU4OTQ3MjgsImlhdCI6MTY0NTc4MzEyOH0.jlOfY4PvC6WTWYbwq6PrDh4K9J8NCsmwYWo6I-lkjk4',
-        },
-        success: function (data, status, xhr) {
-            console.log('data: ', data);
-            console.log('a');
+    let PageIndex = 1;
+    let PageSize = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let domain = $('input[name="domain"]').val() + 'api/Area';
+    let Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJBcmVhXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiUGVybWlzc2lvblwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkZpbGVcIixcIklzVmlld1wiOnRydWV9XX0iLCJuYmYiOjE2NDYwMzI5OTEsImV4cCI6MTY0NjE0NDU5MCwiaWF0IjoxNjQ2MDMyOTkxfQ.7soAIKXrRgN62wRo9sEA341Z3wvB6lj-P-v7XOC2xD4'
+    domain += 'api/Package?';
+
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId) {
+        return domain + 'PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&TenantId=' + TenantId;
+    }
+    $(document).ready(function () {
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                console.log('data: ', data);
+                let list = data.Data.Items;
+                console.log('list: ', list);
+                let html = ``;
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                }
+                $('.content-data').html(html);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
         }
     });
 </script>

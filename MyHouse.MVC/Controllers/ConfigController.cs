@@ -10,7 +10,7 @@ namespace MyHouse.MVC.Controllers
     {
         public IActionResult AreaList()
         {
-            ViewBag.ConnectionString = "https://localhost:44340/";
+            ViewBag.domain = "https://localhost:44340/";
             return View();
         }
     }
