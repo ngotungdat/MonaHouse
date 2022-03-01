@@ -1,28 +1,31 @@
-﻿
-<link href="~/house/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link href="~/house/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+﻿<style>
+    .navbar-menu .nav-link{
+        line-height:0;
+    }
+</style>
 <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
 <li class="nav-item @ViewBag.Dashboard">
-    <a href="@Url.Action("Dashboard", "Home", new { area = "" })" class="nav-link"><i data-feather="bar-chart-2"></i> Báo cáo</a>
+    <a href="@Url.Action("Dashboard", "Home", new { area = "" })" class="nav-link"><i class="fas fa-chart-area"></i> <span class="mg-l-5">Thống kê</span></a>
 </li>
 <li class="nav-item @ViewBag.ListHouse">
-    <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i data-feather="home"></i> Nhà/Dãy trọ</a>
+    <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i class="fas fa-home"></i> <span class="mg-l-5">Nhà/Dãy trọ</span></a>
 </li>
 <li class="nav-item @ViewBag.ListRoom">
-    <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i data-feather="layout"></i> Phòng</a>
+    <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i class="fas fa-hospital-alt"></i> <span class="mg-l-5">Phòng</span></a>
 </li>
 <li class="nav-item @ViewBag.ElectrictWater">
-    <a href="@Url.Action("RecordList", "Record", new { area = "" })" class="nav-link"><i data-feather="zap"></i> Ghi điện nước</a>
+    <a href="@Url.Action("RecordList", "Record", new { area = "" })" class="nav-link"><i class="fas fa-edit"></i> <span class="mg-l-5">Ghi điện nước</span></a>
 </li>
 <li class="nav-item @ViewBag.CollectList">
-    <a href="@Url.Action("PaymentHistoryList", "PaymentHistory", new { area = "" })" class="nav-link"><i data-feather="dollar-sign"></i> Lịch sử thu tiền</a>
+    <a href="@Url.Action("PaymentHistoryList", "PaymentHistory", new { area = "" })" class="nav-link"><i class="fas fa-history"></i> <span class="mg-l-5">Lịch sử thu tiền</span></a>
 </li>
 <li class="nav-item with-sub">
-    <a href="javascript:;" class="nav-link"><i data-feather="settings"></i> Cấu hình</a>
+    <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Cấu hình</span></a>
     <ul class="navbar-menu-sub">
         <li class="nav-sub-item"><a href="@Url.Action("AreaList", "Config", new { area = "" })" class="nav-sub-link"><i data-feather="box"></i>Cấu hình Tỉnh/TP</a></li>
         <li class="nav-sub-item"><a href="@Url.Action("RenterList", "Renter", new { area = "" })" class="nav-sub-link"><i data-feather="users"></i>Danh sách khách thuê</a></li>
         <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
+        <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
         <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>
     </ul>
 </li>
@@ -37,21 +40,21 @@
         <a href="@Url.Action("SessionPayment", "Customer", new { area = "Admin" })" class="nav-link"><i data-feather="layout"></i> Danh sách phiên thanh toán</a>
     </li>*@
 <script>
-    function setActive(path) {
-        console.log(path);
-        if (path.toLowerCase().indexOf('/dashboard') != -1) {
-            console.log(path);
-            $('.nav-Dashboard').addClass('active')
-        }
-        if (path.toLowerCase().indexOf('/customerlist') != -1 || path.toLowerCase().indexOf('/listlouse') != -1 || path.toLowerCase().indexOf('/listroom') != -1) {
-            $('.nav-CustomerList').addClass('active')
-            console.log(path);
-        }
-        if (path.toLowerCase().indexOf('/sessionpayment') != -1) {
-            $('.nav-SessionPayment').addClass('active')
-            console.log(path);
-        }
-    }
+    //function setActive(path) {
+    //    console.log(path);
+    //    if (path.toLowerCase().indexOf('/dashboard') != -1) {
+    //        console.log(path);
+    //        $('.nav-Dashboard').addClass('active')
+    //    }
+    //    if (path.toLowerCase().indexOf('/customerlist') != -1 || path.toLowerCase().indexOf('/listlouse') != -1 || path.toLowerCase().indexOf('/listroom') != -1) {
+    //        $('.nav-CustomerList').addClass('active')
+    //        console.log(path);
+    //    }
+    //    if (path.toLowerCase().indexOf('/sessionpayment') != -1) {
+    //        $('.nav-SessionPayment').addClass('active')
+    //        console.log(path);
+    //    }
+    //}
 </script>
 
 

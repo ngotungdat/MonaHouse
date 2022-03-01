@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sample.Entities\Sample.Entities.csproj" />
     <ProjectReference Include="..\Sample.Utilities\Sample.Utilities.csproj" />
   </ItemGroup>
 

@@ -1,82 +1,59 @@
-﻿<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
-    <h4 class="mg-b-15 tx-spacing--1">CÁC GÓI PHẦN MỀM</h4>
+﻿
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <h4 class="mg-b-15 tx-spacing--1">DANH SÁCH NHÀ TRỌ</h4>
     <div class="row row-xs">
-        <div class="table__filter__wrap ">
-            <div class="table__filter-header mg-t-0-f">
-                <div class="table__header-left">
-                    <a href="#modal-add-house" class="btn btn-primary" data-toggle="modal"><i class="fas fa-home"></i> Thêm gói phần mềm</a>
-                </div>
-                <div class="table__header-right">
-                    <div class="header__right-action">
-                        <div class="search__box control mg-md-r-5">
-                            <input type="text" name="search" class="form-control search__box-area input-style" placeholder="Tìm kiếm..." value="@ViewBag.Search" />
-                            <a href="javascript:;" id="btn-search" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
+        <div class="col">
+            <div class="table__filter__wrap ">
+                <div class="table__filter-header mg-t-0-f">
+                    <div class="table__header-left">
+                        <a href="#modal-add-house" class="btn btn-primary" data-toggle="modal"><i class="fas fa-home"></i> Thêm nhà - Dãy trọ</a>
                     </div>
-                </div>
-            </div>
-            <div class="house-layout-list mg-t-15">
-                <div class="row justify-content-md-center">
-                    <div class="col-4 mg-t-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Gói dùng thử</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Dùng thử</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mg-t-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Đặt mua</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mg-t-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Đặt mua</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mg-t-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Đặt mua</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mg-t-10">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Đặt mua</a>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" name="search" class="form-control search__box-area input-style" placeholder="Tìm kiếm..." value="@ViewBag.Search" />
+                                <a href="javascript:;" id="btn-search" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="house-layout-list mg-t-15">
+                    <div class="row content-data">
+                        @*<div class="house-wrap col-md-4">
+                                <div class="house-item">
+                                    <div class="media ">
+                                        <div class="media-body ">
+                                            <div class="group-top">
+                                                <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                                <div class="house-meta">
+                                                    <p>
+                                                        <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                    </p>
+                                                    <p>
+                                                        <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                            <div class="house-address">
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <button type="button" class="btn btn-info">Đặt mua</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
+</div><!-- row -->
 
 
 @using (Html.BeginForm("AddHouse", "House", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -115,7 +92,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mg-t-10">
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ:</label>
                                 <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 155 Cộng Hòa">
@@ -128,44 +105,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP:</label>
-                                <select name="dll-house-area" class="form-control">
-                                    <option value="0">-----</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện:</label>
-                                <select name="dll-house-district" class="form-control">
-                                    <option value="0">-----</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã:</label>
-                                <select name="dll-house-ward" class="form-control">
-                                    <option value="0">-----</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện trên 1 kwH:</label>
-                                <input type="number" name="txt-house-electricFee" class="form-control" placeholder="Ví dụ: 3500">
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại tiền nước:</label>
-                                <select name="dll-house-waterFeeType" class="form-control">
-                                    <option value="1">Tính theo khối</option>
-                                    <option value="2">Tính theo người</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước:</label>
-                                <input type="number" name="txt-house-waterFee" class="form-control" placeholder="Ví dụ: 18000">
-                            </div>
-                        </div>
-
                     </div>
                     <div class="form-group">
                         <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
@@ -175,60 +114,7 @@
                         <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nội quy:</label>
                         <textarea rows="1" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Hình ảnh:</label>
-                        <input type="file" class="dropify" name="photo" />
-                    </div>
                 </div><!-- modal-body -->
-                <div class="modal-body pd-sm-t-30 pd-sm-x-30 modal-body-border-top">
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i data-feather="tv" class="wd-60 ht-60"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tiện ích</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0">Tiện ích của dãy trọ</p>
-                        </div>
-                    </div><!-- media -->
-                    <div class="form-group">
-                        <div class="row checked-in-form">
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch-1" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch-1">Gác</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế Bàn ghế</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Gác</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Máy giặt</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Tủ lạnh</label>
-                            </div>
-                            <div class="form-check form-switch col-sm-3 mt-3">
-                                <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                <label class="form-check-label" for="mySwitch">Bàn ghế</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align:center;margin-top:50px">
-                        <p>Nếu nhà của bạn có tiện ích không xuất hiện trong danh sách. Hãy ấn nút "Bổ sung tiện ích" để thêm</p>
-                        <button type="button" class="btn btn-primary">Bổ sung tiện ích</button>
-                    </div>
-                </div>
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
                     <button type="submit" class="btn btn-primary">Tạo mới</button>
@@ -237,4 +123,92 @@
         </div><!-- modal-dialog -->
     </div><!-- modal -->
 }
+<script>
+    let PageIndex = 1;
+    let PageSize = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let domain = 'https://localhost:44340/';
+    domain += 'api/Package?';
+
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + 'PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    $(document).ready(function () {
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBhY2thZ2VcIixcIklzVmlld1wiOmZhbHNlfSx7XCJSb2xlTmFtZVwiOlwiVXNlclwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkJyYW5jaFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkFyZWFcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJQZXJtaXNzaW9uXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiRmlsZVwiLFwiSXNWaWV3XCI6dHJ1ZX1dfSIsIm5iZiI6MTY0NjAyMTE1MCwiZXhwIjoxNjQ2MTMyNzUwLCJpYXQiOjE2NDYwMjExNTB9.MkKupKqyKdCJ1uWP8X2DHeLmT-27LCyZtJE-o-GvLcg',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                //console.log('list: ', list);
+                //Swal.fire(
+                //    'Good job!',
+                //    'You clicked the button!',
+                //    'success'
+                //);
+                let html = ``;
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    html += ` <div class="house-wrap col-md-4">
+                            <div class="house-item">
+                                <div class="media ">
+                                    <div class="media-body ">
+                                        <div class="group-top">
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
+                                            <div class="house-meta">
+                                                <p>
+                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
+                                                </p>
+                                                <p>
+                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
+                                        <div class="house-address">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <button type="button" class="btn btn-info">Đặt mua</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                }
+                $('.content-data').html(html);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        }
+    });
+</script>
 

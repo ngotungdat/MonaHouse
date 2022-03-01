@@ -32,7 +32,7 @@ namespace Sample.Entities.DomainEntities
         /// Nội dung tìm kiếm chung
         /// </summary>
         [StringLength(1000, ErrorMessage = "Nội dung không vượt quá 1000 kí tự")]
-        public string SearchContent { set; get; }
+        public string SearchContent { set; get; } = "";
 
         /// <summary>
         /// Cột sắp xếp

@@ -9,5 +9,6 @@ namespace Sample.Extensions
     {
         public string Secret { get; set; }
         public bool GrantPermissionDebug { get; set; }
+        public string Domain { get; set; }
     }
 }

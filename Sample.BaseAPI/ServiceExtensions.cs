@@ -65,6 +65,7 @@ namespace Sample.BaseAPI
 
             services.AddScoped<IBranchService, BranchService>();
             services.AddScoped<IAreaService, AreaService>();
+            services.AddScoped<IPackageService, PackageService>();
 
             #endregion
 

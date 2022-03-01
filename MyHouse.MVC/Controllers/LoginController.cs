@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RestSharp;
 using Sample.Utilities;
 using System;
@@ -21,7 +22,7 @@ namespace MyHouse.MVC.Controllers
         {
             string username = f["txt-username"].ToString().Trim();
             string password = f["txt-password"].ToString();
-            var client = new RestClient("https://monahouse-api.monamedia.net/api/authenticate/login");
+            var client = new RestClient("https://localhost:44340/api/authenticate/login");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
@@ -30,7 +31,8 @@ namespace MyHouse.MVC.Controllers
             var response = await client.ExecuteAsync<AppDomainResult>(request);
             if (response.Data.Success)
             {
-                HttpContext.Session.SetString("token", response.Data.Data.ToString());
+                string token = response.Data.Data.ToString();
+                HttpContext.Session.SetString("token", token);
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", response.Data.ResultMessage);

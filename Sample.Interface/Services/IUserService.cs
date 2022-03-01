@@ -18,5 +18,6 @@ namespace Sample.Interface.Services
         Task<bool> UpdateUserPassword(int userId, string newPassword);
 
         Task<bool> IsInUserGroup(int userId, string userGroupCode);
+        Task<Users> GetByToken(string token);
     }
 }
