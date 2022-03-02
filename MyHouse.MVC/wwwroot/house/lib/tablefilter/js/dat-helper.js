@@ -18,12 +18,12 @@ export const replaceInputType = (type, value) => {
             {
                 let regx = /\D+/g;
                 let number = value.replace(regx, "");
-                return number.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+                return number.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.").replaceAll('.', ',');
                 break;
             }
         case 'number':
             {
-                return value.replace(/[^0-9]/, "");
+                return value.replace(/[^0-9]/, "").replaceAll('.', ',');
                 break;
             }
     }

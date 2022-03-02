@@ -1,24 +1,12 @@
-﻿@*@using Motel.Models;
-    @using MB.Extensions;
-    @using Motel.TableSQL;
-    @{
-        tbl_Account aclog = new tbl_Account();
-        if (Session["UID"] != null)
-        {
-            aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt());
-
-        }
-        else
-        {
-            Response.Redirect(Url.Action("Signin", "Login", new { area = "" }));
-        }
-        string av = "/house/images/invis-user.png";
-        if (!string.IsNullOrEmpty(aclog.AvatarThumbnail))
-        {
-            av = aclog.AvatarThumbnail;
-        }
-        List<tbl_NotificationSingle> noti = NotificationSingleTable.GetByUIDNew(aclog.ID);
-    }*@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string token = Context.Session.GetString("token");
+    string domain = Context.Session.GetString("domain");
+    if (string.IsNullOrEmpty(token))
+    {
+        Context.Response.Redirect(Url.Action("Login", "Login"));
+    }
+}
 
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -85,18 +73,25 @@
         .modal-body-border-top {
             border-top: 1px solid #d8d7d7
         }
+
         .page-nav {
             float: right;
         }
+
         .span-totalrow {
             display: inline-block;
             float: right;
             margin: 8px
         }
+
         .span-row-page {
             display: inline-block;
             float: right;
             margin: 8px
+        }
+
+        .modal-nopadding-right {
+            padding-right: 0 !important;
         }
     </style>
     <div class="modal-loading" style="background-image: url('/house/loading.gif')"></div>
@@ -144,7 +139,7 @@
                     <a href="@Url.Action("Price", "PriceTable", new { area = "" })" class="dropdown-item"><i data-feather="chevrons-up"></i> Nâng cấp tài khoản</a>
                     <a href="tel:1900636648" class="dropdown-item"><i data-feather="phone-call" style="font-size:16px;"></i> Hỗ trợ: 1900 636 648</a>
                     <div class="dropdown-divider"></div>
-                    <a href="@Url.Action("Signout", "Login", new { area = "" })" class="dropdown-item"><i data-feather="log-out"></i>Đăng xuất</a>
+                    <a href="@Url.Action("Signout", "Login")" class="dropdown-item"><i data-feather="log-out"></i>Đăng xuất</a>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
         </div><!-- navbar-right -->
@@ -190,47 +185,10 @@
         ajaxStart: function () { $body.addClass("loading"); },
         ajaxStop: function () { $body.removeClass("loading"); }
     });
-    @*$(document).ready(function () {
-        if ('@TempData["AlertMessage"]' != '') {
-            toast.create({
-                title: 'Notification!',
-                text: '@TempData["AlertMessage"]',
-                icon: '@TempData["Icon"]',
-                classBackground: '@TempData["Class"]',
-                timeout: 3000
-            })
-        }
-        $('.dropify').dropify();
-
-        $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
-            placement: 'right'
-        })
-
-        $('form').submit(function () {
-            $(this).find('button[type=submit]').prop('disabled', true);
-        });
-        setActive(window.location.pathname);
-    });*@
     function ckstring(str) { //check null empty
         return (!str || /^\s*$/.test(str));
     }
-    function moneyfm(e) {
-        var cus = $(e).val().replace(/,/g, '');
-
-        var regex = /^[0-9]+$/;
-
-        if (!cus.match(regex)) {
-            return $(e).val(0);
-        }
-        cus = cus.replace(/,/g, "");
-        $(e).val(dinhdangtien(cus, ','));
+    function format_money(input) {
+        return parseInt(input).toLocaleString();
     }
-    var dinhdangtien = function (n, dp) {// format money
-        var s = '' + (Math.floor(n)), d = n % 1, i = s.length, r = '';
-        while ((i -= 3) > 0) { r = ',' + s.substr(i, 3) + r; }
-        return s.substr(0, i + 3) + r +
-            (d ? '.' + Math.round(d * Math.pow(10, dp || 2)) : '');
-    };
-
 </script>

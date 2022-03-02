@@ -49,7 +49,6 @@ namespace MyHouse.MVC.Controllers
 
         public IActionResult Dashboard()
         {
-            string id = HttpContext.Session.GetString("token");
             return View();
         }
 

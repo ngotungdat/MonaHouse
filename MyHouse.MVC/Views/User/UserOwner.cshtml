@@ -1,0 +1,1167 @@
+﻿
+<style>
+    /*input.form-control:disabled {
+        background: none;
+    }*/
+
+    .room .room-header a.item-link {
+        color: #46CED0;
+    }
+
+    .room-header .dropdown__wrap {
+        right: 15px;
+        position: absolute;
+    }
+
+    .room .room-info {
+        padding-top: 30px;
+    }
+
+    .result-goout .tx-row .lb {
+        flex: 0 0 250px;
+    }
+
+    .room .lb {
+        margin-bottom: 2px;
+    }
+
+    .ls-room {
+        text-align: left;
+    }
+
+    .form-control {
+        height: initial;
+    }
+
+    .input-group-text {
+        padding: initial;
+    }
+
+    .sticky-top {
+        background: white;
+    }
+
+    .content-fixed {
+        margin-top: 0px;
+    }
+
+        .content-fixed a {
+            text-decoration: none;
+        }
+
+    .tbody-roomlist {
+        border-top: none;
+    }
+
+    .table > :not(:first-child) {
+        border-top: 1px solid currentColor;
+    }
+
+    .table-striped tbody tr:nth-of-type(2n+1) {
+        background-color: #f3f4f7;
+    }
+</style>
+<div class="content content-fixed">
+    <div class="fixed-filter sticky-top">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h4 class="mg-b-15 tx-spacing--1">Danh sách chủ nhà</h4>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex">
+                        <div class="form-group mg-r-15 group-select">
+                            <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></label>
+                            <select name="" class="form-control">
+                                <option value="">321 CMT8, Lý Thường Kiệt</option>
+                                <option value="" selected="">319 CMT8 , Trương Định</option>
+                            </select>
+                        </div>
+                        <div class="form-group group-select">
+                            <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
+                            <select name="" class="form-control">
+                                <option value="">Tháng 1</option>
+                                <option value="" selected="">Tháng 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="row row-xs">
+            <div class="col">
+                <div class="table__filter__wrap bd-t pd-t-15">
+                    <div class="table__filter-header mg-t-0-f">
+                        <div class="table__header-left d-flex">
+                            <div class="search__box control">
+                                <input type="text" class="form-control search__box-area input-style" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="table__header-right">
+                            <div class="header__right-action">
+                                <div class="select-sort">
+                                    <span>Sắp trống: </span>
+                                    <select name="" class="form-control">
+                                        <option value="">Tháng sau</option>
+                                        <option value="">2 tháng tới</option>
+                                        <option value="">3 tháng tới</option>
+                                        <option value="">4 tháng tới</option>
+                                        <option value="">5 tháng tới</option>
+                                    </select>
+                                </div>
+                                <div class="select-sort">
+                                    <span>Sắp xếp: </span>
+                                    <select name="" class="form-control">
+                                        <option value="">Tên trọ A-Z ↓</option>
+                                        <option value="">Tên trọ Z-A ↑</option>
+
+                                        <option value="">Tiền nợ ↓</option>
+                                        <option value="">Tiền nợ ↑</option>
+                                    </select>
+                                </div>
+                                <div class="select-sort">
+                                    <span>Trạng thái: </span>
+                                    <select name="" class="form-control">
+                                        <option value="">Sắp chuyển vào</option>
+                                        <option value="">Phòng trống</option>
+                                        <option value="">Sắp dọn ra</option>
+                                        <option value="">Chưa có khách dọn vào</option>
+                                        <option value="">Đã thu tiền</option>
+                                        <option value="">Chưa thu tiền</option>
+                                    </select>
+                                </div>
+                                <div class="mg-b-15">
+                                    <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                    <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table__filter-form">
+                        <div class="filter__form__wrap">
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Trạng thái phòng</label>
+                                    <select name="" class="form-control">
+                                        <option value="" selected="">-Tất cả-</option>
+                                        <option value="1">Sắp chuyển vào</option>
+                                        <option value="1">Sắp dọn ra</option>
+                                        <option value="1">Đang ở</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Điện nước</label>
+                                    <select name="" class="form-control">
+                                        <option value="">-Tất cả-</option>
+                                        <option value="1" selected="">Chưa ghi</option>
+                                        <option value="1" selected="">Đã ghi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Phòng sắp trống</label>
+                                    <div class="row from-to-group">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Ngày dọn vào</label>
+                                    <div class="row from-to-group">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Nhà / dãy trọ</label>
+                                    <select name="" class="form-control">
+                                        <option value="">-Tất cả-</option>
+                                        <option value="1" selected="">319 CMT7, Trương Định</option>
+                                        <option value="1">64 Út Tịch</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Thu tiền</label>
+                                    <select name="" class="form-control">
+                                        <option value="">-Tất cả-</option>
+                                        <option value="1" selected="">Chưa thu tiền</option>
+                                        <option value="2" selected="">Đã thu tiền</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Loại phòng</label>
+                                    <select name="" class="form-control">
+                                        <option value="">-Tất cả-</option>
+                                        <option value="1" selected="">Ngắn hạn</option>
+                                        <option value="2" selected="">Dài hạn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter__form-col">
+                                <div class="form__group">
+                                    <label>Tiền nợ</label>
+                                    <select name="" class="form-control">
+                                        <option value="">-Tất cả-</option>
+                                        <option value="1" selected="">Đang có nợ</option>
+                                        <option value="2" selected="">Không nợ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter__form-submit">
+                            <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
+                        </div>
+                    </div>
+                    <div class="table__filter-wrap">
+                        <div class="table-responsive">
+                            <table class="table  tx-14  table-striped table-hover border" id="table-list-room">
+                                <thead class="thead-primary">
+                                    <tr>
+                                        <th class="checkbox-col">
+                                        </th>
+                                        <th class="sort-label" data-column="col-house">Họ và tên</th>
+                                        <th class="sort-label" data-column="col-room">Số điện thoại</th>
+                                        <th class="sort-label" data-column="col-status">Trạng thái</th>
+                                        <th class="sort-label" data-column="col-electric">Ngày tạo</th>
+                                        <th class="sort-label" data-column="col-people">Tổng thanh toán</th>
+                                        <th class="sort-label" data-column="col-deposit">Tiền nợ</th>
+                                        <th class="action-col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody-roomlist">
+                                    <tr>
+                                        <td class="checkbox-col">
+                                            <a href="javascript:;" class="toggle-collapse"><i class="fa fa-angle-down"></i></a>
+                                        </td>
+                                        <td data-column="col-house">
+                                            <a href="room-detail.php">
+                                                Nguyễn Trần Uyển Nhi
+                                            </a>
+                                        </td>
+                                        <td data-column="col-room">
+                                            <a href="room-detail.php">0967676895</a>
+                                        </td>
+                                        <td data-column="col-status">
+                                            <span class="badge badge-warning wd-100 pd-5 tx-12">
+                                                Sắp
+                                                chuyển vào
+                                            </span>
+                                            <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>
+                                        </td>
+                                        <td data-column="col-electric">---</td>
+                                        <td data-column="col-people">---</td>
+                                        <td data-column="col-deposit">
+                                            <span class="tx-danger tx-medium">12.000.000</span>
+                                        </td>
+                                        <td class="action-col">
+                                            <div class="dropdown__wrap">
+                                                <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                                <ul class="drop-menu">
+                                                    <li class="drop-menu-item"><a href="room-detail.php" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-electronicNote" data-toggle="modal" class="item-link">
+                                                            <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
+                                                            điện
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-payMoney" data-toggle="modal" class="item-link">
+                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true"></i></span>Thu
+                                                            tiền
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-goOut" data-toggle="modal" class="item-link">
+                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>Dọn
+                                                            ra
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="add-people.php" class="item-link">
+                                                            <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
+                                                            vào
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="collapse-row">
+                                        <td colspan="10">
+                                            <div class="table-content">
+                                                <div class="row flex-wrap-1 mg-t-15">
+                                                    <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+                                                        <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin thêm">
+                                                            <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <div class="info-list">
+                                                                <dl class="row-info">
+                                                                    <dd class="">Tên phòng:</dd>
+                                                                    <dt class="">Phòng 01</dt>
+                                                                </dl>
+                                                                <dl class="row-info hide-on-print">
+                                                                    <dd class="">Trạng thái:</dd>
+                                                                    <dt class="">
+                                                                        <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                                                            Đã đặt cọc
+                                                                        </span>
+                                                                    </dt>
+                                                                </dl>
+
+
+                                                                <dl class="row-info">
+                                                                    <dd class="">Người đại diện:</dd>
+                                                                    <dt class="">Trương Văn Lam</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Điện thoại:</dd>
+                                                                    <dt class="">0886706289</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Ngày dọn vào:</dd>
+                                                                    <dt class="">20/11/2020</dt>
+                                                                </dl>
+                                                                <dl class="row-info mg-b-0">
+                                                                    <dd class="">Tiền nợ:</dd>
+                                                                    <dt class=""><span class="tx-danger">3.500.000</span></dt>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-8 ">
+                                                        <div class="legend-box pd-25  " data-label="Phí và dịch vụ">
+                                                            <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="info-list">
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Giá phòng:</dd>
+                                                                            <dt class="">3.500.000</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Giá điện / KW:</dd>
+                                                                            <dt class="">3500</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Giá nước:</dd>
+                                                                            <dt class="">0886706289</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Điện tháng trước:</dd>
+                                                                            <dt class="">
+                                                                                <span class="mg-r-10" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">500.000</span>
+                                                                                <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span>
+                                                                            </dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Nước tháng trước:</dd>
+                                                                            <dt class="">
+                                                                                <span tabindex="0" class="mg-r-10" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 m<sup>3</sup></strong>" data-original-title="Số nước tháng 3">500.000</span>
+                                                                                <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span>
+                                                                            </dt>
+                                                                        </dl>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="info-list">
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Mạng:</dd>
+                                                                            <dt class="">200.000</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Rác:</dd>
+                                                                            <dt class="">50.000</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Giữ xe:</dd>
+                                                                            <dt class="">150.000</dt>
+                                                                        </dl>
+
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Cáp TV:</dd>
+                                                                            <dt class="">
+                                                                                <span class="tx-second">100.000</span>
+                                                                            </dt>
+                                                                        </dl>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table  valign-center tx-nowrap table-striped tx-center">
+                                                        <caption class="tx-left-f mg-b-0-f">Lịch sử thanh toán</caption>
+                                                        <thead class="valign-middle">
+                                                            <tr>
+                                                                <th>Tháng</th>
+                                                                <th>Tiền nhà</th>
+                                                                <th><span class="">Điện<span></span></span></th>
+                                                                <th><span class="">Nước</span></th>
+                                                                <th><span class="">Dịch vụ</span></th>
+                                                                <th><span class="">Tổng</span></th>
+                                                                <th><span class="">Thực nhận</span></th>
+                                                                <th><span class="">Còn nợ</span></th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tháng 06/2020</td>
+                                                                <td>3.000.000</td>
+                                                                <td>500.000</td>
+                                                                <td>226.00</td>
+                                                                <td>300.000</td>
+                                                                <td>4.126.000</td>
+                                                                <td>3.500.000</td>
+                                                                <td><span class="tx-danger">620.000</span></td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tháng 06/2020</td>
+                                                                <td>3.000.000</td>
+                                                                <td>500.000</td>
+                                                                <td>226.00</td>
+                                                                <td>300.000</td>
+                                                                <td>4.126.000</td>
+                                                                <td>3.500.000</td>
+                                                                <td><span class="tx-danger">620.000</span></td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tháng 06/2020</td>
+                                                                <td>3.000.000</td>
+                                                                <td>500.000</td>
+                                                                <td>226.00</td>
+                                                                <td>300.000</td>
+                                                                <td>4.126.000</td>
+                                                                <td>3.500.000</td>
+                                                                <td><span class="tx-danger">620.000</span></td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tháng 06/2020</td>
+                                                                <td>3.000.000</td>
+                                                                <td>500.000</td>
+                                                                <td>226.00</td>
+                                                                <td>300.000</td>
+                                                                <td>4.126.000</td>
+                                                                <td>3.500.000</td>
+                                                                <td><span class="tx-danger">620.000</span></td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation text-right">
+                            <ul class="pagination mg-b-0">
+                                <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+</div>
+<!--<div class="modal fade" id="js-electronicNote">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-ew-roomname">Phòng số 01</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body ">
+    <div class="d-flex align-items-center owner-wrap mg-b-15">
+        <div class="owner-avatar d-flex align-items-center">
+            <span class="avatar overflow-hidden rounded-circle">
+                <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+            </span>
+        </div>
+        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+            <div class="info">
+                <p class="name mg-b-0 tx-color-01 tx-medium" id="lb-ew-renter-name">Trương Văn Lam</p>
+                <p class="affliate mg-b-0 mg-t-0 ">
+                    <a href="tel:+0" id="lb-ew-renter-email"
+                       class="tx-color-03">vanlam@gmail.com</a>
+                </p>
+            </div>
+            <div class="quick-contact">
+                <a href="tel:+0" id="lb-ew-renter-phone"><i data-feather="phone"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-row col-6">
+            <div class="col-sm-12  form-group">
+                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
+                <input type="number" class="form-control number-val" name="txt-electric-current-month" placeholder="0 0 0 0 0">
+            </div>
+
+        </div>
+        <div class="form-row col-6">
+            <div class="col-sm-12  form-group">
+                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số Số nước</label>
+                <input type="number" class="form-control number-val" name="txt-water-current-month" placeholder="0 0 0 0 0">
+            </div>
+
+        </div>
+        <div class="form-row col-6">
+            <div class="col-12 upload-box mg-b-20">
+                <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                    <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ điện
+                </a>
+                <input type="file" class="hidden upload-image-renter" accept="image/*">
+                <input type="hidden" name="hdfElectricIMG" class="submit-image" value="0" />
+                <div class="preview-image"></div>
+            </div>
+        </div>
+        <div class="form-row col-6">
+            <div class="col-12 upload-box mg-b-20">
+                <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                    <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ nước
+                </a>
+                <input type="file" class="hidden upload-image-renter" accept="image/*">
+                <input type="hidden" name="hdfWaterIMG" value="0" class="submit-image" />
+                <div class="preview-image"></div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-primary btn-write-ew">Cập nhật</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-goOut">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0 lb-go-roomname">Phòng số 01</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body ">
+        <div class="d-flex align-items-center owner-wrap mg-b-15">
+            <div class="owner-avatar d-flex align-items-center">
+                <span class="avatar overflow-hidden rounded-circle">
+                    <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+                </span>
+            </div>
+            <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                <div class="info">
+                    <p class="name mg-b-0 tx-color-01 tx-medium lb-go-renter-name">Trương Văn Lam</p>
+                    <p class="affliate mg-b-0 mg-t-0"><a href="mailto:vanlam@gmail.com" class="tx-color-03 lb-go-renter-email">vanlam@gmail.com</a></p>
+                </div>
+                <div class="quick-contact">
+                    <a href="tel:+0" class="lb-go-renter-phone"><i data-feather="phone"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
+                    <div class="input-icon">
+                        <input type="tel" class="form-control" name="txt-go-datein" placeholder="dd/mm/yyyy" value="20/10/2019" disabled>
+                        <a href="javascript:;" class="datepicker-trigger icon">
+                            <i class="" data-feather="calendar"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Hợp đồng</label>
+                    <div class="input-icon">
+                        <input type="tel" class="form-control" name="txt-go-dateout-contract" placeholder="dd/mm/yyyy" disabled>
+                        <a href="javascript:;" class="datepicker-trigger icon">
+                            <i class="" data-feather="calendar"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
+                    <div class="input-icon">
+                        <input type="tel" class="form-control datetimepicker date-only" name="txt-go-dateout" value="@DateTime.Now.ToString("dd/MM/yyyy")" placeholder="dd/mm/yyyy">
+                        <a href="javascript:;" class="datepicker-trigger icon">
+                            <i class="" data-feather="calendar"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-row">
+                    <div class="col-12 form-group">
+                        <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng này</label>
+                        <input type="number" name="txt-go-electric" class="form-control number-val" placeholder="0">
+                    </div>
+                    <div class="col-12 upload-box mg-b-15">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                            <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ điện
+                        </a>
+                        <input type="file" class="hidden upload-image-renter" accept="image/*">
+                        <input type="hidden" name="hdfGoOutElectricIMG" class="submit-image" value="0" />
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-row">
+                    <div class="col-12 form-group">
+                        <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Nước tháng này</label>
+                        <input type="number" name="txt-go-water" class="form-control number-val" placeholder="0">
+                    </div>
+                    <div class="col-12 upload-box mg-b-15">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                            <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ nước
+                        </a>
+                        <input type="file" class="hidden upload-image-renter" accept="0/*">
+                        <input type="hidden" name="hdfGoOutWaterIMG" class="submit-image" value="0" />
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-success go-out-step2">Dọn ra</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-goOut-success">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0 lb-go-roomname">Phòng số 01</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body ">
+    <div class="d-flex align-items-center owner-wrap mg-b-15">
+        <div class="owner-avatar d-flex align-items-center">
+            <span class="avatar overflow-hidden rounded-circle">
+                <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+            </span>
+        </div>
+        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+            <div class="info">
+                <p class="name mg-b-0 tx-color-01 tx-medium lb-go-renter-name">Trương Văn Lam</p>
+                <p class="affliate mg-b-0 mg-t-0 ">
+                    <a href="mailto:vanlam@gmail.com" class="tx-color-03 lb-go-renter-email">vanlam@gmail.com</a>
+                </p>
+            </div>
+            <div class="quick-contact">
+                <a href="tel:+0" class="lb-go-renter-phone"><i data-feather="phone"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="result-goout">
+        <div id="div-result-goout">
+
+        </div>
+        <div class="row mg-b-10 align-items-center">
+            <div class="col">
+                <span class="lb">Trả cọc:</span>
+            </div>
+            <div class="col">
+                <input type="text" data-type="currency" name="txt-refund-deposit" class="form-control" placeholder="0">
+            </div>
+        </div>
+        <div class="row mg-b-10 align-items-center">
+            <div class="col">
+                <span class="lb">Thực nhận của khách:</span>
+            </div>
+            <div class="col">
+                <input type="text" data-type="currency" name="txt-go-money" class="form-control" placeholder="0">
+            </div>
+        </div>
+        <div class="row mg-b-10 align-items-center">
+            <div class="col">
+                <span class="lb">Hình thức:</span>
+            </div>
+            <div class="col">
+                <select name="ddl-go-type" class="form-control">
+                    <option value="1">Tiền mặt</option>
+                    <option value="2">Chuyển khoản</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-warning go-out" data-dismiss="modal">Quay lại</a>
+        <a href="javascript:;" class="btn btn-primary update-go-out" data-dismiss="modal">Dọn ra</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-payMoney">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-cl-roomname">Phòng</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body ">
+    <div class="d-flex align-items-center owner-wrap mg-b-15">
+        <div class="owner-avatar d-flex align-items-center">
+            <span class="avatar overflow-hidden rounded-circle">
+                <img src="~/App_Themes/HouseMona/assets/img/teacher.jpg" alt="avatar">
+            </span>
+        </div>
+        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+            <div class="info">
+                <p class="name mg-b-0 tx-color-01 tx-medium" id="lb-cl-renter-name"></p>
+                <p class="affliate mg-b-0 mg-t-0 ">
+                    <a href="mailto:vanlam@gmail.com"
+                       class="tx-color-03" id="lb-cl-renter-email"></a>
+                </p>
+            </div>
+            <div class="quick-contact">
+                <a href="tel:+0" id="lb-cl-renter-phone"><i data-feather="phone"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="lb">Tiền phòng</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-01 tx-medium" name="sp-room-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="lb">Điện tháng trước:</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-01 tx-medium" name="sp-electric-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="lb">Nước tháng trước:</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-01 tx-medium" name="sp-water-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="lb">Phí dịch vụ:</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-01 tx-medium" name="sp-addon-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="lb lb-debt-name">Tiền nợ:</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-01 tx-medium" name="sp-debt-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <div class="row mg-b-10">
+        <div class="col">
+            <span class="lb tx-medium">Tổng thu:</span>
+        </div>
+        <div class="col tx-right">
+            <span class="value tx-color-03 tx-medium tx-danger" name="sp-total-price">0 <sup>đ</sup></span>
+        </div>
+    </div>
+    <hr class="mg-b-15 mg-t-5" />
+    <div class="row mg-b-10 align-items-center">
+        <div class="col">
+            <span class="lb">Đã nhận:</span>
+        </div>
+        <div class="col">
+            <input type="text" data-type="currency" name="txt-collect-money" class="form-control" placeholder="0">
+        </div>
+    </div>
+    <div class="row mg-b-10 align-items-center">
+        <div class="col">
+            <span class="lb">Hình thức:</span>
+        </div>
+        <div class="col">
+            <select name="ddl-collect-type" class="form-control">
+                <option value="1">Tiền mặt</option>
+                <option value="2">Chuyển khoản</option>
+            </select>
+        </div>
+    </div>
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-primary btn-collect-money">Lưu lại</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-edit-cus">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-room-name">Phòng số 01</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body ">
+    <div class=" room-info">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="col wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên khách:</span>
+                    </div>
+                    <div class="col flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="user" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="text" placeholder="Tên khách" required class="form-control" value="" name="txt-renter-name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="phone"
+                                   class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="tel" placeholder="Số người" class="form-control" required value="" name="txt-renter-phone">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="calendar" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="text" placeholder="__/__/____" name="txt-renter-datein" class="form-control datetimepicker date-only" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                            Ngày
+                            dọn ra:
+                        </span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="calendar" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="text" placeholder="__/__/____" name="txt-renter-dateout" class="form-control datetimepicker date-only" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số người ở:</span>
+                    </div>
+                    <div class=" flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="users" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="tel" placeholder="Số người" class="form-control" value="" name="txt-renter-quantity">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Avatar:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group upload-box upload-avatar" style="flex-wrap:nowrap">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-upload">
+                            <i data-feather="camera"></i>
+                        </a>
+                        <input type="file" class="hidden upload-image-renter" accept="image/*">
+                        <input type="hidden" name="hdfAvatar" class="submit-image" />
+                        <div class="preview-image" id="div-avatar" style="overflow: unset ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-primary btn-update-renterinfo">Lưu lại</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-edit-service">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Dịch vụ và phí</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body " id="form-update-service">
+    <div class=" room-info">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng / tháng:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="dollar-sign" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="tel" placeholder="Số nước" class="form-control" name="txt-room-price" required value="" data-type="currency">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá điện / kW:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="zap" class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="text" placeholder="0" name="txt-room-priceelectric" data-type="currency" required class="form-control" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row form-group">
+                    <div class="wd-120 col col-form-label">
+                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá nước / m<sup>3</sup>:</span>
+                    </div>
+                    <div class="flex-grow-1 col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i data-feather="droplet"
+                                   class="wd-20 ht-20"></i>
+                            </span>
+                        </div>
+                        <input type="text" placeholder="0" required name="txt-room-pricewater" data-type="currency" class="form-control" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="col-form-label">
+                    <span class="tx-uppercase tx-medium tx-spacing-1 d-inline-block">Dịch vụ phòng</span>
+                </div>
+                <div class="list-services">
+
+                </div>
+                <a href="javascript:;" class="btn btn-outline-primary js-add-service">
+                    <i data-feather="plus"></i> Thêm dịch vụ
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-primary btn-update-service">Lưu lại</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<div class="modal fade" id="js-addAdditionFee">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Thêm phí khác</h4>
+                    </div>
+                </div>-->
+<!-- media -->
+<!--</div>--><!-- modal-header -->
+<!--<div class="modal-body">
+
+    <div class="form-row">
+        <div class="col-md-4  form-group">
+            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Số tiền</label>
+            <input type="tel" class="form-control" name="txt-fee-price" data-type="currency" placeholder="0" value="">
+        </div>
+        <div class="col-md-8  form-group">
+            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ghi chú</label>
+            <input type="text" class="form-control" name="txt-fee-note" placeholder="Ghi chú">
+        </div>
+
+    </div>
+
+</div>-->
+<!-- modal-body -->
+<!--<div class="modal-footer pd-x-20 pd-y-15">
+        <a href="javascript:;" class="btn btn-primary add-renter-fee">Thêm</a>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+    </div>
+</div>-->
+<!-- modal-content -->
+<!--</div>--><!-- modal-dialog -->
+<!--</div>
+<input type="hidden" name="hdfRenterID" value="0" />
+<input type="hidden" name="hdfRoomID" value="0" />
+<input name="hdfObjService" type="hidden" />
+
