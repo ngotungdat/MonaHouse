@@ -24,139 +24,22 @@
                 <div class="table__filter-header">
                     <div class="table__header-left">
                         <div class="search__box control mg-md-r-5">
-                            <input type="text" class="form-control search__box-area input-style" placeholder="Tìm kiếm...">
-                            <a href="javascript:;" class="search__box-icon "><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon"  id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
-                            <div class="from-to-group d-flex flex-wrap ">
-                                <div class="select-sort wd-lg-200">
-                                    <span>Từ ngày: </span>
-                                    <input type="text" class="form-control datetimepicker date-only from-date" placeholder="dd/mm/yyyy" autocomplete="off">
-                                </div>
-                                <div class="select-sort wd-lg-200">
-                                    <span>Đến ngày: </span>
-                                    <input type="text" class="form-control datetimepicker date-only to-date" placeholder="dd/mm/yyyy" autocomplete="off">
-                                </div>
-                            </div>
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
-                                <select name="" class="form-control">
-                                    <option value="">--- Tất cả ---</option>
-                                    <option value="">Tên trọ A-Z ↓</option>
-                                    <option value="">Tên trọ Z-A ↑</option>
-                                    <option value="" selected="">Tiền nợ ↓</option>
-                                    <option value="">Tiền nợ ↑</option>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
+                                    <option value="3">Tên Tỉnh/TP A-Z↓</option>
                                 </select>
                             </div>
-
-                            <div class="mg-b-15">
-                                <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
-                                <a href="#" class="btn btn-style js-customize-column m-0" data-target="js-visibility-column"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
-                @*<div class="table__filter-form">
-                    <div class="filter__form__wrap">
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Trạng thái phòng</label>
-                                <select name="" class="form-control">
-                                    <option value="" selected="">-Tất cả-</option>
-                                    <option value="1">Sắp chuyển vào</option>
-                                    <option value="1">Sắp dọn ra</option>
-                                    <option value="1">Đang ở</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Điện nước</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Chưa ghi</option>
-                                    <option value="1" selected="">Đã ghi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Phòng sắp trống</label>
-                                <div class="row from-to-group">
-                                    <div class="col-6">
-                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Ngày dọn vào</label>
-                                <div class="row from-to-group">
-                                    <div class="col-6">
-                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Nhà / dãy trọ</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">319 CMT7, Trương Định</option>
-                                    <option value="1">64 Út Tịch</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Thu tiền</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Chưa thu tiền</option>
-                                    <option value="2" selected="">Đã thu tiền</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Loại phòng</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Ngắn hạn</option>
-                                    <option value="2" selected="">Dài hạn</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Tiền nợ</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Đang có nợ</option>
-                                    <option value="2" selected="">Không nợ</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filter__form-submit">
-                        <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
-                    </div>
-                </div>*@
                 <div class="table__filter-wrap">
                     <div class="table-responsive">
                         <table class="table table-block-mobile table-striped table-history-payment" id="js-visibility-column">
@@ -173,15 +56,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="Page navigation text-right">
-                        <ul class="pagination mg-b-0">
-                            <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
-                        </ul>
+                    <span class="span-row-page"><b>0/Trang</b></span>
+                    <nav aria-label="Page navigation text-right" class="page-nav">
+                        <ul class="pagination mg-b-0"></ul>
                     </nav>
+                    <span class="span-totalrow"><b>Tổng cộng: 0</b></span>
                 </div>
             </div>
         </div>
@@ -191,17 +70,19 @@
     let PageIndex = 1;
     let PageSize = 20;
     let SearchContent = '';
-    let OrderBy = 0;
-    let domain = $('input[name="domain"]').val() + 'api/Area';
+    let OrderBy = 1;
+    let domain = $('input[name="domain"]').val();
     let Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJBcmVhXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiUGVybWlzc2lvblwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkZpbGVcIixcIklzVmlld1wiOnRydWV9XX0iLCJuYmYiOjE2NDYwMzI5OTEsImV4cCI6MTY0NjE0NDU5MCwiaWF0IjoxNjQ2MDMyOTkxfQ.7soAIKXrRgN62wRo9sEA341Z3wvB6lj-P-v7XOC2xD4'
-    domain += 'api/Package?';
+    domain += 'api/Area?';
+    let totalItem = 0;
+    let totalPage = 0;
 
     //Tạo hoặc làm mới api
-    function get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId) {
-        return domain + 'PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&TenantId=' + TenantId;
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + 'PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
     $(document).ready(function () {
-        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
     });
     //Load dữ liệu theo api
     function load_data(api) {
@@ -210,18 +91,29 @@
             dataType: "json",
             url: api,
             headers: {
-                'Authorization': 'Bearer ',
+                'Authorization': 'Bearer ' + Token,
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
                 console.log('data: ', data);
                 let list = data.Data.Items;
-                console.log('list: ', list);
-                let html = ``;
+                //console.log('list: ', list);
+                let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+                    html += '<tr>';
+                    html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    var createBy = '';
+                    if (item.CreateBy != null) createBy = item.CreateBy;
+                    html += '<td>' + createBy + '</td>';
+                    html += '<td></td>';
+                    html += '</tr>';
                 }
-                $('.content-data').html(html);
+                $('#tbody-area').html(html);
+                totalItem = data.Data.TotalItem;
+                totalPage = data.Data.TotalPage;
+                load_page(pagination(PageIndex, totalPage), PageIndex, totalPage, totalItem);
             },
             error: function (xhr, status, error) {
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -231,14 +123,85 @@
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
     });
 
     //Enter tìm kiếm
     $('input[name=search]').keyup(function (event) {
         if (event.keyCode === 13) {
             SearchContent = $('input[name=search]').val();
-            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy, TenantId));
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
         }
     });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+    }
+    function pagination(c, m) {
+        var current = c,
+            last = m,
+            delta = 2,
+            left = current - delta,
+            right = current + delta + 1,
+            range = [],
+            rangeWithDots = [],
+            l;
+
+        for (let i = 1; i <= last; i++) {
+            if (i == 1 || i == last || i >= left && i < right) {
+                range.push(i);
+            }
+        }
+
+        for (let i of range) {
+            if (l) {
+                if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                }
+            }
+            rangeWithDots.push(i);
+            l = i;
+        }
+
+        return rangeWithDots;
+    }
+    
+    function load_page(pag, p, t, totalRow) {
+        $('.span-totalrow').html('<b>Tổng cộng: ' + totalRow + '</b>');
+        $('.span-row-page').html('<b>'+ PageSize +'/Trang</b>');
+        $('.pagination').html('');
+        if (p != 1) {
+            let back = p - 1;
+            $('.pagination').append('<li class="page-item">');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back+')" href="javascript:;"> <<');
+            $('.pagination').append('</a>');
+            $('.pagination').append('</li>');
+        }
+        for (let i of pag) {
+            if (i == '...') {
+                $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
+            }
+            else if (i == p) {
+                $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                
+            } else {
+                $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+            }
+        }
+        if (p != t) {
+            let next = p + 1;
+            $('.pagination').append('<li class="page-item">');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
+            $('.pagination').append('</a>');
+            $('.pagination').append('</li>');
+        }
+    }
+    function load_data_page(val) {
+        PageIndex = val;
+        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        load_page(pagination(PageIndex, totalPage), PageIndex, totalPage);
+    }
 </script>
