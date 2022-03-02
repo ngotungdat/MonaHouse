@@ -35,5 +35,15 @@ namespace Sample.Request
         /// </summary>
         [Required(ErrorMessage = "Vui lòng nhập mô tả thêm!")]
         public string Description { get; set; }
+        /// <summary>
+        /// Loại hình cho thuê: phòng trọ/ktx...
+        /// </summary>
+        [Required(ErrorMessage = "Vui lòng chọn loại hình cho thuê phần mềm!")]
+        public int TypeOfRental { get; set; }
+        /// <summary>
+        /// Loại gói phần mềm: Dùng thử, tính phí, lập trình riêng
+        /// </summary>
+        [Required(ErrorMessage = "Vui lòng chọn loại phần mềm!")]
+        public int PackageType { get; set; }
     }
 }

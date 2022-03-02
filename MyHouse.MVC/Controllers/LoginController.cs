@@ -1,28 +1,47 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using Sample.Extensions;
 using Sample.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MyHouse.MVC.Controllers
 {
     public class LoginController : Controller
     {
+        protected IConfiguration configuration;
+        public LoginController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+        /// <summary>
+        /// Màn hình đăng nhập
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Login()
         {
             return View();
         }
+        /// <summary>
+        /// Kiểm tra đăng nhập và gán session
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckLogin(IFormCollection f)
         {
+            string domain = GetCurrentDomain();
+            HttpContext.Session.SetString("domain", domain);
             string username = f["txt-username"].ToString().Trim();
             string password = f["txt-password"].ToString();
-            var client = new RestClient("https://localhost:44340/api/authenticate/login");
+            var client = new RestClient(domain + "api/authenticate/login");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
@@ -33,14 +52,37 @@ namespace MyHouse.MVC.Controllers
             {
                 string token = response.Data.Data.ToString();
                 HttpContext.Session.SetString("token", token);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Dashboard", "Home");
             }
             ModelState.AddModelError("", response.Data.ResultMessage);
             return View("Login");
         }
+        /// <summary>
+        /// Lấy domain developement hoặc production từ appsettingjson
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurrentDomain()
+        {
+            IConfiguration appSettingsSection = configuration.GetSection("AppSettings");
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            return appSettings.Domain;
+        }
+        /// <summary>
+        /// Quên mật khẩu, gửi mail hoặc OTP
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ForgotPassword()
         {
             return View();
+        }
+        /// <summary>
+        /// Đăng xuất và xóa tất cả session
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Signout()
+        {
+            HttpContext.Session.Clear();
+            return View("Login");
         }
     }
 }

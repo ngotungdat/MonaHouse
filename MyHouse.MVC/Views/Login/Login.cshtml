@@ -11,8 +11,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/house/images/favicon.ico">
     <title>Mona House</title>
     <!-- vendor css -->
-    @*<link href="~/house/lib/@("@fortawesome")/fontawesome-free/css/all.min.css" rel="stylesheet">*@
-    @*<link href="~/house/lib/ionicons/css/ionicons.min.css" rel="stylesheet">*@
     <link href="~/house/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="~/house/assets/css/dashforge.css">
@@ -33,12 +31,12 @@
             <div class="media align-items-stretch justify-content-center ht-100p pos-relative">
                 <div class="media-body align-items-center d-none d-lg-flex">
                     <div class="mx-wd-400" style="margin: 0 auto">
-                        <img src="~/house/images/sign-in.png" style="width:420px;" alt="" />
+                        <img src="~/house/images/light-effect.png" style="max-height:500px"/>
                     </div>
                 </div><!-- media-body -->
                 <div class="sign-wrapper mg-lg-l-50 mg-xl-l-60 border rounded" style="box-shadow: 0px 0px 10px 1px #d0d0d0">
                     <div class="wd-100p">
-                        <h3 class="tx-color-01 mg-b-20">Welcome Mona House</h3>
+                        <h3 class="tx-color-01 mg-b-30"><img src="~/house/images/logo-quanlytro.png" style="height:50px"/></h3>
                         @using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
@@ -54,7 +52,7 @@
                                 <input type="password" name="txt-password" value="12345678" required class="form-control" placeholder="Nhập mật khẩu">
                             </div>
                             @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "text-align: center; color:red;" })
-                            <button type="submit" class="btn btn-brand-02 btn-block">
+                            <button type="submit" class="btn btn-info btn-block">
                                 <i class="fas fa-sign-in-alt"></i>
                                 Đăng nhập
                             </button>

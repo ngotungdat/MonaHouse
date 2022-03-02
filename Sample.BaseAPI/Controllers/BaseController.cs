@@ -119,7 +119,7 @@ namespace Sample.BaseAPI.Controllers
         /// <param name="id"></param>
         /// <param name="itemModel"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [AppAuthorize(new string[] { CoreContants.Update })]
         public virtual async Task<AppDomainResult> UpdateItem([FromBody] R itemModel)
         {
