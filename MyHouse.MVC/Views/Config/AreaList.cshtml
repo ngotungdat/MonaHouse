@@ -16,9 +16,7 @@
             <h4 class="mg-b-0 tx-spacing--1">Danh sách Tỉnh/TP</h4>
         </div>
     </div>
-
     <div class="row row-xs">
-
         <div class="col">
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
@@ -33,8 +31,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
                                     <option value="3">Tên Tỉnh/TP A-Z↓</option>
+                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -70,7 +68,7 @@
     let PageIndex = 1;
     let PageSize = 20;
     let SearchContent = '';
-    let OrderBy = 1;
+    let OrderBy = 3;
     let domain = $('input[name="domain"]').val();
     let Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJBcmVhXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiUGVybWlzc2lvblwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkZpbGVcIixcIklzVmlld1wiOnRydWV9XX0iLCJuYmYiOjE2NDYwMzI5OTEsImV4cCI6MTY0NjE0NDU5MCwiaWF0IjoxNjQ2MDMyOTkxfQ.7soAIKXrRgN62wRo9sEA341Z3wvB6lj-P-v7XOC2xD4'
     domain += 'api/Area?';
@@ -176,7 +174,7 @@
         if (p != 1) {
             let back = p - 1;
             $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back+')" href="javascript:;"> <<');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back +')" href="javascript:;"> <<');
             $('.pagination').append('</a>');
             $('.pagination').append('</li>');
         }
