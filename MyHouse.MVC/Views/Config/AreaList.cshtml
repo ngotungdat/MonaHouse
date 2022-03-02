@@ -1,4 +1,9 @@
-﻿<style>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string token = Context.Session.GetString("token");
+    string domain = Context.Session.GetString("domain");
+}
+<style>
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
     }
@@ -25,7 +30,7 @@
                     <div class="table__header-left">
                         <div class="search__box control mg-md-r-5">
                             <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
-                            <a href="javascript:;" class="search__box-icon"  id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="table__header-right">
@@ -71,15 +76,15 @@
     let PageSize = 20;
     let SearchContent = '';
     let OrderBy = 1;
-    let domain = $('input[name="domain"]').val();
-    let Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1wiVXNlcklkXCI6MSxcIlVzZXJOYW1lXCI6XCJhZG1pblwiLFwiRnVsbE5hbWVcIjpcIk1vbmEgTWVkaWFcIixcIlBob25lXCI6XCIwOTAwXCIsXCJFbWFpbFwiOlwiQWRtaW5AZ21haWwuY29tXCIsXCJSb2xlc1wiOlt7XCJSb2xlTmFtZVwiOlwiQXV0aFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlBlcm1pdE9iamVjdFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJHcm91cFwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkNhdGFsb2d1ZVwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIlVzZXJcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJCcmFuY2hcIixcIklzVmlld1wiOnRydWV9LHtcIlJvbGVOYW1lXCI6XCJBcmVhXCIsXCJJc1ZpZXdcIjp0cnVlfSx7XCJSb2xlTmFtZVwiOlwiUGVybWlzc2lvblwiLFwiSXNWaWV3XCI6dHJ1ZX0se1wiUm9sZU5hbWVcIjpcIkZpbGVcIixcIklzVmlld1wiOnRydWV9XX0iLCJuYmYiOjE2NDYwMzI5OTEsImV4cCI6MTY0NjE0NDU5MCwiaWF0IjoxNjQ2MDMyOTkxfQ.7soAIKXrRgN62wRo9sEA341Z3wvB6lj-P-v7XOC2xD4'
-    domain += 'api/Area?';
+    let token = '@token';
+    let domain = '@domain';
+    domain += 'api/Area';
     let totalItem = 0;
     let totalPage = 0;
 
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + 'PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+        return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
     $(document).ready(function () {
         load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
@@ -91,11 +96,11 @@
             dataType: "json",
             url: api,
             headers: {
-                'Authorization': 'Bearer ' + Token,
+                'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
-                console.log('data: ', data);
+                //console.log('data: ', data);
                 let list = data.Data.Items;
                 //console.log('list: ', list);
                 let html = '';
@@ -168,7 +173,7 @@
 
         return rangeWithDots;
     }
-    
+
     function load_page(pag, p, t, totalRow) {
         $('.span-totalrow').html('<b>Tổng cộng: ' + totalRow + '</b>');
         $('.span-row-page').html('<b>'+ PageSize +'/Trang</b>');
@@ -186,7 +191,7 @@
             }
             else if (i == p) {
                 $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
-                
+
             } else {
                 $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
             }
