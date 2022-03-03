@@ -10,7 +10,16 @@ namespace MyHouse.MVC.Controllers
     {
         public IActionResult Cities()
         {
-            ViewBag.domain = "https://localhost:44340/";
+            return View();
+        }
+        public IActionResult Districts(int id)
+        {
+            ViewBag.cityId = id;
+            return View();
+        }
+        public IActionResult Wards(int id)
+        {
+            ViewBag.DistrictId = id;
             return View();
         }
     }
