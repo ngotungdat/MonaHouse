@@ -165,6 +165,7 @@
     <script src="~/house/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="~/house/lib/datetimepicker-2.5.20/jquery.datetimepicker.full.min.js"></script>
     <script src="~/house/lib/select2/js/select2.min.js"></script>
+    <script src="~/house/lib/moment/min/moment.min.js"></script>
     <script src="~/house/lib/filepond/filepond.js"></script>
     <script src="~/house/lib/filepond-preview/filepond-plugin-media-preview.min.js"></script>
     <script src="~/house/assets/js/dashforge.js"></script>
@@ -185,6 +186,10 @@
         ajaxStart: function () { $body.addClass("loading"); },
         ajaxStop: function () { $body.removeClass("loading"); }
     });
+
+    let domain = '@domain';
+    let token = '@token';
+
     function ckstring(str) { //check null empty
         return (!str || /^\s*$/.test(str));
     }

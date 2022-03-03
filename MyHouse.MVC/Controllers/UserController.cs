@@ -16,5 +16,10 @@ namespace MyHouse.MVC.Controllers
         {
             return View();
         }
+        public IActionResult UserOwnerDetailPartial(int userId)
+        {
+            ViewData["userId"] = userId;
+            return PartialView();
+        }
     }
 }

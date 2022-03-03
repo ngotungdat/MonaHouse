@@ -1,0 +1,410 @@
+﻿@{
+    string userId = ViewData["userId"].ToString();
+}
+<div class="table-content">
+    <div class="row flex-wrap-1 mg-t-15">
+        <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+            <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin thêm">
+                <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="info-list">
+                    <img src="~/house/images/favicon.ico" />
+                    <dl class="row-info hide-on-print mg-t-10">
+                        <dd class="">Tài khoản</dd>
+                        <dt class="">
+                            <span tabindex="0" class="badge badge-success valign-middle user-status" role="button">
+                               
+                            </span>
+                        </dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Ngày sinh</dd>
+                        <dt class="user-dateofbirth"></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Tên đăng nhập</dd>
+                        <dt class="user-username"></dt>
+                    </dl>
+                    <dl class="row-info mg-b-0">
+                        <dt class=""><span class="tx-danger user-address"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span></dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 ">
+            <div class="legend-box pd-25  " data-label="Dịch vụ đang sử dụng">
+                <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Gói phần mềm:</dd>
+                                <dt class="">Dùng thử</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá tiền</dd>
+                                <dt class="">Miễn phí 30 ngày</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá nước:</dd>
+                                <dt class="">0886706289</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Điện tháng trước:</dd>
+                                <dt class="">
+                                    <span class="mg-r-10" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">500.000</span>
+                                    <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span>
+                                </dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Nước tháng trước:</dd>
+                                <dt class="">
+                                    <span tabindex="0" class="mg-r-10" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 m<sup>3</sup></strong>" data-original-title="Số nước tháng 3">500.000</span>
+                                    <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span>
+                                </dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Mạng:</dd>
+                                <dt class="">200.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Rác:</dd>
+                                <dt class="">50.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giữ xe:</dd>
+                                <dt class="">150.000</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Cáp TV:</dd>
+                                <dt class="">
+                                    <span class="tx-second">100.000</span>
+                                </dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table class="table  valign-center tx-nowrap table-striped tx-center border">
+            <caption class="tx-left-f mg-b-0-f">Lịch sử thanh toán</caption>
+            <thead class="valign-middle">
+                <tr>
+                    <th>Tháng</th>
+                    <th>Tiền nhà</th>
+                    <th><span class="">Điện<span></span></span></th>
+                    <th><span class="">Nước</span></th>
+                    <th><span class="">Dịch vụ</span></th>
+                    <th><span class="">Tổng</span></th>
+                    <th><span class="">Thực nhận</span></th>
+                    <th><span class="">Còn nợ</span></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tháng 06/2020</td>
+                    <td>3.000.000</td>
+                    <td>500.000</td>
+                    <td>226.00</td>
+                    <td>300.000</td>
+                    <td>4.126.000</td>
+                    <td>3.500.000</td>
+                    <td><span class="tx-danger">620.000</span></td>
+
+                </tr>
+                <tr>
+                    <td>Tháng 06/2020</td>
+                    <td>3.000.000</td>
+                    <td>500.000</td>
+                    <td>226.00</td>
+                    <td>300.000</td>
+                    <td>4.126.000</td>
+                    <td>3.500.000</td>
+                    <td><span class="tx-danger">620.000</span></td>
+
+                </tr>
+                <tr>
+                    <td>Tháng 06/2020</td>
+                    <td>3.000.000</td>
+                    <td>500.000</td>
+                    <td>226.00</td>
+                    <td>300.000</td>
+                    <td>4.126.000</td>
+                    <td>3.500.000</td>
+                    <td><span class="tx-danger">620.000</span></td>
+
+                </tr>
+                <tr>
+                    <td>Tháng 06/2020</td>
+                    <td>3.000.000</td>
+                    <td>500.000</td>
+                    <td>226.00</td>
+                    <td>300.000</td>
+                    <td>4.126.000</td>
+                    <td>3.500.000</td>
+                    <td><span class="tx-danger">620.000</span></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!--Modal-->
+<div class="modal fade" id="js-edit-cus">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0" id="lb-room-name">Phòng số 01</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class=" room-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="col wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên khách:</span>
+                                </div>
+                                <div class="col flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="Tên khách" required class="form-control" value="" name="txt-renter-name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="phone"
+                                               class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số người" class="form-control" required value="" name="txt-renter-phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="calendar" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="__/__/____" name="txt-renter-datein" class="form-control datetimepicker date-only" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                                        Ngày
+                                        dọn ra:
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="calendar" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="__/__/____" name="txt-renter-dateout" class="form-control datetimepicker date-only" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số người ở:</span>
+                                </div>
+                                <div class=" flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="users" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số người" class="form-control" value="" name="txt-renter-quantity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Avatar:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group upload-box upload-avatar" style="flex-wrap:nowrap">
+                                    <a href="javascript:;" class="btn btn-outline-primary btn-upload">
+                                        <i data-feather="camera"></i>
+                                    </a>
+                                    <input type="file" class="hidden upload-image-renter" accept="image/*">
+                                    <input type="hidden" name="hdfAvatar" class="submit-image" />
+                                    <div class="preview-image" id="div-avatar" style="overflow: unset ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-update-renterinfo">Lưu lại</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-edit-service">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block">
+                        <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                           aria-hidden="true"></i>
+                    </span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Mua thêm phòng</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body " id="form-update-service">
+                <div class=" room-info">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng / tháng:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="dollar-sign" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="tel" placeholder="Số nước" class="form-control" name="txt-room-price" required value="" data-type="currency">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá điện / kW:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="zap" class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="0" name="txt-room-priceelectric" data-type="currency" required class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row form-group">
+                                <div class="wd-120 col col-form-label">
+                                    <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá nước / m<sup>3</sup>:</span>
+                                </div>
+                                <div class="flex-grow-1 col input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i data-feather="droplet"
+                                               class="wd-20 ht-20"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="0" required name="txt-room-pricewater" data-type="currency" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-form-label">
+                                <span class="tx-uppercase tx-medium tx-spacing-1 d-inline-block">Dịch vụ phòng</span>
+                            </div>
+                            <div class="list-services">
+
+                            </div>
+                            <a href="javascript:;" class="btn btn-outline-primary js-add-service">
+                                <i data-feather="plus"></i> Thêm dịch vụ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <a href="javascript:;" class="btn btn-primary btn-update-service">Lưu lại</a>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
+<script>
+    //tự gọi lấy data khi có view khác gọi đến
+    $(function () {
+        load_user_detail(domain + 'api/user/' + @userId);
+    });
+    //Load dữ liệu chi tiết user theo api
+    function load_user_detail(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                let user = data.Data;
+                $('.user-status').html(user.StatusName);
+                $('.user-dateofbirth').html(moment(user.DateOfBirth).format("DD-MM-YYYY"));
+                $('.user-username').html(user.UserName);
+                $('.user-address').html(user.Address);
+            },
+            error: function (xhr, status, error) {
+                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>
