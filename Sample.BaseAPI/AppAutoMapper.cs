@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Sample.Request.Auth;
+using Sample.Models.Catalogue;
+using Sample.Entities.Catalogue;
+using Sample.Request.Catalogue;
 //using Sample.Entities.Catalogue;
 //using Sample.Entities.Auth;
 
@@ -51,14 +54,17 @@ namespace Sample.Models.AutoMapper
             //CreateMap<NationModel, Nations>().ReverseMap();
             //CreateMap<PagedList<NationModel>, PagedList<Nations>>().ReverseMap();
 
-            //CreateMap<CityModel, Cities>().ReverseMap();
-            //CreateMap<PagedList<CityModel>, PagedList<Cities>>().ReverseMap();
+            CreateMap<CityModel, Cities>().ReverseMap();
+            CreateMap<CityRequest, Cities>().ReverseMap();
+            CreateMap<PagedList<CityModel>, PagedList<Cities>>().ReverseMap();
 
-            //CreateMap<DistrictModel, Districts>().ReverseMap();
-            //CreateMap<PagedList<DistrictModel>, PagedList<Districts>>().ReverseMap();
+            CreateMap<DistrictModel, Districts>().ReverseMap();
+            CreateMap<DistrictRequest, Districts>().ReverseMap();
+            CreateMap<PagedList<DistrictModel>, PagedList<Districts>>().ReverseMap();
 
-            //CreateMap<WardModel, Wards>().ReverseMap();
-            //CreateMap<PagedList<WardModel>, PagedList<Wards>>().ReverseMap();
+            CreateMap<WardModel, Wards>().ReverseMap();
+            CreateMap<WardRequest, Wards>().ReverseMap();
+            CreateMap<PagedList<WardModel>, PagedList<Wards>>().ReverseMap();
 
             #endregion
 
@@ -66,9 +72,6 @@ namespace Sample.Models.AutoMapper
             CreateMap<BranchRequest, Branch>().ReverseMap();
             CreateMap<PagedList<BranchModel>, PagedList<Branch>>().ReverseMap();
 
-            CreateMap<AreaModel, Area>().ReverseMap();
-            CreateMap<AreaRequest, Area>().ReverseMap();
-            CreateMap<PagedList<AreaModel>, PagedList<Area>>().ReverseMap();
 
             CreateMap<PackageModel, Package>().ReverseMap();
             CreateMap<PackageRequest, Package>().ReverseMap();

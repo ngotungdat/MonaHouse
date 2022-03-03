@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.Auth;
+using Sample.Entities.Catalogue;
 using Sample.Entities.Configuration;
 using Sample.Extensions;
 using Sample.Interface.DbContext;
@@ -21,7 +22,11 @@ namespace Sample.AppDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Catalogue
-
+            modelBuilder.Entity<Cities>(x => x.ToTable("Cities"));
+            //modelBuilder.Entity<Countries>(x => x.ToTable("Countries"));
+            modelBuilder.Entity<Districts>(x => x.ToTable("Districts"));
+            //modelBuilder.Entity<Nations>(x => x.ToTable("Nations"));
+            modelBuilder.Entity<Wards>(x => x.ToTable("Wards"));
             #endregion
 
             #region Auth
@@ -33,13 +38,9 @@ namespace Sample.AppDbContext
             #endregion
 
             modelBuilder.Entity<Users>(x => x.ToTable("Users"));
-
             modelBuilder.Entity<OTPHistories>(x => x.ToTable("OTPHistories"));
             modelBuilder.Entity<SMSEmailTemplates>(x => x.ToTable("SMSEmailTemplates"));
-            modelBuilder.Entity<Area>(x => x.ToTable("Area"));
-            modelBuilder.Entity<District>(x => x.ToTable("District"));
             modelBuilder.Entity<UtilitiesConfig>(x => x.ToTable("UtilitiesConfig"));
-            modelBuilder.Entity<Ward>(x => x.ToTable("Ward"));
             modelBuilder.Entity<Branch>(x => x.ToTable("Branch"));
             modelBuilder.Entity<BranchUtilities>(x => x.ToTable("BranchUtilities"));
             modelBuilder.Entity<Room>(x => x.ToTable("Room"));
@@ -62,7 +63,9 @@ namespace Sample.AppDbContext
         }
 
         #region Catalogue
-
+        public DbSet<Cities> Cities { get; set; }
+        public DbSet<Districts> Districts { get; set; }
+        public DbSet<Wards> Wards { get; set; }
         #endregion
 
         #region Auth
@@ -76,10 +79,7 @@ namespace Sample.AppDbContext
         public DbSet<Users> Users { get; set; }
         public DbSet<OTPHistories> OTPHistories { get; set; }
         public DbSet<SMSEmailTemplates> SMSEmailTemplates { get; set; }
-        public DbSet<Area> Area { get; set; }
-        public DbSet<District> District { get; set; }
         public DbSet<UtilitiesConfig> UtilitiesConfig { get; set; } //Cấu hình tiện ích
-        public DbSet<Ward> Ward { get; set; }
         public DbSet<Branch> Branch { get; set; }
         public DbSet<BranchUtilities> BranchUtilities { get; set; } //Tiện ích của dãy trọ
         public DbSet<Room> Room { get; set; }
