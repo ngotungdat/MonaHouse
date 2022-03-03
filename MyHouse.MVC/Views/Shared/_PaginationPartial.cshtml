@@ -1,29 +1,11 @@
-﻿@*<link href="~/house/lib/simplePagination/simplePagination.css" rel="stylesheet" />
-    <nav aria-label="Page navigation text-right">
-            <ul class="pagination mg-b-0">
-
-            </ul>
-        </nav>
-    <script src="~/house/lib/simplePagination/jquery.simplePagination.js"></script>
-    <script>
-        $(function () {
-            $('.pagination').pagination({
-                items: 100,
-                itemsOnPage: 20,
-                displayedPages: 5,
-                cssStyle: 'light-theme'
-            });
-        });
-    </script>*@
-
-<span class="span-row-page"><b>0/Trang</b></span>
-<nav aria-label="Page navigation text-right" class="page-nav">
+﻿<nav aria-label="Page navigation text-right" class="page-nav">
     <ul class="pagination mg-b-0"></ul>
 </nav>
-<span class="span-totalrow"><b>Tổng cộng: 0</b></span>
 <script>
+    let page_index = 1;
+    let page_size = 20;
     $(function () {
-        load_page(pagination(1, 20), 1, 20);
+        load_page(pagination(page_index, page_size), page_index, page_size);
     });
 
     function pagination(c, m) {
@@ -57,37 +39,30 @@
         return rangeWithDots;
     }
 
-    function load_page(pag, p, t) {
-        $('.span-totalrow').html('<b>Tổng cộng: ' + 1900 + '</b>');
-        $('.span-row-page').html('<b>' + 20 + '/Trang</b>');
+    function load_page(_pagination, _pageindex, _pagesize) {
         $('.pagination').html('');
-        if (p != 1) {
-            let back = p - 1;
-            $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back + ')" href="javascript:;"> <<');
-            $('.pagination').append('</a>');
-            $('.pagination').append('</li>');
+        if (_pageindex != 1) {
+            let back = _pageindex - 1;
+            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + back + ')" href="javascript:;"> Prev </a></li>');
         }
-        for (let i of pag) {
+        for (let i of _pagination) {
             if (i == '...') {
                 $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
             }
-            else if (i == p) {
+            else if (i == _pageindex) {
                 $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
 
             } else {
                 $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
             }
         }
-        if (p != t) {
-            let next = p + 1;
-            $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
-            $('.pagination').append('</a>');
-            $('.pagination').append('</li>');
+        if (_pageindex != _pagesize) {
+            let next = _pageindex + 1;
+            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + next + ')" href="javascript:;"> Next </a></li>');
         }
     }
-    function load_data_page(val) {
-        load_page(pagination(val, 20), val, 20);
+    function load_data_page(page_index_click) {
+        page_index = page_index_click;
+        load_page(pagination(page_index, page_size), page_index, page_size);
     }
 </script>

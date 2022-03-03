@@ -383,7 +383,7 @@
 <script>
     //tự gọi lấy data khi có view khác gọi đến
     $(function () {
-        load_user_detail(domain + 'api/user/' + @userId);
+        load_user_detail(domains + 'api/user/' + @userId);
     });
     //Load dữ liệu chi tiết user theo api
     function load_user_detail(api) {
@@ -392,7 +392,7 @@
             dataType: "json",
             url: api,
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + tokens,
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {

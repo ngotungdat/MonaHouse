@@ -73,7 +73,7 @@ namespace Sample.Models
         /// <summary>
         /// Mật khẩu người dùng
         /// </summary>
-        public string Password { get; set; }
+        public string Avatar { get; set; }
 
         /// <summary>
         /// Cờ kiểm tra OTP của user

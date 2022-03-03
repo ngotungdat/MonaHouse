@@ -10,11 +10,11 @@ namespace Sample.Entities.Search
         /// <summary>
         /// Tìm kiếm theo Email
         /// </summary>
-        public string Email { get; set; }
-        /// <summary>
-        /// Tìm kiếm theo số điện thoại
-        /// </summary>
-        public string Phone { get; set; }
+        //public string Email { get; set; }
+        ///// <summary>
+        ///// Tìm kiếm theo số điện thoại
+        ///// </summary>
+        //public string Phone { get; set; }
 
         /// <summary>
         /// Theo nhom người dùng
