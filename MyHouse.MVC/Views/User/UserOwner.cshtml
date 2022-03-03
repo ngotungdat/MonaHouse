@@ -229,81 +229,21 @@
                                 </tr>
                             </thead>
                             <tbody class="tbody-roomlist">
-                                <tr>
-                                    <td class="checkbox-col">
-                                        <a href="javascript:;" class="toggle-collapse collapse-1" data-type="close"><i class="fa fa-angle-down"></i></a>
-                                    </td>
-                                    <td data-column="col-house">
-                                        <a href="room-detail.php">
-                                            Nguyễn Trần Uyển Nhi
-                                        </a>
-                                    </td>
-                                    <td data-column="col-room">
-                                        <a href="room-detail.php">0967676895</a>
-                                    </td>
-                                    <td data-column="col-people">ngotungdat@gmail.com</td>
-                                    <td data-column="col-status">
-                                        <span class="badge badge-warning wd-100 pd-5 tx-12">
-                                            Cần tư vấn
-                                        </span>
-                                        <p class="mg-b-0 mg-t-5 tx-12">Thuê vào: 20/04/2020</p>
-                                    </td>
-                                    <td data-column="col-electric">20/04/2020</td>
-                                    <td data-column="col-deposit">
-                                        <span class="tx-danger tx-medium">12.000.000</span>
-                                    </td>
-                                    <td class="action-col">
-                                        <div class="dropdown__wrap">
-                                            <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
-                                            <ul class="drop-menu">
-                                                <li class="drop-menu-item"><a href="room-detail.php" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
-                                                <li class="drop-menu-item">
-                                                    <a href="#js-electronicNote" data-toggle="modal" class="item-link">
-                                                        <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
-                                                        điện
-                                                    </a>
-                                                </li>
-                                                <li class="drop-menu-item">
-                                                    <a href="#js-payMoney" data-toggle="modal" class="item-link">
-                                                        <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true"></i></span>Thu
-                                                        tiền
-                                                    </a>
-                                                </li>
-                                                <li class="drop-menu-item">
-                                                    <a href="#js-goOut" data-toggle="modal" class="item-link">
-                                                        <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>Dọn
-                                                        ra
-                                                    </a>
-                                                </li>
-                                                <li class="drop-menu-item">
-                                                    <a href="add-people.php" class="item-link">
-                                                        <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
-                                                        vào
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr class="collapse-row">
-                                    <td colspan="10" class="detailsDiv-1">
-                                        @*@await Html.PartialAsync("UserOwnerDetailPartial")*@
-                                    </td>
-                                </tr>
+                                @await Html.PartialAsync("UserOwnerPartial")
                             </tbody>
-
                         </table>
                     </div>
-                    <nav aria-label="Page navigation text-right">
-                        <ul class="pagination mg-b-0">
-                            <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
-                        </ul>
-                    </nav>
+                    @*<nav aria-label="Page navigation text-right">
+            <ul class="pagination mg-b-0">
+                <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
+            </ul>
+        </nav>*@
+
+                    @await Html.PartialAsync("_PaginationPartial")
                 </div>
             </div>
 
