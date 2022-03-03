@@ -21,9 +21,7 @@
             <h4 class="mg-b-0 tx-spacing--1">Danh sách Tỉnh/TP</h4>
         </div>
     </div>
-
     <div class="row row-xs">
-
         <div class="col">
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
@@ -38,8 +36,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
                                     <option value="3">Tên Tỉnh/TP A-Z↓</option>
+                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -50,10 +48,10 @@
                         <table class="table table-block-mobile table-striped table-history-payment" id="js-visibility-column">
                             <thead class="">
                                 <tr>
-                                    <th class="sort-label" data-column="col-name">ID<i class="fa fa-sort"></i></th>
+                                    <th class="sort-label" data-column="col-name">Quốc gia<i class="fa fa-sort"></i></th>
                                     <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP<i class="fa fa-sort"></i></th>
-                                    <th class="sort-label" data-column="col-water">Người tạo <i class="fa fa-sort"></i></th>
-                                    <th class="sort-label" data-column="col-service">Thao tác</th>
+                                    <th class="sort-label" data-column="col-water">Mã Tỉnh<i class="fa fa-sort"></i></th>
+                                    <th class="sort-label" data-column="col-service">Mô tả</th>
                                 </tr>
 
                             </thead>
@@ -181,7 +179,7 @@
         if (p != 1) {
             let back = p - 1;
             $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back+')" href="javascript:;"> <<');
+            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back +')" href="javascript:;"> <<');
             $('.pagination').append('</a>');
             $('.pagination').append('</li>');
         }

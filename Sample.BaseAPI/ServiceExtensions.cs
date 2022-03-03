@@ -64,7 +64,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IPermitObjectPermissionService, PermitObjectPermissionService>();
 
             services.AddScoped<IBranchService, BranchService>();
-            services.AddScoped<IAreaService, AreaService>();
+            //services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<IPackageService, PackageService>();
 
             #endregion

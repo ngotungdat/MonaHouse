@@ -8,7 +8,7 @@ namespace MyHouse.MVC.Controllers
 {
     public class ConfigController : Controller
     {
-        public IActionResult AreaList()
+        public IActionResult Cities()
         {
             ViewBag.domain = "https://localhost:44340/";
             return View();

@@ -1,6 +1,7 @@
 ﻿using Sample.Entities.DomainEntities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Sample.Entities.Catalogue
