@@ -8,15 +8,17 @@
         min-width: 80px;
     }
 </style>
+<input type="hidden" name="txt-cityId" value="@ViewBag.cityId" />
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-sm-flex align-items-center justify-content-between ">
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Danh sách Tỉnh/TP</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Cities", "Config", new { area = "" })">Danh sách Tỉnh/TP</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách Quận/Huyện</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách Tỉnh/TP</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Quận/Huyện</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -34,8 +36,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Tên Tỉnh/TP A-Z↓</option>
-                                    <option value="1">Tên Tỉnh/TP Z-A↑</option>
+                                    <option value="0">Tên Quận/Huyện A-Z↓</option>
+                                    <option value="1">Tên Quận/Huyện Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -46,15 +48,14 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Quốc gia</th>
-                                    <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP</th>
-                                    <th class="sort-label text-table-center" data-column="col-water">Mã Tỉnh</th>
+                                    <th class="sort-label" data-column="col-name">Tên Tỉnh/TP</th>
+                                    <th class="sort-label" data-column="col-electronic">Tên Quận/Huyện</th>
+                                    <th class="sort-label text-table-center" data-column="col-water">Mã Quận/Huyện</th>
                                     <th class="sort-label " data-column="col-service">Mô tả</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Quận/Huyện</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Phường/Xã</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-city">
-                                
+                            <tbody id="tbody-districts">
                             </tbody>
                         </table>
                     </div>
@@ -75,12 +76,13 @@
     let OrderBy = 0;
     let token = '@token';
     let domain = '@domain';
-    domain += 'api/catalogue/get-city-catalogue/countryId';
+    domain += 'api/catalogue/get-district-catalogue/cityId';
     let totalItem = 0;
     let totalPage = 0;
     //Tạo hoặc làm mới api
+    let cityId = $('input[name="txt-cityId"]').val();
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?countryId= 1' + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+        return domain + '?cityId=' + cityId + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
     $(document).ready(function () {
         load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
@@ -103,15 +105,14 @@
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
                     html += '<tr>';
-                    html += '<td>' + item.CountryName + '</td>';
+                    html += '<td>' + item.CityName + '</td>';
                     html += '<td>' + item.Name + '</td>';
                     html += '<td class="text-table-center">' + item.Code + '</td>';
                     html += '<td>' + item.Description + '</td>';
-                    var Id = item.Id;
-                    html += '<td class="text-table-center"><a href="/Config/Districts?id='+ Id +'"><i class="fas fa-arrow-circle-right"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="/Config/Wards?id=' + item.Id +'"><i class="fas fa-arrow-circle-right"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-city').html(html);
+                $('#tbody-districts').html(html);
                 totalItem = data.Data.TotalItem;
                 totalPage = data.Data.TotalPage;
                 load_page(pagination(PageIndex, totalPage), PageIndex, totalPage);
@@ -207,3 +208,4 @@
         load_page(pagination(PageIndex, totalPage), PageIndex, totalPage);
     }
 </script>
+

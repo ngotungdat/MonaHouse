@@ -75,7 +75,7 @@ namespace Sample.BaseAPI.Controllers.Catalogue
         /// <param name="searchContent"></param>
         /// <returns></returns>
         [HttpGet("get-city-catalogue/countryId")]
-        public async Task<AppDomainResult> GetCityCatalogue(int? countryId, string searchContent,int PageIndex,int PageSize)
+        public async Task<AppDomainResult> GetCityCatalogue(int? countryId, string searchContent,int PageIndex,int PageSize,int OrderBy)
         {
             var cities = await this.cityService.GetAsync(e => !e.Deleted && e.Active
             && (!countryId.HasValue || e.CountryId == countryId.Value)
@@ -85,7 +85,9 @@ namespace Sample.BaseAPI.Controllers.Catalogue
             )));
             int skip = (PageIndex - 1) * PageSize;
             int take = PageSize;
-            var data = mapper.Map<IList<CityModel>>(cities).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
+            var data = new List<CityModel>();
+            if (OrderBy == 0 ) data = mapper.Map<IList<CityModel>>(cities).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
+            else data = mapper.Map<IList<CityModel>>(cities).OrderByDescending(x => x.Name).Skip(skip).Take(take).ToList();
             PagedList<CityModel> pagedDataModel = new PagedList<CityModel> { TotalItem = cities.Count(), Items = data, PageIndex = PageIndex, PageSize = PageSize };
             return new AppDomainResult()
             {
@@ -102,7 +104,7 @@ namespace Sample.BaseAPI.Controllers.Catalogue
         /// <param name="searchContent"></param>
         /// <returns></returns>
         [HttpGet("get-district-catalogue/cityId")]
-        public async Task<AppDomainResult> GetDistrictCatalogue(int? cityId, string searchContent)
+        public async Task<AppDomainResult> GetDistrictCatalogue(int? cityId, string searchContent, int PageIndex, int PageSize, int OrderBy)
         {
             var districts = await this.districtService.GetAsync(e => !e.Deleted && e.Active
             && (!cityId.HasValue || e.CityId == cityId.Value)
@@ -110,9 +112,15 @@ namespace Sample.BaseAPI.Controllers.Catalogue
             (e.Code.Contains(searchContent)
             || e.Name.Contains(searchContent)
             )));
+            int skip = (PageIndex - 1) * PageSize;
+            int take = PageSize;
+            var data = new List<DistrictModel>();
+            if (OrderBy == 0) data = mapper.Map<IList<DistrictModel>>(districts).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
+            else data = mapper.Map<IList<DistrictModel>>(districts).OrderByDescending(x => x.Name).Skip(skip).Take(take).ToList();
+            PagedList<DistrictModel> pagedDataModel = new PagedList<DistrictModel> { TotalItem = districts.Count(), Items = data, PageIndex = PageIndex, PageSize = PageSize };
             return new AppDomainResult()
             {
-                Data = mapper.Map<IList<DistrictModel>>(districts).OrderBy(x => x.Name),
+                Data = pagedDataModel,
                 Success = true,
                 ResultCode = (int)HttpStatusCode.OK
             };
@@ -126,18 +134,23 @@ namespace Sample.BaseAPI.Controllers.Catalogue
         /// <param name="searchContent"></param>
         /// <returns></returns>
         [HttpGet("get-ward-catalogue/cityId/districtId")]
-        public async Task<AppDomainResult> GetWardCatalogue(int? cityId, int? districtid, string searchContent)
+        public async Task<AppDomainResult> GetWardCatalogue(int? districtid, string searchContent, int PageIndex, int PageSize, int OrderBy)
         {
             var wards = await this.wardService.GetAsync(e => !e.Deleted && e.Active
-            && (!cityId.HasValue || e.CityId == cityId.Value)
-            && (!districtid.HasValue || e.DistrictId == districtid.Value)
+            && (e.DistrictId == districtid.Value)
             && (string.IsNullOrEmpty(searchContent) ||
             (e.Code.Contains(searchContent)
             || e.Name.Contains(searchContent)
             )));
+            int skip = (PageIndex - 1) * PageSize;
+            int take = PageSize;
+            var data = new List<WardModel>();
+            if (OrderBy == 0) data = mapper.Map<IList<WardModel>>(wards).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
+            else data = mapper.Map<IList<WardModel>>(wards).OrderByDescending(x => x.Name).Skip(skip).Take(take).ToList();
+            PagedList<WardModel> pagedDataModel = new PagedList<WardModel> { TotalItem = wards.Count(), Items = data, PageIndex = PageIndex, PageSize = PageSize };
             return new AppDomainResult()
             {
-                Data = mapper.Map<IList<WardModel>>(wards).OrderBy(x => x.Name),
+                Data = pagedDataModel,
                 Success = true,
                 ResultCode = (int)HttpStatusCode.OK
             };
