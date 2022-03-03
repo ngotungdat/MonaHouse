@@ -75,18 +75,21 @@ namespace Sample.BaseAPI.Controllers.Catalogue
         /// <param name="searchContent"></param>
         /// <returns></returns>
         [HttpGet("get-city-catalogue/countryId")]
-        public async Task<AppDomainResult> GetCityCatalogue(int? countryId, string searchContent)
+        public async Task<AppDomainResult> GetCityCatalogue(int? countryId, string searchContent,int PageIndex,int PageSize)
         {
             var cities = await this.cityService.GetAsync(e => !e.Deleted && e.Active
             && (!countryId.HasValue || e.CountryId == countryId.Value)
             && (string.IsNullOrEmpty(searchContent) ||
             (e.Code.Contains(searchContent)
             || e.Name.Contains(searchContent)
-            ))
-            );
+            )));
+            int skip = (PageIndex - 1) * PageSize;
+            int take = PageSize;
+            var data = mapper.Map<IList<CityModel>>(cities).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
+            PagedList<CityModel> pagedDataModel = new PagedList<CityModel> { TotalItem = cities.Count(), Items = data, PageIndex = PageIndex, PageSize = PageSize };
             return new AppDomainResult()
             {
-                Data = mapper.Map<IList<CityModel>>(cities),
+                Data = pagedDataModel,
                 Success = true,
                 ResultCode = (int)HttpStatusCode.OK
             };
@@ -106,11 +109,10 @@ namespace Sample.BaseAPI.Controllers.Catalogue
             && (string.IsNullOrEmpty(searchContent) ||
             (e.Code.Contains(searchContent)
             || e.Name.Contains(searchContent)
-            ))
-            );
+            )));
             return new AppDomainResult()
             {
-                Data = mapper.Map<IList<DistrictModel>>(districts),
+                Data = mapper.Map<IList<DistrictModel>>(districts).OrderBy(x => x.Name),
                 Success = true,
                 ResultCode = (int)HttpStatusCode.OK
             };
@@ -132,11 +134,10 @@ namespace Sample.BaseAPI.Controllers.Catalogue
             && (string.IsNullOrEmpty(searchContent) ||
             (e.Code.Contains(searchContent)
             || e.Name.Contains(searchContent)
-            ))
-            );
+            )));
             return new AppDomainResult()
             {
-                Data = mapper.Map<IList<WardModel>>(wards),
+                Data = mapper.Map<IList<WardModel>>(wards).OrderBy(x => x.Name),
                 Success = true,
                 ResultCode = (int)HttpStatusCode.OK
             };
