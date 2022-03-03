@@ -112,10 +112,12 @@ namespace Sample.Service.Services.DomainServices
 
             var items = this.Queryable.Where(GetExpression(baseSearch));
             decimal itemCount = items.Count();
+            string sort = "Name ASC";
+            if (baseSearch.OrderBy == 1) sort = "Name DESC";
             pagedList = new PagedList<E>()
             {
                 TotalItem = (int)itemCount,
-                Items = await items.OrderBy("Id DESC").Skip(skip).Take(baseSearch.PageSize).ToListAsync(),
+                Items = await items.OrderBy(sort).Skip(skip).Take(baseSearch.PageSize).ToListAsync(),
                 PageIndex = baseSearch.PageIndex,
                 PageSize = baseSearch.PageSize,
             };

@@ -52,10 +52,11 @@
                                     <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP<i class="fa fa-sort"></i></th>
                                     <th class="sort-label" data-column="col-water">Mã Tỉnh<i class="fa fa-sort"></i></th>
                                     <th class="sort-label" data-column="col-service">Mô tả</th>
+                                    <th class="sort-label" data-column="col-service">Phường xã</th>
                                 </tr>
 
                             </thead>
-                            <tbody id="tbody-area">
+                            <tbody id="tbody-city">
                             </tbody>
                         </table>
                     </div>
@@ -73,16 +74,17 @@
     let PageIndex = 1;
     let PageSize = 20;
     let SearchContent = '';
-    let OrderBy = 1;
+    let OrderBy = 0;
     let token = '@token';
     let domain = '@domain';
-    domain += 'api/Area';
+    domain += 'api/catalogue/get-city-catalogue/countryId?countryId=1';
     let totalItem = 0;
     let totalPage = 0;
 
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+        return domain + '?countryId= 1' + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent;
+        //return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
     $(document).ready(function () {
         load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
@@ -98,25 +100,24 @@
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
-                //console.log('data: ', data);
+                console.log('data: ', data);
                 let list = data.Data.Items;
-                //console.log('list: ', list);
+                console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
                     html += '<tr>';
-                    html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.CountryName + '</td>';
                     html += '<td>' + item.Name + '</td>';
-                    var createBy = '';
-                    if (item.CreateBy != null) createBy = item.CreateBy;
-                    html += '<td>' + createBy + '</td>';
+                    html += '<td>' + item.Code + '</td>';
+                    html += '<td>' + item.Description + '</td>';
                     html += '<td></td>';
                     html += '</tr>';
                 }
-                $('#tbody-area').html(html);
+                $('#tbody-city').html(html);
                 totalItem = data.Data.TotalItem;
                 totalPage = data.Data.TotalPage;
-                load_page(pagination(PageIndex, totalPage), PageIndex, totalPage, totalItem);
+                load_page(pagination(PageIndex, totalPage), PageIndex, totalPage);
             },
             error: function (xhr, status, error) {
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -173,30 +174,30 @@
         return rangeWithDots;
     }
 
-    function load_page(pag, p, t, totalRow) {
-        $('.span-totalrow').html('<b>Tổng cộng: ' + totalRow + '</b>');
+    function load_page(_pagination, _pageIndex, _totalPage) {
+        $('.span-totalrow').html('<b>Tổng cộng: ' + totalItem + '</b>');
         $('.span-row-page').html('<b>'+ PageSize +'/Trang</b>');
         $('.pagination').html('');
-        if (p != 1) {
-            let back = p - 1;
+        if (_pageIndex != 1) {
+            let back = _pageIndex - 1;
             $('.pagination').append('<li class="page-item">');
             $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back +')" href="javascript:;"> <<');
             $('.pagination').append('</a>');
             $('.pagination').append('</li>');
         }
-        for (let i of pag) {
+        for (let i of _pagination) {
             if (i == '...') {
                 $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
             }
-            else if (i == p) {
+            else if (i == _pageIndex) {
                 $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
 
             } else {
                 $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
             }
         }
-        if (p != t) {
-            let next = p + 1;
+        if (_pageIndex != _totalPage) {
+            let next = _pageIndex + 1;
             $('.pagination').append('<li class="page-item">');
             $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
             $('.pagination').append('</a>');
