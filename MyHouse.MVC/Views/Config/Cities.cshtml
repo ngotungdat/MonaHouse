@@ -36,8 +36,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="3">Tên Tỉnh/TP A-Z↓</option>
-                                    <option value="2">Tên Tỉnh/TP Z-A↑</option>
+                                    <option value="0">Tên Tỉnh/TP A-Z↓</option>
+                                    <option value="1">Tên Tỉnh/TP Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -45,16 +45,15 @@
                 </div>
                 <div class="table__filter-wrap">
                     <div class="table-responsive">
-                        <table class="table table-block-mobile table-striped table-history-payment" id="js-visibility-column">
+                        <table class="table table-hover table-striped  border">
                             <thead class="">
-                                <tr>
-                                    <th class="sort-label" data-column="col-name">Quốc gia<i class="fa fa-sort"></i></th>
-                                    <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP<i class="fa fa-sort"></i></th>
-                                    <th class="sort-label" data-column="col-water">Mã Tỉnh<i class="fa fa-sort"></i></th>
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Quốc gia</th>
+                                    <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP</th>
+                                    <th class="sort-label" data-column="col-water">Mã Tỉnh</th>
                                     <th class="sort-label" data-column="col-service">Mô tả</th>
-                                    <th class="sort-label" data-column="col-service">Phường xã</th>
+                                    <th class="sort-label" data-column="col-service">Phường/Xã</th>
                                 </tr>
-
                             </thead>
                             <tbody id="tbody-city">
                             </tbody>
@@ -83,8 +82,7 @@
 
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?countryId= 1' + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent;
-        //return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+        return domain + '?countryId= 1' + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
     $(document).ready(function () {
         load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
@@ -111,7 +109,7 @@
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + item.Code + '</td>';
                     html += '<td>' + item.Description + '</td>';
-                    html += '<td></td>';
+                    html += '<td><a href="@Url.Action("RoomList", "Room", new { area = "" })><i class="fas fa-arrow-right"></i>Xem </a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-city').html(html);
