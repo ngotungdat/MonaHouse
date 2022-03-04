@@ -1,13 +1,8 @@
 ﻿<nav aria-label="Page navigation text-right" class="page-nav">
     <ul class="pagination mg-b-0"></ul>
 </nav>
+<span class="span-totalrow"><b>Tổng cộng: 0</b></span>
 <script>
-    let page_index = 1;
-    let page_size = 20;
-    $(function () {
-        load_page(pagination(page_index, page_size), page_index, page_size);
-    });
-
     function pagination(c, m) {
         var current = c,
             last = m,
@@ -35,34 +30,30 @@
             rangeWithDots.push(i);
             l = i;
         }
-
         return rangeWithDots;
     }
 
-    function load_page(_pagination, _pageindex, _pagesize) {
+    function load_pagination(_pagination, _pageindex, _totalpage, _totalitem) {
+        $('.span-totalrow').html('<b>Tổng cộng: ' + _totalitem + '</b>');
         $('.pagination').html('');
         if (_pageindex != 1) {
             let back = _pageindex - 1;
-            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + back + ')" href="javascript:;"> Prev </a></li>');
+            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_to_page(' + back + ')" href="javascript:;"> Prev </a></li>');
         }
         for (let i of _pagination) {
             if (i == '...') {
                 $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
             }
             else if (i == _pageindex) {
-                $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_to_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
 
             } else {
-                $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_to_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
             }
         }
-        if (_pageindex != _pagesize) {
+        if (_pageindex != _totalpage) {
             let next = _pageindex + 1;
-            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + next + ')" href="javascript:;"> Next </a></li>');
+            $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_to_page(' + next + ')" href="javascript:;"> Next </a></li>');
         }
-    }
-    function load_data_page(page_index_click) {
-        page_index = page_index_click;
-        load_page(pagination(page_index, page_size), page_index, page_size);
     }
 </script>
