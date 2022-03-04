@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Sample.Models;
-using Sample.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyHouse.MVC.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
+        public UserController(IConfiguration configuration) : base(configuration)
+        {
+        }
         /// <summary>
         /// Danh sách chủ nhà trọ
         /// </summary>
@@ -24,12 +25,13 @@ namespace MyHouse.MVC.Controllers
         }
         public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent)
         {
+            string domain = GetCurrentDomain();
             string token = HttpContext.Session.GetString("token");
-            var client = new RestClient("https://localhost:44340/api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy);
+            RestClient client = new RestClient(domain + "api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy);
             client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
+            RestRequest request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);
-            var response = await client.ExecuteAsync(request);
+            IRestResponse response = await client.ExecuteAsync(request);
             var obj = JObject.Parse(response.Content);
             var data = obj["Data"];
             var items = data["Items"];
@@ -37,7 +39,7 @@ namespace MyHouse.MVC.Controllers
             ViewData["pagesize"] = data["PageSize"];
             ViewData["totalpage"] = data["TotalPage"];
             ViewData["totalitem"] = data["TotalItem"];
-            var model = JsonConvert.DeserializeObject<List<UserModel>>(items.ToString());
+            List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(items.ToString());
             return PartialView(model);
         }
         public IActionResult UserOwnerDetailPartial(int userId)

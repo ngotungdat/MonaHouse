@@ -20,15 +20,24 @@ namespace MyHouse.MVC.Controllers
         {
             this.configuration = configuration;
         }
+
+
         public async Task<AppDomainResult> GetCurrentUserAsync()
         {
+            string domain = GetCurrentDomain();
             string token = HttpContext.Session.GetString("token");
-            var client = new RestClient("https://localhost:44340/api/user/getcurrentuser");
+            var client = new RestClient(domain + "api/user/getcurrentuser");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);
             var response = await client.ExecuteAsync<AppDomainResult>(request);
             return (AppDomainResult)response;
+        }
+        public string GetCurrentDomain()
+        {
+            IConfiguration appSettingsSection = configuration.GetSection("AppSettings");
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            return appSettings.Domain;
         }
     }
 }

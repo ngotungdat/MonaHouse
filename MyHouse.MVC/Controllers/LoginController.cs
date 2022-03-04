@@ -13,12 +13,10 @@ using System.Threading.Tasks;
 
 namespace MyHouse.MVC.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
-        protected IConfiguration configuration;
-        public LoginController(IConfiguration configuration)
+        public LoginController(IConfiguration configuration) : base(configuration)
         {
-            this.configuration = configuration;
         }
         /// <summary>
         /// Màn hình đăng nhập
@@ -56,16 +54,6 @@ namespace MyHouse.MVC.Controllers
             }
             ModelState.AddModelError("", response.Data.ResultMessage);
             return View("Login");
-        }
-        /// <summary>
-        /// Lấy domain developement hoặc production từ appsettingjson
-        /// </summary>
-        /// <returns></returns>
-        public string GetCurrentDomain()
-        {
-            IConfiguration appSettingsSection = configuration.GetSection("AppSettings");
-            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
-            return appSettings.Domain;
         }
         /// <summary>
         /// Quên mật khẩu, gửi mail hoặc OTP

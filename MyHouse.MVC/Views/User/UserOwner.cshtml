@@ -44,7 +44,7 @@
             <div class="d-flex align-items-center">
                 <div class="d-flex">
                     <div class="form-group mg-r-15 group-select">
-                        <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></label>
+                        <label class="mg-b-0"><i class="fas fa-home"></i></label>
                         <select name="" class="form-control">
                             <option value="">321 CMT8, Lý Thường Kiệt</option>
                             <option value="" selected="">319 CMT8 , Trương Định</option>
@@ -213,24 +213,7 @@
                     </div>
                 </div>
                 <div class="table__filter-wrap">
-                    <div class="table-responsive">
-                        <table class="table  tx-14  table-striped table-hover border" id="table-list-room">
-                            <thead class="thead-primary">
-                                <tr class="tr-header-table">
-                                    <th class="checkbox-col">
-                                    </th>
-                                    <th class="sort-label" data-column="col-house">Họ và tên</th>
-                                    <th class="sort-label" data-column="col-room">Số điện thoại</th>
-                                    <th class="sort-label" data-column="col-people">Email</th>
-                                    <th class="sort-label" data-column="col-status">Trạng thái</th>
-                                    <th class="sort-label" data-column="col-electric">Ngày tạo</th>
-                                    <th class="sort-label" data-column="col-deposit">Tiền nợ</th>
-                                    <th class="action-col"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="tbody-userlist">
-                            </tbody>
-                        </table>
+                    <div class="table-responsive table-userlist">
                     </div>
                     @await Html.PartialAsync("_PaginationPartial")
                 </div>
@@ -248,7 +231,7 @@
 
     function load_data(pageindex, pagesize, orderby) {
         $.get('/user/UserOwnerPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby, function (data) {
-            $('.tbody-userlist').html(data);
+            $('.table-userlist').html(data);
         });
     }
 </script>
