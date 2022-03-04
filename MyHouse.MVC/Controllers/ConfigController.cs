@@ -17,9 +17,10 @@ namespace MyHouse.MVC.Controllers
             ViewBag.cityId = id;
             return View();
         }
-        public IActionResult Wards(int id)
+        public IActionResult Wards(int id,int ctityId)
         {
-            ViewBag.DistrictId = id;
+            ViewBag.districtId = id;
+            ViewBag.cityId = ctityId;
             return View();
         }
     }

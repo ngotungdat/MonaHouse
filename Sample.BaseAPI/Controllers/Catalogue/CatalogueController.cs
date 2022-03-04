@@ -133,7 +133,7 @@ namespace Sample.BaseAPI.Controllers.Catalogue
         /// <param name="districtid"></param>
         /// <param name="searchContent"></param>
         /// <returns></returns>
-        [HttpGet("get-ward-catalogue/cityId/districtId")]
+        [HttpGet("get-ward-catalogue/districtId")]
         public async Task<AppDomainResult> GetWardCatalogue(int? districtid, string searchContent, int PageIndex, int PageSize, int OrderBy)
         {
             var wards = await this.wardService.GetAsync(e => !e.Deleted && e.Active

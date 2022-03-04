@@ -18,7 +18,7 @@ namespace Sample.Models.DomainModels
         /// <summary>
         /// Ngày tạo
         /// </summary>
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? Created { get; set; }
         /// <summary>
         /// Tạo bởi
         /// </summary>
@@ -26,11 +26,11 @@ namespace Sample.Models.DomainModels
         /// <summary>
         /// Ngày cập nhật
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? Updated { get; set; }
         /// <summary>
         /// Người cập nhật
         /// </summary>
-        public string ModifiedBy { get; set; }
+        public string UpdatedBy { get; set; }
         /// <summary>
         /// Cờ xóa
         /// </summary>
