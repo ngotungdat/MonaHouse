@@ -77,6 +77,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<PackageRequest, Package>().ReverseMap();
             CreateMap<PagedList<PackageModel>, PagedList<Package>>().ReverseMap();
 
+            CreateMap<VehicleFeeConfigModel, VehicleFeeConfig>().ReverseMap();
+            CreateMap<VehicleFeeConfigRequest, VehicleFeeConfig>().ReverseMap();
+            CreateMap<PagedList<VehicleFeeConfigModel>, PagedList<VehicleFeeConfig>>().ReverseMap();
+
         }
 
     }

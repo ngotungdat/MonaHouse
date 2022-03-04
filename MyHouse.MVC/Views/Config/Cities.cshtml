@@ -48,7 +48,7 @@
                                 <tr class="tr-header-table">
                                     <th class="sort-label" data-column="col-name">Quốc gia</th>
                                     <th class="sort-label" data-column="col-electronic">Tên Tỉnh/TP</th>
-                                    <th class="sort-label text-table-center" data-column="col-water">Mã Tỉnh</th>
+                                    @*<th class="sort-label text-table-center" data-column="col-water">Mã Tỉnh</th>*@
                                     <th class="sort-label " data-column="col-service">Mô tả</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Quận/Huyện</th>
                                 </tr>
@@ -105,7 +105,7 @@
                     html += '<tr>';
                     html += '<td>' + item.CountryName + '</td>';
                     html += '<td>' + item.Name + '</td>';
-                    html += '<td class="text-table-center">' + item.Code + '</td>';
+                    /*html += '<td class="text-table-center">' + item.Code + '</td>';*/
                     html += '<td>' + item.Description + '</td>';
                     var Id = item.Id;
                     html += '<td class="text-table-center"><a href="/Config/Districts?id='+ Id +'"><i class="fas fa-arrow-circle-right"></i></a></td>';
@@ -172,33 +172,35 @@
     }
 
     function load_page(_pagination, _pageIndex, _totalPage) {
-        $('.span-totalrow').html('<b>Tổng cộng: ' + totalItem + '</b>');
-        $('.span-row-page').html('<b>'+ PageSize +'/Trang</b>');
-        $('.pagination').html('');
-        if (_pageIndex != 1) {
-            let back = _pageIndex - 1;
-            $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back +')" href="javascript:;"> <<');
-            $('.pagination').append('</a>');
-            $('.pagination').append('</li>');
-        }
-        for (let i of _pagination) {
-            if (i == '...') {
-                $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
+        if (totalItem > 0) {
+            $('.span-totalrow').html('<b>Tổng cộng: ' + totalItem + '</b>');
+            $('.span-row-page').html('<b>' + PageSize + '/Trang</b>');
+            $('.pagination').html('');
+            if (_pageIndex != 1) {
+                let back = _pageIndex - 1;
+                $('.pagination').append('<li class="page-item">');
+                $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + back + ')" href="javascript:;"> <<');
+                $('.pagination').append('</a>');
+                $('.pagination').append('</li>');
             }
-            else if (i == _pageIndex) {
-                $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+            for (let i of _pagination) {
+                if (i == '...') {
+                    $('.pagination').append('<li class="page-item span-totalrow">...</a></li>');
+                }
+                else if (i == _pageIndex) {
+                    $('.pagination').append('<li class="page-item active"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
 
-            } else {
-                $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                } else {
+                    $('.pagination').append('<li class="page-item"><a class="page-link" onclick="load_data_page(' + i + ')" href="javascript:;">' + i + '</a></li>');
+                }
             }
-        }
-        if (_pageIndex != _totalPage) {
-            let next = _pageIndex + 1;
-            $('.pagination').append('<li class="page-item">');
-            $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
-            $('.pagination').append('</a>');
-            $('.pagination').append('</li>');
+            if (_pageIndex != _totalPage) {
+                let next = _pageIndex + 1;
+                $('.pagination').append('<li class="page-item">');
+                $('.pagination').append('<a class="page-link-icon" onclick="load_data_page(' + next + ')" href="javascript:;"> >>');
+                $('.pagination').append('</a>');
+                $('.pagination').append('</li>');
+            }
         }
     }
     function load_data_page(val) {
