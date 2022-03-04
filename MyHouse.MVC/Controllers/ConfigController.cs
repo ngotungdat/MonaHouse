@@ -23,5 +23,9 @@ namespace MyHouse.MVC.Controllers
             ViewBag.cityId = ctityId;
             return View();
         }
+        public IActionResult VehicleFeeConfig()
+        {
+            return View();
+        }
     }
 }

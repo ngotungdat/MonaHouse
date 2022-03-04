@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string token = Context.Session.GetString("token");
+    string domain = Context.Session.GetString("domain");
+}
+<style>
+    .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
+        min-width: 80px;
+    }
+</style>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phí gửi xe</li>
+                </ol>
+            </nav>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Tỉnh/TP</h4>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                        <div class="search__box control mg-md-r-5">
+                            <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="0">Loại xe A-Z↓</option>
+                                    <option value="1">Loại xe Z-A↑</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Loại xe</th>
+                                    <th class="sort-label" data-column="col-electronic">Phí gửi</th>
+                                    <th class="sort-label " data-column="col-service">Người tạo</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-city">
+                            </tbody>
+                        </table>
+                    </div>
+                    <span class="span-row-page"><b>0/Trang</b></span>
+                    <nav aria-label="Page navigation text-right" class="page-nav">
+                        <ul class="pagination mg-b-0"></ul>
+                    </nav>
+                    <span class="span-totalrow"><b>Tổng cộng: 0</b></span>
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
