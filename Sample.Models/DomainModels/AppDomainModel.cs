@@ -26,11 +26,11 @@ namespace Sample.Models.DomainModels
         /// <summary>
         /// Ngày cập nhật
         /// </summary>
-        public DateTime? Modified { get; set; }
+        public DateTime? Updated { get; set; }
         /// <summary>
         /// Người cập nhật
         /// </summary>
-        public string ModifiedBy { get; set; }
+        public string UpdatedBy { get; set; }
         /// <summary>
         /// Cờ xóa
         /// </summary>
