@@ -160,12 +160,12 @@ namespace Sample.API
                 app.UseExceptionHandler("/error-local-development");
             }
 
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    FileProvider = new PhysicalFileProvider(
-            //        Path.Combine(env.ContentRootPath, "Upload")),
-            //    RequestPath = "/Upload"
-            //});
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Upload/Temp")),
+                RequestPath = ""
+            });
 
             //app.UseStaticFiles(new StaticFileOptions()
             //{

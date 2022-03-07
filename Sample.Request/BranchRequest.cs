@@ -12,5 +12,22 @@ namespace Sample.Request
     {
         [Required(ErrorMessage = "Vui lòng nhập tên nhà!")]
         public string Name { get; set; }
+        /// <summary>
+        /// Loại
+        /// </summary>
+        [Required]
+        public int? Type { get; set; }
+        /// <summary>
+        /// Địa chỉ
+        /// </summary>
+        public string Address { get; set; }
+        /// <summary>
+        /// Link hình ảnh
+        /// </summary>
+        public string LinkImage { get; set; }
+        /// <summary>
+        /// Mô tả thêm, quy định
+        /// </summary>
+        public string Description { get; set; }
     }
 }

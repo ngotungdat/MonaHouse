@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Upload\QRCode\" />
+    <Folder Include="Upload\User\" />
+    <Folder Include="Upload\Temp\" />
     <Folder Include="Upload\User\" />
     <Folder Include="Upload\Temp\" />
     <Folder Include="Upload\QRCode\" />
