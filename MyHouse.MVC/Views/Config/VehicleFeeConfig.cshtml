@@ -56,13 +56,89 @@
                             </tbody>
                         </table>
                     </div>
-                    <span class="span-row-page"><b>0/Trang</b></span>
-                    <nav aria-label="Page navigation text-right" class="page-nav">
-                        <ul class="pagination mg-b-0"></ul>
-                    </nav>
-                    <span class="span-totalrow"><b>Tổng cộng: 0</b></span>
+                    @await Html.PartialAsync("_PaginationPartial")
                 </div>
             </div>
         </div>
     </div><!-- row -->
 </div>
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@token';
+    let domain = '@domain';
+    domain += 'api/VehicleFeeConfig';
+    let total_item = 0;
+    let total_page = 0;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                //console.log('list: ', list);
+                let html = '';
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    html += '<tr>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + format_money(item.Price) + '</td>';
+                    html += '<td>' + item.CreatedBy + '</td>';
+                    html += '<td class="text-table-center"><a href="#"><i class="fas fa-arrow-circle-right"></i></a></td>';
+                    html += '</tr>';
+                }
+                $('#tbody-city').html(html);
+                total_item = data.Data.TotalItem;
+                total_page = data.Data.TotalPage;
+                load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+</script>
