@@ -25,7 +25,7 @@ namespace Sample.Entities.DomainEntities
         /// <summary>
         /// Số lượng item trên 1 trang
         /// </summary>
-        [DefaultValue(15)]
+        [DefaultValue(20)]
         public int PageSize { set; get; }
 
         /// <summary>
