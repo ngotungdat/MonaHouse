@@ -27,15 +27,47 @@ namespace Sample.Service.Services
         {
             return "Branch_GetPagingData";
         }
-        //public override async Task<bool> CreateAsync(Branch item)
-        //{
-        //    if (item != null)
-        //    {
-        //        await this.unitOfWork.Repository<Branch>().CreateAsync(item);
-        //        await this.unitOfWork.SaveAsync();
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public override async Task<bool> CreateAsync(Branch item)
+        {
+            using (var dbContextTransaction = coreDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (item != null)
+                    {
+                        await this.unitOfWork.Repository<Branch>().CreateAsync(item);
+                        await this.unitOfWork.SaveAsync();
+
+                    }
+
+                    //foreach (var data in listData)
+                    //{
+                    //    await this.CreateAsync(data);
+                    //    foreach (var item in data.Orders)
+                    //    {
+                    //        item.MainOrderId = data.Id;
+                    //    }
+                    //    data.StaffIncomes.ForEach(e => e.MainOrderId = data.Id);
+
+                    //    await unitOfWork.Repository<Order>().CreateAsync(data.Orders);
+
+                    //    await unitOfWork.Repository<StaffIncome>().CreateAsync(data.StaffIncomes);
+                    //    await unitOfWork.SaveAsync();
+
+                    //    if (data.ShopTempId > 0)
+                    //        //Xóa Shop temp và order temp
+                    //        await orderShopTempService.DeleteAsync(data.ShopTempId);
+                    //}
+
+                    await dbContextTransaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await dbContextTransaction.RollbackAsync();
+                    throw new Exception(ex.Message);
+                }
+            }
+            return true;
+        }
     }
 }
