@@ -112,6 +112,9 @@
         .text-table-center {
             text-align:center;
         }
+        .modal-dialog {
+            max-width: 45%
+        }
     </style>
     <div class="modal-loading" style="background-image: url('/house/loading.gif')"></div>
     <header class="navbar navbar-header navbar-header-fixed">
@@ -213,6 +216,6 @@
         return (!str || /^\s*$/.test(str));
     }
     function format_money(input) {
-        return parseInt(input).toLocaleString() + ' đ';
+        return parseInt(input).toLocaleString();
     }
 </script>

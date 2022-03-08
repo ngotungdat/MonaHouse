@@ -106,7 +106,7 @@
                     html += '<td class="text-table-center"><a href="/Config/Districts?id='+ Id +'"><i class="fas fa-arrow-circle-right"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-city').html(html);
+                $('#tbody-city').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
