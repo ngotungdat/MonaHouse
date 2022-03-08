@@ -15,7 +15,6 @@ namespace Sample.Request
         /// <summary>
         /// Loại
         /// </summary>
-        [Required]
         public int? Type { get; set; }
         /// <summary>
         /// Địa chỉ

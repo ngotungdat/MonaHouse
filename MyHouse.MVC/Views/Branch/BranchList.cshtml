@@ -58,87 +58,8 @@
                     </div>
                 </div>
                 <div class="house-layout-list mg-t-15">
-                    <div class="row">
-                        <div class="house-wrap col-md-6">
-                            <div class="house-item">
-                                <div class="media ">
-                                    <img src="~/house/assets/img/house.jpg" class="object-fit-cover rounded mg-r-20" alt="house">
-                                    <div class="media-body ">
-                                        <div class="group-top">
-                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">319 c16 Lý Thường Kiệt</a></h6>
-                                            <div class="house-meta">
-                                                <p>
-                                                    <span class="value">Số phòng:</span> <span class="lb">10</span>
-                                                </p>
-                                                <p>
-                                                    <span class="value">Còn trống:</span> <span class="lb">02</span>
-                                                </p>
-                                                <p>
-                                                    <span class="value">Số người ở:</span> <span class="lb">03</span>
-                                                </p>
-                                                <p>
-                                                    <span class="value">Tổng dư/nợ:</span> <span class="lb" style="color:red;">4.500.000</span>
-                                                </p>
-                                                <p>
-                                                    <span class="value">Địa chỉ:</span> <span class="lb"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <a href="#modal-edit-house" data-toggle="modal" class="edit-house update-house" data-id="1"><i data-feather="edit"></i></a>
-                                        <div class="house-address">
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="media-footer mg-t-15">
-                                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-1" role="button" aria-expanded="false" aria-controls="room-list-4">
-                                        <input type="checkbox" class="hidden">
-                                        <span></span>
-                                    </label>
-                                    <div class="collapse mg-t-5" id="room-list-1">
-                                        <div class="list__room">
-                                            <div class="table__filter__wrap">
-                                                <div class="table__filter-wrap">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <h6 class="mg-b-0">DANH SÁCH PHÒNG</h6>
-                                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i data-feather="home" class="wd-20 ht-20 mg-r-5"></i> Thêm phòng mới</a>
-                                                    </div>
-                                                    <div class="table-responsive mg-t-15">
-                                                        <table class="table table-block-mobile table-striped table-room table-vcenter">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Phòng</th>
-                                                                    <th>Giá phòng</th>
-                                                                    <th>Tiền dư/nợ</th>
-                                                                    <th>Trạng thái</th>
-                                                                    <th>Ghi chú</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td data-title="Tên">Phòng 10</td>
-                                                                    <td data-title="Giá phòng">2.000.000</td>
-                                                                    <td data-title="Tiền Dư/Nợ">3.000.000</td>
-                                                                    <td data-title="Trạng thái">Đang thuê</td>
-                                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
-                                                                    @*<td data-title="Thao tác">
-                                                                            <a href=""
-                                                                               class="d-inline-block pd-5">
-                                                                                <i data-feather="arrow-right-circle"></i>
-                                                                            </a>
-                                                                        </td>*@
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row table-branchlist">
+                        
                     </div>
                 </div>
 
@@ -157,6 +78,7 @@
                 <div class="media align-items-center">
                     <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
                     <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
                         <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tòa nhà/dãy trọ</h4>
                         <p class="tx-13 tx-color-03 mg-b-0">Thêm sửa tòa nhà/dãy trọ vào danh sách</p>
                     </div>
@@ -176,7 +98,8 @@
                                 <option value="2">Nhà trọ</option>
                                 <option value="3">Nhà nguyên căn</option>
                                 <option value="4">Ký túc xá</option>
-                                <option value="4">HomeStay</option>
+                                <option value="5">HomeStay</option>
+                                <option value="6">Chung cư</option>
                             </select>
                         </div>
                     </div>
@@ -224,7 +147,7 @@
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                <button type="button" class="btn btn-primary btn-save-branch">Lưu lại</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -295,25 +218,65 @@
 @await Html.PartialAsync("_ScriptUploadImagePartial")
 
 <script>
+    $(function () {
+        load_data(1, 20, 0);
+    });
+
+    function load_data(pageindex, pagesize, orderby) {
+        $.get('/branch/BranchListPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby, function (data) {
+            $('.table-branchlist').html(data);
+        });
+    }
+</script>
+<script>
+    let PageIndex = 1;
+    let PageSize = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@token';
+    let domain = '@domain';
+    domain += 'api/Branch';
+
     $('.btn-add-branch').on('click', function () {
+        $('input[name=hdfId]').val(0);
         $('input[name=txt-house-name]').val('');
         $('input[name=txt-house-address]').val('');
+        $('select[name=dll-house-type]').val(1);
         $('textarea[name=txt-house-description]').val('');
         $('input[name=hdfImage]').val('');
         $('#modal-branch').modal('show');
     });
 
-    function insert_or_update(Id, name, address, Description, link_img) {
+    //Thêm mới nhà / dãy trọ
+    $('.btn-save-branch').click(function () {
+        const id = $('input[name=hdfId]').val();
+        const name = $('input[name=txt-house-name]').val();
+        const type = $('select[name=dll-house-type]').val();
+        const address = $('input[name=txt-house-address]').val();
+        const description = $('textarea[name=txt-house-description]').val();
+        const link_img = $('input[name=hdfImage]').val();
+        if (ckstring(name) || ckstring(link_img)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, name, type, address, description, link_img)
+        }
+    });
+
+    function insert_or_update(Id, name, type, address, description, link_img) {
         let data = {};
+        console.log(Id, name, type, address, description, link_img);
         data["id"] = Id;
-        data["name"] = Title; //I just wanted to show you how you can add values to a json object
-        data["titleDescription"] = TitleDescription;
-        data["limitedRoom"] = LimitedRoom;
-        data["price"] = Price;
-        data["active"] = active;
-        data["description"] = Description;
-        data["typeofrental"] = type_of_rental;
-        data["packagetype"] = package_type;
+        data["name"] = name; //I just wanted to show you how you can add values to a json object
+        data["type"] = type;
+        data["address"] = address;
+        data["linkImage"] = link_img;
+        data["description"] = description;
 
         let type_request = '';
         if (ckstring(Id) || Id == 0) {
@@ -333,8 +296,8 @@
             },
             contentType: "application/json",
             success: function (data) {
-                load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
-                $('#modal-add-package').modal('hide');
+                //load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+                $('#modal-branch').modal('hide');
                 if (type_request == 'POST') {
                     Swal.fire(
                         'Thông báo!',
@@ -349,7 +312,7 @@
                         'success'
                     );
                 }
-                $('.btn-save-package').prop('disabled', false);
+                $('.btn-save-branch').prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -357,7 +320,7 @@
                     'Rất tiếc đã xảy ra lỗi!',
                     'error'
                 );
-                $('.btn-save-package').prop('disabled', false);
+                $('.btn-save-branch').prop('disabled', false);
                 console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
             }
         });

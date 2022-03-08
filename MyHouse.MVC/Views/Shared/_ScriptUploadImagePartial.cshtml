@@ -3,10 +3,11 @@
     string token = Context.Session.GetString("token");
     string domain = Context.Session.GetString("domain");
 }
+<!---Upload 1 hình-->
 <script>
-    let domain = '@domain';
-    let token = '@token';
-    const url_api = domain + 'api/file/upload-file';
+    let api_url = '@domain';
+    let api_token = '@token';
+    const url_api = api_url + 'api/file/upload-file';
     //lưu hình
     $('body').on('change', '.upload-image-temp', function (event) {
         let input, files, $previewBox;
@@ -28,12 +29,73 @@
                 url: url_api,
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + token,
+                    'Authorization': 'Bearer ' + api_token,
                 },
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    url_img = domain + data.Data;
+                    url_img = api_url + data.Data;
+                    $('input[name=hdfImage]').val(data.Data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Result upload image: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            let reader = new FileReader();
+            let $imgBox = $('<div class="image-box lightgallery"></div');
+            let $imgWrap = $('<div class="image-wrap"></div>');
+            reader.onload = function (e) {
+                const $img = $('<a href="' + url_img + '" class=""><img src="' + url_img + '" class="img" alt="image"></a>');
+                const $delete = $('<a href="javascript:;" class="delete-image delete-image-temp"><i class="fas fa-times"></i></a>');
+                $imgBox.append($img);
+                $imgWrap.append($delete);
+                $imgWrap.append($imgBox);
+                $previewBox.append($imgWrap);
+            };
+            reader.onloadend = function (e) {
+                //initLightGallery();
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+    $(document).on('click', '.image-wrap .delete-image-temp', function (e) {
+        e.preventDefault();
+        $(this).closest('.image-wrap').hide(500, function () {
+            $(this).remove();
+        })
+    });
+</script>
+
+<!---Upload nhiều hình-->
+<script>
+    const url_apis = api_urls + 'api/file/upload-multiple-files';
+    //lưu hình
+    $('body').on('change', '.upload-image-temp', function (event) {
+        let input, files, $previewBox;
+        input = event.target;
+        files = input.files;
+        $previewBox = $(input).closest('.upload-box').find('.preview-image');
+        while ($previewBox.get(0).firstChild) {
+            $previewBox.get(0).removeChild($previewBox.get(0).firstChild);
+        }
+
+        Array.from(files).map((file, index) => {
+            let url_img;
+            var formData = new FormData();
+            formData.append("files", file);
+            console.log(formData);
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: url_apis,
+                data: formData,
+                headers: {
+                    'Authorization': 'Bearer ' + api_tokens,
+                },
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    url_img = api_url + data.Data;
                     $('input[name=hdfImage]').val(data.Data);
                 },
                 error: function (xhr, status, error) {

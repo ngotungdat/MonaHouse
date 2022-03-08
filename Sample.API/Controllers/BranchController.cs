@@ -7,9 +7,11 @@ using Microsoft.Extensions.Logging;
 using Sample.BaseAPI.Controllers;
 using Sample.Entities;
 using Sample.Entities.Search;
+using Sample.Extensions;
 using Sample.Interface.Services;
 using Sample.Models;
 using Sample.Request;
+using Sample.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,5 +35,45 @@ namespace Sample.API.Controllers
             this.branchService = serviceProvider.GetRequiredService<IBranchService>();
             this.configuration = configuration;
         }
+
+        /// <summary>
+        /// Thêm mới item
+        /// </summary>
+        /// <param name="itemModel"></param>
+        /// <returns></returns>
+        //[HttpPost]
+        //[AppAuthorize(new string[] { CoreContants.AddNew })]
+        //public override async Task<AppDomainResult> AddItem([FromBody] R itemModel)
+        //{
+        //    AppDomainResult appDomainResult = new AppDomainResult();
+        //    bool success = false;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var item = mapper.Map<E>(itemModel);
+        //        var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
+        //        if (item != null)
+        //        {
+        //            item.TenantId = user.TenantId;
+        //            item.CreatedBy = user.UserName;
+        //            // Kiểm tra item có tồn tại chưa?
+        //            var messageUserCheck = await this.domainService.GetExistItemMessage(item);
+        //            if (!string.IsNullOrEmpty(messageUserCheck))
+        //                throw new AppException(messageUserCheck);
+        //            success = await this.domainService.CreateAsync(item);
+        //            if (success)
+        //                appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+        //            else
+        //                throw new Exception("Lỗi trong quá trình xử lý");
+        //            appDomainResult.Success = success;
+        //        }
+        //        else
+        //            throw new AppException("Item không tồn tại");
+        //    }
+        //    else
+        //    {
+        //        throw new AppException(ModelState.GetErrorMessage());
+        //    }
+        //    return appDomainResult;
+        //}
     }
 }

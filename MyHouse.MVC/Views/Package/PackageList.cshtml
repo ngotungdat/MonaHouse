@@ -177,7 +177,7 @@
                             </div>
                         </div>`;
                 }
-                $('.content-data').html(html);
+                $('.content-data').hide().html(html).show('slow');
             },
             error: function (xhr, status, error) {
                 console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

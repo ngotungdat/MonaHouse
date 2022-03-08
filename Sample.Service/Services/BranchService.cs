@@ -23,6 +23,10 @@ namespace Sample.Service.Services
         {
             this.coreDbContext = coreDbContext;
         }
+        protected override string GetStoreProcName()
+        {
+            return "Branch_GetPagingData";
+        }
         //public override async Task<bool> CreateAsync(Branch item)
         //{
         //    if (item != null)
