@@ -13,10 +13,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phí gửi xe</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình tiện ích</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách phí gửi xe</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách tiện ích</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -24,7 +24,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-fee" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        <a href="javascript:;" class="btn btn-primary btn-add-utilitiesconfig" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -47,13 +47,13 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Loại xe</th>
-                                    <th class="sort-label" data-column="col-electronic">Phí gửi</th>
+                                    <th class="sort-label" data-column="col-name">Tiệc ích</th>
+                                    <th class="sort-label" data-column="col-electronic">Phí</th>
                                     <th class="sort-label " data-column="col-service">Người tạo</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-vehicleFee">
+                            <tbody id="tbody-utilitiesconfig">
                             </tbody>
                         </table>
                     </div>
@@ -63,7 +63,7 @@
         </div>
     </div><!-- row -->
 </div>
-<div class="modal fade modal-nopadding-right" id="modal-fee" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-nopadding-right" id="modal-utilitiesconfig" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
         <div class="modal-content">
             <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
@@ -75,7 +75,7 @@
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
                         <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phí giữ xe</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Thêm phí giữ xe</p>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm tiện ích</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -84,12 +84,12 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại xe<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Xe tay ga">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiệc ích<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Tủ lạnh">
                         </div>
                     </div><div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí gửi xe<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-price" required class="form-control" data-type="currency" placeholder="Ví dụ: 50,000">
                         </div>
                     </div>
@@ -97,7 +97,7 @@
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
+                <button type="button" class="btn btn-primary btn-save-utilitiesconfig">Lưu lại</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -109,7 +109,7 @@
     let OrderBy = 0;
     let token = '@token';
     let domain = '@domain';
-    domain += 'api/VehicleFeeConfig';
+    domain += 'api/UtilitiesConfig';
     let total_item = 0;
     let total_page = 0;
     //Tạo hoặc làm mới api
@@ -132,7 +132,7 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
-                //console.log('list: ', list);
+                console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
@@ -140,10 +140,10 @@
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + format_money(item.Price) + ' đ</td>';
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-price="' + item.Price +'" class="btn-edit-fee"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-price="' + item.Price +'" class="btn-edit-utilitiesconfig"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-vehicleFee').hide().html(html).show('slow');
+                $('#tbody-utilitiesconfig').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
@@ -182,20 +182,20 @@
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
     }
 
-    $('.btn-add-fee').on('click', function () {
+    $('.btn-add-utilitiesconfig').on('click', function () {
         $('input[name=hdfId]').val(0);
         $('input[name=txt-name]').val('');
         $('input[name=txt-price]').val(0);
-        $('#modal-fee').modal('show');
+        $('#modal-utilitiesconfig').modal('show');
     });
-    $(document).on('click', '.btn-edit-fee', function () {
+    $(document).on('click', '.btn-edit-utilitiesconfig', function () {
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-name]').val($(this).attr('data-name'));
         var price = format_money($(this).attr('data-price'));
         $('input[name=txt-price]').val(price);
-        $('#modal-fee').modal('show');
+        $('#modal-utilitiesconfig').modal('show');
     });
-    $('.btn-save-fee').click(function () {
+    $('.btn-save-utilitiesconfig').click(function () {
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-name]').val();
         const price = $('input[name=txt-price]').val().replaceAll(',', '');
@@ -226,7 +226,7 @@
         else {
             type_request = 'PUT';
         }
-        $('#modal-fee').modal('hide');
+        $('#modal-utilitiesconfig').modal('hide');
         $.ajax({
             url: domain,
             data: JSON.stringify(data),
@@ -254,7 +254,7 @@
                         'success'
                     );
                 }
-                $('.btn-save-fee').prop('disabled', false);
+                $('.btn-save-utilitiesconfig').prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -262,7 +262,7 @@
                     'Rất tiếc đã xảy ra lỗi!',
                     'error'
                 );
-                $('.btn-save-fee').prop('disabled', false);
+                $('.btn-save-utilitiesconfig').prop('disabled', false);
                 console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
             }
         });

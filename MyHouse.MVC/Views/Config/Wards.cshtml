@@ -107,7 +107,7 @@
                     html += '<td>' + item.Description + '</td>';
                     html += '</tr>';
                 }
-                $('#tbody-wards').html(html);
+                $('#tbody-wards').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);

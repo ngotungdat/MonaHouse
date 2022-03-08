@@ -29,6 +29,14 @@ namespace Sample.Utilities
 
         public const string GET_TOTAL_NOTIFICATION = "get-total-notification";
 
+        public enum RoleUser
+        { 
+            Admin = 1,
+            CSKH = 2,
+            ChuTro = 3,
+            NhanVien = 4,
+            ThueTro = 5,
+        }
         /// <summary>
         /// Trạng thái của người dùng
         /// </summary>
@@ -38,7 +46,6 @@ namespace Sample.Utilities
             NotActive = 1,
             Locked = 2
         }
-
         /// <summary>
         /// Danh mục quyền
         /// </summary>

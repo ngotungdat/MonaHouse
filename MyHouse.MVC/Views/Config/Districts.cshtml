@@ -108,7 +108,7 @@
                     html += '<td class="text-table-center"><a href="/Config/Wards?id=' + item.Id +'&ctityId='+item.CityId+'"><i class="fas fa-arrow-circle-right"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-districts').html(html);
+                $('#tbody-districts').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
