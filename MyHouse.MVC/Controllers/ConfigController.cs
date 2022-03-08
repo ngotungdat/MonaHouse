@@ -27,5 +27,9 @@ namespace MyHouse.MVC.Controllers
         {
             return View();
         }
+        public IActionResult UtilitiesConfig()
+        {
+            return View();
+        }
     }
 }
