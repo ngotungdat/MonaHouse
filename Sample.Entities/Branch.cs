@@ -88,6 +88,16 @@ namespace Sample.Entities
         /// Tổng số giường trống
         /// </summary>
         public int? EmptyBedAmount { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh
+        /// </summary>
+        [NotMapped]
+        public IList<BranchImage> BranchImages { get; set; }
+        /// <summary>
+        /// Hình ảnh đại diện cho nhà
+        /// </summary>
+        [NotMapped]
+        public string LinkImage { get; set; }
 
     }
 }

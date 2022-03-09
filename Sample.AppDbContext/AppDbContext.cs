@@ -42,6 +42,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<SMSEmailTemplates>(x => x.ToTable("SMSEmailTemplates"));
             modelBuilder.Entity<UtilitiesConfig>(x => x.ToTable("UtilitiesConfig"));
             modelBuilder.Entity<Branch>(x => x.ToTable("Branch"));
+            modelBuilder.Entity<BranchImage>(x => x.ToTable("BranchImage"));
             modelBuilder.Entity<BranchUtilities>(x => x.ToTable("BranchUtilities"));
             modelBuilder.Entity<Room>(x => x.ToTable("Room"));
             modelBuilder.Entity<RoomImage>(x => x.ToTable("RoomImage"));
@@ -81,6 +82,7 @@ namespace Sample.AppDbContext
         public DbSet<SMSEmailTemplates> SMSEmailTemplates { get; set; }
         public DbSet<UtilitiesConfig> UtilitiesConfig { get; set; } //Cấu hình tiện ích
         public DbSet<Branch> Branch { get; set; }
+        public DbSet<BranchImage> BranchImage { get; set; }
         public DbSet<BranchUtilities> BranchUtilities { get; set; } //Tiện ích của dãy trọ
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomImage> RoomImage { get; set; }

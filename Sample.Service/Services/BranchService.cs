@@ -37,29 +37,17 @@ namespace Sample.Service.Services
                     {
                         await this.unitOfWork.Repository<Branch>().CreateAsync(item);
                         await this.unitOfWork.SaveAsync();
-
+                        foreach(BranchImage jtem in item.BranchImages)
+                        {
+                            jtem.BranchId = item.Id;
+                            jtem.CreatedBy = item.CreatedBy;
+                            await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
+                        }
+                        await unitOfWork.SaveAsync();
+                        await dbContextTransaction.CommitAsync();
+                        return true;
                     }
-
-                    //foreach (var data in listData)
-                    //{
-                    //    await this.CreateAsync(data);
-                    //    foreach (var item in data.Orders)
-                    //    {
-                    //        item.MainOrderId = data.Id;
-                    //    }
-                    //    data.StaffIncomes.ForEach(e => e.MainOrderId = data.Id);
-
-                    //    await unitOfWork.Repository<Order>().CreateAsync(data.Orders);
-
-                    //    await unitOfWork.Repository<StaffIncome>().CreateAsync(data.StaffIncomes);
-                    //    await unitOfWork.SaveAsync();
-
-                    //    if (data.ShopTempId > 0)
-                    //        //Xóa Shop temp và order temp
-                    //        await orderShopTempService.DeleteAsync(data.ShopTempId);
-                    //}
-
-                    await dbContextTransaction.CommitAsync();
+                    return false;
                 }
                 catch (Exception ex)
                 {
@@ -67,7 +55,6 @@ namespace Sample.Service.Services
                     throw new Exception(ex.Message);
                 }
             }
-            return true;
         }
     }
 }

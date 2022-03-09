@@ -72,6 +72,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<BranchRequest, Branch>().ReverseMap();
             CreateMap<PagedList<BranchModel>, PagedList<Branch>>().ReverseMap();
 
+            CreateMap<BranchImageModel, BranchImage>().ReverseMap();
+            CreateMap<BranchImageRequest, BranchImage>().ReverseMap();
+            CreateMap<PagedList<BranchImageModel>, PagedList<BranchImage>>().ReverseMap();
+
 
             CreateMap<PackageModel, Package>().ReverseMap();
             CreateMap<PackageRequest, Package>().ReverseMap();

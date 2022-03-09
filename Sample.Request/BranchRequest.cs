@@ -1,4 +1,5 @@
-﻿using Sample.Request.DomainRequests;
+﻿using Sample.Entities;
+using Sample.Request.DomainRequests;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,12 +22,12 @@ namespace Sample.Request
         /// </summary>
         public string Address { get; set; }
         /// <summary>
-        /// Link hình ảnh
-        /// </summary>
-        public string LinkImage { get; set; }
-        /// <summary>
         /// Mô tả thêm, quy định
         /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh
+        /// </summary>
+        public IList<BranchImageRequest> BranchImages { get; set; }
     }
 }

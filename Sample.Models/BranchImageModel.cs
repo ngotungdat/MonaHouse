@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Sample.Models
 {
-    public class BranchModel: AppDomainModel
+    public class BranchImageModel : AppDomainModel
     {
-        public string Name { get; set; }
-        public string LinkImage { get; set; }
+        /// <summary>
+        /// Link hình ảnh
+        /// </summary>
+        public string Link { get; set; }
     }
 }

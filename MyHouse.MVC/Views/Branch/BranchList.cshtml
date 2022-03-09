@@ -6,9 +6,9 @@
 
 <style>
     .house-item img {
-        width: 180px;
-        height: 208px;
-        object-fit: inherit;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
     }
 
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
@@ -255,11 +255,6 @@
         $('input[name=hdfImage]').val('');
         $('#modal-branch').modal('show');
     });
-    function replaceLast(x, y, z) {
-        var a = x.split("");
-        a[x.lastIndexOf(y)] = z;
-        return a.join("");
-    }
 
     //Thêm mới nhà / dãy trọ
     $(document).on('click', '.btn-save-branch', function () {
@@ -268,16 +263,16 @@
         const type = $('select[name=dll-house-type]').val();
         const address = $('input[name=txt-house-address]').val();
         const description = $('textarea[name=txt-house-description]').val();
-        let link_img = "04650b4b-59f8-4f19-ba88-87ef9c67f145-cho-thue-day-nha-tro-1.webp||04650b4b-59f8-4f19-ba88-87ef9c67f145-cho-thue-day-nha-tro-1.webp";
-
-        //$('.preview-image').each(function () {
-        //    let $this = $(this);
-        //    let img = $this.find('.image-box').find('a').attr('data-name');
-        //    link_img += img + '||';
-        //});
-       /* link_img = replaceLast(link_img, '||', '');*/
-        //console.log(link_img);
-        if (ckstring(name) || ckstring(link_img)) {
+        //cho image vào list
+        let list_images = [];
+        $('.preview-image .image-wrap').each(function () {
+            let img = $(this).find('.image-box').find('a').attr('data-name');
+            let singleObj = {};
+            singleObj['link'] = img;
+            list_images.push(singleObj);
+        });
+        //kiểm tra ràng buộc bắt buộc nhập
+        if (ckstring(name) || ckstring(list_images)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -286,20 +281,21 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, name, type, address, description, link_img)
+            insert_or_update(id, name, type, address, description, list_images)
         }
     });
 
-    function insert_or_update(Id, name, type, address, description, link_img) {
+    function insert_or_update(Id, name, type, address, description, list_images) {
         let data = {};
-        console.log(Id, name, type, address, description, link_img);
+        //console.log(Id, name, type, address, description, list_images);
         data["id"] = Id;
         data["name"] = name; //I just wanted to show you how you can add values to a json object
         data["type"] = type;
         data["address"] = address;
-        data["linkImage"] = link_img;
         data["description"] = description;
+        data["branchimages"] = list_images;
 
+        //console.log(data);
         let type_request = '';
         if (ckstring(Id) || Id == 0) {
             type_request = 'POST';

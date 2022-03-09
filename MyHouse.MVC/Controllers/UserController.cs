@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using Sample.Entities;
 using Sample.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,6 +24,14 @@ namespace MyHouse.MVC.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Danh sách chủ nhà trọ - Partial View
+        /// </summary>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="OrderBy"></param>
+        /// <param name="SearchContent"></param>
+        /// <returns></returns>
         public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent)
         {
             string domain = GetCurrentDomain();
@@ -42,6 +51,11 @@ namespace MyHouse.MVC.Controllers
             List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(items.ToString());
             return PartialView(model);
         }
+        /// <summary>
+        /// Chi tiết chủ nhà trọ - Partial View
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public IActionResult UserOwnerDetailPartial(int userId)
         {
             ViewData["userId"] = userId;
