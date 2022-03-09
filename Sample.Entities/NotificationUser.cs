@@ -9,7 +9,6 @@ namespace Sample.Entities
 {
     public class NotificationUser : DomainEntities.AppDomain
     {
-        [Required]
         public int? UsersId { get; set; }
         public int? NotificationId { get; set; }
         public string Title { get; set; }

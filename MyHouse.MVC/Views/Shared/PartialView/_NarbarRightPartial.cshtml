@@ -1,9 +1,8 @@
 ﻿@using Sample.Entities;
 @using Microsoft.AspNetCore.Http
-@model Users
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
+@model PartialModel
+@{ 
+    Users users = Model.MyProperty as Users;
 }
 <style>
     .dropdown-menu-right {
@@ -74,7 +73,7 @@
         <div class="avatar avatar-lg mg-b-15">
             <img src="~/house/images/user.png" class="rounded-circle" alt="">
         </div>
-        <h6 class="tx-semibold mg-b-5">@Model.FullName</h6>
+        <h6 class="tx-semibold mg-b-5">@users.FullName</h6>
         <p class="mg-b-5 tx-12 tx-color-03">Loại tài khoản: <span class="badge badge-primary">Premium</span></p>
         <p class="mg-b-25 tx-12 tx-color-03">Hết hạn: <span class="tx-bold">25/04/2020</span></p>
         <a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="dropdown-item"><i data-feather="user"></i> Thông tin tài khoản</a>
@@ -87,36 +86,31 @@
 
 
 <script>
-    
-    let page_index = 1;
-    let page_size = 5;
-    let SearchContent = '';
-    let OrderBy = 0;
-    let token = '@token';
-    let domain = '@domain';
-    let usersId = @Model.Id;
-    domain += 'api/NotificationUser';
+    let notifications_token = '@Model.Token';
+    let notifications_domain = '@Model.Domain';
+    let notifications_usersId = @users.Id;
+    notifications_domain += 'api/NotificationUser';
     //Tạo hoặc làm mới api
-    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&UsersID=' + usersId ;
+    function get_api_notifications() {
+        return notifications_domain + '?&PageIndex=1&PageSize=5&OrderBy=0&UsersID=' + notifications_usersId ;
     }
     $(document).ready(function () {
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data_notifications(get_api_notifications());
     });
     //Load dữ liệu theo api
-    function load_data(api) {
+    function load_data_notifications(api) {
         $.ajax({
             type: 'GET',
             dataType: "json",
             url: api,
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + notifications_token,
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
-                //console.log('list: ', list);
+                console.log('list: ', list);
                 let html = '';
                 let count_noti = 0;
                 for (let i = 0; i < list.length; i++) {
@@ -155,8 +149,8 @@
     });
     function update_notifications(Id,isSeen) {
         let data = {};
-        data["id"] = Id;
-        data["isSeen"] = isSeen;
+        data["Id"] = Id;
+        data["IsSeen"] = isSeen;
 
         $.ajax({
             url: domain,
