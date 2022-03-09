@@ -88,11 +88,11 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ <span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Khu nhà A">
                         </div>
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại <span class="text-danger">(*)</span></label>
                             <select name="dll-house-type" class="form-control">
                                 <option value="1">Cửa hàng - Kiot</option>
                                 <option value="2">Nhà trọ</option>
@@ -105,19 +105,19 @@
                     </div>
                     <div class="row mg-t-10">
                         <div class="col-sm-4">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP <span class="text-danger">(*)</span></label>
                             <select name="dll-house-area" class="form-control">
                                 <option value="0">-----</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện <span class="text-danger">(*)</span></label>
                             <select name="dll-house-district" class="form-control">
                                 <option value="0">-----</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã <span class="text-danger">(*)</span></label>
                             <select name="dll-house-ward" class="form-control">
                                 <option value="0">-----</option>
                             </select>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="row mg-t-10">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ:</label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ <span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 373/226 Lý Thường Kiệt, P8, Q. Tân Bình, HCM">
                         </div>
                     </div>
@@ -224,8 +224,15 @@
 </div><!-- modal -->
 <!--Gọi js upload hình-->
 @await Html.PartialAsync("_ScriptUploadImagePartial")
-
 <script>
+    let PageIndex = 1;
+    let PageSize = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@token';
+    let domain = '@domain';
+    domain += 'api/Branch';
+
     $(function () {
         load_data(1, 20, 0);
     });
@@ -236,16 +243,6 @@
         });
     }
 
-</script>
-<script>
-    let PageIndex = 1;
-    let PageSize = 20;
-    let SearchContent = '';
-    let OrderBy = 0;
-    let token = '@token';
-    let domain = '@domain';
-    domain += 'api/Branch';
-
     $('.btn-add-branch').on('click', function () {
         $('input[name=hdfId]').val(0);
         $('input[name=txt-house-name]').val('');
@@ -253,6 +250,16 @@
         $('select[name=dll-house-type]').val(1);
         $('textarea[name=txt-house-description]').val('');
         $('input[name=hdfImage]').val('');
+        $('#modal-branch').modal('show');
+    });
+
+    //load chi tiết nhà/dãy trọ
+    $(document).on('click', '.btn-detail-house', function () {
+        $('input[name=hdfId]').val($(this).attr('data-id'));
+        $('input[name=txt-house-name]').val($(this).attr('data-name'));
+        $('select[name=dll-house-type]').val($(this).attr('data-type'));
+        $('input[name=txt-house-address]').val($(this).attr('data-address'));
+        $('textarea[name=txt-house-description]').val($(this).attr('data-description'));
         $('#modal-branch').modal('show');
     });
 

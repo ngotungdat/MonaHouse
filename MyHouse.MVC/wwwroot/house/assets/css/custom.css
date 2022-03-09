@@ -1491,11 +1491,11 @@ table.table.valign-center tr td {
       -ms-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out; }
     .show-list-room span:after {
-      content: 'Hiện danh sách phòng'; }
+      content: 'Hiện danh sách tầng'; }
   .show-list-room input:checked + span:before {
     transform: rotate(180deg); }
   .show-list-room input:checked + span:after {
-    content: 'Ẩn danh sách phòng'; }
+    content: 'Ẩn danh sách tầng'; }
 
 .person {
   display: flex;
