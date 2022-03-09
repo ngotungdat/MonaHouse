@@ -17,20 +17,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Cấu hình tiện ích")]
+    [Description("Thông báo đến người dùng")]
     [Authorize]
-    public class UtilitiesConfigController : BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, BaseSearch>
+    public class NotificationUserController : BaseController<NotificationUser, NotificationUserModel, NotificationUserRequest, NotificationUserSearch>
     {
         protected IPackageService packageService;
-        public UtilitiesConfigController(IServiceProvider serviceProvider, ILogger<BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, BaseSearch>> logger
-            , IConfiguration configuration, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public NotificationUserController(IServiceProvider serviceProvider, ILogger<BaseController<NotificationUser, NotificationUserModel, NotificationUserRequest, NotificationUserSearch>> logger
+            , IConfiguration configuration
+            , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
-            this.domainService = serviceProvider.GetRequiredService<IUtilitiesConfigService>();
+            this.domainService = serviceProvider.GetRequiredService<INotificationUserService>();
         }
     }
 }

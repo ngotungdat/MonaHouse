@@ -89,6 +89,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<UtilitiesConfigRequest, UtilitiesConfig>().ReverseMap();
             CreateMap<PagedList<UtilitiesConfigModel>, PagedList<UtilitiesConfig>>().ReverseMap();
 
+            CreateMap<NotificationUserModel, NotificationUser>().ReverseMap();
+            CreateMap<NotificationUserRequest, NotificationUser>().ReverseMap();
+            CreateMap<PagedList<NotificationUserModel>, PagedList<NotificationUser>>().ReverseMap();
+
         }
 
     }

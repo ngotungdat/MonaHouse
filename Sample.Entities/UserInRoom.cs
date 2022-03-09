@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sample.Entities
 {
-    public class Customer : DomainEntities.AppDomain
+    public class UserInRoom : DomainEntities.AppDomain
     {
         public int? UsersId { get; set; }
         /// <summary>
