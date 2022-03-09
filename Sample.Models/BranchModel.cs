@@ -10,6 +10,25 @@ namespace Sample.Models
     public class BranchModel: AppDomainModel
     {
         public string Name { get; set; }
+        /// <summary>
+        /// Loại
+        /// </summary>
+        public int Type { get; set; }
+        /// <summary>
+        /// Địa chỉ
+        /// </summary>
+        public string Address { get; set; }
+        /// <summary>
+        /// Mô tả thêm
+        /// </summary>
+        public string Description { get; set; }
+        /// <summary>
+        /// Hình ảnh đại diện cho nhà
+        /// </summary>
         public string LinkImage { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh nối chuỗi từ store
+        /// </summary>
+        public string LinkImages { get; set; }
     }
 }

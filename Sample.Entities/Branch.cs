@@ -98,6 +98,11 @@ namespace Sample.Entities
         /// </summary>
         [NotMapped]
         public string LinkImage { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh nối chuỗi từ store
+        /// </summary>
+        [NotMapped]
+        public string LinkImages { get; set; }
 
     }
 }

@@ -44,6 +44,8 @@ namespace MyHouse.MVC.Controllers
         /// <returns></returns>
         public static async Task<Users> GetCurrentUserAsync(string token, string domain)
         {
+            if (string.IsNullOrEmpty(token)|| string.IsNullOrEmpty(domain))
+                return null;
             RestClient client = new RestClient(domain + "api/user/getcurrentuser");
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
