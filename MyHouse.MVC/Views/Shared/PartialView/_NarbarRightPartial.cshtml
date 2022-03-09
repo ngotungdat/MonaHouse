@@ -1,15 +1,67 @@
 ﻿@using Sample.Entities;
+@using Microsoft.AspNetCore.Http
 @model Users
+@{
+    string token = Context.Session.GetString("token");
+    string domain = Context.Session.GetString("domain");
+}
+<style>
+    .dropdown-menu-right {
+        width: 500px !important;
+        border-radius: 10px;
+    }
+
+    .dropdown-menu.show {
+        display: unset;
+        transform: scale(1);
+    }
+
+    .dropdown-menu {
+        display: unset;
+        transform: scale(0);
+        transition: .3s;
+        transform-origin: 94% -4%;
+    }
+
+    .dropdown-item i {
+        float: right;
+        font-size: 12px;
+        color: #46CED0;
+    }
+
+    .dropdown-item .fa-bullhorn {
+        float: left !important;
+        font-size: 20px !important;
+        color: #000000 !important;
+        margin-right: 5px
+    }
+
+    .dropdown-item a {
+        color: #000000;
+    }
+</style>
 <a href="tel:1900636648"><i data-feather="phone-call" style="width:16px; margin-right:5px;"></i>1900 636 648</a>
 <div class="dropdown dropdown-notification">
     <a href="javascript:;" class="dropdown-link new-indicator" data-toggle="dropdown">
         <i data-feather="bell"></i>
-        <span>99</span>
+        <span name="count-noti" >0</span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
-        <div class="dropdown-header">Notifications</div>
+        <div class="dropdown-header">Thông báo</div>
+        <div id="notifications-user">
+            @*<div class="dropdown-item">
+                <a href="javascript:;" class="btn-notifications" data-toggle="modal">
+                    <i class="fas fa-bullhorn"></i>
+                    <span name="span-notifications">
+                        <b>Tiêu đề: </b>Tuy nhiên cần chú ý là khác vớ
+                        i phương thức slice() thì các giá trị index chỉ định nếu nhỏ hơn 0 (index âm)
+                    </span>
+                </a>
+                <i class="fas fa-circle"></i>
+            </div>*@
+        </div>
 
-        <div class="dropdown-footer"><a href="@Url.Action("Notification", "Account", new { area = "" })">View all Notifications</a></div>
+        <div class="dropdown-footer"><a href="@Url.Action("Notification", "Account", new { area = "" })">Xem tất cả thông báo</a></div>
     </div><!-- dropdown-menu -->
 </div><!-- dropdown -->
 <div class="dropdown dropdown-profile">
@@ -32,3 +84,96 @@
         <a href="@Url.Action("Signout", "Login")" class="dropdown-item"><i data-feather="log-out"></i>Đăng xuất</a>
     </div><!-- dropdown-menu -->
 </div><!-- dropdown -->
+
+
+<script>
+    
+    let page_index = 1;
+    let page_size = 5;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@token';
+    let domain = '@domain';
+    let usersId = @Model.Id;
+    domain += 'api/NotificationUser';
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&UsersID=' + usersId ;
+    }
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                //console.log('list: ', list);
+                let html = '';
+                let count_noti = 0;
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    let content = '<b>' + item.Title + ': </b>' + item.Content;
+                    content = content.substring(0, 70) + '...';
+                    html += '<div class="dropdown-item">';
+                    html += '<a href="javascript:;" class="btn-notifications" data-id="' + item.Id + '" data-title="' + item.Title + '" data-content="' + item.Content +'" data-toggle="modal">';
+                    html += '<i class="fas fa-bullhorn"></i>';
+                    html += '<span name="span-notifications">';
+                    html += content;
+                    html += '</span>';
+                    html += '</a>';
+                    if (item.isSeen == false) {
+                        html += '<i class="fas fa-circle"></i>';
+                        count_noti += 1;
+                    }
+                    html += '</div>';
+                }
+                $('span[name="count-noti"]').html(count_noti);
+                $('#notifications-user').hide().html(html).show('slow');
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    $(document).on('click', '.btn-notifications', function () {
+        let id = $(this).attr('data-id')
+        let title = $(this).attr('data-title')
+        let content = $(this).attr('data-content')
+        $('h3[name="notifications-title"]').html(title)
+        $('p[name="notifications-content"]').html(content)
+        $('#modal-notifications').modal('show');
+        update_notifications(id, true);
+    });
+    function update_notifications(Id,isSeen) {
+        let data = {};
+        data["id"] = Id;
+        data["isSeen"] = isSeen;
+
+        $.ajax({
+            url: domain,
+            data: JSON.stringify(data),
+            type: 'PUT',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+            },
+            error: function (xhr, status, error) {
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>

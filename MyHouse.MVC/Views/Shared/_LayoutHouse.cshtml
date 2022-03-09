@@ -130,6 +130,25 @@
         .modal-dialog {
             max-width: 45%
         }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
     </style>
     <div class="modal-loading" style="background-image: url('/house/loading.gif')"></div>
     <header class="navbar navbar-header navbar-header-fixed">
@@ -154,6 +173,35 @@
     <div class="content content-fixed">
         @RenderBody()
     </div><!-- content -->
+    <div class="modal fade modal-nopadding-right" id="modal-notifications" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-bullhorn"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <input type="hidden" name="hdfId" value="0" />
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Thông báo</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Nội dung thông báo</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <input type="hidden" name="hdfId" value="0" />
+                    <div class="form-group">
+                        <h3 name="notifications-title"></h3>
+                        <p name="notifications-content"></p>
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
     <footer class="footer">
         <div>
             <span>&copy; 2019 MONA.HOUSE v1.0.0. </span>
@@ -187,6 +235,7 @@
 <script src="~/house/lib/chart.js/Chart.bundle.min.js"></script>
 @*<script src="~/house/lib/chart.js/chartjs-plugin-datalabels.js"></script>*@
 <script>
+
     $body = $("body");
     $(document).on({
         ajaxStart: function () { $body.addClass("loading"); },
@@ -202,4 +251,5 @@
     function format_money(input) {
         return parseInt(input).toLocaleString();
     }
+
 </script>

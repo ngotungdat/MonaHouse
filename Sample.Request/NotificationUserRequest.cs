@@ -24,6 +24,7 @@ namespace Sample.Request
         /// <summary>
         /// true-Đã xem false-Chưa xem
         /// </summary>
+        [DefaultValue(false)]
         public bool? isSeen { get; set; }
     }
 }
