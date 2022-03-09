@@ -49,10 +49,12 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<VehicleFeeConfig>(x => x.ToTable("VehicleFeeConfig"));
             modelBuilder.Entity<ContractConfig>(x => x.ToTable("ContractConfig"));
             modelBuilder.Entity<Contract>(x => x.ToTable("Contract"));
-            modelBuilder.Entity<Customer>(x => x.ToTable("Customer"));
+            modelBuilder.Entity<UserInRoom>(x => x.ToTable("UserInRoom"));
             modelBuilder.Entity<Vehicle>(x => x.ToTable("Vehicle"));
             modelBuilder.Entity<SampleConfig>(x => x.ToTable("SampleConfig"));
             modelBuilder.Entity<Package>(x => x.ToTable("Package"));
+            modelBuilder.Entity<NotificationUser>(x => x.ToTable("NotificationUser"));
+            modelBuilder.Entity<Notification>(x => x.ToTable("Notification"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -88,10 +90,12 @@ namespace Sample.AppDbContext
         public DbSet<VehicleFeeConfig> VehicleFeeConfig { get; set; } //Cấu hình phí giữ xe
         public DbSet<ContractConfig> ContractConfig { get; set; } //Cấu hình hợp đồng
         public DbSet<Contract> Contract { get; set; }
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<UserInRoom> UserInRoom { get; set; }
         public DbSet<Vehicle> Vehicle { get; set; }
         public DbSet<SampleConfig> SampleConfig { get; set; }
         public DbSet<Package> Package { get; set; } //gói phần mềm cho thuê
+        public DbSet<NotificationUser> NotificationUser { get; set; } 
+        public DbSet<Notification> Notification { get; set; } 
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

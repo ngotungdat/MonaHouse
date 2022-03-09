@@ -46,8 +46,8 @@ namespace Sample.Entities
         /// Đặt cọc
         /// </summary>
         public double? Deposit { get; set; }
-        public int? CustomerId { get; set; }
-        public string CustomerName { get; set; }
+        public int? UserInRoomId { get; set; }
+        public string UserInRoomName { get; set; }
         /// <summary>
         /// Ngày kết thúc hợp đồng
         /// </summary>
