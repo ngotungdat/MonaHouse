@@ -5,9 +5,6 @@
 }
 <!---Upload 1 hình-->
 <script>
-    let api_url = '@domain';
-    let api_token = '@token';
-    const url_api = api_url + 'api/file/upload-file';
     //lưu hình
     $('body').on('change', '.upload-image-temp', function (event) {
         let input, files, $previewBox;
@@ -20,21 +17,21 @@
 
         Array.from(files).map((file, index) => {
             let url_img;
-            var formData = new FormData();
+            let formData = new FormData();
             formData.append("file", file);
-            console.log(formData);
+            //console.log(formData);
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: url_api,
+                url: '@domain' + 'api/file/upload-file',
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + api_token,
+                    'Authorization': 'Bearer ' + '@token',
                 },
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    url_img = api_url + data.Data;
+                    url_img = '@domain' + data.Data;
                     $('input[name=hdfImage]').val(data.Data);
                 },
                 error: function (xhr, status, error) {
@@ -58,45 +55,38 @@
             reader.readAsDataURL(file);
         });
     });
-    $(document).on('click', '.image-wrap .delete-image-temp', function (e) {
-        e.preventDefault();
-        $(this).closest('.image-wrap').hide(500, function () {
-            $(this).remove();
-        })
-    });
-</script>
 
-<!---Upload nhiều hình-->
-<script>
-    const url_apis = api_urls + 'api/file/upload-multiple-files';
-    //lưu hình
-    $('body').on('change', '.upload-image-temp', function (event) {
+    //Upload nhiều hình
+    $('.btn-uploads').on('click', function () {
+        $('.upload-image-temps').click();
+    });
+    $('body').on('change', '.upload-image-temps', function (event) {
         let input, files, $previewBox;
         input = event.target;
         files = input.files;
-        $previewBox = $(input).closest('.upload-box').find('.preview-image');
-        while ($previewBox.get(0).firstChild) {
-            $previewBox.get(0).removeChild($previewBox.get(0).firstChild);
-        }
+        $previewBox = $(input).closest('.upload-boxs').find('.preview-image');
 
         Array.from(files).map((file, index) => {
             let url_img;
-            var formData = new FormData();
-            formData.append("files", file);
-            console.log(formData);
+            let img_name;
+            let formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]);
+            }
+            //console.log(formData);
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: url_apis,
+                url: '@domain' + 'api/file/upload-multiple-files',
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + api_tokens,
+                    'Authorization': 'Bearer ' + '@token',
                 },
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    url_img = api_url + data.Data;
-                    $('input[name=hdfImage]').val(data.Data);
+                    url_img = '@domain' + data.Data;
+                    img_name = data.Data;
                 },
                 error: function (xhr, status, error) {
                     console.log("Result upload image: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -104,9 +94,9 @@
             });
             let reader = new FileReader();
             let $imgBox = $('<div class="image-box lightgallery"></div');
-            let $imgWrap = $('<div class="image-wrap"></div>');
+            let $imgWrap = $('<div class="image-wrap w-25"></div>');
             reader.onload = function (e) {
-                const $img = $('<a href="' + url_img + '" class=""><img src="' + url_img + '" class="img" alt="image"></a>');
+                const $img = $('<a href="' + url_img + '" data-name="' + img_name + '" class=""><img src="' + url_img + '" class="img" alt="image"></a>');
                 const $delete = $('<a href="javascript:;" class="delete-image delete-image-temp"><i class="fas fa-times"></i></a>');
                 $imgBox.append($img);
                 $imgWrap.append($delete);

@@ -59,7 +59,7 @@
                 </div>
                 <div class="house-layout-list mg-t-15">
                     <div class="row table-branchlist">
-                        
+
                     </div>
                 </div>
 
@@ -134,13 +134,22 @@
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quy định:</label>
                     <textarea rows="2" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h và mở cửa lúc 5h sáng..."></textarea>
                 </div>
+                @*<div class="form-group">
+                        <div class="upload-box mg-b-20">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                            </a>
+                            <input type="file" name="electricimg" class="hidden upload-image-temp remove-item" accept="image/*">
+                            <input type="hidden" name="hdfImage" class="hdfIMG" />
+                            <div class="preview-image preview-electric"></div>
+                        </div>
+                    </div>*@
                 <div class="form-group">
-                    <div class="upload-box mg-b-20">
-                        <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                    <div class="upload-boxs mg-b-20">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
                             <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
                         </a>
-                        <input type="file" name="electricimg" class="hidden upload-image-temp remove-item" accept="image/*">
-                        <input type="hidden" name="hdfImage" class="hdfIMG" />
+                        <input type="file" name="electricimg" class="hidden upload-image-temps remove-items" accept="image/*" multiple>
                         <div class="preview-image preview-electric"></div>
                     </div>
                 </div>
@@ -213,7 +222,6 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
-
 <!--Gọi js upload hình-->
 @await Html.PartialAsync("_ScriptUploadImagePartial")
 
@@ -227,6 +235,7 @@
             $('.table-branchlist').html(data);
         });
     }
+
 </script>
 <script>
     let PageIndex = 1;
@@ -246,15 +255,28 @@
         $('input[name=hdfImage]').val('');
         $('#modal-branch').modal('show');
     });
+    function replaceLast(x, y, z) {
+        var a = x.split("");
+        a[x.lastIndexOf(y)] = z;
+        return a.join("");
+    }
 
     //Thêm mới nhà / dãy trọ
-    $('.btn-save-branch').click(function () {
+    $(document).on('click', '.btn-save-branch', function () {
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-house-name]').val();
         const type = $('select[name=dll-house-type]').val();
         const address = $('input[name=txt-house-address]').val();
         const description = $('textarea[name=txt-house-description]').val();
-        const link_img = $('input[name=hdfImage]').val();
+        let link_img = "04650b4b-59f8-4f19-ba88-87ef9c67f145-cho-thue-day-nha-tro-1.webp||04650b4b-59f8-4f19-ba88-87ef9c67f145-cho-thue-day-nha-tro-1.webp";
+
+        //$('.preview-image').each(function () {
+        //    let $this = $(this);
+        //    let img = $this.find('.image-box').find('a').attr('data-name');
+        //    link_img += img + '||';
+        //});
+       /* link_img = replaceLast(link_img, '||', '');*/
+        //console.log(link_img);
         if (ckstring(name) || ckstring(link_img)) {
             Swal.fire(
                 'Cảnh báo',
