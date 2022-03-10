@@ -1,9 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
-}
-
+﻿@model CoreModel
 <style>
     .house-item img {
         width: 150px;
@@ -223,14 +218,14 @@
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 <!--Gọi js upload hình-->
-@await Html.PartialAsync("_ScriptUploadImagePartial")
+@await Html.PartialAsync("_ScriptUploadImagePartial", Model)
 <script>
     let PageIndex = 1;
     let PageSize = 20;
     let SearchContent = '';
     let OrderBy = 0;
-    let token = '@token';
-    let domain = '@domain';
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
     domain += 'api/Branch';
 
     $(function () {
@@ -255,11 +250,12 @@
 
     //load chi tiết nhà/dãy trọ
     $(document).on('click', '.btn-detail-house', function () {
-        $('input[name=hdfId]').val($(this).attr('data-id'));
-        $('input[name=txt-house-name]').val($(this).attr('data-name'));
-        $('select[name=dll-house-type]').val($(this).attr('data-type'));
-        $('input[name=txt-house-address]').val($(this).attr('data-address'));
-        $('textarea[name=txt-house-description]').val($(this).attr('data-description'));
+        const data = JSON.parse($(this).attr('data-json'));
+        $('input[name=hdfId]').val(data['Id']);
+        $('input[name=txt-house-name]').val(data['Name']);
+        $('select[name=dll-house-type]').val(data['Type']);
+        $('input[name=txt-house-address]').val(data['Address']);
+        $('textarea[name=txt-house-description]').val(data['Description']);
         $('#modal-branch').modal('show');
     });
 

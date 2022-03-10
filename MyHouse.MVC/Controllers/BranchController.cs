@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MyHouse.MVC.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -17,9 +18,12 @@ namespace MyHouse.MVC.Controllers
         public BranchController(IConfiguration configuration) : base(configuration)
         {
         }
-        public IActionResult BranchList()
+        public async Task<IActionResult> BranchList()
         {
-            return View();
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
         }
         public async Task<IActionResult> BranchListPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent)
         {

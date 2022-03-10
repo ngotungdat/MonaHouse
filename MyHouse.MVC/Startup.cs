@@ -29,7 +29,7 @@ namespace MyHouse.MVC
             //In-Memory
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
                 //options.Cookie.HttpOnly = true;
                 //options.Cookie.IsEssential = true;
             });
@@ -54,7 +54,6 @@ namespace MyHouse.MVC
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {

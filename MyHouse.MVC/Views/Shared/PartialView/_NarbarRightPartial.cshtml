@@ -1,8 +1,7 @@
 ﻿@using Sample.Entities;
-@using Microsoft.AspNetCore.Http
-@model PartialModel
+@model CoreModel
 @{ 
-    Users users = Model.MyProperty as Users;
+    Users users = Model.Users;
 }
 <style>
     .dropdown-menu-right {
@@ -127,7 +126,7 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
-                console.log('list: ', list);
+                //console.log('list: ', list);
                 let html = '';
                 let count_noti = 0;
                 for (let i = 0; i < list.length; i++) {

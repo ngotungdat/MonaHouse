@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
-}
+﻿@model CoreModel
 <style>
     .modal-dialog {
         max-width: 45%
@@ -118,8 +114,8 @@
     let PageSize = 20;
     let SearchContent = '';
     let OrderBy = 0;
-    let token = '@token';
-    let domain = '@domain';
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
     domain += 'api/Package';
 
     //Tạo hoặc làm mới api
@@ -140,11 +136,21 @@
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
-                let list = data.Data.Items;
-                let html = ``;
-                for (let i = 0; i < list.length; i++) {
-                    let item = list[i];
-                    html += ` <div class="house-wrap col-md-4">
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        resultMessage,
+                        'warning'
+                    )
+                }
+                else {
+                    let list = data.Data.Items;
+                    let html = ``;
+                    for (let i = 0; i < list.length; i++) {
+                        let item = list[i];
+                        html += ` <div class="house-wrap col-md-4">
                             <div class="house-item">
                                 <div class="media" style="padding-right:0">
                                     <div class="media-body ">
@@ -176,8 +182,9 @@
                                 </div>
                             </div>
                         </div>`;
+                    }
+                    $('.content-data').html(html);
                 }
-                $('.content-data').hide().html(html).show('slow');
             },
             error: function (xhr, status, error) {
                 console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -261,13 +268,6 @@
         const description = $('textarea[name=txt-description]').val();
         const type_of_rental = $('select[name=dll-type-of-rental]').val();
         const package_type = $('select[name=dll-package-type]').val();
-        //console.log(title);
-        //console.log(titleDescription);
-        //console.log(limitedRoom);
-        //console.log(description);
-        //console.log(type_of_rental);
-        //console.log(package_type);
-        //console.log(active);
         if (ckstring(title) || ckstring(titleDescription) || ckstring(limitedRoom) || ckstring(price) || ckstring(description) || ckstring(type_of_rental) || ckstring(package_type)) {
             Swal.fire(
                 'Cảnh báo',
@@ -311,23 +311,35 @@
             },
             contentType: "application/json",
             success: function (data) {
-                load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
-                $('#modal-add-package').modal('hide');
-                if (type_request == 'POST') {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                console.log(resultMessage);
+                if (!success) {
                     Swal.fire(
-                        'Thông báo!',
-                        'Thêm dữ liệu thành công!',
-                        'success'
-                    );
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
                 }
-                else if (type_request == 'PUT') {
-                    Swal.fire(
-                        'Thông báo!',
-                        'Cập nhật dữ liệu thành công!',
-                        'success'
-                    );
+                else {
+                    load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+                    $('#modal-add-package').modal('hide');
+                    if (type_request == 'POST') {
+                        Swal.fire(
+                            'Thông báo!',
+                            resultMessage,
+                            'success'
+                        );
+                    }
+                    else if (type_request == 'PUT') {
+                        Swal.fire(
+                            'Thông báo!',
+                            resultMessage,
+                            'success'
+                        );
+                    }
+                    $('.btn-save-package').prop('disabled', false);
                 }
-                $('.btn-save-package').prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -352,12 +364,23 @@
             },
             contentType: "application/json",
             success: function (data) {
-                load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
-                Swal.fire(
-                    'Thành công!',
-                    'Đã xóa dữ liệu thành công!',
-                    'success'
-                );
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
+                }
+                else {
+                    load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+                    Swal.fire(
+                        'Thành công!',
+                        resultMessage,
+                        'success'
+                    );
+                }
             },
             error: function (xhr, status, error) {
                 Swal.fire(

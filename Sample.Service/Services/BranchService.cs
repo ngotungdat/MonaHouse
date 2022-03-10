@@ -9,6 +9,7 @@ using Sample.Service.Services.DomainServices;
 using Sample.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -44,6 +45,37 @@ namespace Sample.Service.Services
                             await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
                         }
                         await unitOfWork.SaveAsync();
+                        await dbContextTransaction.CommitAsync();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    await dbContextTransaction.RollbackAsync();
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public override async Task<bool> UpdateAsync(Branch item)
+        {
+            using (var dbContextTransaction = coreDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var existItem = await this.Queryable.Where(e => e.Id == item.Id).FirstOrDefaultAsync();
+                    if (existItem != null)
+                    {
+                        this.unitOfWork.Repository<Branch>().Update(item);
+                        await this.unitOfWork.SaveAsync();
+                        //foreach (BranchImage jtem in item.BranchImages)
+                        //{
+                        //    jtem.BranchId = item.Id;
+                        //    jtem.CreatedBy = item.CreatedBy;
+                        //    await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
+                        //}
+                        //await unitOfWork.SaveAsync();
                         await dbContextTransaction.CommitAsync();
                         return true;
                     }

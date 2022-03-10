@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using MyHouse.MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,15 +11,17 @@ using System.Threading.Tasks;
 namespace MyHouse.MVC.Controllers
 {
     [Description("Quản lý danh sách gói cho thuê")]
-    public class PackageController : Controller
+    public class PackageController : BaseController
     {
-        public IActionResult PackageList()
+        public PackageController(IConfiguration configuration) : base(configuration)
         {
-            string token = HttpContext.Session.GetString("token");
-            if(string.IsNullOrEmpty(token))
+        }
+        public async Task<IActionResult> PackageList()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
                 return RedirectToAction("Login", "Login");
-            ViewBag.Token = token;
-            return View();
+            return View(coreModel);
         }
     }
 }

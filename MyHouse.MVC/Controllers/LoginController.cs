@@ -35,6 +35,7 @@ namespace MyHouse.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckLogin(IFormCollection f)
         {
+            HttpContext.Session.Clear();
             string domain = GetCurrentDomain();
             HttpContext.Session.SetString("domain", domain);
             string username = f["txt-username"].ToString().Trim();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MyHouse.MVC.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -23,28 +24,15 @@ namespace MyHouse.MVC.Controllers
             this.configuration = configuration;
         }
         /// <summary>
-        /// Lấy User hiện tại
+        /// Lấy Session: token, domain api, user hiện tại
         /// </summary>
+        /// <param name="getUser"></param>
         /// <returns></returns>
-        public async Task<AppDomainResult> GetCurrentUserAsync()
+        public async Task<CoreModel> GetCurrentSessionAsync()
         {
             string domain = GetCurrentDomain();
             string token = HttpContext.Session.GetString("token");
-            var client = new RestClient(domain + "api/user/getcurrentuser");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", "Bearer " + token);
-            var response = await client.ExecuteAsync<AppDomainResult>(request);
-            return (AppDomainResult)response;
-        }
-        /// <summary>
-        /// Lấy User hiện tại - dùng cho view
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static async Task<Users> GetCurrentUserAsync(string token, string domain)
-        {
-            if (string.IsNullOrEmpty(token)|| string.IsNullOrEmpty(domain))
+            if (string.IsNullOrEmpty(domain) || string.IsNullOrEmpty(token))
                 return null;
             RestClient client = new RestClient(domain + "api/user/getcurrentuser");
             client.Timeout = -1;
@@ -53,7 +41,12 @@ namespace MyHouse.MVC.Controllers
             IRestResponse response = await client.ExecuteAsync(request);
             var obj = JObject.Parse(response.Content);
             Users users = JsonConvert.DeserializeObject<Users>(obj["Data"].ToString());
-            return users;
+            return new CoreModel()
+            {
+                Domain = domain,
+                Token = token,
+                Users = users
+            };
         }
         /// <summary>
         /// Lấy tên miền api

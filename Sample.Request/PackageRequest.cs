@@ -18,7 +18,7 @@ namespace Sample.Request
         /// <summary>
         /// Mô tả cho title
         /// </summary>
-        [Required(ErrorMessage = "Vui lòng nhập mô tả cho tiêu đề!")]
+        //[Required(ErrorMessage = "Vui lòng nhập mô tả cho tiêu đề!")]
         public string TitleDescription { get; set; }
         /// <summary>
         /// Số phòng tối đa

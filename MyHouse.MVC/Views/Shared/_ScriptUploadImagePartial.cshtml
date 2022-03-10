@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
-}
+﻿@model CoreModel
 <!---Upload 1 hình-->
 <script>
     //lưu hình
@@ -23,15 +19,15 @@
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: '@domain' + 'api/file/upload-file',
+                url: '@Model.Domain' + 'api/file/upload-file',
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + '@token',
+                    'Authorization': 'Bearer ' + '@Model.Token',
                 },
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    url_img = '@domain' + data.Data;
+                    url_img = '@Model.Domain' + data.Data;
                     $('input[name=hdfImage]').val(data.Data);
                 },
                 error: function (xhr, status, error) {
@@ -42,10 +38,10 @@
             let $imgBox = $('<div class="image-box lightgallery"></div');
             let $imgWrap = $('<div class="image-wrap"></div>');
             reader.onload = function (e) {
-                const $img = $('<a href="' + url_img + '" class=""><img src="' + url_img + '" class="img" alt="image"></a>');
+                const $img = $('<a href="' + url_img + '" class=""><img src="' + url_img + '" Modellass="img" alt="image"></a>');
                 const $delete = $('<a href="javascript:;" class="delete-image delete-image-temp"><i class="fas fa-times"></i></a>');
                 $imgBox.append($img);
-                $imgWrap.append($delete);
+                $imgWrap.appenModelodel($delete);
                 $imgWrap.append($imgBox);
                 $previewBox.append($imgWrap);
             };
@@ -77,15 +73,15 @@
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: '@domain' + 'api/file/upload-multiple-files',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
                 data: formData,
                 headers: {
-                    'Authorization': 'Bearer ' + '@token',
+                    'Authorization': 'Bearer ' + '@Model.Token',
                 },
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    url_img = '@domain' + data.Data;
+                    url_img = '@Model.Domain' + data.Data;
                     img_name = data.Data;
                 },
                 error: function (xhr, status, error) {

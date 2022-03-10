@@ -1,22 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@using Sample.Entities;
-@using Sample.Utilities;
-@using MyHouse.MVC.Controllers;
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
-    if (string.IsNullOrEmpty(token))
-    {
-        Context.Response.Redirect(Url.Action("Login", "Login"));
-    }
-    Users users = await BaseController.GetCurrentUserAsync(token, domain);
-    if (users == null)
-    {
-        Context.Response.Redirect(Url.Action("Login", "Login"));
-    }
-    PartialModel partialModel = new PartialModel() { Token = token, Domain = domain, MyProperty = users };
-}
-
+﻿@model CoreModel
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -163,11 +145,11 @@
                 <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
             </div><!-- navbar-menu-header -->
             <ul class="nav navbar-menu">
-                @await Html.PartialAsync("_MenuPartial", users.RoleNumber)
+                @await Html.PartialAsync("_MenuPartial", Model.Users.RoleNumber)
             </ul>
         </div><!-- navbar-menu-wrapper -->
         <div class="navbar-right">
-            @await Html.PartialAsync("PartialView/_NarbarRightPartial", partialModel)
+            @await Html.PartialAsync("PartialView/_NarbarRightPartial", Model)
         </div><!-- navbar-right -->
     </header><!-- navbar -->
     <!-- side chat -->
@@ -236,15 +218,15 @@
 <script src="~/house/lib/chart.js/Chart.bundle.min.js"></script>
 @*<script src="~/house/lib/chart.js/chartjs-plugin-datalabels.js"></script>*@
 <script>
-
     $body = $("body");
     $(document).on({
-        ajaxStart: function () { $body.addClass("loading"); },
-        ajaxStop: function () { $body.removeClass("loading"); }
+        ajaxStart: function () {
+            $body.addClass("loading");
+        },
+        ajaxStop: function () {
+            $body.removeClass("loading");
+        }
     });
-
-    let domains = '@domain';
-    let tokens = '@token';
 
     function ckstring(str) { //check null empty
         return (!str || /^\s*$/.test(str));

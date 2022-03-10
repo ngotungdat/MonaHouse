@@ -1,11 +1,13 @@
 ﻿@using Sample.Models;
 @using Microsoft.AspNetCore.Http
+@using System.Text.Json;
 
 @{
     string domain = Context.Session.GetString("domain");
     Layout = "";
     foreach (BranchModel item in Model)
     {
+        string jsonString = JsonSerializer.Serialize(item);
         <div class="house-wrap col-md-6">
             <div class="house-item">
                 <div class="media ">
@@ -34,9 +36,7 @@
                                 </p>
                             </div>
                         </div>
-                        <a href="javascript:;" class="edit-house update-house btn-detail-house" 
-                           data-id="@item.Id" data-name="@item.Name" data-type="@item.Type" data-address="@item.Address" data-description="@item.Description"
-                           ><i class="fas fa-edit"></i></a>
+                        <a href="javascript:;" class="edit-house update-house btn-detail-house" data-json="@jsonString"><i class="fas fa-edit"></i></a>
                         <div class="house-address">
                         </div>
                         <div class="d-flex align-items-center justify-content-between">

@@ -63,7 +63,8 @@ namespace Sample.BaseAPI.Controllers
                 {
                     Success = true,
                     Data = itemModel,
-                    ResultCode = (int)HttpStatusCode.OK
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.GETBYID_SUCCESS
                 };
             }
             else
@@ -98,7 +99,10 @@ namespace Sample.BaseAPI.Controllers
                         throw new AppException(messageUserCheck);
                     success = await this.domainService.CreateAsync(item);
                     if (success)
+                    {
                         appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                        appDomainResult.ResultMessage = ApiMessage.CREATE_SUCCESS;
+                    }
                     else
                         throw new Exception("Lỗi trong quá trình xử lý");
                     appDomainResult.Success = success;
@@ -113,12 +117,6 @@ namespace Sample.BaseAPI.Controllers
             return appDomainResult;
         }
 
-        /// <summary>
-        /// Cập nhật thông tin item
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="itemModel"></param>
-        /// <returns></returns>
         [HttpPut]
         [AppAuthorize(new string[] { CoreContants.Update })]
         public virtual async Task<AppDomainResult> UpdateItem([FromBody] R itemModel)
@@ -138,7 +136,10 @@ namespace Sample.BaseAPI.Controllers
                         throw new AppException(messageUserCheck);
                     success = await this.domainService.UpdateAsync(item);
                     if (success)
+                    {
                         appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                        appDomainResult.ResultMessage = ApiMessage.UPDATE_SUCCESS;
+                    }
                     else
                         throw new Exception("Lỗi trong quá trình xử lý");
                     appDomainResult.Success = success;
@@ -168,6 +169,7 @@ namespace Sample.BaseAPI.Controllers
             {
                 appDomainResult.ResultCode = (int)HttpStatusCode.OK;
                 appDomainResult.Success = success;
+                appDomainResult.ResultMessage = ApiMessage.DELETE_SUCCESS;
             }
             else
                 throw new Exception("Lỗi trong quá trình xử lý");
@@ -196,7 +198,8 @@ namespace Sample.BaseAPI.Controllers
                 {
                     Data = pagedDataModel,
                     Success = true,
-                    ResultCode = (int)HttpStatusCode.OK
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.GETALL_SUCCESS
                 };
             }
             else

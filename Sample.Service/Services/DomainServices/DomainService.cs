@@ -231,11 +231,23 @@ namespace Sample.Service.Services.DomainServices
 
                 if (exists != null)
                 {
-                    var currentCreated = exists.Created;
-                    var currentCreatedByInfo = exists.CreatedBy;
-                    exists = mapper.Map<E>(item);
-                    exists.Created = currentCreated;
-                    exists.CreatedBy = currentCreatedByInfo;
+                    //kiểm tra nếu Properties nào null thì lấy lại data cũ
+                    foreach (PropertyInfo item_old in exists.GetType().GetProperties())
+                    {
+                        foreach (PropertyInfo item_new in item.GetType().GetProperties())
+                        {
+                            if (item_old.Name == item_new.Name)
+                            {
+                                var value_old = item_old.GetValue(exists);
+                                var value_new = item_new.GetValue(item);
+                                if (value_old != value_new)
+                                {
+                                    item_old.SetValue(exists, value_new ?? value_old);
+                                }
+                                break;
+                            }
+                        }
+                    }
                     unitOfWork.Repository<E>().Update(exists);
                 }
             }

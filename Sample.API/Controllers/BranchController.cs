@@ -78,5 +78,44 @@ namespace Sample.API.Controllers
             }
             return appDomainResult;
         }
+
+        /// <summary>
+        /// Cập nhật thông tin item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="itemModel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [AppAuthorize(new string[] { CoreContants.Update })]
+        public override async Task<AppDomainResult> UpdateItem([FromBody] BranchRequest itemModel)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            bool success = false;
+            if (ModelState.IsValid)
+            {
+                var item = mapper.Map<Branch>(itemModel);
+                var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
+                if (item != null)
+                {
+                    // Kiểm tra item có tồn tại chưa?
+                    item.TenantId = user.TenantId;
+                    var messageUserCheck = await this.domainService.GetExistItemMessage(item);
+                    if (!string.IsNullOrEmpty(messageUserCheck))
+                        throw new AppException(messageUserCheck);
+                    success = await this.domainService.UpdateAsync(item);
+                    if (success)
+                        appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                    else
+                        throw new Exception("Lỗi trong quá trình xử lý");
+                    appDomainResult.Success = success;
+                }
+                else
+                    throw new KeyNotFoundException("Item không tồn tại");
+            }
+            else
+                throw new AppException(ModelState.GetErrorMessage());
+
+            return appDomainResult;
+        }
     }
 }
