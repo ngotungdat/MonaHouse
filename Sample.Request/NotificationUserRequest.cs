@@ -11,7 +11,6 @@ namespace Sample.Request
     public class NotificationUserRequest : AppDomainRequest
     {
         public int? UsersId { get; set; }
-        [DefaultValue(0)]
         public int? NotificationId { get; set; }
         /// <summary>
         /// Tiêu đề
@@ -24,7 +23,6 @@ namespace Sample.Request
         /// <summary>
         /// true-Đã xem false-Chưa xem
         /// </summary>
-        [DefaultValue(false)]
         public bool? isSeen { get; set; }
     }
 }
