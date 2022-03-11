@@ -29,7 +29,7 @@ namespace Sample.API.Controllers.Auth
     [Authorize]
     public class PermitObjectController : BaseCatalogueController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>
     {
-        protected PermitObjectController(IServiceProvider serviceProvider, ILogger<BaseController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public PermitObjectController(IServiceProvider serviceProvider, ILogger<BaseController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.catalogueService = serviceProvider.GetRequiredService<IPermitObjectService>();
         }

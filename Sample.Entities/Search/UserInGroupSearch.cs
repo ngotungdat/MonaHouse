@@ -10,11 +10,11 @@ namespace Sample.Entities.Search
         /// <summary>
         /// Id người dùng
         /// </summary>
-        public int? UserId { get; set; }
+        //public int? UserId { get; set; }
 
-        /// <summary>
-        /// Nhóm người dùng
-        /// </summary>
-        public int? UserGroupId { get; set; }
+        ///// <summary>
+        ///// Nhóm người dùng
+        ///// </summary>
+        //public int? UserGroupId { get; set; }
     }
 }

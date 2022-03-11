@@ -11,7 +11,7 @@ namespace Sample.Entities
 {
     public class Users : DomainEntities.AppDomain
     {
-        
+
         /// <summary>
         /// UserName
         /// </summary>
@@ -53,16 +53,9 @@ namespace Sample.Entities
         public int? Status { get; set; }
         public int RoleNumber { get; set; }
         /// <summary>
-        /// RoleName
+        /// Giới tính
         /// </summary>
-        [StringLength(50)]
-        public string RoleName { get; set; }
         public int GenderNumber { get; set; }
-        /// <summary>
-        /// GenderName
-        /// </summary>
-        [StringLength(50)]
-        public string GenderName { get; set; }
         public string CitizenIdentification { get; set; }
         /// <summary>
         /// Ngày sinh
@@ -72,9 +65,7 @@ namespace Sample.Entities
         /// <summary>
         /// Phải là admin không
         /// </summary>
-        //public bool IsAdmin { get; set; }
-
-
+        public bool IsAdmin { get; set; }
         /// <summary>
         /// Token đăng nhập
         /// </summary>
@@ -89,6 +80,9 @@ namespace Sample.Entities
         /// </summary>
         [NotMapped]
         public int UserGroupId { get; set; }
+        /// <summary>
+        /// Ảnh đại diện
+        /// </summary>
         public string Avatar { get; set; }
 
         /// <summary>

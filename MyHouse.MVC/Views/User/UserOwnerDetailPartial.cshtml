@@ -1,6 +1,6 @@
-﻿@{
+﻿@model CoreModel
+@{
     Layout = "";
-    string userId = ViewData["userId"].ToString();
 }
 <div class="table-content">
     <div class="row flex-wrap-1 mg-t-15">
@@ -384,7 +384,7 @@
 <script>
     //tự gọi lấy data khi có view khác gọi đến
     $(function () {
-        load_user_detail(domains + 'api/user/' + @userId);
+        load_user_detail('@Model.Domain' + 'api/user/' + @Model.Users.Id);
     });
     //Load dữ liệu chi tiết user theo api
     function load_user_detail(api) {
@@ -393,7 +393,7 @@
             dataType: "json",
             url: api,
             headers: {
-                'Authorization': 'Bearer ' + tokens,
+                'Authorization': 'Bearer ' + '@Model.Token',
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using MyHouse.MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,30 +8,48 @@ using System.Threading.Tasks;
 
 namespace MyHouse.MVC.Controllers
 {
-    public class ConfigController : Controller
+    public class ConfigController : BaseController
     {
-        public IActionResult Cities()
+        public ConfigController(IConfiguration configuration) : base(configuration)
         {
-            return View();
         }
-        public IActionResult Districts(int id)
+        public async Task<IActionResult> Cities()
         {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        public async Task<IActionResult> Districts(int id)
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
             ViewBag.cityId = id;
-            return View();
+            return View(coreModel);
         }
-        public IActionResult Wards(int id,int ctityId)
+        public async Task<IActionResult> Wards(int id,int ctityId)
         {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
             ViewBag.districtId = id;
             ViewBag.cityId = ctityId;
-            return View();
+            return View(coreModel);
         }
-        public IActionResult VehicleFeeConfig()
+        public async Task<IActionResult> VehicleFeeConfig()
         {
-            return View();
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
         }
-        public IActionResult UtilitiesConfig()
+        public async Task<IActionResult> UtilitiesConfig()
         {
-            return View();
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
         }
     }
 }

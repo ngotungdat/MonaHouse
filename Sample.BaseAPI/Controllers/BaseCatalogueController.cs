@@ -97,7 +97,7 @@ namespace Sample.BaseAPI.Controllers
         /// </summary>
         /// <param name="itemModel"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [AppAuthorize(new string[] { CoreContants.Update })]
         public override async Task<AppDomainResult> UpdateItem([FromBody] R itemModel)
         {

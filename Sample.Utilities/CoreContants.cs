@@ -46,6 +46,12 @@ namespace Sample.Utilities
             NotActive = 1,
             Locked = 2
         }
+        public enum Gender
+        {
+            Nam = 1,
+            Nu = 2,
+            KhongXacDinh = 3
+        }
         /// <summary>
         /// Danh mục quyền
         /// </summary>

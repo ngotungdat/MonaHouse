@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using MyHouse.MVC.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -20,9 +21,12 @@ namespace MyHouse.MVC.Controllers
         /// Danh sách chủ nhà trọ
         /// </summary>
         /// <returns></returns>
-        public IActionResult UserOwner()
+        public async Task<IActionResult> UserOwner()
         {
-            return View();
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
         }
         /// <summary>
         /// Danh sách chủ nhà trọ - Partial View
@@ -56,10 +60,12 @@ namespace MyHouse.MVC.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public IActionResult UserOwnerDetailPartial(int userId)
+        public async Task<IActionResult> UserOwnerDetailPartial(int userId)
         {
-            ViewData["userId"] = userId;
-            return PartialView();
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return PartialView(coreModel);
         }
     }
 }

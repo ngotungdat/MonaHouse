@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@{
-    string token = Context.Session.GetString("token");
-    string domain = Context.Session.GetString("domain");
-}
+﻿@model CoreModel
 <style>
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
@@ -107,8 +103,8 @@
     let page_size = 20;
     let SearchContent = '';
     let OrderBy = 0;
-    let token = '@token';
-    let domain = '@domain';
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
     domain += 'api/VehicleFeeConfig';
     let total_item = 0;
     let total_page = 0;

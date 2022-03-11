@@ -21,7 +21,9 @@ namespace Sample.Models.Auth
         /// </summary>
         public int UserGroupId { get; set; }
 
-
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public string UserGroupName { get; set; }
         #region Extension Properties
 
         /// <summary>

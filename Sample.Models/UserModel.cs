@@ -59,7 +59,44 @@ namespace Sample.Models
                 }
             }
         }
-
+        public int GenderNumber { get; set; }
+        public string GenderName
+        {
+            get
+            {
+                switch (GenderNumber)
+                {
+                    case (int)Gender.Nam:
+                        return "Nam";
+                    case (int)Gender.Nu:
+                        return "Nữ";
+                    default:
+                        return "Không xác định";
+                }
+            }
+        }
+        public int RoleNumber { get; set; }
+        public string RoleName
+        {
+            get
+            {
+                switch (RoleNumber)
+                {
+                    case (int)RoleUser.Admin:
+                        return "Admin";
+                    case (int)RoleUser.CSKH:
+                        return "Chăm sóc khách hàng";
+                    case (int)RoleUser.ChuTro:
+                        return "Chủ nhà";
+                    case (int)RoleUser.NhanVien:
+                        return "Nhân viên";
+                    case (int)RoleUser.ThueTro:
+                        return "Khách thuê";
+                    default:
+                        return "Chưa xác định";
+                }
+            }
+        }
         /// <summary>
         /// Ngày sinh
         /// </summary>
@@ -68,7 +105,7 @@ namespace Sample.Models
         /// <summary>
         /// Phải là admin không
         /// </summary>
-        //public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }
 
         /// <summary>
         /// Mật khẩu người dùng

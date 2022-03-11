@@ -24,7 +24,7 @@ namespace Sample.API.Controllers.Auth
     [Authorize]
     public class PermissionController : BaseCatalogueController<Permissions, PermissionModel, PermissionRequest, BaseSearch>
     {
-        protected PermissionController(IServiceProvider serviceProvider, ILogger<BaseController<Permissions, PermissionModel, PermissionRequest, BaseSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public PermissionController(IServiceProvider serviceProvider, ILogger<BaseController<Permissions, PermissionModel, PermissionRequest, BaseSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.catalogueService = serviceProvider.GetRequiredService<IPermissionService>();
         }

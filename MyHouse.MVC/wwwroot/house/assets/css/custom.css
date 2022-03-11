@@ -336,7 +336,7 @@ a:hover {
   .table__filter__wrap .table__filter-header {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px; }
+    margin-top: 20px; }
     @media screen and (max-width: 600px) {
       .table__filter__wrap .table__filter-header {
         margin-top: 20px;

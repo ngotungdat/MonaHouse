@@ -1,18 +1,16 @@
 ﻿using Sample.Entities;
-//using Sample.Models.Auth;
+using Sample.Models.Auth;
 using Sample.Request;
-//using Sample.Models.Catalogue;
+using Sample.Models.Catalogue;
 using Sample.Utilities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Sample.Request.Auth;
-using Sample.Models.Catalogue;
 using Sample.Entities.Catalogue;
 using Sample.Request.Catalogue;
-//using Sample.Entities.Catalogue;
-//using Sample.Entities.Auth;
+using Sample.Entities.Auth;
 
 namespace Sample.Models.AutoMapper
 {
@@ -24,27 +22,27 @@ namespace Sample.Models.AutoMapper
             CreateMap<UserRequest,Users>().ReverseMap();
             CreateMap<PagedList<UserModel>, PagedList<Users>>().ReverseMap();
 
-            //CreateMap<UserGroupModel, UserGroups>().ReverseMap();
-            //CreateMap<UserGroups, UserGroupRequest>().ReverseMap();
-            //CreateMap<PagedList<UserGroupModel>, PagedList<UserGroups>>().ReverseMap();
+            CreateMap<UserGroupModel, UserGroups>().ReverseMap();
+            CreateMap<UserGroups, UserGroupRequest>().ReverseMap();
+            CreateMap<PagedList<UserGroupModel>, PagedList<UserGroups>>().ReverseMap();
 
-            //CreateMap<UserInGroupModel, UserInGroups>().ReverseMap();
-            //CreateMap<PagedList<UserInGroupModel>, PagedList<UserInGroups>>().ReverseMap();
+            CreateMap<UserInGroupModel, UserInGroups>().ReverseMap();
+            CreateMap<PagedList<UserInGroupModel>, PagedList<UserInGroups>>().ReverseMap();
 
-            //CreateMap<PermissionModel, Permissions>().ReverseMap();
-            //CreateMap<Permissions, PermissionsRequest>().ReverseMap();
-            //CreateMap<PagedList<PermissionModel>, PagedList<Permissions>>().ReverseMap();
+            CreateMap<PermissionModel, Permissions>().ReverseMap();
+            CreateMap<Permissions, PermissionRequest>().ReverseMap();
+            CreateMap<PagedList<PermissionModel>, PagedList<Permissions>>().ReverseMap();
 
-            //CreateMap<PermitObjectModel, PermitObjects>().ReverseMap();
-            //CreateMap<PermitObjects, PermitObjectRequest>().ReverseMap();
-            //CreateMap<PagedList<PermitObjectModel>, PagedList<PermitObjects>>().ReverseMap();
+            CreateMap<PermitObjectModel, PermitObjects>().ReverseMap();
+            CreateMap<PermitObjects, PermitObjectRequest>().ReverseMap();
+            CreateMap<PagedList<PermitObjectModel>, PagedList<PermitObjects>>().ReverseMap();
 
-            //CreateMap<PermitObjectPermissionModel, PermitObjectPermissions>().ReverseMap();
-            //CreateMap<PermitObjectPermissions, PermitObjectPermissionRequest>().ReverseMap();
-            //CreateMap<PagedList<PermitObjectPermissionModel>, PagedList<PermitObjectPermissions>>().ReverseMap();
+            CreateMap<PermitObjectPermissionModel, PermitObjectPermissions>().ReverseMap();
+            CreateMap<PermitObjectPermissions, PermitObjectPermissionRequest>().ReverseMap();
+            CreateMap<PagedList<PermitObjectPermissionModel>, PagedList<PermitObjectPermissions>>().ReverseMap();
 
-            //CreateMap<UserFileModel, UserFiles>().ReverseMap();
-            //CreateMap<PagedList<UserFileModel>, PagedList<UserFiles>>().ReverseMap();
+            CreateMap<UserFileModel, UserFiles>().ReverseMap();
+            CreateMap<PagedList<UserFileModel>, PagedList<UserFiles>>().ReverseMap();
 
             #region Catalogue
 
@@ -76,6 +74,9 @@ namespace Sample.Models.AutoMapper
             CreateMap<BranchImageRequest, BranchImage>().ReverseMap();
             CreateMap<PagedList<BranchImageModel>, PagedList<BranchImage>>().ReverseMap();
 
+            CreateMap<FloorModel, Floor>().ReverseMap();
+            CreateMap<FloorRequest, Floor>().ReverseMap();
+            CreateMap<PagedList<FloorModel>, PagedList<Floor>>().ReverseMap();
 
             CreateMap<PackageModel, Package>().ReverseMap();
             CreateMap<PackageRequest, Package>().ReverseMap();

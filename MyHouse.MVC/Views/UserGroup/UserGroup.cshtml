@@ -1,0 +1,280 @@
+﻿@model CoreModel
+
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item active" aria-current="page">Trang quản trị</li>
+                </ol>
+            </nav>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách nhóm tài khoản</h4>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header mg-b-20">
+                    <div class="table__header-left">
+                        @*<a href="javascript:;" class="btn btn-primary btn-add-user-group"><i class="fas fa-plus-circle"></i> Thêm mới</a>*@
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th>ID</th>
+                                    <th>Mã nhóm</th>
+                                    <th>Tên nhóm</th>
+                                    <th>Trạng thái</th>
+                                    <th>Mô tả</th>
+                                    @*<th class="text-center">Thao tác</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-city">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+
+<div class="modal fade" id="modal-user-group" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-users"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm tài khoản</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm sửa nhóm tài khoản vào danh sách</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm <span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-code" class="form-control" placeholder="VD: Admin, Staff ...">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhóm <span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-name" class="form-control" placeholder="VD: Khách hàng, nhân viên ...">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái <span class="text-danger">(*)</span></label>
+                            <select name="dll-active" class="form-control">
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Tạm ẩn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả<span class="text-danger">(*)</span></label>
+                            <textarea type="text" name="txt-description" class="form-control" placeholder="..." rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-user-group">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    domain += 'api/user-group';
+    let total_item = 0;
+    let total_page = 0;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                const list = data.Data.Items;
+                let html = '';
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    html += '<tr>';
+                    html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.Code + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    let badge_active = '<span class="badge badge-secondary">Tạm ẩn</span>';
+                    if (item.Active) {
+                        badge_active = '<span class="badge badge-success">Hoạt động</span>';
+                    }
+                    html += '<td>' + badge_active + '</td>';
+                    html += '<td>' + item.Description + '</td>';
+                    /*html += '<td class="text-center"><a href="javascript:;" class="detail-user-group" data-toogle="tooltip" title="Chỉnh sửa" data-id="' + item.Id + '" data-name="' + item.Name + '" data-code="' + item.Code + '" data-active="' + item.Active + '" data-description="' + item.Description+'"><i class="fas fa-edit"></i></a></td>';*/
+                    html += '</tr>';
+                }
+                $('#tbody-city').hide().html(html).show('slow');
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+
+    //load chi tiết
+    $(document).on('click', '.detail-user-group', function () {
+        $('input[name=hdfId]').val($(this).attr('data-id'));
+        $('input[name=txt-code]').val($(this).attr('data-code'));
+        $('input[name=txt-name]').val($(this).attr('data-name'));
+        $('select[name=ddl-active]').val($(this).attr('data-active'));
+        $('textarea[name=txt-description]').val($(this).attr('data-description'));
+        $('#modal-user-group').modal('show');
+    });
+    //open modal thêm mới
+    $(document).on('click', '.btn-add-user-group', function () {
+        $('input[name=hdfId]').val(0);
+        $('input[name=txt-code]').val('');
+        $('input[name=txt-name]').val('');
+        $('select[name=ddl-active]').val(1);
+        $('textarea[name=txt-description]').val('');
+        $('#modal-user-group').modal('show');
+    });
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Thêm mới nhóm người dùng
+    $(document).on('click', '.btn-save-user-group', function () {
+        const id = $('input[name=hdfId]').val();
+        const code = $('input[name=txt-code]').val();
+        const name = $('input[name=txt-name]').val();
+        const active = $('select[name=dll-active]').val();
+        const description = $('textarea[name=txt-description]').val();
+        //kiểm tra ràng buộc bắt buộc nhập
+        if (ckstring(name) || ckstring(code)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, code, name, active, description)
+        }
+    });
+    function insert_or_update(Id, code, name, active, description) {
+        let data = {};
+        data["id"] = Id;
+        data["code"] = code;
+        data["name"] = name; //I just wanted to show you how you can add values to a json object
+        data["active"] = active;
+        data["description"] = description;
+
+        console.log(data);
+        let type_request = '';
+        if (ckstring(Id) || Id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $.ajax({
+            url: domain,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
+                }
+                else {
+                    load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                    $('#modal-user-group').modal('show');
+                    if (type_request == 'POST') {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Thêm dữ liệu thành công!',
+                            'success'
+                        );
+                    }
+                    else if (type_request == 'PUT') {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Cập nhật dữ liệu thành công!',
+                            'success'
+                        );
+                    }
+                    $('.btn-save-user-group').prop('disabled', false);
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-user-group').prop('disabled', false);
+                console.log("Result Insert Update: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>

@@ -32,7 +32,7 @@ namespace Sample.API.Controllers.Auth
         private readonly IPermissionService permissionService;
         private readonly IPermitObjectPermissionService permitObjectPermissionService;
 
-        protected UserGroupController(IServiceProvider serviceProvider, ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public UserGroupController(IServiceProvider serviceProvider, ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.catalogueService = serviceProvider.GetRequiredService<IUserGroupService>();
             userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();

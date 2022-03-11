@@ -44,6 +44,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<Branch>(x => x.ToTable("Branch"));
             modelBuilder.Entity<BranchImage>(x => x.ToTable("BranchImage"));
             modelBuilder.Entity<BranchUtilities>(x => x.ToTable("BranchUtilities"));
+            modelBuilder.Entity<Floor>(x => x.ToTable("Floor"));
             modelBuilder.Entity<Room>(x => x.ToTable("Room"));
             modelBuilder.Entity<RoomImage>(x => x.ToTable("RoomImage"));
             modelBuilder.Entity<RoomUtilities>(x => x.ToTable("RoomUtilities"));
@@ -86,6 +87,7 @@ namespace Sample.AppDbContext
         public DbSet<Branch> Branch { get; set; }
         public DbSet<BranchImage> BranchImage { get; set; }
         public DbSet<BranchUtilities> BranchUtilities { get; set; } //Tiện ích của dãy trọ
+        public DbSet<Floor> Floor { get; set; } //tầng nhà
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomImage> RoomImage { get; set; }
         public DbSet<RoomUtilities> RoomUtilities { get; set; } //Tiện ích của phòng

@@ -13,14 +13,19 @@ namespace Sample.Entities.Auth
         ///// <summary>
         ///// Người dùng
         ///// </summary>
-        //public int UserId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Nhóm người dùng
         /// </summary>
         public int UserGroupId { get; set; }
 
-
+        [NotMapped]
+        public string UserName { get; set; }
+        [NotMapped]
+        public string FullName { get; set; }
+        [NotMapped]
+        public string UserGroupName { get; set; }
         #region Extension Properties
 
         /// <summary>

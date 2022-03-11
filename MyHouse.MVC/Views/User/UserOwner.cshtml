@@ -1,4 +1,4 @@
-﻿
+﻿@model CoreModel
 <style>
     /*input.form-control:disabled {
         background: none;
@@ -225,9 +225,9 @@
 
 
 <script>
-     $(function () {
-         load_data(1, 20, 0);
-     });
+    $(function () {
+        load_data(1, 20, 0);
+    });
 
     function load_data(pageindex, pagesize, orderby) {
         $.get('/user/UserOwnerPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby, function (data) {
