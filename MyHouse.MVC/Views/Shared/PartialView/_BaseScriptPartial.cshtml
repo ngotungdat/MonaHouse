@@ -1,0 +1,161 @@
+﻿@model CoreModel
+<script>
+    //Thêm dữ liệu
+    function create_data(object, api_name) {
+        $.ajax({
+            url: '@Model.Domain' + api_name,
+            data: JSON.stringify(object),
+            type: 'POST',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
+                }
+                else {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                   'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Cập nhật dữ liệu
+    function update_data(object, api_name, btn_clicked, modal_name) {
+        $.ajax({
+            url: '@Model.Domain' + api_name,
+            data: JSON.stringify(object),
+            type: 'PUT',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
+                }
+                else {
+                    $('#' + modal_name).modal('hide');
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cạp nhật dữ liệu thành công!',
+                        'success'
+                    );
+                    $('.' + btn_clicked).prop('disabled', false);
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                   'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.' + btn_clicked).prop('disabled', false);
+                console.log("Result Update: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Xóa dữ liệu
+    function delete_data(Id, api_name, btn_clicked, modal_name) {
+        $.ajax({
+            url: '@Model.Domain' + api_name + '/' + Id,
+            type: 'DELETE',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Error!',
+                        resultMessage,
+                        'error'
+                    )
+                }
+                else {
+                    Swal.fire(
+                        'Xóa dữ liệu thành công!',
+                        resultMessage,
+                        'success'
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Error!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Delete: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Lấy danh sách dữ liệu
+    function load_data_with_partialview(api_name, searchcontent, pageindex, pagesize, orderby) {
+         $.get('/user/UserOwnerPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby, function (data) {
+            $('.table-userlist').html(data);
+        });
+    }
+
+    function load_data_with_jquery(api_name, searchcontent, pageindex, pagesize, orderby) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: '@Model.Domain' + api_name,
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                if (!success) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        resultMessage,
+                        'warning'
+                    )
+                    return null;
+                }
+                else {
+                    return data.Data;
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>

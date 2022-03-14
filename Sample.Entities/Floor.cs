@@ -10,6 +10,10 @@ namespace Sample.Entities
     public class Floor : DomainEntities.AppDomain
     {
         /// <summary>
+        /// ID của tòa nhà/dãy trọ
+        /// </summary>
+        public int BranchId { get; set; }
+        /// <summary>
         /// Tên dãy nhà
         /// </summary>
         [Required]

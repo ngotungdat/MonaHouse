@@ -109,7 +109,7 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
-
+@await Html.PartialAsync("PartialView/_BaseScriptCRUD_Partial")
 <script>
     let page_index = 1;
     let page_size = 20;
@@ -215,8 +215,9 @@
             )
         }
         else {
-            $(this).prop('disabled', true);
-            insert_or_update(id, code, name, active, description)
+            //$(this).prop('disabled', true);
+            //insert_or_update(id, code, name, active, description)
+            insert_or_update_v2("ok");
         }
     });
     function insert_or_update(Id, code, name, active, description) {
@@ -286,4 +287,6 @@
             }
         });
     }
+
+    
 </script>

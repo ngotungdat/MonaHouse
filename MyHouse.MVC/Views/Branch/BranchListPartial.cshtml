@@ -1,18 +1,18 @@
 ﻿@using Sample.Models;
 @using Microsoft.AspNetCore.Http
 @using System.Text.Json;
-
+@model CoreModel
 @{
-    string domain = Context.Session.GetString("domain");
     Layout = "";
-    foreach (BranchModel item in Model)
+    List<BranchModel> branchModel = (List<BranchModel>)Model.MyProperty;
+    foreach (BranchModel item in branchModel)
     {
         string jsonString = JsonSerializer.Serialize(item);
         <div class="house-wrap col-md-6">
             <div class="house-item">
                 <div class="media ">
                     <a href="javascript:;" class="carousel-images">
-                        <img src="@domain@item.LinkImage" class="object-fit-cover rounded mg-r-20" onerror="this.onerror = null; this.src = '/house/images/Houseillustration.png';" alt="house">
+                        <img src="@Model.Domain@item.LinkImage" class="object-fit-cover rounded mg-r-20" onerror="this.onerror = null; this.src = '/house/images/Houseillustration.png';" alt="house">
                     </a>
 
                     <div class="media-body ">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="media-footer mg-t-15">
-                    <label class="d-block pd-5 tx-center show-list-room" data-toggle="collapse" href="#room-list-@item.Id" role="button" aria-expanded="false" aria-controls="room-list-4">
+                    <label class="d-block pd-5 tx-center show-list-room" data-id="@item.Id" data-type="close" data-iscontent="false" data-toggle="collapse" href="#room-list-@item.Id" role="button" aria-expanded="false" aria-controls="room-list-4">
                         <input type="checkbox" class="hidden">
                         <span></span>
                     </label>
@@ -54,7 +54,7 @@
                                 <div class="table__filter-wrap">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="mg-b-0">DANH SÁCH TẦNG</h6>
-                                        <a href="#modal-add-room" data-toggle="modal" class="btn btn-sm btn-info add-room" data-id="1"><i class="fas fa-plus-circle"></i> Thêm tầng</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-info btn-add-floor" data-id="1"><i class="fas fa-plus-circle"></i> Thêm tầng</a>
                                     </div>
                                     <div class="table-responsive mg-t-15">
                                         <table class="table table-block-mobile table-striped table-room table-vcenter border">
@@ -113,6 +113,46 @@
     }
 }
 
+<div class="modal fade" id="modal-floor" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="javascript:;" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-building"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tầng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm sửa tầng vào nhà/dãy trọ.</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên tầng:</label>
+                        <input type="text" name="txt-floor-name" required class="form-control" placeholder="Ví dụ: Tầng 01">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái:</label>
+                        <input type="text" name="txt-floor-active" required class="form-control" placeholder="Ví dụ: 3,000,000" data-type="currency">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
+                    <textarea type="text" name="txt-floor-note" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-floor">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
 <div class="modal fade" id="modal-carousel-images" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:70%" role="document">
         <div class="modal-content">
@@ -167,9 +207,66 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
+@await Html.PartialAsync("PartialView/_BaseScriptPartial", Model)
 <script>
     $('.carousel-images').on('click', function () {
         $('#modal-carousel-images').modal('show');
     });
+
+    //load danh sách tầng, có gắn cờ để biết khỏi load lại
+    $(document).on('click', '.show-list-room', function (event) {
+        const id = $(this).attr('data-id');
+        const toggle = $(this).attr('data-type');
+        if (toggle == 'close') {
+            $(this).attr('data-type', 'open');
+            const iscontent = $(this).attr('data-iscontent');
+            if (iscontent == 'false') {
+                load_floor();
+                $(this).attr('data-iscontent', 'true');
+            }
+        }
+        else if (toggle == 'open') {
+            $(this).attr('data-type', 'close');
+        }
+    });
+
+    $('.btn-add-floor').on('click', function () {
+        $('input[name=txt-floor-name]').val('');
+        $('textarea[name=txt-floor-note]').val('');
+        $('#modal-floor').modal('show');
+    });
+
+    $(document).on('click', '.btn-save-floor', function () {
+        const homeId = $('input[name=hdfhomeId]').val();
+        const id = $('input[name=hdfId]').val();
+        const name = $('input[name=txt-floor-name]').val();
+        const note = $('textarea[name=txt-floor-note]').val();
+        //kiểm tra ràng buộc bắt buộc nhập
+        if (ckstring(name)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập tên tầng!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            let data = {};
+            data["id"] = id;
+            data["name"] = name;
+            data["note"] = note;
+            create_data(data, 'api/floor').then(function () {
+                console.log("create");
+            });
+        }
+    });
+
+    function load_floor() {
+        console.log("ok");
+        load_data_with_jquery('', '', 0, 0, 0).then(function (data) {
+            let list = data.Items;
+            console.log(list);
+        });
+    }
 </script>
 

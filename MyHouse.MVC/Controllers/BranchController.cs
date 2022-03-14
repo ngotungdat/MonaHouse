@@ -27,12 +27,13 @@ namespace MyHouse.MVC.Controllers
         }
         public async Task<IActionResult> BranchListPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent)
         {
-            string domain = GetCurrentDomain();
-            string token = HttpContext.Session.GetString("token");
-            RestClient client = new RestClient(domain + "api/branch?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy);
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            RestClient client = new RestClient(coreModel.Domain + "api/branch?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy);
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", "Bearer " + token);
+            request.AddHeader("Authorization", "Bearer " + coreModel.Token);
             IRestResponse response = await client.ExecuteAsync(request);
             var obj = JObject.Parse(response.Content);
             var data = obj["Data"];
@@ -42,7 +43,8 @@ namespace MyHouse.MVC.Controllers
             ViewData["totalpage"] = data["TotalPage"];
             ViewData["totalitem"] = data["TotalItem"];
             List<BranchModel> model = JsonConvert.DeserializeObject<List<BranchModel>>(items.ToString());
-            return PartialView(model);
+            coreModel.MyProperty = model;
+            return PartialView(coreModel);
         }
     }
 }

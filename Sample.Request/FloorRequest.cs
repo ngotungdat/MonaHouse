@@ -11,6 +11,10 @@ namespace Sample.Request
     public class FloorRequest: AppDomainRequest
     {
         /// <summary>
+        /// ID của tòa nhà/dãy trọ
+        /// </summary>
+        public int BranchId { get; set; }
+        /// <summary>
         /// Tầng nhà/ dãy trọ
         /// </summary>
         [Required(ErrorMessage = "Vui lòng nhập tên tầng!")]

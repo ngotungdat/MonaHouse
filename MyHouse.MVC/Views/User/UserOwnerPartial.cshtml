@@ -119,8 +119,8 @@
         load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
     });
     //load khi bấm chuyển trang
-    function load_to_page(index_click) {
-        page_index = index_click;
+    function load_to_page(page_clicked) {
+        page_index = page_clicked;
         //load lại data
         load_data(page_index, page_size, 0);
         //load lại phân trang
