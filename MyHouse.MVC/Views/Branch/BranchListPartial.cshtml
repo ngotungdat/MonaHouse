@@ -9,7 +9,7 @@
     {
         string jsonString = JsonSerializer.Serialize(item);
         <div class="house-wrap col-md-6">
-            <div class="house-item">
+            <div class="house-item border">
                 <div class="media ">
                     <a href="javascript:;" class="carousel-images">
                         <img src="@Model.Domain@item.LinkImage" class="object-fit-cover rounded mg-r-20" onerror="this.onerror = null; this.src = '/house/images/Houseillustration.png';" alt="house">
@@ -54,7 +54,7 @@
                                 <div class="table__filter-wrap">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="mg-b-0">DANH SÁCH TẦNG</h6>
-                                        <a href="javascript:;" class="btn btn-sm btn-info btn-add-floor" data-id="1"><i class="fas fa-plus-circle"></i> Thêm tầng</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-info btn-add-floor" data-branchId="@item.Id"><i class="fas fa-plus-circle"></i> Thêm tầng</a>
                                     </div>
                                     <div class="table-responsive mg-t-15">
                                         <table class="table table-block-mobile table-striped table-room table-vcenter border">
@@ -66,40 +66,8 @@
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td data-title="Tên">Tầng 10</td>
-                                                    <td data-title="Trạng thái">Đang thuê</td>
-                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
-                                                    <td data-title="Thao tác">
-                                                        <a href="javascript:;"
-                                                           class="">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td data-title="Tên">Tầng 10</td>
-                                                    <td data-title="Trạng thái">Đang thuê</td>
-                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
-                                                    <td data-title="Thao tác">
-                                                        <a href="javascript:;"
-                                                           class="">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td data-title="Tên">Tầng 10</td>
-                                                    <td data-title="Trạng thái">Đang thuê</td>
-                                                    <td data-title="Ghi chú"><span>Ghi chú khách thuê</span></td>
-                                                    <td data-title="Thao tác">
-                                                        <a href="javascript:;"
-                                                           class="">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                            <tbody class="content-data-@item.Id">
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -121,6 +89,8 @@
                     <span aria-hidden="true">&times;</span>
                 </a>
                 <div class="media align-items-center">
+                    <input type="hidden" name="hdfbranchId" value="0" />
+                    <input type="hidden" name="hdfId" value="0" />
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-building"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Tầng</h4>
@@ -130,18 +100,20 @@
             </div><!-- modal-header -->
             <div class="modal-body pd-sm-t-30 pd-sm-b-40 pd-sm-x-30">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên tầng:</label>
                         <input type="text" name="txt-floor-name" required class="form-control" placeholder="Ví dụ: Tầng 01">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái:</label>
-                        <input type="text" name="txt-floor-active" required class="form-control" placeholder="Ví dụ: 3,000,000" data-type="currency">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả:</label>
                     <textarea type="text" name="txt-floor-note" class="form-control" placeholder="Ví dụ: Nhà cho ở tối đa 10 người"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch-active" name="hidden-floor" value="">
+                        <label class="form-check-label" for="switch-active">Tạm ẩn</label>
+                    </div>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
@@ -221,7 +193,8 @@
             $(this).attr('data-type', 'open');
             const iscontent = $(this).attr('data-iscontent');
             if (iscontent == 'false') {
-                load_floor();
+                load_floor(id);
+                $('input[name=hdfbranchId]').val(id);
                 $(this).attr('data-iscontent', 'true');
             }
         }
@@ -229,18 +202,39 @@
             $(this).attr('data-type', 'close');
         }
     });
-
+    //open modal thêm mới tầng
     $('.btn-add-floor').on('click', function () {
+        $('input[name=hdfbranchId]').val($(this).attr('data-branchId'));
+        $('input[name=hdfId]').val(0);
         $('input[name=txt-floor-name]').val('');
         $('textarea[name=txt-floor-note]').val('');
+        $('#switch-active').val(true);
         $('#modal-floor').modal('show');
     });
-
+    //load chi tiết tầng
+    $(document).on('click', '.btn-detail-floor', function () {
+        $('input[name=hdfId]').val($(this).attr('data-id'));
+        $('input[name=txt-floor-name]').val($(this).attr('data-name'));
+        $('textarea[name=txt-floor-note]').val($(this).attr('data-note'));
+        if ($(this).attr('data-active') == 'false') {
+            //đang bị ẩn
+            $('#switch-active').prop("checked", true);
+            $('#switch-active').val(false);
+        }
+        else {
+            //đang active
+            $('#switch-active').prop("checked", false);
+            $('#switch-active').val(true);
+        }
+        $('#modal-floor').modal('show');
+    });
+    //thêm hoặc cập nhật tầng
     $(document).on('click', '.btn-save-floor', function () {
-        const homeId = $('input[name=hdfhomeId]').val();
+        const branchId = $('input[name=hdfbranchId]').val();
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-floor-name]').val();
         const note = $('textarea[name=txt-floor-note]').val();
+        const active = $('input[name=hidden-floor]').val();
         //kiểm tra ràng buộc bắt buộc nhập
         if (ckstring(name)) {
             Swal.fire(
@@ -253,20 +247,57 @@
             $(this).prop('disabled', true);
             let data = {};
             data["id"] = id;
+            data["branchId"] = branchId;
             data["name"] = name;
             data["note"] = note;
-            create_data(data, 'api/floor').then(function () {
-                console.log("create");
-            });
+            data["active"] = active;
+            if (ckstring(id) || id == 0) {
+                create_data(data, 'api/floor').then((result) => {
+                    load_floor(branchId);
+                    $(this).prop('disabled', false);
+                    $('#modal-floor').modal('hide');
+                });
+            }
+            else {
+                update_data(data, 'api/floor').then((result) => {
+                    load_floor(branchId);
+                    $(this).prop('disabled', false);
+                    $('#modal-floor').modal('hide');
+                });
+            }
         }
     });
-
-    function load_floor() {
-        console.log("ok");
-        load_data_with_jquery('', '', 0, 0, 0).then(function (data) {
-            let list = data.Items;
-            console.log(list);
+    //load danh sách tầng theo tòa nhà/dãy trọ
+    function load_floor(branchId) {
+        load_data_with_jquery('api/floor/get-by-branch/' + branchId, '', 0, 0, 0).then((result) => {
+            if (result != null) {
+                let list = result.Data.Items;
+                let html = ``;
+                $('.content-data-' + branchId).html(html);
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    let badge_active = '<span class="badge badge-secondary">Tạm ẩn</span>';
+                    if (item.Active) {
+                        badge_active = '<span class="badge badge-success">Hoạt động</span>';
+                    }
+                    html += `  <tr>
+                                 <td data-title="Tên">${item.Name}</td>
+                                 <td data-title="Trạng thái">${badge_active}</td>
+                                 <td data-title="Ghi chú">${item.Note}</td>
+                                 <td data-title="Thao tác"><a href="javascript:;" class="btn-detail-floor" data-id="${item.Id}" data-name="${item.Name}" data-note="${item.Note}" data-active="${item.Active}"><i class="fas fa-edit"></i></a></td>
+                                </tr>`;
+                }
+                $('.content-data-' + branchId).html(html);
+            }
         });
     }
+    $('#switch-active').on('change', function () {
+        if ($('#switch-active').prop("checked")) {
+            $('#switch-active').val(false);
+        }
+        else {
+            $('#switch-active').val(true);
+        }
+    });
 </script>
 

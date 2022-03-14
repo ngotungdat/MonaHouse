@@ -1,13 +1,4 @@
-﻿@*@using Motel.Models
-@using Motel.TableSQL
-@using System.Data.SqlClient
-@using MB.Extensions;
-@{
-    ViewBag.Title = "ListRoom";
-    ViewBag.ListRoom = "active";
-    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
-    List<tbl_Motel> houses = ViewBag.Motel;
-}*@
+﻿@model CoreModel 
 <style>
     /*input.form-control:disabled {
         background: none;
