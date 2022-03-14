@@ -85,23 +85,7 @@
 
 
 <script>
-    class NotificationUser {
-        constructor(Id, UsersId, Title, Content, NotificationId, TenantId, Created, CreatedBy, Updated, UpdatedBy, Deleted, Active, isSeen) {
-            this.Id = Id;
-            this.UsersId = UsersId;
-            this.Title = Title;
-            this.Content = Content;
-            this.NotificationId = NotificationId;
-            this.TenantId = TenantId;
-            this.Created = Created;
-            this.CreatedBy = CreatedBy;
-            this.Updated = Updated;
-            this.UpdatedBy = UpdatedBy;
-            this.Deleted = Deleted;
-            this.Active = Active;
-            this.isSeen = isSeen;
-        }
-    }
+    let notificationUsers = new Array();
     let notifications_token = '@Model.Token';
     let notifications_domain = '@Model.Domain';
     let notifications_usersId = @users.Id;
@@ -124,17 +108,16 @@
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
-                //console.log('data: ', data);
                 let list = data.Data.Items;
-                //console.log('list: ', list);
                 let html = '';
                 let count_noti = 0;
+                notificationUsers = new Array();
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
                     let content = '<b>' + item.Title + ': </b>' + item.Content;
                     content = content.substring(0, 70) + '...';
                     html += '<div class="dropdown-item">';
-                    html += '<a href="javascript:;" class="btn-notifications" data-id="' + item.Id + '" data-title="' + item.Title + '" data-content="' + item.Content +'" data-toggle="modal">';
+                    html += '<a href="javascript:;" class="btn-notifications" data-id="' + item.Id + '" data-title="' + item.Title + '" data-content="' + item.Content + '" data-toggle="modal">';
                     html += '<i class="fas fa-bullhorn"></i>';
                     html += '<span name="span-notifications">';
                     html += content;
@@ -145,9 +128,14 @@
                         count_noti += 1;
                     }
                     html += '</div>';
+                    let notificationUser = new NotificationUser(item.Id, item.UsersId, item.Title, item.Content, item.NotificationId,
+                        item.TenantId, item.Created, item.CreatedBy, item.Updated, item.UpdatedBy, item.Deleted, item.Active, item.isSeen);
+
+                    notificationUsers.push(notificationUser);
                 }
                 $('span[name="count-noti"]').html(count_noti);
                 $('#notifications-user').hide().html(html).show('slow');
+                //console.log(notificationUsers);
             },
             error: function (xhr, status, error) {
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -163,23 +151,23 @@
         $('#modal-notifications').modal('show');
         update_notifications(id, true);
     });
-    function update_notifications(Id,isSeen) {
-        let data = {};
-        data["Id"] = Id;
-        data["IsSeen"] = isSeen;
+    function update_notifications(Id, isSeen) {
+        my_data = notificationUsers.find(x => x.Id == Id);
+        my_data.Id = Id;
+        my_data.isSeen = isSeen;
 
         $.ajax({
-            url: domain,
-            data: JSON.stringify(data),
+            url: '@Model.Domain' + 'api/NotificationUser',
+            data: JSON.stringify(my_data),
             type: 'PUT',
             dataType: 'JSON',
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': 'Bearer ' + notifications_token,
                 'Content-Type': 'application/json'
             },
             contentType: "application/json",
             success: function (data) {
-                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                load_data_notifications(get_api_notifications());
             },
             error: function (xhr, status, error) {
                 console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
