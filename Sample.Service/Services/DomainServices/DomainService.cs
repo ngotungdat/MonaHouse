@@ -231,7 +231,7 @@ namespace Sample.Service.Services.DomainServices
 
                 if (exists != null)
                 {
-                    //kiểm tra nếu Properties nào null thì lấy lại data cũ
+                    //kiểm tra nếu Properties nào null thì lấy lại data cũ.
                     foreach (PropertyInfo item_old in exists.GetType().GetProperties())
                     {
                         foreach (PropertyInfo item_new in item.GetType().GetProperties())
