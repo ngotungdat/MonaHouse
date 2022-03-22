@@ -68,6 +68,8 @@ namespace Sample.BaseAPI
             services.AddScoped<IPackageService, PackageService>();
             services.AddScoped<IVehicleFeeConfigService, VehicleFeeConfigService>();
             services.AddScoped<IUtilitiesConfigService, UtilitiesConfigService>();
+            services.AddScoped<ICustomerResourceService, CustomerResourceService>();
+            services.AddScoped<IFeedBackTypeService, FeedBackTypeService>();
             services.AddScoped<INotificationUserService, NotificationUserService>();
 
             #endregion

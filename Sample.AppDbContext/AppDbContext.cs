@@ -57,6 +57,9 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<Package>(x => x.ToTable("Package"));
             modelBuilder.Entity<NotificationUser>(x => x.ToTable("NotificationUser"));
             modelBuilder.Entity<Notification>(x => x.ToTable("Notification"));
+            //
+            modelBuilder.Entity<CustomerResources>(x => x.ToTable("CustomerResources"));
+            modelBuilder.Entity<FeedBackType>(x=>x.ToTable("FeedBackTypes"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -100,6 +103,10 @@ namespace Sample.AppDbContext
         public DbSet<Package> Package { get; set; } //gói phần mềm cho thuê
         public DbSet<NotificationUser> NotificationUser { get; set; } 
         public DbSet<Notification> Notification { get; set; } 
+        //
+        public DbSet<CustomerResources> CustomerResources { get; set; }
+        public DbSet<FeedBackType> FeedBackTypes { get; set; }
+
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

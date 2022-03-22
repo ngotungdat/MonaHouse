@@ -126,11 +126,11 @@ namespace Sample.BaseAPI.Controllers
             if (ModelState.IsValid)
             {
                 var item = mapper.Map<E>(itemModel);
-                //var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
+                var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
                 if (item != null)
                 {
                     // Kiểm tra item có tồn tại chưa?
-                    //item.TenantId = user.TenantId;
+                    item.TenantId = user.TenantId;
                     var messageUserCheck = await this.domainService.GetExistItemMessage(item);
                     if (!string.IsNullOrEmpty(messageUserCheck))
                         throw new AppException(messageUserCheck);

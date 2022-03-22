@@ -9,10 +9,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình tiện ích</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình Nguồn khách hàng</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách tiện ích</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách nguồn khách hàng</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -20,7 +20,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-utilitiesconfig" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        <a href="javascript:;" class="btn btn-primary btn-add-customerresource" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -43,13 +43,13 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Tiệc ích</th>
-                                    <th class="sort-label" data-column="col-electronic">Phí</th>
+                                    <th class="sort-label" data-column="col-name">Nguồn</th>
+                                    <th class="sort-label" data-column="col-electronic">Trạng thái</th>
                                     <th class="sort-label " data-column="col-service">Người tạo</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-utilitiesconfig">
+                            <tbody id="tbody-customerresource">
                             </tbody>
                         </table>
                     </div>
@@ -59,7 +59,7 @@
         </div>
     </div><!-- row -->
 </div>
-<div class="modal fade modal-nopadding-right" id="modal-utilitiesconfig" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-nopadding-right" id="modal-customerresource" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
         <div class="modal-content">
             <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
@@ -70,8 +70,8 @@
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phí giữ xe</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Thêm tiện ích</p>
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nguồn khách hàng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm Nguồn khách hàng</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -80,20 +80,15 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiệc ích<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Tủ lạnh">
-                        </div>
-                    </div><div class="row">
-                        <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-price" required class="form-control" data-type="currency" placeholder="Ví dụ: 50,000">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nguồn<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Mobi">
                         </div>
                     </div>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary btn-save-utilitiesconfig">Lưu lại</button>
+                <button type="button" class="btn btn-primary btn-save-customerresource">Lưu lại</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
@@ -105,9 +100,11 @@
     let OrderBy = 0;
     let token = '@Model.Token';
     let domain = '@Model.Domain';
-    domain += 'api/UtilitiesConfig';
+    domain += 'api/CustomerResource';
     let total_item = 0;
     let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    let TmpList = null;
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
         return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
@@ -128,18 +125,27 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
+                TmpList = data.Data.Items;
                 console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+                    
                     html += '<tr>';
                     html += '<td>' + item.Name + '</td>';
-                    html += '<td>' + format_money(item.Price) + ' đ</td>';
+                    if (item.Active == true) {
+                        html += '<td>' +
+                            '<input type="checkbox" id="checkactive" value="True" onchange="Check(' + item.Id +')" checked>' + " ON"
+                                +'</td>';
+                    }
+                    else {
+                        html += '<td>' + '<input type="checkbox" id="checkactive" value="False" onchange="Check(' + item.Id + ')" >' + " OFF" + '</td>';
+                    }
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-price="' + item.Price +'" class="btn-edit-utilitiesconfig"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" class="btn-edit-customerresource"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-utilitiesconfig').hide().html(html).show('slow');
+                $('#tbody-customerresource').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
@@ -178,27 +184,25 @@
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
     }
 
-    $('.btn-add-utilitiesconfig').on('click', function () {
+    $('.btn-add-customerresource').on('click', function () {
         $('input[name=hdfId]').val(0);
         $('input[name=txt-name]').val('');
-        $('input[name=txt-price]').val(0);
-        $('#modal-utilitiesconfig').modal('show');
+        $('#modal-customerresource').modal('show');
     });
-    $(document).on('click', '.btn-edit-utilitiesconfig', function () {
+    $(document).on('click', '.btn-edit-customerresource', function () {
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-name]').val($(this).attr('data-name'));
-        var price = format_money($(this).attr('data-price'));
-        $('input[name=txt-price]').val(price);
-        $('#modal-utilitiesconfig').modal('show');
+        $('#modal-customerresource').modal('show');
     });
-    $('.btn-save-utilitiesconfig').click(function () {
+
+    $('.btn-save-customerresource').click(function () {
+        console.log('a');
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-name]').val();
-        const price = $('input[name=txt-price]').val().replaceAll(',', '');
-        console.log(id);
+        const Active = true;
         console.log(name);
-        console.log(price);
-        if (ckstring(name) || ckstring(price)) {
+        console.log(Active);
+        if (ckstring(name)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -207,15 +211,42 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, name, price)
+            insert_or_update(id, name, Active)
         }
     });
-    function insert_or_update(Id, Name, Price) {
+    
+    // bat su kien check box
+    function Check(id) {
+        for (let i = 0; i < TmpList.length; i++) {
+            if (id == TmpList[i].Id) {
+                name = TmpList[i].Name;
+                status = TmpList[i].Active;
+                if (TmpList[i].Active == true) { status = false; }
+                else { status = true; }
+                if (ckstring(name) || ckstring(status)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    $(this).prop('disabled', true);
+                    insert_or_update(id, name, status)
+                }
+                break;
+            }
+        }
+    }
+     
+    
+    function insert_or_update(Id, Name, Active) {
+        console.log(Name);
         let data = {};
         data["id"] = Id;
         data["name"] = Name; //I just wanted to show you how you can add values to a json object
-        data["price"] = Price;
-
+        data["active"] = Active;
+        console.log(Id);
         let type_request = '';
         if (ckstring(Id) || Id == 0) {
             type_request = 'POST';
@@ -223,7 +254,7 @@
         else {
             type_request = 'PUT';
         }
-        $('#modal-utilitiesconfig').modal('hide');
+        $('#modal-customerresource').modal('hide');
         $.ajax({
             url: domain,
             data: JSON.stringify(data),
@@ -251,7 +282,7 @@
                         'success'
                     );
                 }
-                $('.btn-save-utilitiesconfig').prop('disabled', false);
+                $('.btn-save-customerresource').prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -259,7 +290,7 @@
                     'Rất tiếc đã xảy ra lỗi!',
                     'error'
                 );
-                $('.btn-save-utilitiesconfig').prop('disabled', false);
+                $('.btn-save-customerresource').prop('disabled', false);
                 console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
             }
         });

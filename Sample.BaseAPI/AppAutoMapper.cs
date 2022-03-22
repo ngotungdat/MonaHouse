@@ -94,6 +94,14 @@ namespace Sample.Models.AutoMapper
             CreateMap<NotificationUserRequest, NotificationUser>().ReverseMap();
             CreateMap<PagedList<NotificationUserModel>, PagedList<NotificationUser>>().ReverseMap();
 
+            CreateMap<CustomerResourceModel, CustomerResources>().ReverseMap();
+            CreateMap<FeedBackTypeRequest, CustomerResources>().ReverseMap();
+            CreateMap<PagedList<CustomerResourceModel>, PagedList<CustomerResources>>().ReverseMap();
+
+            CreateMap<FeedBackTypeModel, FeedBackType>().ReverseMap();
+            CreateMap<FeedBackTypeRequest, FeedBackType>().ReverseMap();
+            CreateMap<PagedList<FeedBackTypeModel>, PagedList<FeedBackType>>().ReverseMap();
+
         }
 
     }
