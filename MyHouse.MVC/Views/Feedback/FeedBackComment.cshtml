@@ -1,0 +1,510 @@
+﻿@model CoreModel
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
+<style>
+
+    .img-sm {
+        width: 46px;
+        height: 46px;
+    }
+
+    .panel {
+        box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+        border-radius: 0;
+        border: 0;
+        margin-bottom: 15px;
+    }
+
+        .panel .panel-footer, .panel > :last-child {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .panel .panel-heading, .panel > :first-child {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+    .panel-body {
+        padding: 25px 20px;
+    }
+
+
+    .media-block .media-left {
+        display: block;
+        float: left
+    }
+
+    .media-block .media-right {
+        float: right
+    }
+
+    .media-block .media-body {
+        display: block;
+        overflow: hidden;
+        width: auto
+    }
+
+    .middle .media-left,
+    .middle .media-right,
+    .middle .media-body {
+        vertical-align: middle
+    }
+
+    .thumbnail {
+        border-radius: 0;
+        border-color: #e9e9e9
+    }
+
+    .tag.tag-sm, .btn-group-sm > .tag {
+        padding: 5px 10px;
+    }
+
+    .tag:not(.label) {
+        background-color: #fff;
+        padding: 6px 12px;
+        border-radius: 2px;
+        border: 1px solid #cdd6e1;
+        font-size: 12px;
+        line-height: 1.42857;
+        vertical-align: middle;
+        -webkit-transition: all .15s;
+        transition: all .15s;
+    }
+
+    .text-muted, a.text-muted:hover, a.text-muted:focus {
+        color: #acacac;
+    }
+
+    .text-sm {
+        font-size: 0.9em;
+    }
+
+    .text-5x, .text-4x, .text-5x, .text-2x, .text-lg, .text-sm, .text-xs {
+        line-height: 1.25;
+    }
+
+    .btn-trans {
+        background-color: transparent;
+        border-color: transparent;
+        color: #929292;
+    }
+
+    .btn-icon {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+        .btn-sm, .btn-group-sm > .btn, .btn-icon.btn-sm {
+            padding: 5px 10px !important;
+        }
+
+    .mar-top {
+        margin-top: 15px;
+    }
+</style>
+<script src="~/Emoji-Rating-Plugin-jQuery/emoji.js"></script>
+
+<div class="container bootdey">
+    <div class="col-md-12 bootstrap snippets">
+
+        <div class="panel">
+            <div class="panel-body">
+                <div class="media-block">
+                    <div class="media-body">
+                        <div id="tbody-feedback" name="tbody-feedback"></div>
+                        <hr>
+                        <h6 style="text-align:center">Thảo luận</h6>
+                        <hr>
+                        <div>
+
+                            <div id="tbody-feedback-comment" name="tbody-feedback-comment"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <textarea id="comment-content" name="comment-content" class="form-control" rows="2" placeholder="Bạn có muốn bình luận gì đó ?"></textarea>
+                <div class="mar-top clearfix">
+                    <button id="btn-add-feedbackcomment" name="btn-add-feedbackcomment" class="btn btn-sm btn-primary pull-right">Thảo Luận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var pathArray = window.location.pathname.split('/');
+    const Id = pathArray[3];
+    console.log(pathArray);
+    console.log(Id);
+    //
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = Id;
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    // domain load Brnach
+    let domainRandom ='@Model.Domain';
+
+    //
+    domain += 'api/Feedback';
+    let random = 'api/feedback';
+    //
+    let total_item = 0;
+    let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    //
+    
+
+    let TmpList = null;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain +'Comment/GetFeedbackCommentByFeedbackId?' + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    console.log(get_api());
+    // get api Branch
+    function get_api_random() {
+        return domainRandom + random + '/' + Id ;
+    }
+    //get api feedbackComment
+    function get_api_feedbackComment() {
+        return domain + 'Comment';
+    }
+    //
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    // 
+    $(document).ready(function () {
+        load_data_random(get_api_random());
+    });
+
+    function load_data_random(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let rs = data.Data;
+                console.log("result:" + rs.Title);
+                let html = '';
+                html += '<a  class="media-left" href="#"><img style="border-right-width:10px;margin-right: 25px;" class="img-circle img-sm" alt="Profile Picture" src="' + rs.UserImg+'"></a>';
+                html += '<div class="mar-btm">';
+                
+                html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + rs.CreatedBy + ' - 11 min ago</p>';
+                html += '</div>';
+                html += '<div id="emoji-div"></div>';
+                html += '<h5 style="text-align:center" id="feedback-content" name="feedback-content"> Tiêu đề: ' + rs.Title + '</h5>';
+                html += '<p id="feedback-content" name="feedback-content">' + rs.Content+'</p>';
+                html += '<div class="pad-ver">';
+                html += '<div class="btn-group">';
+                html += '</div>';
+                html += '</div>';
+                $('#tbody-feedback').hide().html(html).show('slow');
+                    //var emojis = ['&#x1F620;'];
+                    //$("#emoji-div").emoji({ value: 4 });
+                $("#emoji-div").emoji({ value: rs.Evaluate });
+
+
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                let html = '';
+                console.log(data);
+                //
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    html += '<div class="media-block">';
+                    html += '<div class="media-body">';
+                    html += '<a  class="media-left" href="#"><img style="border-right-width:10px;margin-right: 25px;" class="img-circle img-sm" alt="Profile Picture" src="' + item.UserImg + '"></a>';
+                    html += '<div class="mar-btm">';
+                    html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + item.CreatedBy + ' - 11 min ago</p>';
+                    html += '</div>';
+                    html += '<p id="feedback-content" name="feedback-content">' + item.Content + '</p>';
+                    html += '<div class="pad-ver">';
+                    html += '<div class="btn-group">';
+                    html += '<hr>';
+                    html += '</div>';
+                    html += '</div>';
+                    console.log(item.UserImg);
+                }
+                //
+                $('#tbody-feedback-comment').hide().html(html).show('slow');
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#btn-add-feedbackcomment').click(function () {
+            console.log("ban da bam' thao luan");
+            const id_add = 0;
+            let content = $('textarea[name=comment-content]').val();
+            let feedbackTypeId = Id;
+            let userId = '@user.Id';
+            let userImg = '@user.Avatar';
+            console.log(content, feedbackTypeId, userId);
+            console.log(userImg);
+            if (content.length == 0) {
+                toast.create({
+                    title: 'Thông báo!',
+                    text: 'Vui lòng nhập nội dung thông báo',
+                    icon: 'error_outline',
+                    classBackground: 'noti-error',
+                    timeout: 3000
+                })
+            }
+            insert_or_update(id_add, feedbackTypeId, content, userId, userImg);
+            load_data_random(get_api_random());
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        });
+    });
+
+    function insert_or_update(id,feedbackId,content,userId,userImg) {
+
+        let data = {};
+        data["id"] = id;
+        data["feedbackId"] = feedbackId; //I just wanted to show you how you can add values to a json object
+        data["content"] = content;
+        data["active"] = true;
+        data["deleted"] = false;
+        data['userId'] = userId;
+        data['userImg'] = userImg;
+        console.log('data:' + id, feedbackId, content, userId, userImg);
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#modal-Notification').modal('hide');
+        $.ajax({
+            url: get_api_feedbackComment(),
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-Notification').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-Notification').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+   @* //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }*@
+  @*  $(document).ready(function () {
+        $('.btn-add-feedback').on('click', function () {
+            var title = $('input[name=txt-title]').val();
+            var feedbackTypeId = $('select[name=ddl-type]').val();
+            var evalute = $("#emoji-div").emoji("getvalue")
+            var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+            var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+
+            console.log(title, feedbackTypeId, evalute);
+            console.log(content);
+            if (counttext.length == 1) {
+                toast.create({
+                    title: 'Thông báo!',
+                    text: 'Vui lòng nhập nội dung thông báo',
+                    icon: 'error_outline',
+                    classBackground: 'noti-error',
+                    timeout: 3000
+                })
+            }
+
+            $('#modal-feedback').modal('show');
+
+        });
+    });
+
+
+
+    $('.btn-save-feedback').click(function () {
+        var id = 0;
+        var title = $('input[name=txt-title]').val();
+        var feedbackTypeId = $('select[name=ddl-type]').val();
+        var evalute = $("#emoji-div").emoji("getvalue")
+        var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+        var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+
+        console.log(title, feedbackTypeId, evalute);
+        console.log(content);
+        if (ckstring(title) || ckstring(feedbackTypeId) || ckstring(content)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, title, feedbackTypeId, evalute, content);
+        }
+    });
+
+
+    function insert_or_update(id, title, feedbackTypeId, evalute, content) {
+        console.log(evalute.toString());
+        let data = {};
+        data["id"] = id;
+        data["title"] = title; //I just wanted to show you how you can add values to a json object
+        data["feedbackTypeId"] = feedbackTypeId;
+        data["content"] = content;
+        data["active"] = true;
+        data["deleted"] = false;
+        data['evaluate'] = evalute.toString();
+        // 2 thuộc tính mới
+        data['Status'] = 'waiting_process';
+        var prioritized = "medium";
+        if ($('input[name=prioritized-check]').is(':checked')) {
+            prioritized = "high";
+        }
+        else {
+            prioritized = "low";
+        }
+        data['prioritized'] = prioritized;
+
+        // 2 thuộc tính mới
+        data['roleId'] = '@user.RoleNumber';
+        data['userId'] = '@user.Id';
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#modal-feedback').modal('hide');
+        $.ajax({
+            url: domain,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                //console.log(data);
+                //load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-feedback').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-feedback').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }*@
+
+
+
+</script>
+
+

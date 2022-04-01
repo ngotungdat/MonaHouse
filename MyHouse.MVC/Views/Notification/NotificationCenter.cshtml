@@ -1,0 +1,570 @@
+﻿@model CoreModel
+@using Sample.Entities
+@{ 
+    Users user = Model.Users;
+}
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row row-xs">
+        <div class="col">
+            <div class="d-sm-flex align-items-center justify-content-between ">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item active" aria-current="page">Cấu hình trung tâm thông báo</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Trung Tâm Thông Báo</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Chọn Dạng Gửi Thông Báo:</label>
+                <select name="ddl-type" id="ddl-type" class="select2 form-control">
+                    <option value="" disabled selected>--- Chọn Loại Gửi ---</option>
+                    <option value="1">Gửi Theo Phân Quyền Người Dùng</option>
+                    <option value="2">Gửi Theo Khu Vực, Tòa Nhà</option>
+                    <option value="3">Gửi Theo Phòng</option>
+                </select>
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+
+    <div id="select-form-role" class="container pd-x-0 pd-lg-x-10 pd-xl-x-0" style="display:none">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Chọn Phân Quyền Người Dùng:</label>
+                <select name="ddl-role" class="select2 form-control" id="ddl-role" multiple="">
+                    @{if (user.RoleNumber == 1)
+                        {
+                            <option value="2">CSKH</option>
+                            <option value="3">Chủ Trọ</option>
+                        }
+                    }
+                    @{if (user.RoleNumber == 2)
+                        {
+                            <option value="3">Chủ Trọ</option>
+                        }
+                    }
+                    @{if (user.RoleNumber == 3)
+                        {
+                            <option value="4">Nhân Vien Trọ</option>
+                            <option value="5">Người Thuê Trọ</option>
+                        }
+                    }
+
+
+                </select>
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+
+    <div id="select-form-branch" class="container pd-x-0 pd-lg-x-10 pd-xl-x-0" style="display:none">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Chọn khu vực, tòa nhà:</label>
+                <select name="ddl-branch" class="select2 form-control" id="ddl-branch" multiple="">
+                    
+                </select>
+
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+
+    <div id="select-form-branch-to-room" class="container pd-x-0 pd-lg-x-10 pd-xl-x-0" style="display:none">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Chọn khu vực, tòa nhà:</label>
+                <select name="ddl-branch-to-room" class="select2 form-control" id="ddl-branch-to-room" multiple="">
+                    
+                </select>
+
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    <div id="select-form-room" class="container pd-x-0 pd-lg-x-10 pd-xl-x-0" style="display:none">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Chọn phòng :</label>
+                <select name="ddl-room" class="select2 form-control" id="ddl-room" multiple="">
+                </select>
+
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="form-row row-xs">
+            <div class="col-sm-12 form-group">
+                <label class="">Gửi Mail:</label>
+                <input name="is-email" type="checkbox" />
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Tiêu đề</span>
+        </div>
+        <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề Thông Báo...">
+
+    </div>
+
+    <div class="form-row row-xs">
+        <div class="col">
+            <div>
+                <div class="table__filter__wrap bd-t pd-t-15">
+                    <div>
+                        <textarea class="raw-txt mg-t-10" rows="10" name="notification-content" id="notification-content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                        <a href="javascript:;" class="btn btn-primary btn-add-Notification" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="0">Loại xe A-Z↓</option>
+                                    <option value="1">Loại xe Z-A↑</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Thời Gian</th>
+                                    <th class="sort-label" data-column="col-electronic">Phạm Vi</th>
+                                    <th class="sort-label " data-column="col-service">Định Vị</th>
+                                    <th class="sort-label " data-column="col-service">Email</th>
+                                    <th class="sort-label " data-column="col-service">Tiêu đề</th>
+                                    @*<th class="sort-label text-table-center" data-column="col-service">Thao tác</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-Notification">
+                            </tbody>
+                        </table>
+                    </div>
+                    @await Html.PartialAsync("_PaginationPartial")
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+<div class="modal fade modal-nopadding-right" id="modal-Notification" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
+                    <div class="media-body mg-sm-l-20">
+
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Bạn có muốn đăng thông báo</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">sẽ được thông báo trong vòng 24h</p>
+                    </div>
+                </div><!-- media -->
+            </div>
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-Notification">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<script>
+    $("#select-form-role").prop('disabled', false);
+    console.log('ahihihihihihih');
+    $("#select-form-branch").prop('disabled', false);
+    $("#select-form-room").prop('disabled', false);
+</script>
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    // domain load Brnach
+    let domainBranch ='@Model.Domain';
+
+    //
+    domain += 'api/Notification';
+    // call api role
+    domainBranch +='api/Branch'
+    //
+    let total_item = 0;
+    let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    let TmpList = null;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    // get api Branch
+    function get_api_branch(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domainBranch + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    //
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    // branch
+    $(document).ready(function () {
+        load_data_branch(get_api_branch(page_index, page_size, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                TmpList = data.Data.Items;
+                console.log('list: ', list);
+                let html = '';
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    var date = new Date(item.Created);
+                    html += '<tr>';
+                    html += '<td>' + date.toLocaleString("en-GB") + '</td>';
+                    html += '<td>' + item.RoleId + '</td>';
+                    html += '<td>' + item.BranchName + '</td>';
+                    html += '<td>' + item.IsSendMail + '</td>';
+                    html += '<td>' + item.Title + '</td>';
+                    html += '</tr>';
+                }
+                $('#tbody-Notification').hide().html(html).show('slow');
+                total_item = data.Data.TotalItem;
+                total_page = data.Data.TotalPage;
+                load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //func laod role,brnach, room
+    function load_data_branch(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                console.log('list: ', list);
+                select = document.getElementById('ddl-branch');
+                for (let i = 0; i < list.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = list[i].Id;
+                    opt.innerHTML = list[i].Name;
+                    select.appendChild(opt);
+                }
+
+                select_forRoom = document.getElementById('ddl-branch-to-room');
+                for (let i = 0; i < list.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = list[i].Id;
+                    opt.innerHTML = list[i].Name;
+                    select_forRoom.appendChild(opt);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    $(document).ready(function () {
+        $('.btn-add-Notification').on('click', function () {
+            var title = $('input[name=txt-title]').val();
+            var roleID = $('select[name=ddl-role]').val();
+            var isEmail = false;
+            if ($('input[name=is-email]').is(':checked')) {
+                isEmail = true;
+            }
+            else {
+                isEmail = false;
+            }
+            var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+            var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+
+            console.log(title, roleID);
+            console.log('isEmail:'+isEmail);
+            console.log(content);
+            $('input[name=hdfcontent]').val(content);
+            if (counttext.length == 1) {
+                toast.create({
+                    title: 'Thông báo!',
+                    text: 'Vui lòng nhập nội dung thông báo',
+                    icon: 'error_outline',
+                    classBackground: 'noti-error',
+                    timeout: 3000
+                })
+            }
+            console.log(title, roleID);
+
+            $('#modal-Notification').modal('show');
+
+        });
+    });
+
+    $('select[name=ddl-type]').on('change', function () {
+        var value = $('select[name=ddl-type]').val();
+        console.log('may da chon looai chuaaaa !!!!');
+        if (value == 0) {
+            toast.create({
+                title: 'Thông báo!',
+                text: 'Vui lòng chọn dạng gửi thông báo',
+                icon: 'error_outline',
+                classBackground: 'noti-error',
+                timeout: 3000
+            })
+        }
+        if (value == 1) {
+            $("#select-form-role").prop('disabled', true);
+            $("#select-form-role").css("display","block");
+            $("#select-form-branch").prop('disabled', false);
+            $("#select-form-branch").css("display", "none");
+            $("#select-form-branch-to-room").prop('disabled', false);
+            $("#select-form-branch-to-room").css("display", "none");
+            $("#select-form-room").prop('disabled', false);
+            $("#select-form-room").css("display", "none");
+        }
+        if (value == 2) {
+            $("#select-form-role").prop('disabled', false);
+            $("#select-form-role").css("display", "none");
+            $("#select-form-branch").prop('disabled', true);
+            $("#select-form-branch").css("display", "block");
+            $("#select-form-branch-to-room").prop('disabled', false);
+            $("#select-form-branch-to-room").css("display", "none");
+            $("#select-form-room").prop('disabled', false);
+            $("#select-form-room").css("display", "none");
+        }
+        if (value == 3) {
+            $("#select-form-role").prop('disabled', false);
+            $("#select-form-role").css("display", "none");
+            $("#select-form-branch").prop('disabled', false);
+            $("#select-form-branch").css("display", "none");
+            $("#select-form-branch-to-room").prop('disabled', true);
+            $("#select-form-branch-to-room").css("display", "block");
+            $("#select-form-room").prop('disabled', true);
+            $("#select-form-room").css("display", "block");
+        }
+    });
+
+
+    $('.btn-save-Notification').click(function () {
+        var id = 0;
+        var title = $('input[name=txt-title]').val();
+        var roleID = $('select[name=ddl-role]').val();
+        var isEmail = false;
+        if ($('input[name=is-email]').is(':checked')) {
+            isEmail = true;
+        }
+        else {
+            isEmail = false;
+        }
+        var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+        var desc = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        console.log(title, roleID);
+        console.log(desc);
+        console.log(id);
+        if (ckstring(title) || ckstring(roleID) || ckstring(desc)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, title, roleID, desc, isEmail);
+        }
+    });
+
+
+    function insert_or_update(id, title, roleID, desc, isEmail) {
+
+        let data = {};
+        data["id"] = id;
+        data["title"] = title; //I just wanted to show you how you can add values to a json object
+        data["roleid"] = roleID.toString();
+        data["content"] = desc;
+        data["active"] = true;
+        data["deleted"] = false;
+        data['isSendMail'] = isEmail;
+        console.log('data:' + id, title, roleID.toString(), desc, isEmail);
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#modal-Notification').modal('hide');
+        $.ajax({
+            url: domain +'/AddNotification',
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-Notification').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-Notification').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+
+    tinymce.init({
+        readonly: false,
+        selector: '#notification-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '/app-assets/zimv2/assets/css/dashforge.css',
+            '/app-assets/zimv2/assets/css/custom.css',
+            '/app-assets/zimv2/assets/css/dashforge.profile.css',
+            '/app-assets/zimv2/assets/dev/contractcss.css'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+
+</script>
+

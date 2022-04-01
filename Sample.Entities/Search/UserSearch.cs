@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Entities.Search
 {
-    public class UserSearch : BaseSearch
+    public class UserSearch : DomainEntities.BaseSearch
     {
         /// <summary>
         /// Tìm kiếm theo Email

@@ -1,0 +1,226 @@
+﻿
+<link href="~/house/assets/css/dashforge.css" rel="stylesheet" />
+
+    <style>
+        .fix-container {
+            max-width: initial;
+        }
+    </style>
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mg-b-30">
+    <ol class="breadcrumb breadcrumb-style1 mg-b-0">
+        <li class="breadcrumb-item active" aria-current="page" langKey="modificationofthecontract">Chỉnh sửa hợp đồng</li>
+    </ol>
+</nav>
+<!-- End breadcrumb -->
+<div class="new-post-wrap fix-container">
+    @using (Html.BeginForm("AddContractCustomer", "Contract", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="hdf-course-student-id" value="@ViewBag.CSID" />
+        <div class="row">
+            <div class="col-12 ">
+                <h4 class="" langKey="content">Nội dung hợp đồng</h4>
+            </div>
+        </div>
+        <div class="editor-wrap">
+            <textarea name="txt-content" class="raw-txt" id="post-content">@Html.Raw(ViewBag.Content)</textarea>
+        </div>
+        <div class="form-row mg-b-15 mg-t-15 align-items-center">
+            <div class="col-12 col-xs-12 col-md-12">
+                <textarea name="txt-note" style="width:100%" placeholder="Ghi chú hợp đồng...">@Html.Raw(ViewBag.Note)</textarea>
+            </div>
+        </div>
+        <div class="form-row mg-b-15 mg-t-15 align-items-center">
+            <div class="col-12 col-xs-4 col-md-12">
+                <div class="d-flex align-items-center justify-content-end">
+                    <a href="#div-edit-info" data-toggle="modal" class="btn btn-info mg-r-10"><i class="fas fa-user-edit"></i> <span langKey="edit">Sửa thông tin</span></a>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> <span langKey="save">Lưu lại</span></button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="div-edit-info" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-500" role="document">
+        <div class="modal-content">
+            <div class="modal-body pd-20 pd-sm-40">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div>
+                    <h4 langKey="information">Nhập thông tin mới</h4>
+                    <input type="hidden" name="" id="hdf-course-student-id" value="@ViewBag.CSID" />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label langKey="fullname">Tên học viên</label>
+                                <input id="txt-name-student" name="txt-name-student" type="text" class="validate form-control" placeholder="...">
+                            </div>
+                            <div class="col-sm-6">
+                                <label langKey="dateofbirth">Năm sinh</label>
+                                <input id="txt-name-birthday" name="txt-name-birthday" type="text" class="validate form-control datetimepicker date-only" placeholder="DD / MM / YYYY">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label langKey="nationality">Quốc tịch</label>
+                                <input id="txt-quoctich" name="txt-quoctich" type="text" class="validate form-control" placeholder="...">
+                            </div>
+                            <div class="col-sm-6">
+                                <label langKey="identitycardnumber">Chứng minh nhân dân</label>
+                                <input id="txt-cmnd" name="txt-cmnd" type="number" class="validate form-control" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label langKey="dateofissue">Ngày cấp</label>
+                                <input id="txt-cmnd-ngaycap" name="txt-cmnd-ngaycap" type="text" class="form-control datetimepicker date-only" placeholder="DD / MM / YYYY" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label langKey="placeofissue">Nơi cấp</label>
+                                <input id="txt-cmnd-noicap" name="txt-cmnd-noicap" type="text" class="form-control" placeholder="..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label langKey="phonenumber">Số điện thoại</label>
+                                <input id="txt-phone" name="txt-phone" type="text" class="form-control" placeholder="..." />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Email</label>
+                                <input id="txt-email" name="txt-email" type="email" class="form-control" placeholder="..." />
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-edit-info" langKey="save">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+
+
+    tinymce.init({
+        readonly: false,
+        selector: '#post-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '/app-assets/zimv2/assets/css/dashforge.css',
+            '/app-assets/zimv2/assets/css/custom.css',
+            '/app-assets/zimv2/assets/css/dashforge.profile.css',
+            '/app-assets/zimv2/assets/dev/contractcss.css'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+
+    $(document).on("click", ".btn-edit-info", function () {
+        const id = $('#hdf-course-student-id').val();
+        const name = $('#txt-name-student').val();
+        const birthday = $('#txt-name-birthday').val();
+        const quoctich = $('#txt-quoctich').val();
+        const cmndnumber = $('#txt-cmnd').val();
+        const cmndngaycap = $('#txt-cmnd-ngaycap').val();
+        const cmndnoicap = $('#txt-cmnd-noicap').val();
+        const phone = $('#txt-phone').val();
+        const email = $('#txt-email').val();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Contract/loadinfocontract",
+            data: '{id: "' + id + '",name:"' + name + '",birthday:"' + birthday + '",quoctich:"' + quoctich + '",cmndnumber:"' + cmndnumber + '",cmndngaycap:"' + cmndngaycap + '",cmndnoicap:"' + cmndnoicap + '",phone:"' + phone + '",email:"' + email + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                if (msg.rs) {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.m,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-success',
+                        timeout: 3000
+                    });
+                    console.log(msg.content);
+                    tinyMCE.activeEditor.setContent(msg.content);
+                    $('#div-edit-info').modal('hide');
+                }
+                else {
+                    toast.create({
+                        title: 'Thông báo!',
+                        text: msg.m,
+                        icon: 'notifications_active',
+                        classBackground: 'noti-warning',
+                        timeout: 3000
+                    })
+                }
+            },
+            error: function (xmlhttprequest, textstatus, errorthrow) {
+                console.log("btn-edit-info");
+            }
+        });
+    })
+</script>
+
+
+
+

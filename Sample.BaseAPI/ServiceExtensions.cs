@@ -70,6 +70,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IUtilitiesConfigService, UtilitiesConfigService>();
             services.AddScoped<ICustomerResourceService, CustomerResourceService>();
             services.AddScoped<IFeedBackTypeService, FeedBackTypeService>();
+            services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<INotificationUserService, NotificationUserService>();
 
             #endregion
@@ -81,6 +82,11 @@ namespace Sample.BaseAPI
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<INationService, NationService>();
+            // by BaoNguyen-License
+            services.AddScoped<ILicenseService, LicenseService>();
+            services.AddScoped<ILicenseSampleService, LicenseSampleService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IFeedbackCommentService, FeedbackCommentService>();
 
             #endregion
 

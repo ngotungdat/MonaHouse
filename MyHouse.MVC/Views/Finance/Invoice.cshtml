@@ -1,0 +1,298 @@
+﻿
+@model CoreModel
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row row-xs">
+        <div class="col">
+            <div class="d-sm-flex align-items-center justify-content-between ">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item active" aria-current="page">Viết Hợp Đồng</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Thêm Mới</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row row-xs">
+        <div class="col">
+            <div>
+                <div class=" bd-t pd-t-15">
+                    <div>
+                        <div class="table__filter__wrap">
+                            <div class="table__filter-header">
+                                <div class="table__header-left">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                            <li class="breadcrumb-item active" aria-current="page">Tiêu đề hợp đồng</li>
+                                        </ol>
+                                    </nav>
+                                    <div class="input-group-prepend">
+                                        <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề hợp đồng...">
+                                    </div>
+                                </div>
+
+
+                                <div class="table__header-right">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                            <li class="breadcrumb-item active" aria-current="page">Diễn giải sơ lươc hợp đồng</li>
+                                        </ol>
+                                    </nav>
+                                    <div class="input-group-prepend">
+                                        <input type="text" name="txt-description" id="txt-description" aria-label="Title" class="form-control" placeholder="Diễn giải sơ lươc hợp đồng...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <textarea class="raw-txt mg-t-10" rows="10" name="contract-content" id="contract-content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <a href="javascript:;" class="btn btn-primary btn-add-License"><i class="fas fa-plus-circle"></i> Lưu Lại </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<!-- CKEditor-->
+@*<script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("contract-content-1");
+
+    </script>*@
+
+<script>
+
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+
+    tinymce.init({
+        readonly: false,
+        selector: '#contract-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    // domain load Brnach
+    let domainBranch ='@Model.Domain';
+
+    //
+    domain += 'api/License';
+    var pathArray = window.location.pathname.split('/');
+    var Id = pathArray[3];
+    console.log(pathArray);
+    console.log(Id);
+    //
+    let total_item = 0;
+    let total_page = 0;
+
+    //Tạo hoặc làm mới api
+    function get_LicenseSample_api() {
+        return domain+'Sample' + '/' + Id;
+    }
+
+    $(document).ready(function () {
+        load_data(get_LicenseSample_api());
+    });
+
+
+    var tmpList = null;
+    console.log(get_LicenseSample_api());
+
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let result = data.Data;
+                console.log('result: ', result);
+                console.log('result: ', result.description);
+                console.log('result: ', result.name);
+                $('#contract-content').val(result.Content);
+                $('input[name=txt-title]').val(result.Name);
+                $('input[name=txt-description]').val(result.Description);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+
+
+
+    $('.btn-add-License').click(function () {
+        var id = 0;
+        var title = $('input[name=txt-title]').val();
+        var description = $('input[name=txt-description]').val();
+        var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+        var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        console.log(title);
+        console.log(description);
+        console.log(id);
+        console.log(content);
+        if (ckstring(title) || ckstring(description) || ckstring(content)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, title, description, content);
+        }
+    });
+
+
+    function insert_or_update(id, title, description, content) {
+
+        let data = {};
+        data["id"] = id;
+        data["name"] = title; //I just wanted to show you how you can add values to a json object
+        data["code"] = 'act' + new Date().getMinutes().toString() + new Date().getHours().toString() + new Date().getDate().toString() + new Date().getYear().toString() + Math.floor(Math.random() * 101).toString();
+        data["content"] = content;
+        data["active"] = true;
+        data["deleted"] = false;
+        data['description'] = description;
+        console.log('data:' + data);
+        // customerId and licenseType get by url:
+        // data tự thêm tay !!!
+        data["customerId"] = "1";
+        data['licenseType'] = "1";
+        console.log('data:' + data.id + ',' + data.name + ',' + data.code + ',' + data.active + ',' + data.active + ',' + data.deleted + ',' + data.description + ',' + data.customerId + ',' + data.licenseType);
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+
+        $.ajax({
+            url: domain,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-License').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-License').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+</script>
+
+
+

@@ -102,7 +102,27 @@ namespace Sample.Models.AutoMapper
             CreateMap<FeedBackTypeRequest, FeedBackType>().ReverseMap();
             CreateMap<PagedList<FeedBackTypeModel>, PagedList<FeedBackType>>().ReverseMap();
 
+            CreateMap<NotificationModel, Notification>().ReverseMap();
+            CreateMap<NotificationRequest, Notification>().ReverseMap();
+            CreateMap<PagedList<NotificationModel>, PagedList<Notification>>().ReverseMap();
+
+            CreateMap<LicenseModel, License>().ReverseMap();
+            CreateMap<LicenseRequest, License>().ReverseMap();
+            CreateMap<PagedList<LicenseModel>, PagedList<License>>().ReverseMap();
+
+            CreateMap<LicenseSampleModel, LicenseSample>().ReverseMap();
+            CreateMap<LicenseSampleRequest, LicenseSample>().ReverseMap();
+            CreateMap<PagedList<LicenseSampleModel>, PagedList<LicenseSample>>().ReverseMap();
+
+            CreateMap<FeedbackModel, Feedback>().ReverseMap();
+            CreateMap<FeedbackRequest, Feedback>().ReverseMap();
+            CreateMap<PagedList<FeedbackModel>, PagedList<Feedback>>().ReverseMap();
+
+            CreateMap<FeedbackCommentModel, FeedbackComment>().ReverseMap();
+            CreateMap<FeedbackCommentRequest, FeedbackComment>().ReverseMap();
+            CreateMap<PagedList<FeedbackCommentModel>, PagedList<FeedbackComment>>().ReverseMap();
         }
+    
 
     }
 }

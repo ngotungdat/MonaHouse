@@ -68,5 +68,26 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
+        public async Task<IActionResult> Contract()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        public async Task<IActionResult> NewContractSample()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        public async Task<IActionResult> NewContract()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
     }
 }

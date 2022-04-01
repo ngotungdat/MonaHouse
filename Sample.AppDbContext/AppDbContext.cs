@@ -60,6 +60,10 @@ namespace Sample.AppDbContext
             //
             modelBuilder.Entity<CustomerResources>(x => x.ToTable("CustomerResources"));
             modelBuilder.Entity<FeedBackType>(x=>x.ToTable("FeedBackTypes"));
+            modelBuilder.Entity<License>(x=>x.ToTable("licenses"));
+            modelBuilder.Entity<LicenseSample>(x => x.ToTable("LicenseSamples"));
+            modelBuilder.Entity<Feedback>(x => x.ToTable("Feedbacks"));
+            modelBuilder.Entity<FeedbackComment>(x => x.ToTable("FeedbackComments")); 
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -106,8 +110,10 @@ namespace Sample.AppDbContext
         //
         public DbSet<CustomerResources> CustomerResources { get; set; }
         public DbSet<FeedBackType> FeedBackTypes { get; set; }
-
-
+        public DbSet<License> Licenses { get; set; }
+        public DbSet<LicenseSample> LicenseSamples { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackComment> FeedbackComments { get; set; }
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }
         public DbSet<SMSConfigurations> SMSConfigurations { get; set; }

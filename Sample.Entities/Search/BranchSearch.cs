@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Entities.Search
 {
-    public class BranchSearch : BaseSearch
+    public class BranchSearch : DomainEntities.BaseSearch
     {
     }
 }

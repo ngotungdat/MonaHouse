@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Entities.Search
 {
-    public class NotificationUserSearch : BaseSearch
+    public class BaseSearch : DomainEntities.BaseSearch
     {
         /// <summary>
         /// User người dùng

@@ -59,7 +59,7 @@
             </div>*@
         </div>
 
-        <div class="dropdown-footer"><a href="@Url.Action("Notification", "Account", new { area = "" })">Xem tất cả thông báo</a></div>
+        <div class="dropdown-footer"><a href="@Url.Action("NotificationUsers", "Notification", new { area = "" })">Xem tất cả thông báo</a></div>
     </div><!-- dropdown-menu -->
 </div><!-- dropdown -->
 <div class="dropdown dropdown-profile">
@@ -133,6 +133,7 @@
 
                     notificationUsers.push(notificationUser);
                 }
+                console.log(notificationUsers);
                 $('span[name="count-noti"]').html(count_noti);
                 $('#notifications-user').hide().html(html).show('slow');
                 //console.log(notificationUsers);

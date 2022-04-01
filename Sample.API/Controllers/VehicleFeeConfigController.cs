@@ -24,10 +24,10 @@ namespace Sample.API.Controllers
     [ApiController]
     [Description("Cấu hình phí gửi xe")]
     [Authorize]
-    public class VehicleFeeConfigController : BaseController<VehicleFeeConfig, VehicleFeeConfigModel, VehicleFeeConfigRequest, BaseSearch>
+    public class VehicleFeeConfigController : BaseController<VehicleFeeConfig, VehicleFeeConfigModel, VehicleFeeConfigRequest, Entities.DomainEntities.BaseSearch>
     {
         protected IPackageService packageService;
-        public VehicleFeeConfigController(IServiceProvider serviceProvider, ILogger<BaseController<VehicleFeeConfig, VehicleFeeConfigModel, VehicleFeeConfigRequest, BaseSearch>> logger
+        public VehicleFeeConfigController(IServiceProvider serviceProvider, ILogger<BaseController<VehicleFeeConfig, VehicleFeeConfigModel, VehicleFeeConfigRequest, Entities.DomainEntities.BaseSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {

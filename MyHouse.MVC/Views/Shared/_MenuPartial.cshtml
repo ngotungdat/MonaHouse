@@ -32,12 +32,22 @@
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Nguồn Khách hàng</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("FeedBackType", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>loại phản hồi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Hợp Đồng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Receipts", "Finance", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Phiếu Thu</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Payment", "Finance", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Phiếu chi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Trung Tâm Thông Báo</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
                     <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
                     <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
                     <li class="nav-sub-item"><a href="/UserGroup/UserGroup" class="nav-sub-link"><i data-feather="user"></i>User Group</a></li>
                     <li class="nav-sub-item"><a href="/UserGroup/UserInGroup" class="nav-sub-link"><i data-feather="user"></i>User In Group</a></li>
                     <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>
+                </ul>
+            </li>
+            <li class="nav-item with-sub">
+                <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Hệ thống</span></a>
+                <ul class="navbar-menu-sub">
+                    <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý người dùng</a></li>
                 </ul>
             </li>
             break;
@@ -67,7 +77,8 @@
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Nguồn Khách hàng</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("FeedBackType", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>loại phản hồi</a></li>
-                    <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Trung Tâm Thông Báo</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>s
                     <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
                     <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
                     <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>
@@ -100,6 +111,9 @@
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Nguồn Khách hàng</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("FeedBackType", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>loại phản hồi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Phản hồi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Hợp Đồng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Trung Tâm Thông Báo</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
                     <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
                     <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
@@ -133,6 +147,9 @@
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Nguồn Khách hàng</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("FeedBackType", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>loại phản hồi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Hợp Đồng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Phản hồi</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Trung Tâm Thông Báo</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
                     <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
                     <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
@@ -164,7 +181,9 @@
                     <li class="nav-sub-item"><a href="@Url.Action("Cities", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-city mr-3"></i>Địa chỉ</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("VehicleFeeConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-car-side mr-3"></i>Phí giữ xe</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
-                    <li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Hợp Đồng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Hợp Đồng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Phản hồi</a></li>
                     <li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
                     <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
                     <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>

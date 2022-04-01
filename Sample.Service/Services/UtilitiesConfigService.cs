@@ -23,7 +23,7 @@ using Sample.Entities.DomainEntities;
 
 namespace Sample.Service.Services
 {
-    public class UtilitiesConfigService : DomainService<UtilitiesConfig, BaseSearch>, IUtilitiesConfigService
+    public class UtilitiesConfigService : DomainService<UtilitiesConfig, Entities.DomainEntities.BaseSearch>, IUtilitiesConfigService
     {
         protected IAppDbContext coreDbContext;
         public UtilitiesConfigService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext) : base(unitOfWork, mapper)
