@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Entities.Search
 {
-    public class UserInGroupSearch : BaseSearch
+    public class UserInGroupSearch : DomainEntities.BaseSearch
     {
         /// <summary>
         /// Id người dùng

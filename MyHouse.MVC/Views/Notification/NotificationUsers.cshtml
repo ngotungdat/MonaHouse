@@ -1,1 +1,206 @@
 ﻿@model CoreModel
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row row-xs">
+        <div class="col">
+            <div class="d-sm-flex align-items-center justify-content-between ">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item active" aria-current="page">trung tâm thông báo</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Trung Tâm Thông Báo</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="0">Loại xe A-Z↓</option>
+                                    <option value="1">Loại xe Z-A↑</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Tiêu Đề</th>
+                                    <th class="sort-label" data-column="col-electronic">Nội Dung</th>
+                                    <th class="sort-label " data-column="col-service">Người Gửi</th>
+                                    <th class="sort-label " data-column="col-service">Thời Gian</th>
+                                    @*<th class="sort-label text-table-center" data-column="col-service">Thao tác</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-Notification">
+                            </tbody>
+                        </table>
+                    </div>
+                    @await Html.PartialAsync("_PaginationPartial")
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    //
+    domain += 'api/NotificationUser';
+    //
+
+    //
+    let total_item = 0;
+    let total_page = 0;
+    let notifications_userId = @user.Id;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&UsersID=' + notifications_userId;
+    }
+    //Tạo hoặc làm mới api
+    function put_api_update_is_seen() {
+        return domain + '/NotificationUserUpdateIsSeen';
+    }
+    //
+    $(document).ready(function () {
+        console.log('update data');
+        update_data();
+    });
+
+    //update du lieu theo api
+    function update_data() {
+        let data = {};
+        console.log('data hello ko can data');
+        let type_request = 'PUT';
+        $.ajax({
+            url: put_api_update_is_seen(),
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-customerresource').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-customerresource').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                console.log('data: ', data);
+                let list = data.Data.Items;
+                let html = '';
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    var date = new Date(item.Created);
+                    html += '<tr>';
+                    html += '<td>' + item.Title + '</td>';
+                    html += '<td>' + item.Content + '</td>';
+                    html += '<td>' + item.CreatedBy + '</td>';
+                    html += '<td>' + date.toLocaleString("en-GB") + '</td>';
+                    html += '</tr>';
+                }
+                $('#tbody-Notification').hide().html(html).show('slow');
+                total_item = data.Data.TotalItem;
+                total_page = data.Data.TotalPage;
+                load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+</script>
+

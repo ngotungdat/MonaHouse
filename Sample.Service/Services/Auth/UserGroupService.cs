@@ -16,8 +16,13 @@ namespace Sample.Service.Services.Auth
 {
     public class UserGroupService : CatalogueService<UserGroups, UserInGroupSearch>, IUserGroupService
     {
-        public UserGroupService(IAppUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        IPermitObjectService permitObjectService;
+        public UserGroupService(IAppUnitOfWork unitOfWork
+            , IMapper mapper
+            , IPermitObjectService PermitObjectService
+            ) : base(unitOfWork, mapper)
         {
+            permitObjectService = PermitObjectService;
         }
 
         /// <summary>
@@ -209,5 +214,21 @@ namespace Sample.Service.Services.Auth
             return result;
         }
 
+        public async Task<UserGroups> GetUserGroupsByPermitObjectId(string Id)
+        {
+            IList<UserGroups> ListUserGroups = await this.GetAllAsync();
+            PermitObjects permitObjects = permitObjectService.GetById(Int32.Parse(Id));
+            if(permitObjects != null)
+            {
+                foreach(var d in ListUserGroups)
+                {
+                    if (d.Code == permitObjects.Code)
+                    {
+                        return d;
+                    }
+                }
+            }
+            throw new Exception("Lỗi trong quá trình xử lý");
+        }
     }
 }

@@ -22,9 +22,22 @@ namespace Sample.Request.Auth
         /// </summary>
         public int? UserGroupId { get; set; }
 
+        public string PermitObjectsCode { get; set; }
+        public string PermitObjectsName { get; set; }
+        public string PermitObjectsDescription { get; set; }
+
+        public string PermissionsCode { get; set; }
+        public string PermissionsName { get; set; }
+        public string PermissionsDescription { get; set; }
+
+        public string UserGroupsCode { get; set; }
+        public string UserGroupsName { get; set; }
+        public string UserGroupsDescription { get; set; }
+
+
         /// <summary>
         /// Mã người dùng
         /// </summary>
-        public int? UserId { get; set; }
+        /*public int? UserId { get; set; }*/
     }
 }

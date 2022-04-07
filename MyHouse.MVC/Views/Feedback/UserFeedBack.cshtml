@@ -1,0 +1,563 @@
+﻿@model CoreModel
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div id="check-role" style="display:none">
+        <div class="row row-xs">
+            <div class="col">
+                <div class="d-sm-flex align-items-center justify-content-between ">
+                    <div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                <li class="breadcrumb-item active" aria-current="page">trung tâm phản hồi</li>
+                            </ol>
+                        </nav>
+                        <h4 class="mg-b-0 tx-spacing--1">Phản Hồi</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="form-row row-xs">
+                <div class="col-sm-12 form-group">
+                    <label class="">Chọn Thể Loại Phản Hồi:</label>
+                    <select name="ddl-type" id="ddl-type" class="select2 form-control">
+                        <option value="" disabled selected>--- Chọn Loại Phản Hồi ---</option>
+                    </select>
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="form-row row-xs">
+                <div class="col-sm-12 form-group">
+                    <span class="">Tiêu đề</span>
+                    <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề Phản Hồi...">
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+
+
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="form-row row-xs">
+                <div class="col-sm-12 form-group">
+                    <label class="">Đánh Giá:</label>
+                    <div id="emoji-div"></div>
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+        <!-- danh gia-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="~/Emoji-Rating-Plugin-jQuery/emoji.js"></script>
+        <script>
+            $(function () {
+                //var emojis = ['&#x1F620;'];
+                //$("#emoji-div").emoji({ value: 4 });
+                $("#emoji-div").emoji();
+            });
+        </script>
+        <!--    -->
+
+        <div class="form-row row-xs">
+            <div class="col">
+                <div>
+                    <div>
+                        <label class="">Phản hồi khẩn cấp:</label>
+                        <input id="prioritized-check" name="prioritized-check" type="checkbox" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row row-xs">
+            <div class="col">
+                <div>
+                    <div class="table__filter__wrap bd-t pd-t-15">
+                        <div>
+                            <textarea class="raw-txt mg-t-10" rows="10" name="feedback-content" id="feedback-content"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                        <a id="check-role-btn-add" style="display:none;" href="javascript:;" class="btn btn-primary btn-add-feedback" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="0">Loại xe A-Z↓</option>
+                                    <option value="1">Loại xe Z-A↑</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name" style="text-align:center">Tiêu Đề</th>
+                                    <th class="sort-label" data-column="col-electronic">Tạo Bởi</th>
+                                    <th class="sort-label " data-column="col-service" style="text-align:center">Trạng thái</th>
+                                    <th class="sort-label " data-column="col-service" style="text-align:center">Độ ưu tiên</th>
+                                    <th class="sort-label " data-column="col-service" style="text-align:center">Người phụ trách</th>
+                                    <th class="sort-label " data-column="col-service" style="text-align:center">Thời gian</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Hoàn tất phản hồi</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-feedback">
+                            </tbody>
+                        </table>
+                    </div>
+                    @await Html.PartialAsync("_PaginationPartial")
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+<div class="modal fade modal-nopadding-right" id="modal-feedback" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
+                    <div class="media-body mg-sm-l-20">
+
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Bạn có muốn đăng thông báo</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">sẽ được thông báo trong vòng 24h</p>
+                    </div>
+                </div><!-- media -->
+            </div>
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-feedback">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    // domain load Brnach
+    let domainRandom ='@Model.Domain';
+
+    //
+    domain += 'api/feedback';
+    let random = 'api/FeedBackType';
+    //
+    let total_item = 0;
+    let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    let TmpList = null;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&RoleId=' + '@user.RoleNumber' + '&UserId=' + '@user.Id' + '&TenantId='+@user.TenantId + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    console.log(get_api());
+    // get api Branch
+    function get_api_random(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domainRandom + random + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    //
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+    // branch
+    $(document).ready(function () {
+        load_data_random(get_api_random(page_index, page_size, SearchContent, OrderBy));
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                TmpList = data.Data.Items;
+                console.log('list: ', list);
+                let html = '';
+                for (let i = 0; i < list.length; i++) {
+                    let item = list[i];
+                    var date = new Date(item.Created);
+                    // nguoi nhan
+                    let tmpHandler = "chưa nhận";
+                    //trang thai
+                    let tmpClassStatus = 'class="badge badge-danger wd-80 pd-5 tx-12"';
+                    let tmpStatus = "";
+                    // do uu tien
+                    let tmpPrioritized = "thấp";
+                    let tmpClassPrioritized = 'class="badge badge-success wd-80 pd-5 tx-12"';
+                    //
+                    if (item.Handler != null) { tmpHandler = item.Handler }
+                    console.log(item.Handler);
+                    //
+                    if (item.Status == "1") { tmpClassStatus = 'class="badge badge-danger wd-80 pd-5 tx-12"'; tmpStatus = "Chờ xử lý"; }
+                    if (item.Status == "2") { tmpClassStatus = 'class="badge badge-primary wd-80 pd-5 tx-12"'; tmpStatus = "Đang xử lý"; }
+                    if (item.Status == "3") { tmpClassStatus = 'class="badge badge-success wd-80 pd-5 tx-12"'; tmpStatus = "Đã xử lý"; }
+                    //
+                    if (item.Prioritized == "1") { tmpClassPrioritized = 'class="badge badge-success wd-80 pd-5 tx-12"'; tmpPrioritized = "không ưu tiên"; }
+                    if (item.Prioritized == "2") { tmpClassPrioritized = 'class="badge badge-primary wd-80 pd-5 tx-12"'; tmpPrioritized = "bình thường"; }
+                    if (item.Prioritized == "3") { tmpClassPrioritized = 'class="badge badge-danger wd-80 pd-5 tx-12"'; tmpPrioritized = "ưu tiên"; }
+                    html += '<tr>';
+                    html += '<td style="text-align:center">' + item.Title + '</td>';
+                    html += '<td style="text-align:center">' + item.CreatedBy + '</td>';
+                    html += '<td style="text-align:center" ><span ' + tmpClassStatus + '>' + tmpStatus + '</span></td>';
+                    html += '<td style="text-align:center"><span  ' + tmpClassPrioritized + '>' + tmpPrioritized + '</span></td>';
+                    html += '<td style="text-align:center">' + tmpHandler + '</td>';
+                    html += '<td style="text-align:center">' + date.toLocaleString("en-GB") + '</td>';
+                    html += '<td class="text-table-center"><a href="javascript:;"  id="btn-update_status" onclick="Check(' + item.Id + ')" data-id="' + item.Id + '" data-name="' + item.Name + '" class="badge badge-success wd-80 pd-5 tx-12"  >Đã xử lý</a></td>';
+                    html += '<td class="text-table-center"><a href="./FeedBackComment/'+item.Id+'" data-id="' + item.Id + '" data-name="' + item.Name + '" class="btn-comment-feedback"  ><i class="fas fa-edit"></i></a></td>';
+                    html += '</tr>';
+
+
+                }
+                $('#tbody-feedback').hide().html(html).show('slow');
+                total_item = data.Data.TotalItem;
+                total_page = data.Data.TotalPage;
+                load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    function load_data_random(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                //console.log('data: ', data);
+                let list = data.Data.Items;
+                console.log('list: ', list);
+                select = document.getElementById('ddl-type');
+                for (let i = 0; i < list.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = list[i].Id;
+                    opt.innerHTML = list[i].Name;
+                    select.appendChild(opt);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    $(document).ready(function () {
+        $('.btn-add-feedback').on('click', function () {
+            var title = $('input[name=txt-title]').val();
+            var feedbackTypeId = $('select[name=ddl-type]').val();
+            var evalute = $("#emoji-div").emoji("getvalue")
+            var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+            var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+
+            console.log(title, feedbackTypeId, evalute);
+            console.log(content);
+            if (counttext.length == 1) {
+                toast.create({
+                    title: 'Thông báo!',
+                    text: 'Vui lòng nhập nội dung thông báo',
+                    icon: 'error_outline',
+                    classBackground: 'noti-error',
+                    timeout: 3000
+                })
+            }
+
+            $('#modal-feedback').modal('show');
+
+        });
+    });
+
+
+
+    $('.btn-save-feedback').click(function () {
+        var id = 0;
+        var title = $('input[name=txt-title]').val();
+        var feedbackTypeId = $('select[name=ddl-type]').val();
+        var evalute = $("#emoji-div").emoji("getvalue")
+        var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+        var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+
+        console.log(title, feedbackTypeId, evalute);
+        console.log(content);
+        if (ckstring(title) || ckstring(feedbackTypeId) || ckstring(content)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, title, feedbackTypeId, evalute, content);
+        }
+    });
+
+
+    function insert_or_update(id, title, feedbackTypeId, evalute, content) {
+        console.log(evalute.toString());
+        let data = {};
+        data["id"] = id;
+        data["title"] = title; //I just wanted to show you how you can add values to a json object
+        data["feedbackTypeId"] = feedbackTypeId;
+        data["content"] = content;
+        data["active"] = true;
+        data["deleted"] = false;
+        data['evaluate'] = evalute.toString();
+        data['userImg'] = '@user.Avatar'
+        // 2 thuộc tính mới
+        data['Status'] = '1';
+        var prioritized = "2";// bình thường :2
+        if ($('input[name=prioritized-check]').is(':checked')) {
+            prioritized = "3"; // cao: 3
+        }
+        else {
+            prioritized = "1"; // không ưu tiên: 1
+        }
+        data['prioritized'] = prioritized;
+
+        // 2 thuộc tính mới
+        data['roleId'] = '@user.RoleNumber';
+        data['userId'] = '@user.Id';
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#modal-feedback').modal('hide');
+        $.ajax({
+            url: domain,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-feedback').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-feedback').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+
+    tinymce.init({
+        readonly: false,
+        selector: '#feedback-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '/house/assets/css/dashforge.css',
+            '/house/assets/css/custom.css',
+            '/house/assets/css/dashforge.profile.css',
+            '/house/assets/css/dashforge.contacts.css'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+
+    // checkrole
+    if (@user.RoleNumber== 5) {
+        $("#check-role").css("display", "block");
+        $('#check-role-btn-add').css("display", "block");
+    }
+    //
+    function Check(itemId) {
+        console.log(TmpList);
+        for (let i = 0; i < TmpList.length; i++) {
+            if (itemId == TmpList[i].Id) {
+                let title = TmpList[i].Title;
+                console.log(title);
+                let data = {};
+                data['itemModel'] = itemId;
+                let type_request = 'PUT';
+                $.ajax({
+                    url: domain + '/UpdateStatusFeedBack?itemModel=' + itemId,
+                    data: JSON.stringify(data),
+                    type: type_request,
+                    dataType: 'JSON',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    contentType: "application/json",
+                    success: function (data) {
+                        //console.log(data);
+                        //load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                        if (type_request == 'POST') {
+                            Swal.fire(
+                                'Thông báo!',
+                                'Thêm dữ liệu thành công!',
+                                'success'
+                            );
+                        }
+                        else if (type_request == 'PUT') {
+                            Swal.fire(
+                                'Thông báo!',
+                                'Cập nhật dữ liệu thành công!',
+                                'success'
+                            );
+                        }
+                        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+                        $('.btn-save-feedback').prop('disabled', false);
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Rất tiếc đã xảy ra lỗi!',
+                            'error'
+                        );
+                        $('.btn-save-feedback').prop('disabled', false);
+                        console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+
+                break;
+            }
+        }
+    }
+
+
+</script>
+

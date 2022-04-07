@@ -24,10 +24,10 @@ namespace Sample.API.Controllers
     [ApiController]
     [Description("Cấu hình tiện ích")]
     [Authorize]
-    public class UtilitiesConfigController : BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, BaseSearch>
+    public class UtilitiesConfigController : BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, Entities.DomainEntities.BaseSearch>
     {
         protected IPackageService packageService;
-        public UtilitiesConfigController(IServiceProvider serviceProvider, ILogger<BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, BaseSearch>> logger
+        public UtilitiesConfigController(IServiceProvider serviceProvider, ILogger<BaseController<UtilitiesConfig, UtilitiesConfigModel, UtilitiesConfigRequest, Entities.DomainEntities.BaseSearch>> logger
             , IConfiguration configuration, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.domainService = serviceProvider.GetRequiredService<IUtilitiesConfigService>();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IUtilitiesConfigService : IDomainService<UtilitiesConfig, BaseSearch>
+    public interface IUtilitiesConfigService : IDomainService<UtilitiesConfig, Entities.DomainEntities.BaseSearch>
     {
     }
 }
