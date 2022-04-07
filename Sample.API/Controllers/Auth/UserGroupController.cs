@@ -29,16 +29,25 @@ namespace Sample.API.Controllers.Auth
     public class UserGroupController : BaseCatalogueController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>
     {
         private readonly IUserInGroupService userInGroupService;
+        private readonly IPermitObjectService permitObjectService;
+        private readonly IUserGroupService userGroupService;
         private readonly IPermissionService permissionService;
         private readonly IPermitObjectPermissionService permitObjectPermissionService;
 
-        public UserGroupController(IServiceProvider serviceProvider, ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
+        public UserGroupController(IServiceProvider serviceProvider
+            , ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>> logger
+            , IWebHostEnvironment env)
+            : base(serviceProvider, logger, env)
         {
             this.catalogueService = serviceProvider.GetRequiredService<IUserGroupService>();
             userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
             permissionService = serviceProvider.GetRequiredService<IPermissionService>();
             permitObjectPermissionService = serviceProvider.GetRequiredService<IPermitObjectPermissionService>();
+            userGroupService = serviceProvider.GetRequiredService<IUserGroupService>();
+            permitObjectService = serviceProvider.GetRequiredService<IPermitObjectService>();
         }
+
+        
 
         /// <summary>
         /// Lấy thông tin nhóm theo Id
@@ -118,5 +127,33 @@ namespace Sample.API.Controllers.Auth
             return appDomainResult;
         }
 
+        // By Bao nguyen
+        [HttpGet]
+        [Route("GetUserGroupByPermitObjectID")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public  async Task<AppDomainResult> GetUserGroupByPermitObjectID(string Id)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+
+            var item = await userGroupService.GetUserGroupsByPermitObjectId(Id);
+            if (item != null)
+            {
+                if (LoginContext.Instance.CurrentUser != null)
+                {
+                    var itemModel = mapper.Map<UserGroupModel>(item);
+                    appDomainResult = new AppDomainResult()
+                    {
+                        Success = true,
+                        Data = itemModel,
+                        ResultCode = (int)HttpStatusCode.OK
+                    };
+                }
+                else throw new KeyNotFoundException("Item không tồn tại");
+            }
+            else
+                throw new KeyNotFoundException("Item không tồn tại");
+
+            return appDomainResult;
+        }
     }
 }

@@ -47,7 +47,11 @@
             <li class="nav-item with-sub">
                 <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Hệ thống</span></a>
                 <ul class="navbar-menu-sub">
-                    <li class="nav-sub-item"><a href="@Url.Action("CustomerResource", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý người dùng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("UserManager", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý người dùng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Permissions", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý chức năng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("UserGroupManager", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý nhóm người dùng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("PermitObjects", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Quản lý nhóm chức năng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("Decentralization", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Phân quyền</a></li>
                 </ul>
             </li>
             break;

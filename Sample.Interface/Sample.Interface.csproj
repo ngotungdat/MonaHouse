@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sample.Entities\Sample.Entities.csproj" />
+    <ProjectReference Include="..\Sample.Models\Sample.Models.csproj" />
+    <ProjectReference Include="..\Sample.Request\Sample.Request.csproj" />
   </ItemGroup>
 
 </Project>
