@@ -1,0 +1,704 @@
+﻿@model CoreModel
+<style>
+    .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
+        min-width: 80px;
+    }
+    .col-sm-12{
+        padding-bottom: 10px;
+    }
+
+</style>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình nhóm chức năng</li>
+                </ol>
+            </nav>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách nhóm chưc năng</h4>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                        @*<a href="javascript:;" class="btn btn-primary btn-add-PermitObjects" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+*@                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            <div class="search__box control mg-md-r-5">
+                                <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                                <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control" onchange="sort_data(this.value)">
+                                    <option value="0">Loại xe A-Z↓</option>
+                                    <option value="1">Loại xe Z-A↑</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Mã nhóm chức năng</th>
+                                    <th class="sort-label" data-column="col-electronic">Tên nhóm chức năng</th>
+                                    <th class="sort-label " data-column="col-service">Mô tả chức năng</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-PermitObjects">
+                            </tbody>
+                        </table>
+                    </div>
+                    @await Html.PartialAsync("_PaginationPartial")
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+<!-- modal add new -->
+<div class="modal fade modal-nopadding-right" id="modal-PermitObjects" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm chức năng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm nhóm chức năng</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <input type="hidden" name="hdfId" value="0" />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm chức năng<span class="text-danger">(*)</span></label>
+                            <select id="txt-code" name="txt-code" required class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm User<span class="text-danger">(*)</span></label>
+                            <select id="txt-code-usergroup" name="txt-code-usergroup" required class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Lựa chọn danh quyền truy cập<span class="text-danger">(*)</span></label>
+                            <div class="table__filter-wrap">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped  border">
+                                        <thead class="">
+                                            <tr class="tr-header-table">
+                                                <th class="sort-label" data-column="col-name">Mã Nhóm User</th>
+                                                <th class="sort-label" data-column="col-electronic">Mã nhóm quyền</th>
+                                                <th class="sort-label " data-column="col-service">Quyền truy cập</th>
+                                                <th style="text-align:center;" class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-add-PermitObjectPermissions">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-PermitObjectPermissions">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!-- modal edit -->
+<div class="modal fade modal-nopadding-right" id="modal-PermitObjectsPermisson-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm chức năng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Sửa nhóm chức năng</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="form-group">
+                    <input type="hidden" name="edit-hdfId" id="edit-hdfId"/>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Lựa chọn danh quyền truy cập<span class="text-danger">(*)</span></label>
+                            <div class="table__filter-wrap">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped  border">
+                                        <thead class="">
+                                            <tr class="tr-header-table">
+                                                <th class="sort-label" data-column="col-name">Mã Quyền truy cập</th>
+                                                <th class="sort-label" data-column="col-electronic">Tên Quyền truy cập</th>
+                                                <th class="sort-label " data-column="col-service">Mô tả Quyền truy cập</th>
+                                                <th style="text-align:center;" class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-edit-PermitObjectPermissions">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-PermitObjectsPermisson-edit">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    domain += 'api/permit-object';
+    let total_item = 0;
+    let total_page = 0;
+    //Tạo hoặc làm mới api
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
+        return domain + '?&PageIndex=' + page_index + '&PageSize=' + page_size + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    }
+    $(document).ready(function () {
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    let PermitObjectPermission_api = '@Model.Domain' + 'api/PermitObjectPermission' + '?&PageIndex=' + page_index + '&PageSize=' + page_size + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    let UserGroup_api = '@Model.Domain' + 'api/user-group' + '?&PageIndex=' + page_index + '&PageSize=' + page_size + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    let Permission_api = '@Model.Domain' + 'api/permission' + '?&PageIndex=' + page_index + '&PageSize=' + page_size + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+
+    $(document).ready(function () {
+        load_data_PermitObjectPermission(PermitObjectPermission_api);
+        load_data_Permission(Permission_api);
+        load_data_UserGroup(UserGroup_api);
+    });
+    //Load dữ liệu theo api
+    function load_data(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                GetListPermitObjects(data);
+                GetListPermitObjectsSelect(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Load dữ liệu theo api load_data_UserGroup
+    function load_data_UserGroup(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                GetListUserGroup(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Load dữ liệu theo api custom
+    function load_data_PermitObjectPermission(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                GetListPermitObjectPermissions(data);
+                GetListPermitObjectPermissionsForEdit(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function load_data_Permission(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                GetListPermission(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    });
+
+    //Enter tìm kiếm
+    $('input[name=search]').keyup(function (event) {
+        if (event.keyCode === 13) {
+            SearchContent = $('input[name=search]').val();
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        }
+    });
+    //Sắp xếp
+    function sort_data(val) {
+        OrderBy = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index = index_click;
+        //load lại data
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+    }
+
+
+
+
+
+
+    function insert_or_update(permitObjectId, userGroupId, PermisionList) {
+        let data = {};
+        data['id'] = 0;
+        data['permitObjectId'] = permitObjectId.toString() ;
+        data['userGroupId'] = userGroupId.toString();
+        data['permissionId'] = PermisionList.toString();
+        data['deleted'] = false;
+        data['actived'] = true;
+        type_request = 'POST';
+        domain_api = '@Model.Domain' + 'api/PermitObjectPermission/AddPermitObjectPermission';
+        $('#modal-PermitObjects').modal('hide');
+        $.ajax({
+            url: domain_api,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-PermitObjectPermissions').prop('disabled', false);
+                $('.btn-save-PermitObjectsPermisson-edit').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-PermitObjectPermissions').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function insert_and_update(usergroupid, permitobjectid, listpermission) {
+        let data = {};
+        data['id'] = 0;
+        data['permitObjectId'] = permitobjectid.toString() ;
+        data['userGroupId'] = usergroupid.toString();
+        data['permissionId'] = listpermission.toString();
+        data['deleted'] = false;
+        data['actived'] = true;
+        type_request = 'POST';
+        domain_api = '@Model.Domain' + 'api/PermitObjectPermission/UpdatePermitObjectPermission';
+        $('#modal-PermitObjects').modal('hide');
+        $.ajax({
+            url: domain_api,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-PermitObjectPermissions').prop('disabled', false);
+                $('.btn-save-PermitObjectsPermisson-edit').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-PermitObjectPermissions').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    function GetListPermitObjectPermissions(data) {
+        console.log(data);
+        let list = data.Data;
+        TmpListController = list;
+        console.log('list: ', list);
+        let html = '';
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
+            console.log(item);
+            html += '<tr>';
+            html += '<td>' + item.PermitObjectsDescription + '</td>';
+            html += '<td>' + item.PermissionsCode + '</td>';
+            html += '<td>' + item.PermissionsName + '</td>';
+            html += '<td>' +
+                '<input type="checkbox" id="add-form-checkactive-' + item.Id + '" onchange="AddFormCheck(' + i +')" ></td>';
+        }
+        $('#tbody-add-PermitObjects').hide().html(html).show('slow');
+
+    }
+    function GetListPermitObjects(data) {
+        let list = data.Data.Items;
+        console.log('list: ', list);
+        let html = '';
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
+            html += '<tr>';
+            html += '<td>' + item.Code + '</td>';
+            html += '<td>' + item.Name + '</td>';
+            html += '<td>' + item.Description + '</td>';
+            html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id
+                + '" data-code="' + item.Code
+                + '" data-name="' + item.Name
+                + '" data-description="' + item.Description
+                + '" data-controller="' + item.ControllerNames
+                + '" class="btn-edit-PermitObjectPermissions"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+            html += '</tr>';
+            console.log('controllers:' + item.ControllerNames);
+
+        }
+        $('#tbody-PermitObjects').hide().html(html).show('slow');
+        total_item = data.Data.TotalItem;
+        total_page = data.Data.TotalPage;
+        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+    }
+    //
+
+
+    // add new
+    $('.btn-add-PermitObjects').on('click', function () {
+        $('input[name=hdfId]').val(0);
+        $('select[name=txt-code]').val('');
+        $('select[name=txt-code-usergroup]').val('');
+        $('#modal-PermitObjects').modal('show');
+    });
+    //add new
+    let TmpListPermission = new Array();
+    let TmpListPermissionCheckedInAddForm = new Array();
+    //edit
+    let TmpListPermissionEdit = new Array();
+    let TmpListPermissionCheckedInEditForm = new Array();
+    function GetListPermission(data) {
+        let list = data.Data.Items;
+        //add
+        TmpListPermission = list;
+        //edit
+        TmpListPermissionEdit = list;
+
+        console.log('list: ', list);
+        let html = '';
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
+            html += '<tr>';
+            html += '<td>' + item.Code + '</td>';
+            html += '<td>' + item.Name + '</td>';
+            html += '<td>' + item.Description + '</td>';
+            html += '<td>' + '<input type="checkbox" id="add-form-checkactive-' + item.Id + '" value="' + item.Id + '" onchange="AddFormCheck(' + item.Id + ')" >'+ '</td>';
+            html += '</tr>'
+        }
+        $('#tbody-add-PermitObjectPermissions').hide().html(html).show('slow');
+        let htmlEdit = '';
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
+            htmlEdit += '<tr>';
+            htmlEdit += '<td>' + item.Code + '</td>';
+            htmlEdit += '<td>' + item.Name + '</td>';
+            htmlEdit += '<td>' + item.Description + '</td>';
+            htmlEdit += '<td>' + '<input type="checkbox" id="edit-form-checkactive-' + item.Id + '" value="' + item.Id + '" onchange="EditFormCheck(' + item.Id + ')" >' + '</td>';
+            htmlEdit += '</tr>'
+        }
+        $('#tbody-edit-PermitObjectPermissions').hide().html(htmlEdit).show('slow');
+
+    }
+    function AddFormCheck(Id) {
+        console.log('aaaaaa');
+        for (let i = 0; i < TmpListPermission.length; i++) {
+            if (Id == TmpListPermission[i].Id) {
+                var checkBox = document.getElementById("add-form-checkactive-" + TmpListPermission[i].Id);
+
+                if (checkBox.checked == true) {
+                    console.log("on");
+                    TmpListPermissionCheckedInAddForm.push(TmpListPermission[i].Id);
+                } else {
+                    console.log("off");
+                    let index = TmpListPermissionCheckedInAddForm.indexOf(TmpListPermission[i].Id);
+                    TmpListPermissionCheckedInAddForm.splice(index, 1);
+                }
+
+            }
+        }
+        console.log(TmpListPermissionCheckedInAddForm.join(";"));
+    }
+    $('.btn-save-PermitObjectPermissions').click(function () {
+        const permitObjectId = $('select[name=txt-code]').val();
+        const userGroupId = $('select[name=txt-code-usergroup]').val();
+        const PermisionList = TmpListPermissionCheckedInAddForm.join(";");
+        if (ckstring(permitObjectId) || ckstring(userGroupId) || ckstring(PermisionList)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+
+            insert_or_update(permitObjectId, userGroupId, PermisionList)
+        }
+    });
+    //
+    // EDIT
+    var ListPermitObjectPermissionIdToEdit = [];
+    var UserGroupId = 0;
+    var ListPermitObjectPermission = "";
+
+    function GetListPermissionToEdit(data) {
+
+        let list = data.Data;
+
+        for (let j = 1; j <= 9; j++) {
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].PermissionId == j) {
+                    var checkBox = document.getElementById("edit-form-checkactive-" + list[i].PermissionId);
+                    checkBox.checked = true;
+                    TmpListPermissionCheckedInEditForm.push(list[i].PermissionId);
+                    break;
+                } else {
+                    var checkBox = document.getElementById("edit-form-checkactive-" + j);
+                    checkBox.checked = false;
+
+                }
+            }
+        }
+    }
+
+
+    function GetUserGroup(data) {
+        UserGroup = data.Data;
+        UserGroupId = UserGroup.Id;
+        console.log('UserGroupId func' + UserGroup.Id);
+    }
+
+    function GetListPermitObjectPermissionId(data) {
+        list = data.Data;
+        for (let i = 0; i < list.length; i++) {
+            ListPermitObjectPermissionIdToEdit.push(list[i].PermissionId);
+        }
+    }
+    $(document).on('click', '.btn-edit-PermitObjectPermissions', function () {
+        //lay id cua permitobject
+        let id = $(this).attr('data-id');
+        $('#edit-hdfId').val(id);
+        // call api lay permitobjectpermission
+        Load_data_getPermissionBypermitObjectID(id);
+        // lay id cua user group
+        Load_data_getUserGroupBypermitObjectID(id);
+
+        let PermitObjectId = id;
+        // de co loi vi goi api bi cham
+        $('#modal-PermitObjectsPermisson-edit').modal('show');
+    });
+
+
+
+    $('.btn-save-PermitObjectsPermisson-edit').on("click", function () {
+
+        const usergroupid = UserGroupId;
+        const permitobjectid = $('#edit-hdfId').val();
+        const listpermission = TmpListPermissionCheckedInEditForm.join(";");
+        console.log('a '+usergroupid);
+        console.log('b '+permitobjectid);
+        console.log('c ' + listpermission);
+
+        if (ckstring(usergroupid) || ckstring(permitobjectid) || ckstring(listpermission)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_and_update(usergroupid, permitobjectid, listpermission)
+        }
+    });
+
+
+    function GetListPermitObjectPermissionsForEdit(data) {
+        let list = data.Data;
+    }
+    function EditFormCheck(Id) {
+        console.log('aaaaaa');
+        for (let i = 0; i < TmpListPermissionEdit.length; i++) {
+            if (Id == TmpListPermission[i].Id) {
+                var checkBox = document.getElementById("edit-form-checkactive-" + TmpListPermissionEdit[i].Id);
+
+                if (checkBox.checked == true) {
+                    console.log("on:" + TmpListPermissionEdit[i].Id);
+                    TmpListPermissionCheckedInEditForm.push(TmpListPermissionEdit[i].Id);
+                } else {
+                    console.log("off");
+                    let index = TmpListPermissionCheckedInEditForm.indexOf(TmpListPermissionEdit[i].Id);
+                    TmpListPermissionCheckedInEditForm.splice(index, 1);
+                }
+
+            }
+        }
+        console.log("Edit:" + TmpListPermissionCheckedInEditForm.join(";"));
+    }
+    function Load_data_getUserGroupBypermitObjectID(id) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: '@Model.Domain' +'api/user-group/GetUserGroupByPermitObjectID?Id='+id,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                GetUserGroup(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function Load_data_getPermissionBypermitObjectID(id) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: '@Model.Domain' +'api/PermitObjectPermission/GetPermitObjectPermissionsByPermitObjectId?itemModel='+id,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                ListPermitObjectPermissionIdToEdit = [];
+                GetListPermissionToEdit(data);
+                GetListPermitObjectPermissionId(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //
+    function GetListPermitObjectsSelect(data) {
+        let list = data.Data.Items;
+        select = document.getElementById('txt-code');
+        for (let i = 0; i < list.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = list[i].Id;
+            opt.innerHTML = list[i].Name;
+            select.appendChild(opt);
+        }
+    }
+    function  GetListUserGroup(data) {
+        let list = data.Data.Items;
+        select = document.getElementById('txt-code-usergroup');
+        for (let i = 0; i < list.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = list[i].Id;
+            opt.innerHTML = list[i].Name;
+            select.appendChild(opt);
+        }
+    }
+
+
+
+</script>

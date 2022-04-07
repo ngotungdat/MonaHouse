@@ -116,7 +116,7 @@ namespace Sample.API.Controllers.Auth
         [AppAuthorize(new string[] { CoreContants.AddNew })]
         public override Task<AppDomainResult> AddItem([FromBody] PermitObjectRequest itemModel)
         {
-            itemModel.ToModel();
+            //itemModel.ToModel();
             return base.AddItem(itemModel);
         }
 
@@ -130,7 +130,7 @@ namespace Sample.API.Controllers.Auth
         [AppAuthorize(new string[] { CoreContants.Update })]
         public override Task<AppDomainResult> UpdateItem([FromBody] PermitObjectRequest itemModel)
         {
-            itemModel.ToModel();
+            //itemModel.ToModel();
             return base.UpdateItem(itemModel);
         }
     }

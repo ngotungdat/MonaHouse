@@ -10,6 +10,7 @@ namespace Sample.Request.Auth
         /// <summary>
         /// Tên controller
         /// </summary>
+        /// 
         public string ControllerNames { get; set; }
 
         #region Extension Properties
@@ -17,10 +18,10 @@ namespace Sample.Request.Auth
         /// <summary>
         /// Danh sách tên controller
         /// </summary>
-        public IList<string> Controllers { get; set; }
+        /*public string Controllers { get; set; }*/
 
 
-        public void ToModel()
+        /*public void ToModel()
         {
             ControllerNames = string.Join(";", Controllers);
         }
@@ -31,7 +32,7 @@ namespace Sample.Request.Auth
             {
                 Controllers = ControllerNames.Split(";");
             }
-        }
+        }*/
 
 
         #endregion

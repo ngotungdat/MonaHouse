@@ -22,14 +22,14 @@ namespace Sample.Entities.Auth
         /// <summary>
         /// Danh sách tên controller
         /// </summary>
-        [NotMapped]
-        public IList<string> Controllers
+        /*[NotMapped]*/
+        /*public IList<string> Controllers
         {
             get
             {
                 return (!string.IsNullOrEmpty(ControllerNames)) ? ControllerNames.Split(';').ToList() : new List<string>();
             }
-        }
+        }*/
 
         #endregion
     }

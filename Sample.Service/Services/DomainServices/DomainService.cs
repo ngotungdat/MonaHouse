@@ -220,6 +220,29 @@ namespace Sample.Service.Services.DomainServices
             return await UpdateAsync(new List<E> { item });
         }
 
+        /* public async Task<bool> UpdateAsync(IList<E> items)
+         {
+             foreach (var item in items)
+             {
+                 var exists = await Queryable
+                  .AsNoTracking()
+                  .Where(e => e.Id == item.Id && !e.Deleted)
+                  .FirstOrDefaultAsync();
+
+                 if (exists != null)
+                 {
+                     var currentCreated = exists.Created;
+                     var currentCreatedByInfo = exists.CreatedBy;
+                     exists = mapper.Map<E>(item);
+                     exists.Created = currentCreated;
+                     exists.CreatedBy = currentCreatedByInfo;
+                     unitOfWork.Repository<E>().Update(exists);
+                 }
+             }
+             await unitOfWork.SaveAsync();
+             return true;
+         }*/
+
         public async Task<bool> UpdateAsync(IList<E> items)
         {
             foreach (var item in items)
@@ -232,22 +255,30 @@ namespace Sample.Service.Services.DomainServices
                 if (exists != null)
                 {
                     //kiểm tra nếu Properties nào null thì lấy lại data cũ.
-                    foreach (PropertyInfo item_old in exists.GetType().GetProperties())
+                    try
                     {
-                        foreach (PropertyInfo item_new in item.GetType().GetProperties())
+                        foreach (PropertyInfo item_old in exists.GetType().GetProperties())
                         {
-                            if (item_old.Name == item_new.Name)
+                            foreach (PropertyInfo item_new in item.GetType().GetProperties())
                             {
-                                var value_old = item_old.GetValue(exists);
-                                var value_new = item_new.GetValue(item);
-                                if (value_old != value_new)
+                                if (item_old.Name == item_new.Name)
                                 {
-                                    item_old.SetValue(exists, value_new ?? value_old);
+                                    var value_old = item_old.GetValue(exists);
+                                    var value_new = item_new.GetValue(item);
+                                    if (value_old != value_new)
+                                    {
+                                        item_old.SetValue(exists, value_new ?? value_old);
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+
                     unitOfWork.Repository<E>().Update(exists);
                 }
             }
