@@ -24,7 +24,7 @@ namespace Sample.API.Controllers.Auth
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Hợp đồng mẫu")]
+    [Description("Phân Quyền")]
     [Authorize]
     public class PermitObjectPermissionController : BaseController<Entities.Auth.PermitObjectPermissions, PermitObjectPermissionModel, PermitObjectPermissionRequest, BaseSearch>
     {
@@ -67,7 +67,7 @@ namespace Sample.API.Controllers.Auth
         }
         [HttpPost]
         [Route("UpdatePermitObjectPermission")]
-        [AppAuthorize(new string[] { CoreContants.AddNew })]
+        [AppAuthorize(new string[] { CoreContants.Update })]
         public async Task<AppDomainResult> UpdatePermitObjectPermission([FromBody] PermitObjectPermissionAddNewRequest itemModel)
         {
             AppDomainResult appDomainResult = new AppDomainResult();
@@ -91,7 +91,7 @@ namespace Sample.API.Controllers.Auth
 
         [HttpGet]
         [Route("GetPermitObjectPermissionsByPermitObjectId")]
-        [AppAuthorize(new string[] { CoreContants.AddNew })]
+        [AppAuthorize(new string[] { CoreContants.View })]
         public async Task<AppDomainResult> GetPermitObjectPermissionsByPermitObject([FromQuery] int itemModel)
         {
             AppDomainResult appDomainResult = new AppDomainResult();

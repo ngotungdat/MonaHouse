@@ -4,6 +4,11 @@
 @{
     Users user = Model.Users;
 }
+<style>
+    .table__header {
+        padding-bottom:20px;
+    }
+</style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="row row-xs">
         <div class="col">
@@ -11,10 +16,10 @@
                 <div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                            <li class="breadcrumb-item active" aria-current="page">Viết Hợp Đồng</li>
+                            <li class="breadcrumb-item active" aria-current="page">Viết Giấy Phép</li>
                         </ol>
                     </nav>
-                    <h4 class="mg-b-0 tx-spacing--1">Thêm Mới</h4>
+                    <h4 class="mg-b-0 tx-spacing--1">Thêm mới giấy phép</h4>
                 </div>
             </div>
         </div>
@@ -26,30 +31,40 @@
                 <div class=" bd-t pd-t-15">
                     <div>
                         <div class="table__filter__wrap">
-                            <div class="table__filter-header">
-                                <div class="table__header-left">
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                                            <li class="breadcrumb-item active" aria-current="page">Tiêu đề hợp đồng</li>
-                                        </ol>
-                                    </nav>
-                                    <div class="input-group-prepend">
-                                        <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề hợp đồng...">
-                                    </div>
-                                </div>
 
-
-                                <div class="table__header-right">
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                                            <li class="breadcrumb-item active" aria-current="page">Diễn giải sơ lươc hợp đồng</li>
-                                        </ol>
-                                    </nav>
-                                    <div class="input-group-prepend">
-                                        <input type="text" name="txt-description" id="txt-description" aria-label="Title" class="form-control" placeholder="Diễn giải sơ lươc hợp đồng...">
-                                    </div>
+                            <div class="table__header" >
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                        <li class="breadcrumb-item active" aria-current="page">Tiêu đề giấy phép</li>
+                                    </ol>
+                                </nav>
+                                <div class="input-group-prepend">
+                                    <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề giấy phép...">
                                 </div>
                             </div>
+                            <div class="table__header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                        <li class="breadcrumb-item active" aria-current="page">Mã giấy phép</li>
+                                    </ol>
+                                </nav>
+                                <div class="input-group-prepend">
+                                    <input type="text" name="txt-code" id="txt-code" aria-label="Title" class="form-control" placeholder="Mã giấy phép...">
+                                </div>
+                            </div>
+
+
+                            <div class="table__header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                                        <li class="breadcrumb-item active" aria-current="page">Diễn giải sơ lươc giấy phép</li>
+                                    </ol>
+                                </nav>
+                                <div class="input-group-prepend">
+                                    <input type="text" name="txt-description" id="txt-description" aria-label="Title" class="form-control" placeholder="Diễn giải sơ lươc giấy phép...">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div>
@@ -158,14 +173,14 @@
         var id = 0;
         var title = $('input[name=txt-title]').val();
         var description = $('input[name=txt-description]').val();
-        
+        var code = $('input[name=txt-code]').val();
         var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
         var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
         console.log(title);
         console.log(description);
         console.log(id);
         console.log(content);
-        if (ckstring(title) || ckstring(description) || ckstring(content)) {
+        if (ckstring(title) || ckstring(description) || ckstring(content) || ckstring(code)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -174,17 +189,17 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, title, description, content);
+            insert_or_update(id, title, description, content, code);
         }
     });
 
 
-    function insert_or_update(id, title, description, content) {
+    function insert_or_update(id, title, description, content, code) {
 
         let data = {};
         data["id"] = id;
         data["name"] = title; //I just wanted to show you how you can add values to a json object
-        data["code"] = 'act' + new Date().getMinutes().toString() + new Date().getHours().toString() + new Date().getDate().toString() + new Date().getYear().toString() + Math.floor(Math.random() * 101).toString();
+        data["code"] = code;
         data["content"] = content;
         data["active"] = true;
         data["deleted"] = false;

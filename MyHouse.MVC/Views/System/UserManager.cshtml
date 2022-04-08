@@ -20,7 +20,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-user-in-group" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        @*<a href="javascript:;" class="btn btn-primary btn-add-user-in-group" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>*@
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -46,7 +46,7 @@
                                     <th class="sort-label" data-column="col-name">Tên truy cập</th>
                                     <th class="sort-label" data-column="col-electronic">Tên đầy đủ</th>
                                     <th class="sort-label " data-column="col-service">Thuộc nhóm</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                    @*<th class="sort-label text-table-center" data-column="col-service">Thao tác</th>*@
                                 </tr>
                             </thead>
                             <tbody id="tbody-user-in-group">
@@ -136,7 +136,7 @@
                     html += '<td>' + item.UserName + '</td>';
                     html += '<td>' + item.FullName + ' </td>';
                     html += '<td>' + item.UserGroupName + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.UserName + '" data-price="' + item.FullName + '" data-price="' + item.UserGroupName + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    //html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.UserName + '" data-price="' + item.FullName + '" data-price="' + item.UserGroupName + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-user-in-group').hide().html(html).show('slow');

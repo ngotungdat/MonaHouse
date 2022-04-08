@@ -2,7 +2,6 @@
 using Sample.Entities.Auth;
 using Sample.Entities.DomainEntities;
 using Sample.Interface.Services.DomainServices;
-using Sample.Models;
 using Sample.Request.Auth;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,5 @@ namespace Sample.Interface.Services.Auth
         public Task<IList<PermitObjectPermissions>> GetPermitObjectPermissionsByPermitObjectId(int item);
         public Task<bool> UpdatePermitObjectPermissions(PermitObjectPermissionAddNewRequest permitObjectPermissionAddNewRequest);
         public Task<bool> DeletePermitObjectPermissionsById(int id);
-
     }
 }

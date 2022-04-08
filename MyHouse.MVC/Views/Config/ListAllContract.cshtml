@@ -1,21 +1,24 @@
 ﻿@model CoreModel
-@{
-    var Id = "";
-}
+
 <style>
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
     }
+   
+    .modal .modal-dialog {
+        max-width: calc(100vw - 300px);
+    }
+   
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-sm-flex align-items-center justify-content-between ">
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phiếu thu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình Giấy phép</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách phiếu thu</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách giấy phép</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -23,7 +26,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="@Url.Action("Invoice", "Finance", new { area = "" })" class="btn btn-primary btn-add-Contract"><i class="fas fa-plus-circle"></i> Thêm mới mẫu hợp đồng</a>
+                        @*<a href="@Url.Action("NewContractSample", "Config", new { area = "" })" class="btn btn-primary btn-add-Contract"><i class="fas fa-plus-circle"></i> Thêm mới mẫu hợp đồng</a>*@
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -48,8 +51,8 @@
                                 <tr class="tr-header-table">
                                     <th class="sort-label" data-column="col-name">Mẫu Hợp Đồng</th>
                                     <th class="sort-label" data-column="col-electronic">Định Nghĩa</th>
-                                    <th class="sort-label " data-column="col-service">Người tạo</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Tạo Hợp đồng</th>
+                                    <th class="sort-label " data-column="col-service">Người Nhận</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Xem Giấy Phép</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-Contract">
@@ -62,6 +65,38 @@
         </div>
     </div><!-- row -->
 </div>
+    <div class="modal fade modal-nopadding-right" id="modal-License" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <input type="hidden" name="hdfId" value="0" />
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Giấy phép</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Nội dung giấy phép</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="content" id="txt-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                </div>
+                </div><!-- modal-content -->
+            
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
 <script>
     let page_index = 1;
     let page_size = 20;
@@ -69,9 +104,10 @@
     let OrderBy = 0;
     let token = '@Model.Token';
     let domain = '@Model.Domain';
-    domain += 'api/LicenseSample';
+    domain += 'api/License';
     let total_item = 0;
     let total_page = 0;
+    let tmplsContent = [];
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
         return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
@@ -92,15 +128,17 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
+                tmplsContent = list;
                 console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+                    let content = '`' + item.Content + '`';
                     html += '<tr>';
                     html += '<td>' + item.Name + '</td>';
-                    html += '<td>' + item.Description + ' đ</td>';
-                    html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="/Finance/Invoice/' + item.Id + '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description +'" ><i class="fas fa-edit"></i></a></td>';
+                    html += '<td>' + item.Description + '</td>';
+                    html += '<td>' + item.CustomerId + '</td>';
+                    html += '<td class="text-table-center"><a href="javascript:;" onclick="return view(' + i + ');" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" " class="btn-view-license"  data-toggle="modal" ><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-Contract').hide().html(html).show('slow');
@@ -113,6 +151,16 @@
             }
         });
     }
+    // show modal
+    function view(index) {
+        for (let i = 0; i < tmplsContent.length; i++) {
+            if (index == i) {
+                $('#txt-content').html(tmplsContent[i].Content);
+                $('#modal-License').modal('show');
+            }
+        }
+    }
+
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
@@ -141,4 +189,39 @@
         //load lại data
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
     }
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+
+    
 </script>

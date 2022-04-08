@@ -12,10 +12,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phiếu thu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình giấy phép</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách phiếu thu</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Mẫu giấy phép</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -49,7 +49,8 @@
                                     <th class="sort-label" data-column="col-name">Mẫu Hợp Đồng</th>
                                     <th class="sort-label" data-column="col-electronic">Định Nghĩa</th>
                                     <th class="sort-label " data-column="col-service">Người tạo</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Tạo Hợp đồng</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Sửa Mẫu Hợp đồng</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Tạo Giấy Phép</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-Contract">
@@ -98,9 +99,10 @@
                     let item = list[i];
                     html += '<tr>';
                     html += '<td>' + item.Name + '</td>';
-                    html += '<td>' + item.Description + ' đ</td>';
+                    html += '<td>' + item.Description + '</td>';
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="/Config/NewContract/' + item.Id + '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description +'" ><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="/Config/EditContractSample/' + item.Id+ '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="/Config/NewContract/' + item.Id+'" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-Contract').hide().html(html).show('slow');
@@ -140,92 +142,5 @@
         page_index = index_click;
         //load lại data
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
-    }
-
-    $('.btn-add-Contract').on('click', function () {
-        $('input[name=hdfId]').val(0);
-        $('input[name=txt-name]').val('');
-        $('input[name=txt-price]').val(0);
-        $('#modal-Contract').modal('show');
-    });
-    $(document).on('click', '.btn-edit-Contract', function () {
-        $('input[name=hdfId]').val($(this).attr('data-id'));
-        $('input[name=txt-name]').val($(this).attr('data-name'));
-        var price = format_money($(this).attr('data-price'));
-        $('input[name=txt-price]').val(price);
-        $('#modal-Contract').modal('show');
-    });
-    $('.btn-save-Contract').click(function () {
-        const id = $('input[name=hdfId]').val();
-        const name = $('input[name=txt-name]').val();
-        const price = $('input[name=txt-price]').val().replaceAll(',', '');
-        console.log(id);
-        console.log(name);
-        console.log(price);
-        if (ckstring(name) || ckstring(price)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            $(this).prop('disabled', true);
-            insert_or_update(id, name, price)
-        }
-    });
-    function insert_or_update(Id, Name, Price) {
-        let data = {};
-        data["id"] = Id;
-        data["name"] = Name; //I just wanted to show you how you can add values to a json object
-        data["price"] = Price;
-
-        let type_request = '';
-        if (ckstring(Id) || Id == 0) {
-            type_request = 'POST';
-        }
-        else {
-            type_request = 'PUT';
-        }
-        $('#modal-Contract').modal('hide');
-        $.ajax({
-            url: domain,
-            data: JSON.stringify(data),
-            type: type_request,
-            dataType: 'JSON',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            },
-            contentType: "application/json",
-            success: function (data) {
-                console.log(data);
-                load_data(get_api(page_index, page_size, SearchContent, OrderBy));
-                if (type_request == 'POST') {
-                    Swal.fire(
-                        'Thông báo!',
-                        'Thêm dữ liệu thành công!',
-                        'success'
-                    );
-                }
-                else if (type_request == 'PUT') {
-                    Swal.fire(
-                        'Thông báo!',
-                        'Cập nhật dữ liệu thành công!',
-                        'success'
-                    );
-                }
-                $('.btn-save-Contract').prop('disabled', false);
-            },
-            error: function (xhr, status, error) {
-                Swal.fire(
-                    'Thông báo!',
-                    'Rất tiếc đã xảy ra lỗi!',
-                    'error'
-                );
-                $('.btn-save-Contract').prop('disabled', false);
-                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-            }
-        });
     }
 </script>

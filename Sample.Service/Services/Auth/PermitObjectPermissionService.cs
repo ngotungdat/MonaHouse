@@ -157,6 +157,8 @@ namespace Sample.Service.Services.Auth
 
                     }
                 }
+                // form khong them sua xoa' 
+                ReturnResult = true;
                 return ReturnResult;
             }
             return ReturnResult;

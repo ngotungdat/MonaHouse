@@ -23,7 +23,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-permission" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                       @* <a href="javascript:;" class="btn btn-primary btn-add-permission" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>*@
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -49,7 +49,7 @@
                                     <th class="sort-label" data-column="col-name">Mã code</th>
                                     <th class="sort-label" data-column="col-electronic">Tên chức năng</th>
                                     <th class="sort-label " data-column="col-service">Mô tả</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                    @*<th class="sort-label text-table-center" data-column="col-service">Thao tác</th>*@
                                 </tr>
                             </thead>
                             <tbody id="tbody-permission">
@@ -145,7 +145,7 @@
                     html += '<td>' + item.Code + '</td>';
                     html += '<td>' + item.Name+ '</td>';
                     html += '<td>' + item.Description + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-code="' + item.Code + '" data-name="' + item.Name + '" data-description="' + item.Description +'" class="btn-edit-permission"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    //html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-code="' + item.Code + '" data-name="' + item.Name + '" data-description="' + item.Description +'" class="btn-edit-permission"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-permission').hide().html(html).show('slow');
