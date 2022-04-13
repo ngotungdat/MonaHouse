@@ -105,6 +105,70 @@ namespace Sample.BaseAPI.Controllers
         }
 
         /// <summary>
+        /// Lấy thông tin tất cả user 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetAllUser")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> GetAllUser()
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            
+            var item = await this.domainService.GetAllAsync();
+
+            if (item != null)
+            {
+                if (LoginContext.Instance.CurrentUser != null)
+                {
+                    var itemModel = mapper.Map<List<UserModel>>(item);
+                    appDomainResult = new AppDomainResult()
+                    {
+                        Success = true,
+                        Data = itemModel,
+                        ResultCode = (int)HttpStatusCode.OK
+                    };
+                }
+                else throw new KeyNotFoundException("Không có quyền truy cập");
+            }
+            else
+            {
+                throw new KeyNotFoundException("Item không tồn tại");
+            }
+            return appDomainResult;
+        }
+
+        
+        [HttpGet]
+        [Route("GetAllUserByTenantId")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> GetAllUserByTenantId([FromQuery] int TenantId)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            List<Users> items = (List<Users>)await this.domainService.GetAsync(p=>p.TenantId == TenantId);
+            
+            if (items != null)
+            {
+                if (LoginContext.Instance.CurrentUser != null)
+                {
+                    var itemModel = mapper.Map<List<UserModel>>(items);
+                    appDomainResult = new AppDomainResult()
+                    {
+                        Success = true,
+                        Data = itemModel,
+                        ResultCode = (int)HttpStatusCode.OK
+                    };
+                }
+                else throw new KeyNotFoundException("Không có quyền truy cập");
+            }
+            else
+            {
+                throw new KeyNotFoundException("Item không tồn tại");
+            }
+            return appDomainResult;
+        }
+
+        /// <summary>
         /// Cập nhật thông tin item
         /// </summary>
         /// <param name="itemModel"></param>

@@ -15,5 +15,6 @@ namespace Sample.Entities
         public string CustomerId { get; set; }
         [Required]
         public string LicenseType { get; set; }
+        public string CustomerName { get; set; }
     }
 }

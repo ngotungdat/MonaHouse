@@ -9,7 +9,7 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình Nguồn khách hàng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình thể loại phản hồi</li>
                 </ol>
             </nav>
             <h4 class="mg-b-0 tx-spacing--1">Danh sách Thể Loại Phản hồi</h4>
@@ -31,8 +31,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Loại xe A-Z↓</option>
-                                    <option value="1">Loại xe Z-A↑</option>
+                                    <option value="0">Thể loại A-Z↓</option>
+                                    <option value="1">Thể loại Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -135,14 +135,14 @@
                     html += '<td>' + item.Name + '</td>';
                     if (item.Active == true) {
                         html += '<td>' +
-                            '<input type="checkbox" id="checkactive" value="True" onchange="Check(' + item.Id +')" checked>' + "ON"
+                            '<input type="checkbox" id="checkactive" value="True" onchange="Check(' + item.Id + ')" checked>' + '  <span class="badge badge-success">Hoạt động</span>'
                                 +'</td>';
                     }
                     else {
-                        html += '<td>' + '<input type="checkbox" id="checkactive" value="False" onchange="Check(' + item.Id + ')" >' + "OFF" + '</td>';
+                        html += '<td>' + '<input type="checkbox" id="checkactive" value="False" onchange="Check(' + item.Id + ')" >' + '  <span class="badge badge-danger"> Tạm dừng </span>' + '</td>';
                     }
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" class="btn-edit-feedbacktype"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-checked="' + item.Active + '" class="btn-edit-feedbacktype"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
                 $('#tbody-feedbacktype').hide().html(html).show('slow');
@@ -193,15 +193,11 @@
     $(document).on('click', '.btn-edit-feedbacktype', function () {
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-name]').val($(this).attr('data-name'));
+        $('#checkactive').val($(this).attr('data-checked'));
        
         $('#modal-feedbacktype').modal('show');
     });
-    $(document).on('click', '.btn-edit-feedbacktype', function () {
-        $('input[name=hdfId]').val($(this).attr('data-id'));
-        $('input[name=txt-name]').val($(this).attr('data-name'));
-
-        $('#modal-feedbacktype').modal('show');
-    });
+    
     // bat su kien check box
     function Check(id) {
         console.log(TmpList);
@@ -234,7 +230,7 @@
     $('.btn-save-feedbacktype').click(function () {
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-name]').val();
-        const status = true;
+        const status = $('#checkactive').val();
         console.log(name);
         if (ckstring(name)) {
             Swal.fire(

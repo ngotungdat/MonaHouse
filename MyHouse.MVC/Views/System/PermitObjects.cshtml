@@ -13,10 +13,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình nhóm chức năng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình nhóm quyền</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách nhóm chưc năng</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách nhóm quyền</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -35,8 +35,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Loại xe A-Z↓</option>
-                                    <option value="1">Loại xe Z-A↑</option>
+                                    <option value="0">Tên nhóm quyền A-Z↓</option>
+                                    <option value="1">Tên nhóm quyền Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -47,9 +47,9 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Mã nhóm chức năng</th>
-                                    <th class="sort-label" data-column="col-electronic">Tên nhóm chức năng</th>
-                                    <th class="sort-label " data-column="col-service">Mô tả chức năng</th>
+                                    <th class="sort-label" data-column="col-name">Mã nhóm quyền</th>
+                                    <th class="sort-label" data-column="col-electronic">Tên nhóm quyền</th>
+                                    <th class="sort-label " data-column="col-service">Mô tả</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
@@ -75,8 +75,8 @@
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm chức năng</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Thêm nhóm chức năng</p>
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm quyền</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm nhóm quyền</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -85,18 +85,18 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm chức năng<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm quyền<span class="text-danger">(*)</span></label>
                             <select id="txt-code" name="txt-code" required class="form-control" ></select>
                         </div>
                     </div><div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên chức năng<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhóm quyền<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Thêm phòng">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả chức năng<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-description" required class="form-control" placeholder="Ví dụ: Dùng cho nhân viên của chủ trọ thuê phòng">
                         </div>
                     </div>
@@ -146,8 +146,8 @@
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm chức năng</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Sửa nhóm chức năng</p>
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm quyền</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Sửa nhóm quyền</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -158,13 +158,13 @@
                             <input hidden type="text" id="txt-code-edit" name="txt-code-edit" required class="form-control" >
                     </div><div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên chức năng<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Thêm phòng">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhóm quyền<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Admin">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả chức năng<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-description" required class="form-control" placeholder="Ví dụ: Dùng cho nhân viên của chủ trọ thuê phòng">
                         </div>
                     </div>
@@ -308,6 +308,7 @@
     }
 
     $('.btn-add-PermitObjects').on('click', function () {
+        TmpListControllerCheckedInAddForm = [];
         $('input[name=hdfId]').val(0);
         $('select[name=txt-code]').val('');
         $('input[name=txt-name]').val('');
@@ -315,7 +316,7 @@
         $('#modal-PermitObjects').modal('show');
     });
     $(document).on('click', '.btn-edit-PermitObjects', function () {
-
+        TmpListControllerCheckedInEditForm = [];
         //load_data_custom(Custom_api);
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-code-edit]').val($(this).attr('data-code'));
@@ -516,6 +517,7 @@
         load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
     }
     function AddFormCheck(Id) {
+        
         console.log('aaaaaa');
         for (let i = 0; i < TmpListController.length; i++) {
             if (Id == i) {
@@ -535,6 +537,7 @@
         console.log(TmpListControllerCheckedInAddForm.join(";"));
     }
     function EditFormCheck(Id) {
+        
         console.log('aaaaaa');
         for (let i = 0; i < TmpListControllerForEdit.length; i++) {
             if (Id == i) {
@@ -562,7 +565,6 @@
             var checkBox = document.getElementById("edit-form-checkactive-" + TmpListControllerForEdit[i].Id);
             for (let j = 0; j < ListTmpController.length; j++) {
                 if (TmpListControllerForEdit[i].Id == ListTmpController[j]) {
-                    console.log(checkBox);
                     checkBox.checked = true
                     TmpListControllerCheckedInEditForm.push(TmpListControllerForEdit[i].Id);
                     console.log("on" + TmpListControllerForEdit[i].Id);

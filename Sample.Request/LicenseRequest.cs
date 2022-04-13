@@ -13,5 +13,7 @@ namespace Sample.Request
         public string Content { get; set; }
         public string CustomerId { get; set; }
         public string LicenseType { get; set; }
+        public string CustomerName { get; set; }
+
     }
 }
