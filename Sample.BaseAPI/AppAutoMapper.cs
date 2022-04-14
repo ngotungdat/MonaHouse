@@ -121,6 +121,18 @@ namespace Sample.Models.AutoMapper
             CreateMap<FeedbackCommentModel, FeedbackComment>().ReverseMap();
             CreateMap<FeedbackCommentRequest, FeedbackComment>().ReverseMap();
             CreateMap<PagedList<FeedbackCommentModel>, PagedList<FeedbackComment>>().ReverseMap();
+
+            CreateMap<PaymentMethodModel, PaymentMethod>().ReverseMap();
+            CreateMap<PaymentMethodRequest, PaymentMethod>().ReverseMap();
+            CreateMap<PagedList<PaymentMethodModel>, PagedList<PaymentMethod>>().ReverseMap();
+
+            CreateMap<RoomModel, Room>().ReverseMap();
+            CreateMap<RoomRequest, Room>().ReverseMap();
+            CreateMap<PagedList<RoomModel>, PagedList<Room>>().ReverseMap();
+
+            CreateMap<RoomImageModel, RoomImage>().ReverseMap();
+            CreateMap<RoomImageRequest, RoomImage>().ReverseMap();
+            CreateMap<PagedList<RoomImageModel>, PagedList<RoomImage>>().ReverseMap();
         }
     
 

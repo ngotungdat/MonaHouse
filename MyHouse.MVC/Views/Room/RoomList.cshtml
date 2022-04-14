@@ -63,6 +63,9 @@
                 <div class="d-flex align-items-center">
                     <div class="d-flex">
                         <div class="form-group mg-r-15 group-select">
+                            <a href="javascript:;" class="btn btn-primary btn-add-room" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm Phòng</a>
+                        </div>
+                        <div class="form-group mg-r-15 group-select">
                             <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></label>
                             <select name="" class="form-control">
                                 <option value="">321 CMT8, Lý Thường Kiệt</option>
@@ -81,6 +84,322 @@
             </div>
         </div>
     </div>
+    <!-- Modal thêm phòng -->
+    <div class="modal fade modal-nopadding-right" id="modal-room" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-booth-curtain"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <input type="hidden" name="hdfId" value="0" />
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phòng</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Thêm Phòng</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <input type="hidden" name="hdfId" value="0" />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Phòng<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-room-name" required class="form-control" placeholder="Ví dụ: Phòng số 1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tòa nhà<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListBranch" id="ListBranch">
+                                    <option disabled="true" selected>Chọn tòa nhà</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tầng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListFloor" id="ListFloor">
+                                    <option disabled="true" selected>Chọn tầng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng (vnd)<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-room-price" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000 đ">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-Acreage" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
+                            </div>
+                        </div>
+                        @*<div class="row">
+            <div class="col-sm-12">
+                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
+                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
+            </div>
+        </div>*@
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền cọc<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-deposit" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000d">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-BedAmount" data-type="number" required class="form-control" placeholder="Ví dụ: 2 giường">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                                <div style="clear:left;"></div>
+                                <input id="input-img" type='file' onchange="readURL(this);" multiple />
+                                <div style="clear:left;"></div>
+                                <div id="room-img"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary btn-save-room">Lưu lại</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <script>
+        $(document).ready(function () {
+            // chọn tòa nhà call api tòa nhà
+            load_branch();
+        });
+        // on change
+        $('#ListBranch').on('change', function () {
+            let branchId = $('#ListBranch').val();
+
+            console.log('chọn branch rồi chọn phòng:' + branchId);
+            select = document.getElementById('ListFloor');
+            var length = select.options.length;
+            for (i = length - 1; i >= 0; i--) {
+                select.options[i] = null;
+            }
+            var opt = document.createElement('option');
+            opt.innerHTML = 'Chọn tầng';
+            select.appendChild(opt);
+            opt.setAttribute("disabled", "true");
+            opt.setAttribute("selected","selected");
+
+             $.ajax({
+                type: 'GET',
+                dataType: "json",
+                 url: '@Model.Domain' + 'api/Floor/get-by-branch/' + branchId,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+                    console.log(list);
+
+                    for (let i = 0; i < list.length; i++) {
+                        var opti = document.createElement('option');
+                        console.log(list[i].Name);
+                        opti.value = list[i].Id;
+                        opti.innerHTML = list[i].Name;
+                        select.appendChild(opti);
+                        console.log(opti);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+
+        });
+        //on click
+        $('.btn-save-room').on('click', function () {
+            console.log('nhấn nút lưu!');
+            // lấy giữ liệu từ form
+            let id = 0;
+            let name = $('input[name=txt-room-name]').val();
+            let branchId = $('#ListBranch').val();
+            let branchFloor = $('#ListFloor').val();
+            let price = $('input[name=txt-room-price]').val().replaceAll(',', '');
+            let acreage = $('input[name=txt-Acreage]').val();
+            let deposit = $('input[name=txt-deposit]').val().replaceAll(',', '');
+            let bedamount = $('input[name=txt-BedAmount]').val();
+            // danh sách img (mảng Link image)
+            let Images = document.getElementById("input-img").files;
+            console.log(id);
+            console.log(name);
+            console.log(branchId);
+            console.log(branchFloor);
+            console.log(price);
+            console.log(acreage);
+            console.log(deposit);
+            console.log(bedamount);
+            console.log(Images);
+            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || Images.length == 0) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin!',
+                    'warning'
+                )
+            }
+            else {
+                let ImageNames = upload_img(Images);
+                for (let i = 0; i < ImageNames.length; i++) {
+                    ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                }
+                let StringImageNames = ImageNames.join(';');
+                console.log(StringImageNames);
+                $(this).prop('disabled', true);
+                Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames);
+
+            }
+            
+        });
+        function Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames) {
+            let data = {};
+            data["id"] = id;
+            data["deleted"] = false;   
+            data["active"] = false;
+            data["name"] = name;
+            data["branchId"] = branchId;
+            data["branchFloor"] = branchFloor;
+            data["price"] = price;
+            data["acreage"] = acreage;
+            data["deposit"] = deposit;
+            data["status"] = 0;
+            data["bedAmount"] = bedamount;
+            data["images"] = StringImageNames;
+            console.log(data);
+            let type_request = 'POST';
+            
+            $('#modal-room').modal('hide');
+            $.ajax({
+                url: '@Model.Domain' + 'api/Room/AddNewRoom',
+                data: JSON.stringify(data),
+                type: type_request,
+                dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                contentType: "application/json",
+                success: function (data) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Thêm dữ liệu thành công!',
+                            'success'
+                        );
+                    $('.btn-save-room').prop('disabled', false);
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Rất tiếc đã xảy ra lỗi!',
+                        'error'
+                    );
+                    $('.btn-save-room').prop('disabled', false);
+                    console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                console.log(input.files.length);
+                let html = '';
+                for (let i = 0; i < input.files.length; i++) {
+                    html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
+                }
+                $('#room-img').hide().html(html).show('slow');
+                for(let i = 0; i < input.files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#' + 'room-img-' + i)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                    };
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        }
+
+        function upload_img(files) {
+            let rs = [];
+            var formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                },
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    console.log(data.Data);
+                    console.log("upload thanh cong");
+                    rs = data.Data;
+                    console.log(rs);
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return rs;
+        }
+
+        function load_branch() {
+            console.log('call api');
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/Branch?PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + '@Model.Users.Id',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+                    console.log(list);
+
+                    select = document.getElementById('ListBranch');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        console.log(list[i].Name);
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select.appendChild(opt);
+                        console.log(opt);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+        $('.btn-add-room').on('click', function () {
+
+            $('#modal-room').modal('show');
+        });
+    </script>
+    <!--by baonguyen-->
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
         <div class="row row-xs">
             <div class="col">

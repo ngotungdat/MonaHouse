@@ -170,29 +170,7 @@
     }
 
     tinymce.init({
-        readonly: false,
         selector: '#contract-content',
-        oninit: "setPlainText",
-        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
-        paste_as_text: true,
-        inline: false,
-        menubar: false,
-        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
-        content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
-        ],
-        height: 250,
-        images_dataimg_filter: function (img) {
-            return img.hasAttribute('internal-blob');
-        },
-        setup: (editor) => {
-            editor.ui.registry.addButton('UploadImage', {
-                text: 'Image',
-                icon: 'image',
-                onAction: uploadImage
-            });
-        },
-        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
     });
 
     let token = '@Model.Token';

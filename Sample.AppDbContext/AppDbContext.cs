@@ -64,6 +64,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<LicenseSample>(x => x.ToTable("LicenseSamples"));
             modelBuilder.Entity<Feedback>(x => x.ToTable("Feedbacks"));
             modelBuilder.Entity<FeedbackComment>(x => x.ToTable("FeedbackComments")); 
+            modelBuilder.Entity<PaymentMethod>(x => x.ToTable("PaymentMethods"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -114,6 +115,8 @@ namespace Sample.AppDbContext
         public DbSet<LicenseSample> LicenseSamples { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackComment> FeedbackComments { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }
         public DbSet<SMSConfigurations> SMSConfigurations { get; set; }
