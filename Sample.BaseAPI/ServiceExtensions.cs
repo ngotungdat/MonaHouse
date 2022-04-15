@@ -91,6 +91,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackCommentService, FeedbackCommentService>();
             services.AddScoped<IPaymentMethodService, PaymentmethodService>();
+            services.AddScoped<IRoomTypeService, RoomTypeService>();
 
             #endregion
 

@@ -65,6 +65,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<Feedback>(x => x.ToTable("Feedbacks"));
             modelBuilder.Entity<FeedbackComment>(x => x.ToTable("FeedbackComments")); 
             modelBuilder.Entity<PaymentMethod>(x => x.ToTable("PaymentMethods"));
+            modelBuilder.Entity<RoomType>(x => x.ToTable("RoomTypes"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -116,6 +117,7 @@ namespace Sample.AppDbContext
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackComment> FeedbackComments { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<RoomType> RoomTypes { get; set; }
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

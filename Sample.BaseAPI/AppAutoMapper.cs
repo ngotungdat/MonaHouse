@@ -133,6 +133,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<RoomImageModel, RoomImage>().ReverseMap();
             CreateMap<RoomImageRequest, RoomImage>().ReverseMap();
             CreateMap<PagedList<RoomImageModel>, PagedList<RoomImage>>().ReverseMap();
+
+            CreateMap<RoomTypeModel, RoomType>().ReverseMap();
+            CreateMap<RoomTypeRequest, RoomType>().ReverseMap();
+            CreateMap<PagedList<RoomTypeModel>, PagedList<RoomType>>().ReverseMap();
         }
     
 

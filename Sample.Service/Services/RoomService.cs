@@ -54,38 +54,41 @@ namespace Sample.Service.Services
             room.Deleted = itemModel.Deleted;
             room.Active = itemModel.Active;
             //
-            var result = await this.CreateAsync(room);
-            if (result)
+            //var result = await this.CreateAsync(room);
+            await this.unitOfWork.Repository<Room>().CreateAsync(room);
+            await this.unitOfWork.SaveAsync();
+            if (room!=null)
             {
                 returnResult = true;
+                // hình ảnh phòng mới
+                var ListLinkImage = itemModel.Images.Split(";");
+                List<RoomImage> LsRoomImage = new List<RoomImage>();
+                if (ListLinkImage.Length > 0)
+                {
+                    foreach (var d in ListLinkImage)
+                    {
+                        RoomImage roomImage = new RoomImage();
+                        roomImage.RoomId = room.Id;
+                        roomImage.Link = d;
+                        LsRoomImage.Add(roomImage);
+                    }
+                }
+                var rs = await roomImageService.CreateAsync(LsRoomImage);
+                if (rs)
+                {
+                    returnResult = true;
+                }
+                else
+                {
+                    returnResult = false;
+                }
             }
             else
             {
                 returnResult = false;
             }
 
-            // hình ảnh phòng mới
-            var ListLinkImage = itemModel.Images.Split(";");
-            List<RoomImage> LsRoomImage = new List<RoomImage>();
-            if (ListLinkImage.Length > 0)
-            {
-                foreach(var d in ListLinkImage)
-                {
-                    RoomImage roomImage = new RoomImage();
-                    roomImage.RoomId = itemModel.Id;
-                    roomImage.Link = d;
-                    LsRoomImage.Add(roomImage);
-                }
-            }
-            var rs = await roomImageService.CreateAsync(LsRoomImage);
-            if (rs)
-            {
-                returnResult = true;
-            }
-            else
-            {
-                returnResult = false;
-            }
+            
             return returnResult;
         }
 

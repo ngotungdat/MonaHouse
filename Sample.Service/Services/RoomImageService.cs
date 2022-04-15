@@ -24,6 +24,13 @@ namespace Sample.Service.Services
         {
             this.coreDbContext = coreDbContext;
         }
+
+        public async Task<List<RoomImage>> GetImageRoomByRoomId(int roomId)
+        {
+            List<RoomImage> LsRoomImage = (List<RoomImage>) await this.GetAsync(d => d.RoomId == roomId);
+            return LsRoomImage;
+        }
+
         protected override string GetStoreProcName()
         {
             return "Get_RoomImage";

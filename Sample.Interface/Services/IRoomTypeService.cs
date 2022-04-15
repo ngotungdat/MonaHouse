@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IRoomImageService : IDomainService<RoomImage, BaseSearch>
+    public interface IRoomTypeService : IDomainService<RoomType, BaseSearch>
     {
-        Task<List<RoomImage>> GetImageRoomByRoomId(int roomId);
     }
 }

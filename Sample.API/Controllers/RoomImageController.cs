@@ -26,15 +26,41 @@ namespace Sample.API.Controllers
     [Description("Quản lý thông tin nhà")]
     public class RoomImageController : BaseController<RoomImage, RoomImageModel, RoomImageRequest, BaseSearch>
     {
-        protected IBranchService branchService;
         protected IUserService userService;
+        protected IRoomImageService roomImageService;
         private IConfiguration configuration;
+
         public RoomImageController(IServiceProvider serviceProvider, ILogger<BaseController<RoomImage, RoomImageModel, RoomImageRequest, BaseSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.domainService = serviceProvider.GetRequiredService<IRoomImageService>();
+            this.roomImageService = serviceProvider.GetRequiredService<IRoomImageService>();
             this.configuration = configuration;
+        }
+        [HttpGet]
+        [Route("GetImageRoomByRoomID")]
+        [AppAuthorize(new string[] { CoreContants.ViewAll })]
+        public async Task<AppDomainResult> GetImageRoomByRoomID([FromQuery] int RoomId)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+
+            if (RoomId != null)
+            {
+                List<RoomImage> result = await roomImageService.GetImageRoomByRoomId(RoomId);
+                List<RoomImageModel> data = mapper.Map<List<RoomImageModel>>(result);
+                appDomainResult = new AppDomainResult
+                {
+                    Data = data,
+                    Success = true,
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.GETALL_SUCCESS
+                };
+
+
+                return appDomainResult;
+            }
+            throw new Exception("Lỗi trong quá trình xủ lý");
         }
     }
 }
