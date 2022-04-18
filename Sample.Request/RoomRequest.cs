@@ -44,5 +44,7 @@ namespace Sample.Request
         /// Số lượng giường - đối với ký túc xá
         /// </summary>
         public int? BedAmount { get; set; }
+        public int? RoomTypeId { get; set; }
+
     }
 }

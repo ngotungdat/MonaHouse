@@ -46,5 +46,6 @@ namespace Sample.Request
         public int? BedAmount { get; set; }
 
         public string Images { get; set; }
+        public int? RoomTypeId { get; set; }
     }
 }
