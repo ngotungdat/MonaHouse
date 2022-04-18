@@ -35,8 +35,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Loại xe A-Z↓</option>
-                                    <option value="1">Loại xe Z-A↑</option>
+                                    <option value="0">Mã nhóm phân quyền A-Z↓</option>
+                                    <option value="1">Mã nhóm phân quyền Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -47,10 +47,10 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Mã nhóm chức năng</th>
-                                    <th class="sort-label" data-column="col-electronic">Tên nhóm chức năng</th>
-                                    <th class="sort-label " data-column="col-service">Mô tả chức năng</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                    <th class="sort-label" data-column="col-name">Mã nhóm quyền</th>
+                                    <th class="sort-label" data-column="col-electronic">Tên nhóm quyền</th>
+                                    <th class="sort-label " data-column="col-service">Mô tả</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Phân quyền</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-PermitObjects">
@@ -462,6 +462,8 @@
 
     // add new
     $('.btn-add-PermitObjects').on('click', function () {
+        TmpListPermissionCheckedInAddForm = new Array();
+
         $('input[name=hdfId]').val(0);
         $('select[name=txt-code]').val('');
         $('select[name=txt-code-usergroup]').val('');
@@ -550,21 +552,29 @@
     function GetListPermissionToEdit(data) {
 
         let list = data.Data;
+        if (list.length > 0) {
+            for (let j = 1; j <= 9; j++) {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].PermissionId == j) {
+                        var checkBox = document.getElementById("edit-form-checkactive-" + list[i].PermissionId);
+                        checkBox.checked = true;
+                        TmpListPermissionCheckedInEditForm.push(list[i].PermissionId);
+                        break;
+                    } else {
+                        var checkBox = document.getElementById("edit-form-checkactive-" + j);
+                        checkBox.checked = false;
 
-        for (let j = 1; j <= 9; j++) {
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].PermissionId == j) {
-                    var checkBox = document.getElementById("edit-form-checkactive-" + list[i].PermissionId);
-                    checkBox.checked = true;
-                    TmpListPermissionCheckedInEditForm.push(list[i].PermissionId);
-                    break;
-                } else {
-                    var checkBox = document.getElementById("edit-form-checkactive-" + j);
-                    checkBox.checked = false;
-
+                    }
                 }
             }
         }
+        else {
+            for (let j = 1; j <= 9; j++) {
+                var checkBox = document.getElementById("edit-form-checkactive-" + j);
+                checkBox.checked = false;
+            }
+        }
+        
     }
 
 
@@ -581,6 +591,8 @@
         }
     }
     $(document).on('click', '.btn-edit-PermitObjectPermissions', function () {
+        ListPermitObjectPermissionIdToEdit = [];
+        TmpListPermissionCheckedInEditForm = [];
         //lay id cua permitobject
         let id = $(this).attr('data-id');
         $('#edit-hdfId').val(id);
@@ -636,6 +648,9 @@
                     let index = TmpListPermissionCheckedInEditForm.indexOf(TmpListPermissionEdit[i].Id);
                     TmpListPermissionCheckedInEditForm.splice(index, 1);
                 }
+
+            }
+            else {
 
             }
         }

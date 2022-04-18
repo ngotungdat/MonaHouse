@@ -12,10 +12,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình giấy phép</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình mẫu giấy tờ</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách Mẫu giấy phép</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Mẫu giấy tờ</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -34,8 +34,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Loại xe A-Z↓</option>
-                                    <option value="1">Loại xe Z-A↑</option>
+                                    <option value="0">Tên mẫu A-Z↓</option>
+                                    <option value="1">Tên Mẫu Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -46,11 +46,10 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Mẫu Hợp Đồng</th>
-                                    <th class="sort-label" data-column="col-electronic">Định Nghĩa</th>
+                                    <th class="sort-label" data-column="col-name">Mẫu</th>
+                                    <th class="sort-label" data-column="col-electronic">Ghi chú</th>
                                     <th class="sort-label " data-column="col-service">Người tạo</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Sửa Mẫu Hợp đồng</th>
-                                    <th class="sort-label text-table-center" data-column="col-service">Tạo Giấy Phép</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-Contract">
@@ -101,8 +100,7 @@
                     html += '<td>' + item.Name + '</td>';
                     html += '<td>' + item.Description + '</td>';
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="/Config/EditContractSample/' + item.Id+ '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-edit"></i></a></td>';
-                    html += '<td class="text-table-center"><a href="/Config/NewContract/' + item.Id+'" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="/Config/EditContractSample/' + item.Id + '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-edit" data-toogle="tooltip" title="Chỉnh sửa"></i></a> <a href="/Config/NewContract/' + item.Id + '" data-id="' + item.Id + '" data-name="' + item.Name + '" data-Description="' + item.Description + '" ><i class="fas fa-plus-square" data-toogle="tooltip" title="Soạn mới"></i></a> </td>';
                     html += '</tr>';
                 }
                 $('#tbody-Contract').hide().html(html).show('slow');

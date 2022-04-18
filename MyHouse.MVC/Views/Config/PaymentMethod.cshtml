@@ -1,0 +1,426 @@
+﻿@model CoreModel
+<style>
+    .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
+        min-width: 80px;
+    }
+    .col-sm-12 {
+        padding-bottom: 15px;
+    }
+</style>
+<script src="~/house/lib/tinymce/tinymce.min.js">
+
+</script>
+<script>
+    tinymce.init({
+        readonly: false,
+        selector: '#txt-description-id',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '/house/assets/css/dashforge.css',
+            '/house/assets/css/custom.css',
+            '/house/assets/css/dashforge.profile.css'
+
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+</script>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phương thức thanh toán</li>
+                </ol>
+            </nav>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Phương thức thanh toán</h4>
+        </div>
+    </div>
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap">
+                <div class="table__filter-header">
+                    <div class="table__header-left">
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
+                                    <th class="sort-label" data-column="col-name">Phương thức than toán</th>
+                                    <th class="sort-label" data-column="col-electronic">Mã phương thức</th>
+                                    <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-paymentmethod">
+                                <tr>
+                                    <td>
+                                        Tiền mặt
+                                    </td>
+                                    <td>
+                                        TIENMAT
+                                    </td>
+                                    
+                                    <td class="text-table-center">
+                                        <a href="javascript:;" data-name="Tiền mặt" data-code="TIENMAT" , data-user="@Model.Users.Id" class="btn-edit-paymentmethod" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Chuyển khoản
+                                    </td>
+                                    <td>
+                                        CHUYENKHOAN
+                                    </td>
+                                    
+                                    <td class="text-table-center">
+                                        <a href="javascript:;" data-name="Chuyển khoản" data-code="CHUYENKHOAN" data-user="@Model.Users.Id" class="btn-edit-paymentmethod" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+<div class="modal fade modal-nopadding-right" id="modal-paymentmethod" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-money-bill"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phương thức thanh toán</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Sửa phương thức thanh toán</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <input type="hidden" id="hdfId" name="hdfId" value="0" />
+                <input type="hidden" id="txt-paymentcode" name="txt-paymentcode" />
+                <input type="hidden" id="txt-user-id" name="txt-user-id" />
+                <input type="hidden" id="txt-code" name="txt-code" />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phương thức thanh toán<span class="text-danger">(*)</span></label>
+                            <input readonly type="text" id="txt-name" name="txt-name" required class="form-control">
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Thông tin chuyển tiền<span class="text-danger">(*)</span></label>
+                            <textarea name="txt-description" id="txt-description-id"></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
+                            <div id="checkbox-paymentmethod"></div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">ảnh Logo<span class="text-danger">(*)</span></label>
+                            <div style="clear:left;"></div>
+                            <input id="input-img" type='file' onchange="readURL(this);" />
+                            <img id="blah" src="#" alt="your image" width="150" height="200" />
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-paymentmethod">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<script>
+    let page_index = 1;
+    let page_size = 20;
+    let SearchContent = '';
+    let OrderBy = 0;
+    let token = '@Model.Token';
+    let domain = '@Model.Domain';
+    let total_item = 0;
+    let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    let TmpList = null;
+    //
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    //Load dữ liệu theo api
+    function load_data(userId, PaymentMethodCode,name) {
+        console.log(userId, PaymentMethodCode);
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: domain + 'api/PaymentMethod/GetPaymentMethodByUserAndPaymentCode?userId=' + userId + '&PaymentMethodCode=' + PaymentMethodCode,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+
+                console.log(data);
+                let result = data.Data;
+                if (result.length > 0) {
+                    $('#hdfId').val(result[0].Id);
+                    $('#txt-paymentcode').val(result[0].PaymentCode);
+                    $('#txt-user-id').val(result[0].UserId);
+                    $('#txt-code').val(result[0].Code);
+                    console.log(result[0].Code);
+                    $('#txt-name').val(result[0].Name);
+                    let html = '';
+                    if (result[0].Active == true) {
+                        html = '<input type="checkbox" id="checkactive" value="True" onchange="Check()" checked >' + '  <span class="badge badge-success">Hoạt động</span>';
+                    }
+                    else {
+                        html = '<input type="checkbox" id="checkactive" value="False" onchange="Check()" >' + '  <span class="badge badge-danger"> Tạm dừng </span>'
+                    }
+                    $('#checkbox-paymentmethod').hide().html(html).show('slow');
+                    tinyMCE.activeEditor.setContent(result[0].Description);
+                    $('#blah').attr("src", result[0].Logo);
+                }
+                else {
+                    $('#hdfId').val(0);
+                    $('#txt-paymentcode').val(PaymentMethodCode);
+                    $('#txt-user-id').val(userId);
+                    $('#txt-code').val('pmt' + userId + PaymentMethodCode + new Date().toString());
+                    $('#txt-name').val(name);
+                    let html = '<input type="checkbox" id="checkactive" value="True" onchange="Check() checked>' + '  <span class="badge badge-success">Hoạt động</span>';
+                    $('#checkbox-paymentmethod').hide().html(html).show('slow');
+                    tinyMCE.activeEditor.setContent(" Nội Dung tét thôi nè");
+                    $('#blah').attr("src", "https://localhost:44340/394bec0c-9de2-4332-8270-0715fbea69ed-Doujinshi%20,%20%E1%BA%A3nh%20Kimetsu%20no%20yaiba%20_3%20-%20Happy%20birthday%20%C4%90%E1%BB%A5t%20!!!(h%C6%A1i%20qu%C3%A1%20tr%E1%BB%85%20___).jpg");
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function Check() {
+        var checkBox = document.getElementById('checkactive');
+        let tmp = checkBox.value;
+        if (tmp == 'True') {
+            console.log('false');
+            checkBox.value = 'False';
+        }
+        else {
+            console.log('true');
+            checkBox.value = 'True';
+        }
+    }
+    $(document).on('click', '.btn-edit-paymentmethod', function () {
+        var code = $(this).attr('data-code');
+        var userId = $(this).attr('data-user');
+        var name = $(this).attr('data-name');
+        load_data(userId, code, name);
+        $('#modal-paymentmethod').modal('show');
+    });
+
+    $('.btn-save-paymentmethod').click(function () {
+        var id= $('#hdfId').val();
+        var paymentCode= $('#txt-paymentcode').val();
+        var userId=$('#txt-user-id').val();
+        var paymentName = $('#txt-name').val();
+        var code = $('#txt-code').val();
+        var active = $('#checkactive').val();
+        var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
+        var desc = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        // upload img
+        var file = document.getElementById("input-img").files[0];
+        console.log(file);
+        let fileName =''
+        if (file == null) {
+            fileName = $('#blah').attr('src');
+        }
+        else {
+            fileName = domain + upload_img(file);
+        }
+        /////////////////////////
+        console.log(fileName);
+        console.log(id);
+        console.log(paymentCode);
+        console.log(code);
+        console.log(userId);
+        console.log(paymentName);
+        console.log(counttext);
+
+        if (ckstring(paymentCode) || ckstring(userId) || ckstring(desc) || ckstring(code)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            insert_or_update(id, paymentCode, userId, paymentName, desc, fileName, code, active);
+        }
+    });
+    function upload_img(file) {
+            // create instance of FileReader()
+        var formData = new FormData();
+        formData.append('section', 'general');
+        formData.append('action', 'previewImg');
+        let rs = '';
+        // Attach file
+        formData.append('file', file);
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: domain + 'api/file/upload-file',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data, status, xhr) {
+                console.log(data.Data);
+                console.log("upload thanh cong");
+                rs = data.Data;
+                console.log(rs);
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+        return rs;
+    }
+    
+    function insert_or_update(id, paymentCode, userId, paymentName, desc, fileName, code, active) {
+        let data = {};
+        data["id"] = id;
+        data["deleted"] = false;
+        if (active == 'True') {
+            data["active"] = true;
+        }
+        else {
+            data["active"] = false;
+        }
+        data["code"] = code;
+        data["name"] = paymentName;
+        data["description"] = desc;
+        data["logo"] = fileName;
+        data["paymentCode"] = paymentCode;
+        data["userId"] = userId;
+        console.log(data);
+        let type_request = '';
+        if (ckstring(id) || id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#modal-paymentmethod').modal('hide');
+        $.ajax({
+            url: domain +'api/PaymentMethod',
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-paymentmethod').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-paymentmethod').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>

@@ -9,10 +9,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình phí gửi xe</li>
+                    <li class="breadcrumb-item active" aria-current="page">Cấu hình thể loại phòng</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách phí gửi xe</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Danh sách Thể Loại Phòng</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -20,7 +20,7 @@
             <div class="table__filter__wrap">
                 <div class="table__filter-header">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-fee" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        <a href="javascript:;" class="btn btn-primary btn-add-roomtype" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -31,8 +31,8 @@
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Loại xe A-Z↓</option>
-                                    <option value="1">Loại xe Z-A↑</option>
+                                    <option value="0">Thể loại A-Z↓</option>
+                                    <option value="1">Thể loại Z-A↑</option>
                                 </select>
                             </div>
                         </div>
@@ -43,13 +43,13 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
-                                    <th class="sort-label" data-column="col-name">Loại xe</th>
-                                    <th class="sort-label" data-column="col-electronic">Phí gửi</th>
+                                    <th class="sort-label" data-column="col-name">Thể Loại</th>
+                                    <th class="sort-label" data-column="col-electronic">Trạng thái</th>
                                     <th class="sort-label " data-column="col-service">Người tạo</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-vehicleFee">
+                            <tbody id="tbody-roomtype">
                             </tbody>
                         </table>
                     </div>
@@ -59,7 +59,7 @@
         </div>
     </div><!-- row -->
 </div>
-<div class="modal fade modal-nopadding-right" id="modal-fee" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-nopadding-right" id="modal-roomtype" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
         <div class="modal-content">
             <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
@@ -70,8 +70,8 @@
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phí giữ xe</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Thêm phí giữ xe</p>
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Thể Loại Phòng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm Loại Phòng</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -80,34 +80,31 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại xe<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Xe tay ga">
-                        </div>
-                    </div><div class="row">
-                        <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí gửi xe<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-price" required class="form-control" data-type="currency" placeholder="Ví dụ: 50,000">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại Phòng<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: dài hạn">
                         </div>
                     </div>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
+                <button type="button" class="btn btn-primary btn-save-roomtype">Lưu lại</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 <script>
     let page_index = 1;
-    let page_size = 3;
+    let page_size = 20;
     let SearchContent = '';
     let OrderBy = 0;
     let token = '@Model.Token';
     let domain = '@Model.Domain';
-    domain += 'api/VehicleFeeConfig';
+    domain += 'api/RoomType';
     let total_item = 0;
     let total_page = 0;
+    // lưu tạm kết quả truy vấn
+    let TmpList = null;
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
         return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
@@ -128,18 +125,27 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
-                //console.log('list: ', list);
+                TmpList = data.Data.Items;
+                console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+
                     html += '<tr>';
                     html += '<td>' + item.Name + '</td>';
-                    html += '<td>' + format_money(item.Price) + ' đ</td>';
+                    if (item.Active == true) {
+                        html += '<td>' +
+                            '<input type="checkbox" id="checkactive" value="True" onchange="Check(' + item.Id + ')" checked>' + '  <span class="badge badge-success">Hoạt động</span>'
+                                +'</td>';
+                    }
+                    else {
+                        html += '<td>' + '<input type="checkbox" id="checkactive" value="False" onchange="Check(' + item.Id + ')" >' + '  <span class="badge badge-danger"> Tạm dừng </span>' + '</td>';
+                    }
                     html += '<td>' + item.CreatedBy + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-price="' + item.Price +'" class="btn-edit-fee"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.Id + '" data-name="' + item.Name + '" data-checked="' + item.Active + '" class="btn-edit-roomtype"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
                     html += '</tr>';
                 }
-                $('#tbody-vehicleFee').hide().html(html).show('slow');
+                $('#tbody-roomtype').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
@@ -178,26 +184,55 @@
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
     }
 
-    $('.btn-add-fee').on('click', function () {
+    $('.btn-add-roomtype').on('click', function () {
+
         $('input[name=hdfId]').val(0);
         $('input[name=txt-name]').val('');
-        $('input[name=txt-price]').val(0);
-        $('#modal-fee').modal('show');
+        $('#modal-roomtype').modal('show');
     });
-    $(document).on('click', '.btn-edit-fee', function () {
+    $(document).on('click', '.btn-edit-roomtype', function () {
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-name]').val($(this).attr('data-name'));
-        var price = format_money($(this).attr('data-price'));
-        $('input[name=txt-price]').val(price);
-        $('#modal-fee').modal('show');
+        $('#checkactive').val($(this).attr('data-checked'));
+
+        $('#modal-roomtype').modal('show');
     });
-    $('.btn-save-fee').click(function () {
+
+    // bat su kien check box
+    function Check(id) {
+        console.log(TmpList);
+        for (let i = 0; i < TmpList.length; i++) {
+            if (id == TmpList[i].Id) {
+                name = TmpList[i].Name;
+                status = TmpList[i].Active;
+                console.log(name);
+                console.log(status);
+                if (TmpList[i].Active == true) { status = false; }
+                else { status = true; }
+                if (ckstring(name) || ckstring(status)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    $(this).prop('disabled', true);
+                    insert_or_update(id, name, status)
+                }
+                break;
+            }
+        }
+    }
+
+
+
+    $('.btn-save-roomtype').click(function () {
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-name]').val();
-        const price = $('input[name=txt-price]').val().replaceAll(',', '');
+        const status = $('#checkactive').val();
         console.log(name);
-        console.log(price);
-        if (ckstring(name) || ckstring(price)) {
+        if (ckstring(name)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -206,14 +241,14 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, name, price)
+            insert_or_update(id, name, status)
         }
     });
-    function insert_or_update(Id, Name, Price) {
+    function insert_or_update(Id, Name, Status) {
         let data = {};
         data["id"] = Id;
         data["name"] = Name; //I just wanted to show you how you can add values to a json object
-        data["price"] = Price;
+        data["active"] = Status;
 
         let type_request = '';
         if (ckstring(Id) || Id == 0) {
@@ -222,7 +257,7 @@
         else {
             type_request = 'PUT';
         }
-        $('#modal-fee').modal('hide');
+        $('#modal-roomtype').modal('hide');
         $.ajax({
             url: domain,
             data: JSON.stringify(data),
@@ -250,7 +285,7 @@
                         'success'
                     );
                 }
-                $('.btn-save-fee').prop('disabled', false);
+                $('.btn-save-roomtype').prop('disabled', false);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -258,7 +293,7 @@
                     'Rất tiếc đã xảy ra lỗi!',
                     'error'
                 );
-                $('.btn-save-fee').prop('disabled', false);
+                $('.btn-save-roomtype').prop('disabled', false);
                 console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
             }
         });

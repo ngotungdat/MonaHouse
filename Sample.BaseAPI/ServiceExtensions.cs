@@ -67,11 +67,14 @@ namespace Sample.BaseAPI
             services.AddScoped<IFloorService, FloorService>();
             services.AddScoped<IPackageService, PackageService>();
             services.AddScoped<IVehicleFeeConfigService, VehicleFeeConfigService>();
+            // by bao_nguyen
             services.AddScoped<IUtilitiesConfigService, UtilitiesConfigService>();
             services.AddScoped<ICustomerResourceService, CustomerResourceService>();
             services.AddScoped<IFeedBackTypeService, FeedBackTypeService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<INotificationUserService, NotificationUserService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomImageService, RoomImageService>();
 
             #endregion
 
@@ -87,6 +90,8 @@ namespace Sample.BaseAPI
             services.AddScoped<ILicenseSampleService, LicenseSampleService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackCommentService, FeedbackCommentService>();
+            services.AddScoped<IPaymentMethodService, PaymentmethodService>();
+            services.AddScoped<IRoomTypeService, RoomTypeService>();
 
             #endregion
 

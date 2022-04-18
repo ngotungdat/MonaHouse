@@ -16,7 +16,7 @@
                 <div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                            <li class="breadcrumb-item active" aria-current="page">Viết Giấy Phép</li>
+                            <li class="breadcrumb-item active" aria-current="page">Viết theo mẫu giấy tờ</li>
                         </ol>
                     </nav>
                     <h4 class="mg-b-0 tx-spacing--1" id="title-h4"></h4>
@@ -34,38 +34,34 @@
                         <div class="table__header">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                                    <li class="breadcrumb-item active" aria-current="page">Tiêu đề giấy phép</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Tiêu đề</li>
                                 </ol>
                             </nav>
                             <div class="input-group-prepend">
-                                <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề giấy phép...">
+                                <input type="text" name="txt-title" id="txt-title" aria-label="Title" class="form-control" placeholder="Tiêu Đề...">
                             </div>
                         </div>
 
                         <div class="table__header">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                                    <li class="breadcrumb-item active" aria-current="page">Diễn giải sơ lươc giấy phép</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Ghi chú</li>
                                 </ol>
                             </nav>
                             <div class="input-group-prepend">
-                                <input type="text" name="txt-description" id="txt-description" aria-label="Title" class="form-control" placeholder="Diễn giải sơ lươc giấy phép...">
+                                <input type="text" name="txt-description" id="txt-description" aria-label="Title" class="form-control" placeholder="Ghi chú...">
                             </div>
                         </div>
 
                         <div class="table__header">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                                    <li class="breadcrumb-item active" aria-current="page">Người nhận giấy phép</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Người nhận</li>
                                 </ol>
                             </nav>
                             <div class="input-group-prepend">
-                                <input type="text" class="form-control search__box-area input-style" onkeyup="search()" id="search" name="search" placeholder="Tìm kiếm...">
-                                <select class="form-control">
-                                    <option>Malayasia</option>
-                                    <option>Singapore</option>
+                                <select class="js-example-basic-single form-control select2" name="ListUser" id="ListUser">
                                 </select>
-
                             </div>
                         </div>
                     </div>
@@ -97,31 +93,44 @@
 
 <script src="~/house/lib/tinymce/tinymce.min.js"></script>
 <script>
-    // tim kiem show ket qu ngay va luon
-    function search() {
-        var value = $('#search').val();
-        if (value != null) {
-            $.ajax({
-                type: 'GET',
-                dataType: "json",
-                url: '@Model.Domain' + 'api/user?SearchContent=' + value,
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                },
-                success: function (data, status, xhr) {
-                    //console.log('data: ', data);
-                    let results = data.Data.Items;
-                    for (let i = 0; i < results.lenght; i++) {
-                        // code sau nha
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
+    // danh sach tat ca User
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Model.Domain' + 'api/user/GetAllUserByTenantId?TenantId=@Model.Users.TenantId',
+            type: 'GET',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                let list = data.Data;
+                select = document.getElementById('ListUser');
+                for (let i = 0; i < list.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = list[i].Id ;
+                    opt.innerHTML = list[i].UserName;
+                    select.appendChild(opt);
+                    console.log(opt);
                 }
-            });
-        }
-    }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-PermitObjectPermissions').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    })
+
+   
 </script>
 
 <script>
@@ -161,29 +170,7 @@
     }
 
     tinymce.init({
-        readonly: false,
         selector: '#contract-content',
-        oninit: "setPlainText",
-        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
-        paste_as_text: true,
-        inline: false,
-        menubar: false,
-        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
-        content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
-        ],
-        height: 250,
-        images_dataimg_filter: function (img) {
-            return img.hasAttribute('internal-blob');
-        },
-        setup: (editor) => {
-            editor.ui.registry.addButton('UploadImage', {
-                text: 'Image',
-                icon: 'image',
-                onAction: uploadImage
-            });
-        },
-        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
     });
 
     let token = '@Model.Token';
@@ -252,11 +239,15 @@
         var code = $('input[name=txt-code]').val();
         var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
         var content = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        var customer = $('#ListUser').val();
+        var customer_name = $('#ListUser option:selected').text();
+        console.log(customer_name);
+        console.log(customer);
         console.log(title);
         console.log(description);
         console.log(id);
         console.log(content);
-        if (ckstring(title) || ckstring(description) || ckstring(content) || ckstring(code)) {
+        if (ckstring(title) || ckstring(description) || ckstring(content) || ckstring(code) || ckstring(customer) || ckstring(customer_name)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -265,12 +256,12 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, title, description, content, code);
+            insert_or_update(id, title, description, content, code, customer, customer_name);
         }
     });
 
 
-    function insert_or_update(id, title, description, content, code) {
+    function insert_or_update(id, title, description, content, code, customer, customer_name) {
 
         let data = {};
         data["id"] = id;
@@ -282,7 +273,8 @@
         data['description'] = description;
         console.log('data:' + data);
         // customerId and licenseType get by url:
-        data["customerId"] = '@Model.Users.Id';
+        data["customerId"] = customer;
+        data["customerName"] = customer_name;
         data['licenseType'] = code;
         console.log('data:' + data.id + ',' + data.name + ',' + data.code + ',' + data.active + ',' + data.active + ',' + data.deleted + ',' + data.description + ',' + data.customerId + ',' + data.licenseType);
         let type_request = '';

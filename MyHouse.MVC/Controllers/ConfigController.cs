@@ -103,5 +103,28 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
+        public async Task<IActionResult> ContractDetail()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        // phương thức thanh toán
+        public async Task<IActionResult> PaymentMethod()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        // thể loại phòng
+        public async Task<IActionResult> RoomType()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
     }
 }

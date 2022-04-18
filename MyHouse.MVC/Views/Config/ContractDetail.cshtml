@@ -1,0 +1,102 @@
+﻿@model CoreModel
+<html>
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="/app-assets/app_wiseedu/logo_new.png">
+    <link href="~/house/assets/css/dashforge.css" rel="stylesheet" />
+    <link href="~/house/assets/css/custom.css" rel="stylesheet" />
+    <link href="~/house/assets/css/dashforge.profile.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="page-invoice-wrap">
+        <div class="page-invoice-top">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div class="flex-print">
+                    <h4 class="mg-b-0">Phiếu thu #20220406-002</h4>
+                </div>
+                <div class="mg-t-20 mg-sm-t-0">
+                    <button class="btn btn-success btn-send-mail hide-on-print mg-r-10"><i data-feather="mail"></i> Gửi Mail</button>
+
+                    <button class="btn btn-white btn-print hide-on-print"><i data-feather="printer"></i> Print</button>
+                    <span class="tx-color-04 label-print tx-bold">Mona House</span>
+                </div>
+            </div>
+        </div>
+        <div id="body-content" style="text-align:inherit;"></div>
+    </div>
+    <input type="hidden" value="Đàm Vĩnh Hưng" id="full-name-student">
+    <script src="/app-assets/zimv2/lib/jquery/jquery.min.js"></script>
+    <script>
+        // load content
+        var pathArray = window.location.pathname.split('/');
+        var Id = pathArray[3];
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain'+'api/License/' + Id,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    //console.log('data: ', data);
+                    let result = data.Data;
+                    console.log(result.Content);
+                    $('#body-content').html(result.Content);
+
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('.btn-print').on('click', function () {
+                window.print();
+            })
+        });
+
+
+        //Gửi phiếu thu qua mail cho học viên
+        $(document).ready(function () {
+            $('.btn-send-mail').on('click', function () {
+                const name = $('#full-name-student').val();
+                if (confirm("Xác nhận gửi phiếu thu qua mail cho học viên " + name + "?")) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '/Cashier/SendPhieuThuToStudent?studentUID=' + 31,
+                        success: function (msg) {
+                            if (msg.rs) {
+                                toast.create({
+                                    title: 'Thông báo!',
+                                    text: msg.message,
+                                    icon: 'check',
+                                    classBackground: 'noti-success',
+                                    timeout: 3000
+                                })
+                            }
+                            else {
+                                toast.create({
+                                    title: 'Thông báo!',
+                                    text: msg.message,
+                                    icon: 'error_outline',
+                                    classBackground: 'noti-error',
+                                    timeout: 3000
+                                })
+                            }
+                        }
+                    })
+
+                }
+                else {
+                    return false;
+                }
+            });
+        })
+    </script>
+
+    <div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div><iframe id="nr-ext-rsicon" style="position: absolute; display: none; width: 50px; height: 50px; z-index: 2147483647; border-style: none; background: transparent;"></iframe>
+</body>
+</html>
