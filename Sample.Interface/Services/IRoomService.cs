@@ -1,5 +1,6 @@
 ﻿using Sample.Entities;
 using Sample.Entities.DomainEntities;
+using Sample.Entities.Search;
 using Sample.Interface.Services.DomainServices;
 using Sample.Request;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IRoomService : IDomainService<Room, BaseSearch>
+    public interface IRoomService : IDomainService<Room, RoomSearch>
     {
         Task<bool> AddNewRoomWithImage(RoomWithImgRequest itemModel);
     }

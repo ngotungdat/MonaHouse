@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Sample.BaseAPI.Controllers;
 using Sample.Entities;
 using Sample.Entities.DomainEntities;
+using Sample.Entities.Search;
 using Sample.Extensions;
 using Sample.Interface.Services;
 using Sample.Models;
@@ -24,13 +25,13 @@ namespace Sample.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Description("Quản lý thông tin nhà")]
-    public class RoomController : BaseController<Room, RoomModel, RoomRequest, BaseSearch>
+    public class RoomController : BaseController<Room, RoomModel, RoomRequest, RoomSearch>
     {
         protected IBranchService branchService;
         protected IUserService userService;
         private IConfiguration configuration;
         protected IRoomService roomService;
-        public RoomController(IServiceProvider serviceProvider, ILogger<BaseController<Room, RoomModel, RoomRequest, BaseSearch>> logger
+        public RoomController(IServiceProvider serviceProvider, ILogger<BaseController<Room, RoomModel, RoomRequest, RoomSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {

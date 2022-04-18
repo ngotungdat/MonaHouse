@@ -11,5 +11,7 @@ namespace Sample.Request
         /// Loại file
         /// </summary>
         public int? TypeId { get; set; }
+        public int? status { get; set; }
+        public int? roomtypeid { get; set; }
     }
 }

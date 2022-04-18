@@ -45,6 +45,6 @@ namespace Sample.Request
         /// </summary>
         public int? BedAmount { get; set; }
         public int? RoomTypeId { get; set; }
-
+        public string RoomTypeName { get; set; }
     }
 }

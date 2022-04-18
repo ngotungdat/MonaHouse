@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Sample.Entities;
 using Sample.Entities.DomainEntities;
+using Sample.Entities.Search;
 using Sample.Extensions;
 using Sample.Interface.DbContext;
 using Sample.Interface.Services;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Service.Services
 {
-    public class RoomService : DomainService<Room, BaseSearch>, IRoomService
+    public class RoomService : DomainService<Room, RoomSearch>, IRoomService
     {
         protected IAppDbContext coreDbContext;
         protected IUserService userService;

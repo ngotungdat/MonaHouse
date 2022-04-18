@@ -33,6 +33,19 @@
     .modal-dialog {
         max-width: 50%
     }
+    .fa-check-circle{
+        font-size: 17px;
+        color: #0da92a;
+    }
+    .pad-20{
+        padding:10px;
+    }
+    .fa-times-circle
+    {
+        font-size: 17px;
+        color: #ff0000;
+    }
+    
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <h4 class="mg-b-15 tx-spacing--1">DANH SÁCH TÒA NHÀ</h4>
@@ -82,14 +95,17 @@
             <div class="modal-body pd-sm-t-30 pd-sm-x-30">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ <span class="text-danger">(*)</span></label>
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhà/dãy trọ <span
+                                    class="text-danger">(*)</span></label>
                             <input type="text" name="txt-house-name" required class="form-control" placeholder="Ví dụ: Khu nhà A">
                         </div>
+                    </div>
+                    <div class="row mg-t-10">
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại <span class="text-danger">(*)</span></label>
                             <select name="dll-house-type" class="form-control">
-                                <option value="1">Cửa hàng - Kiot</option>
+                                <option value="1" selected>Cửa hàng - Kiot</option>
                                 <option value="2">Nhà trọ</option>
                                 <option value="3">Nhà nguyên căn</option>
                                 <option value="4">Ký túc xá</option>
@@ -97,11 +113,18 @@
                                 <option value="6">Chung cư</option>
                             </select>
                         </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại hình thuê <span class="text-danger">(*)</span></label>
+                            <select name="dll-rental-form" class="form-control">
+                                <option value="1" selected>Bao phòng</option>
+                                <option value="2">Ký túc xá</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="row mg-t-10">
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP <span class="text-danger">(*)</span></label>
-                            <select name="dll-house-area" class="form-control">
+                            <select id="dll-house-city" class="form-control">
                                 <option value="0">-----</option>
                             </select>
                         </div>
@@ -119,26 +142,33 @@
                         </div>
                     </div>
                     <div class="row mg-t-10">
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện (tính theo KWH)<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-electricfee" required class="form-control" data-type="currency" placeholder="Ví dụ: 5,000">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại tiền nước<span class="text-danger">(*)</span></label>
+                            <select name="dll-waterfeetype" class="form-control">
+                                <option value="1" selected>Phí trên người</option>
+                                <option value="2">Tính khối</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước<span class="text-danger">(*)</span></label>
+                            <input type="text" name="txt-waterfee" required class="form-control" data-type="currency" placeholder="Ví dụ: 50,000">
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ <span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-house-address" class="form-control" placeholder="Ví dụ: 373/226 Lý Thường Kiệt, P8, Q. Tân Bình, HCM">
+                            <input type="text" name="txt-house-address" required class="form-control" placeholder="Ví dụ: 373/226 Lý Thường Kiệt, P8, Q. Tân Bình, HCM">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quy định:</label>
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quy định</label>
                     <textarea rows="2" name="txt-house-description" class="form-control" placeholder="Ví dụ: Đóng cửa trước 22h và mở cửa lúc 5h sáng..."></textarea>
                 </div>
-                @*<div class="form-group">
-                        <div class="upload-box mg-b-20">
-                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
-                                <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
-                            </a>
-                            <input type="file" name="electricimg" class="hidden upload-image-temp remove-item" accept="image/*">
-                            <input type="hidden" name="hdfImage" class="hdfIMG" />
-                            <div class="preview-image preview-electric"></div>
-                        </div>
-                    </div>*@
                 <div class="form-group">
                     <div class="upload-boxs mg-b-20">
                         <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
@@ -148,7 +178,47 @@
                         <div class="preview-image preview-electric"></div>
                     </div>
                 </div>
+                
             </div><!-- modal-body -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30" style="border-top: 1px solid #f1f1f1">
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Dịch vụ đi kèm</h4>
+                    </div>
+                <div class="form-group">
+                    <div class="row mg-t-10">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí giữ xe: </label>
+                            <a href="#" class="ml-1" id="ck-isParkingFee"></a>
+                            @* <a href="#" class="ml-1" id="ck-isParkingFee"><i class="fas fa-check-circle"></i></a><Span class="ml-2">Tính phí giữ xe</Span>
+                            <a href="#" class="ml-1"><i class="fas fa-times-circle"></i><Span class="ml-2">Tính phí giữ xe</Span></a> *@
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row mg-t-10">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiện ích </label>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <div class="col-sm-3 pad-20">
+                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        </div>
+                        <div class="col-sm-3 pad-20">
+                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        </div>
+                        <div class="col-sm-3 pad-20">
+                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        </div>
+                        <div class="col-sm-3 pad-20">
+                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        </div>
+                        <div class="col-sm-3 pad-20">
+                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
                 <button type="button" class="btn btn-primary btn-save-branch">Lưu lại</button>
@@ -286,6 +356,46 @@
             }
         });
     }
-</script>
+    
+    let isParkingFee = true;
+    let node = document.createElement('i');
+    node.className = "fas fa-check-circle";
+    document.getElementById('ck-isParkingFee').appendChild(node);
+    let text = document.createTextNode(' Tính phí giữ xe');
+    document.getElementById('ck-isParkingFee').appendChild(text);
+    $('#ck-isParkingFee').on('click', function () {
+        document.getElementById('ck-isParkingFee').removeChild(node);
+        document.getElementById('ck-isParkingFee').removeChild(text);
 
+        node = document.createElement('i');
+        text = document.createTextNode(' Tính phí giữ xe');
+        if (isParkingFee == true) {
+            node.className = "fas fa-times-circle";
+            isParkingFee = false;
+        }
+        else {
+            node.className = "fas fa-check-circle";
+            isParkingFee = true;
+        }
+        document.getElementById('ck-isParkingFee').appendChild(node);
+        document.getElementById('ck-isParkingFee').appendChild(text);
+    })
+    $( async function () {
+        await getCity();
+    })
+    async function getCity() {
+        let myDomain = '@Model.Domain';
+        myDomain += 'api/catalogue/get-city-catalogue/countryId?countryId=1&PageIndex=1&PageSize=65';
+        let data = await api_get(myDomain,token);
+        for(var item of data.Data.Items)
+        {
+            let opption = document.createElement('option');
+            opption.value = item.Id;
+            opption.text = item.Name;
+            console.log('opption:',opption);
+            document.getElementById('dll-house-city').appendChild(opption);
+        }
+        console.log('text:',data);
+    }
+</script>
 

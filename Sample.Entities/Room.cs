@@ -46,6 +46,7 @@ namespace Sample.Entities
         /// Loại phòng
         /// </summary>
         public int? RoomTypeId { get; set; }
-
+        [NotMapped]
+        public string RoomTypeName { get; set; }
     }
 }
