@@ -1,0 +1,331 @@
+﻿
+@{
+    ViewData["Title"] = "AddCustomer";
+    Layout = "~/Views/Shared/_LayoutHouse.cshtml";
+}
+
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Phòng số 01</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <form id="js-step-goin" class="needs-validation wizard clearfix vertical" role="application">
+        <div class="steps clearfix"><ul role="tablist"><li role="tab" aria-disabled="false" class="first current" aria-selected="true"><a id="js-step-goin-t-0" href="#js-step-goin-h-0" aria-controls="js-step-goin-p-0"><span class="current-info audible">current step: </span><span class="number">1</span> <span class="title">Thông tin phòng</span></a></li><li role="tab" aria-disabled="false" class="done" aria-selected="false"><a id="js-step-goin-t-1" href="#js-step-goin-h-1" aria-controls="js-step-goin-p-1"><span class="number">2</span> <span class="title">Thông tin người thuê</span></a></li><li role="tab" class="last done" aria-disabled="false" aria-selected="false"><a id="js-step-goin-t-2" href="#js-step-goin-h-2" aria-controls="js-step-goin-p-2"><span class="number">3</span> <span class="title">Thanh toán</span></a></li></ul></div><div class="content clearfix">
+            <h3 id="js-step-goin-h-0" tabindex="-1" class="title current">Thông tin phòng</h3>
+            <section id="js-step-goin-p-0" role="tabpanel" aria-labelledby="js-step-goin-h-0" class="body current" aria-hidden="false" style="">
+                <div class="row mg-t-15">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Loại thuê phòng</label>
+                            <select name="" id="" class="form-control">
+                                <option value="type-longday">Dài hạn</option>
+                                <option value="type-shortday">Ngắn hạn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước</label>
+                            <select name="" id="js-select-package" class="form-control">
+                                <option value="type-all">Bao điện nước</option>
+                                <option value="type-day" selected="">Theo ngày</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Giá thuê</label>
+                            <input type="tel" class="form-control" placeholder="0" data-type="currency" required="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
+                            <input type="text" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
+                            <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required="">
+                        </div>
+                        <div class="upload-box">
+                            <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
+                            <input type="file" class="hidden upload-image-input toggle-field" accept="image/*" multiple="">
+                            <div class="preview-image"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
+                            <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required="">
+                        </div>
+
+                        <div class="upload-box">
+                            <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
+                            <input type="file" class="hidden upload-image-input  toggle-field" accept="image/*" multiple="">
+                            <div class="preview-image"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mg-t-30">
+                        <div class="card ">
+                            <div class="card-body">
+                                <div class="list-services">
+                                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Dịch vụ phòng</label>
+                                    <div class="row align-items-center mg-b-20">
+                                        <div class="col pl-r-5">
+                                            <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="Wifi">
+                                        </div>
+                                        <div class="col pd-l-5">
+                                            <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="200.000">
+                                        </div>
+                                        <div class="col pd-l-0 flex-grow-0">
+                                            <a href="javascript:;" class="tx-danger delete-service"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg></a>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mg-b-20">
+                                        <div class="col pl-r-5">
+                                            <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="Cáp">
+                                        </div>
+                                        <div class="col pd-l-5">
+                                            <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="200.000">
+                                        </div>
+                                        <div class="col pd-l-0 flex-grow-0">
+                                            <a href="javascript:;" class="tx-danger delete-service"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="javascript:;" class="btn btn-primary js-add-service "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Thêm dịch vụ</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <h3 id="js-step-goin-h-1" tabindex="-1" class="title">Thông tin người thuê</h3>
+            <section class="body" id="js-step-goin-p-1" role="tabpanel" aria-labelledby="js-step-goin-h-1" aria-hidden="true" style="display: none;">
+                <div class="row ">
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên</label>
+                        <input type="text" class="form-control" placeholder="Họ tên" required="">
+                    </div>
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                            Số điện
+                            thoại
+                        </label>
+                        <input type="tel" class="form-control" placeholder="SĐT" data-type="number">
+                    </div>
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                            Địa chỉ
+                            email
+                        </label>
+                        <input type="email" class="form-control" placeholder="0">
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quê quán</label>
+                        <input type="text" class="form-control" placeholder="Quê của bạn...">
+                    </div>
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số người ở</label>
+                        <input type="tel" class="form-control" placeholder="0">
+                    </div>
+                    <div class="col-sm form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quan hệ</label>
+                        <input type="text" class="form-control" placeholder="VD: Vợ chồng">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-row">
+                            <div class="col-12 upload-box mg-b-15">
+                                <a href="javascript:;" class="btn btn-outline-primary btn-upload">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh giấy tờ
+
+                                </a>
+                                <input type="file" class="hidden upload-image-input" accept="image/*" multiple="multiple">
+                                <div class="preview-image"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <h3 id="js-step-goin-h-2" tabindex="-1" class="title">Thanh toán</h3>
+            <section id="js-step-goin-p-2" role="tabpanel" aria-labelledby="js-step-goin-h-2" class="body" aria-hidden="true" style="display: none;">
+                <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin cấu hình">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-list">
+                                <dl class="row-info">
+                                    <dd class="">Giá phòng:</dd>
+                                    <dt class="">3.500.000 / tháng</dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Giá điện / KW:</dd>
+                                    <dt class=""><span class="tx-success">Đã bao gồm</span></dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Giá nước:</dd>
+                                    <dt class=""><span class="tx-success">Đã bao gồm</span></dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Điện tháng trước:</dd>
+                                    <dt class="">
+                                        <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
+                                            2.000.000
+                                            / 130 kW
+                                        </span>
+                                    </dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Nước tháng trước:</dd>
+                                    <dt class="">
+                                        <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
+                                            1.500.000
+                                            / m<sup>3</sup>
+                                        </span>
+                                    </dt>
+                                </dl>
+                                <dl class="row-info mg-b-15 mg-md-b-0">
+                                    <dd class="">Ngày dọn vào:</dd>
+                                    <dt class=""><span class="">20/04/2020</span></dt>
+                                </dl>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-list">
+                                <dl class="row-info">
+                                    <dd class="">Mạng:</dd>
+                                    <dt class="">200.000</dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Rác:</dd>
+                                    <dt class="">50.000</dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Giữ xe:</dd>
+                                    <dt class="">150.000</dt>
+                                </dl>
+
+                                <dl class="row-info">
+                                    <dd class="">Cáp TV:</dd>
+                                    <dt class=""><span class="tx-second">100.000</span></dt>
+                                </dl>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="legend-box pd-15" data-label="Thông tin thanh toán">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                    Cọc
+                                    trước
+                                </label>
+                                <select name="" id="" class="form-control">
+                                    <option value="1">1 tháng</option>
+                                    <option value="2">2 tháng</option>
+                                    <option value="3" selected="">3 tháng</option>
+                                    <option value="4">4 tháng</option>
+                                    <option value="5">5 tháng</option>
+                                    <option value="6">6 tháng</option>
+                                    <option value="7">7 tháng</option>
+                                    <option value="8">8 tháng</option>
+                                    <option value="9">9 tháng</option>
+                                    <option value="10">10 tháng</option>
+                                    <option value="11">11 tháng</option>
+                                    <option value="12">12 tháng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                    Trả trước
+                                    tới
+                                </label>
+                                <select name="" id="" class="form-control">
+                                    <option value="1">Hết tháng 1</option>
+                                    <option value="2">Hết tháng 2</option>
+                                    <option value="3">Hết tháng 3</option>
+                                    <option value="4" selected="">Hết tháng 4</option>
+                                    <option value="5">Hết tháng 5</option>
+                                    <option value="6">Hết tháng 6</option>
+                                    <option value="7">Hết tháng 7</option>
+                                    <option value="8">Hết tháng 8</option>
+                                    <option value="9">Hết tháng 9</option>
+                                    <option value="10">Hết tháng 10</option>
+                                    <option value="11">Hết tháng 11</option>
+                                    <option value="12">Hết tháng 12</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                    Hình
+                                    thức
+                                </label>
+                                <select name="" id="" class="form-control">
+                                    <option value="" selected="">Chuyển khoản</option>
+                                    <option value="">Tiền mặt</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                    Tổng
+                                    tiền
+                                </label>
+                                <div class="input-group mg-b-10">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="total-money">3 tháng 5 ngày = </span>
+                                    </div>
+                                    <input type="text" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="3.150.000" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                    Thực nhận của
+                                    khách
+                                </label>
+                                <input type="text" class="form-control" placeholder="0">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </section>
+        </div><div class="actions clearfix"><ul role="menu" aria-label="Pagination"><li aria-disabled="true" class="disabled"><a href="#previous" role="menuitem">Quay lại</a></li><li aria-hidden="false" class="" aria-disabled="false" style=""><a href="#next" role="menuitem">Tiếp tục</a></li><li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Finish</a></li></ul></div>
+    </form>
+</div>
+

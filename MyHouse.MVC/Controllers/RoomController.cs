@@ -27,6 +27,19 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
+        public async Task<IActionResult> RoomDetail()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }public async Task<IActionResult> AddCustomer()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
     }
 }
 

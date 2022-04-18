@@ -77,7 +77,7 @@
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
     });
     //Load dữ liệu theo api
-    function load_data(api) {
+    function load_data (api) {
         $.ajax({
             type: 'GET',
             dataType: "json",
@@ -86,7 +86,7 @@
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
             },
-            success: function (data, status, xhr) {
+            success: async function (data, status, xhr) {
                 //console.log('data: ', data);
                 let list = data.Data.Items;
                 //console.log('list: ', list);
@@ -106,6 +106,8 @@
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+                var result = await api_get(api,token);
+                console.log(result);
             },
             error: function (xhr, status, error) {
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

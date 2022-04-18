@@ -1,0 +1,480 @@
+﻿
+@{
+    ViewData["Title"] = "RoomDetail";
+    Layout = "~/Views/Shared/_LayoutHouse.cshtml";
+}
+
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-md-flex align-items-center justify-content-between mg-b-20">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Danh sách phòng</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Phòng số 01</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Thông tin phòng-->
+    <div class="row mg-b-30 flex-wrap-1" id="print-bill-section">
+        <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+            <div class="room-infor legend-box pd-25  rounded" data-label="Thông tin phòng">
+                <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="info-list">
+                    <dl class="row-info">
+                        <dd class="">Tên phòng:</dd>
+                        <dt class="">Phòng 01</dt>
+                    </dl>
+                    <dl class="row-info hide-on-print">
+                        <dd class="">Trạng thái:</dd>
+                        <dt class="">
+                            <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                Đã đặt cọc
+                            </span>
+                        </dt>
+                    </dl>
+
+
+                    <dl class="row-info">
+                        <dd class="">Người đại diện:</dd>
+                        <dt class="">Trương Văn Lam</dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Điện thoại:</dd>
+                        <dt class="">0886706289</dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Ngày dọn vào:</dd>
+                        <dt class="">20/11/2020</dt>
+                    </dl>
+                    <dl class="row-info mg-b-0">
+                        <dd class="">Tiền nợ:</dd>
+                        <dt class=""><span class="tx-danger">3.500.000</span></dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 ">
+            <div class="legend-box pd-25  " data-label="Phí và dịch vụ">
+                <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Giá phòng:</dd>
+                                <dt class="">3.500.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá điện / KW:</dd>
+                                <dt class="">3500</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá nước:</dd>
+                                <dt class="">0886706289</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Điện tháng trước:</dd>
+                                <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Nước tháng trước:</dd>
+                                <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span></dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Mạng:</dd>
+                                <dt class="">200.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Rác:</dd>
+                                <dt class="">50.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giữ xe:</dd>
+                                <dt class="">150.000</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Cáp TV:</dd>
+                                <dt class=""><span class="tx-second">100.000</span></dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-12 mg-t-15">
+            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Xuất bill tháng này</a>
+        </div>
+    </div>
+    <!-- End thông tin phòng-->
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-line mg-b-30" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="cus-info-tab" data-toggle="pill" href="#js-cus-info" role="tab" aria-controls="js-cus-info" aria-selected="true">Khách đang thuê</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="pill" href="#js-history" role="tab" aria-controls="js-history" aria-selected="false">Lịch sử điện nước</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="transaction-tab" data-toggle="pill" href="#js-transaction" role="tab" aria-controls="js-transaction" aria-selected="false">Lịch sử thanh toán</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="js-cus-info" role="tabpanel" aria-labelledby="cus-info-tab">
+                    <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
+                        <h5 class="mg-b-0">Thông tin khách thuê</h5>
+                        <div class="right-action">
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5" data-target="#js-add-rentor" data-toggle="modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Thêm
+                                khách
+                            </button>
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table  valign-center tx-nowrap table-striped">
+                            <thead class="valign-middle">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ tên</th>
+                                    <th>SĐT</th>
+                                    <th>Số CMND</th>
+                                    <th>Ngày cấp</th>
+                                    <th>Nơi cấp</th>
+                                    <th>Tình trạng</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Trương Văn Lam</td>
+                                    <td>0376314437</td>
+                                    <td>5012354321</td>
+                                    <td>22/11/2020</td>
+                                    <td>Quảng Lam</td>
+                                    <td><span class="tx-success">Đang ở</span></td>
+                                    <td>
+                                        <a href="#js-add-rentor" data-toggle="modal" class="btn btn-info js-add-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Trương Văn Lam</td>
+                                    <td>0376314437</td>
+                                    <td>5012354321</td>
+                                    <td>22/11/2020</td>
+                                    <td>Quảng Lam</td>
+                                    <td><span class="tx-danger">Đã chuyển</span></td>
+                                    <td>
+                                        <a href="#js-add-rentor" data-toggle="modal" class="btn btn-info js-add-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Trương Văn Lam</td>
+                                    <td>0376314437</td>
+                                    <td>5012354321</td>
+                                    <td>22/11/2020</td>
+                                    <td>Quảng Lam</td>
+                                    <td><span class="tx-success">Đang ở</span></td>
+                                    <td>
+                                        <a href="#js-add-rentor" data-toggle="modal" class="btn btn-info js-add-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Trương Văn Lam</td>
+                                    <td>0376314437</td>
+                                    <td>5012354321</td>
+                                    <td>22/11/2020</td>
+                                    <td>Quảng Lam</td>
+                                    <td><span class="tx-success">Đang ở</span></td>
+                                    <td>
+                                        <a href="#js-add-rentor" data-toggle="modal" class="btn btn-info js-add-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="upload-box mg-t-15 ">
+                        <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
+                            <h5 class="mg-b-0">Ảnh giấy tờ</h5>
+                            <div class="right-action">
+                                <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
+                            </div>
+                        </div>
+
+                        <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
+                        <div class="preview-image">
+                            <div class="image-wrap">
+                                <div class="image-box lightgallery">
+                                    <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
+                                </div>
+                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="image-wrap">
+                                <div class="image-box lightgallery">
+                                    <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
+                                </div>
+                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="js-history" role="tabpanel" aria-labelledby="history-tab">
+                    <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
+                        <h5>Lịch sử điện nước</h5>
+                        <div class="right-action">
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table  valign-center tx-nowrap table-striped tx-center table-bordered">
+                            <thead class="valign-middle">
+                                <tr>
+                                    <th rowspan="2" class="valign-middle-f tx-center">STT</th>
+                                    <th rowspan="2" class="valign-middle-f tx-center">Tháng</th>
+                                    <th colspan="2" style="border-bottom:1px solid rgba(72,94,144,0.16); text-align:center;">
+                                        Điện nước
+                                    </th>
+                                    <th colspan="5 " style="border-bottom:1px solid rgba(72,94,144,0.16);text-align:center">
+                                        Dịch
+                                        vụ
+                                    </th>
+                                    <th rowspan="2" class="valign-middle-f tx-center">Thao tác</th>
+                                </tr>
+                                <tr>
+
+                                    <th><span class="small">Số điện<span></span></span></th>
+                                    <th><span class="small">Số nước</span></th>
+                                    <th><span class="small">Wifi</span></th>
+                                    <th><span class="small">Cáp truyền hình</span></th>
+                                    <th><span class="small">Gửi xe</span></th>
+                                    <th><span class="small">Gas</span></th>
+                                    <th><span class="small">Khác</span></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tháng 06/2020</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>200.000</td>
+                                    <td>150.000</td>
+                                    <td>50.000</td>
+                                    <td>20.000</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Tháng 07/2020</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span><span class="tx-danger">Chưa nhập</span></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span><span class="tx-danger">Chưa nhập</span></p>
+
+
+                                        </div>
+                                    </td>
+                                    <td>200.000</td>
+                                    <td>150.000</td>
+                                    <td>50.000</td>
+                                    <td>20.000</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Tháng 08/2020</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>200.000</td>
+                                    <td>150.000</td>
+                                    <td>50.000</td>
+                                    <td>20.000</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Tháng 09/2020</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
+                                            <div class="lightgallery">
+                                                <a href="assets/img/dongho.jpg" class="">
+                                                    Hình
+                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>200.000</td>
+                                    <td>150.000</td>
+                                    <td>50.000</td>
+                                    <td>20.000</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="js-transaction" role="tabpanel" aria-labelledby="transaction-tab">
+                    <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
+                        <h5>Lịch sử thanh toán</h5>
+                        <div class="right-action">
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table  valign-center tx-nowrap table-striped tx-center">
+                            <thead class="valign-middle">
+                                <tr>
+                                    <th>Tháng</th>
+                                    <th>Tiền nhà</th>
+                                    <th><span class="">Tiền điện<span></span></span></th>
+                                    <th><span class="">Tiền nước</span></th>
+                                    <th><span class="">Dịch vụ</span></th>
+                                    <th><span class="">Tổng tiền</span></th>
+                                    <th><span class="">Thực nhận</span></th>
+                                    <th><span class="">Còn lại</span></th>
+                                    <th><span class="">Hình thức</span></th>
+                                    <th><span class="">Thao tác</span></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tháng 06/2020</td>
+                                    <td>3.000.000</td>
+                                    <td>500.000</td>
+                                    <td>226.00</td>
+                                    <td>300.000</td>
+                                    <td>4.126.000</td>
+                                    <td>3.500.000</td>
+                                    <td>626.000</td>
+                                    <td>Chuyển khoản</td>
+                                    <td><a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

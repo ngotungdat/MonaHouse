@@ -289,7 +289,7 @@
                                             <div class="dropdown__wrap">
                                                 <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                 <ul class="drop-menu">
-                                                    <li class="drop-menu-item"><a href="room-detail.php" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item"><a href="@Url.Action("RoomDetail", "Room", new { area = "" })" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
                                                     <li class="drop-menu-item">
                                                         <a href="#js-electronicNote" data-toggle="modal" class="item-link">
                                                             <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
@@ -309,7 +309,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="add-people.php" class="item-link">
+                                                        <a href="@Url.Action("AddCustomer", "Room", new { area = "" })" class="item-link">
                                                             <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
                                                             vào
                                                         </a>
