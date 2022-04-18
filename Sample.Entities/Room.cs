@@ -42,6 +42,10 @@ namespace Sample.Entities
         /// Số lượng giường - đối với ký túc xá
         /// </summary>
         public int? BedAmount { get; set; }
+        /// <summary>
+        /// Loại phòng
+        /// </summary>
+        public int? RoomTypeId { get; set; }
 
     }
 }
