@@ -110,38 +110,43 @@
                     <input type="hidden" name="hdfId" value="0" />
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Phòng<span class="text-danger">(*)</span></label>
                                 <input type="text" name="txt-room-name" required class="form-control" placeholder="Ví dụ: Phòng số 1">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tòa nhà<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="ListBranch" id="ListBranch">
                                     <option disabled="true" selected>Chọn tòa nhà</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng (vnd)<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-room-price" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000 đ">
+                            </div>
+                            <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tầng<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="ListFloor" id="ListFloor">
                                     <option disabled="true" selected>Chọn tầng</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng (vnd)<span class="text-danger">(*)</span></label>
-                                <input type="text" name="txt-room-price" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000 đ">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền cọc<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-deposit" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000d">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
-                                <input type="text" name="txt-Acreage" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn loại phòng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListRoomType" id="ListRoomType">
+                                    <option disabled="true" selected>Chọn Loại</option>
+                                </select>
                             </div>
+
                         </div>
                         @*<div class="row">
                                 <div class="col-sm-12">
@@ -149,23 +154,37 @@
                                     <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
                                 </div>
                             </div>*@
+
                         <div class="row">
-                            <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền cọc<span class="text-danger">(*)</span></label>
-                                <input type="text" name="txt-deposit" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000d">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger">(*)</span></label>
                                 <input type="text" name="txt-BedAmount" data-type="number" required class="form-control" placeholder="Ví dụ: 2 giường">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái phòng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="room-status" id="room-status">
+                                    <option disabled="true" selected>Trạng thái</option>
+                                    <option value="0">Phòng Chống</option>
+                                    <option value="1">Sắp chuyển vào</option>
+                                    <option value="2">Đang thuê</option>
+                                    <option value="3">Sắp dọn ra</option>
+                                </select>
+                            </div>
+                        </div><div class="row">
+
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-Acreage" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
                                 <div style="clear:left;"></div>
-                                <input id="input-img" type='file' onchange="readURL(this);" multiple />
+                                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                                </a>
+                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
                                 <div style="clear:left;"></div>
                                 <div id="room-img"></div>
 
@@ -180,11 +199,147 @@
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div><!-- modal -->
+    <!--modal Image-->
+    <div class="modal fade modal-nopadding-right" id="modal-room-image" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-image"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <input type="hidden" name="hdfId" value="0" />
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Hình ảnh phòng</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">hình ảnh chi tiết</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <input type="hidden" name="hdfId" value="0" />
+                    <div class="form-group">
+                        <div id="image-byroomid"></div>
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <!--modal Edit Room-->
+    <div class="modal fade modal-nopadding-right" id="modal-room-edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+            <div class="modal-content">
+                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-booth-curtain"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <input type="hidden" name="hdfId" value="0" />
+                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Phòng</h4>
+                            <p class="tx-13 tx-color-03 mg-b-0">Sửa Phòng</p>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <input type="hidden" name="hdfId" id="hdfId" value="0" />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Phòng<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-room-name-edit" required class="form-control" placeholder="Ví dụ: Phòng số 1">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tòa nhà<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListBranch-edit" id="ListBranch-edit">
+                                    <option disabled="true" selected>Chọn tòa nhà</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giá phòng (vnd)<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-room-price-edit" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000 đ">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tầng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListFloor-edit" id="ListFloor-edit">
+                                    <option disabled="true" selected>Chọn tầng</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền cọc<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-deposit-edit" data-type="currency" required class="form-control" placeholder="Ví dụ: 2.000.000d">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn loại phòng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="ListRoomType-edit" id="ListRoomType-edit">
+                                    <option disabled="true" selected>Chọn Loại</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        @*<div class="row">
+                                <div class="col-sm-12">
+                                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
+                                    <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
+                                </div>
+                            </div>*@
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-BedAmount-edit" data-type="number" required class="form-control" placeholder="Ví dụ: 2 giường">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái phòng<span class="text-danger">(*)</span></label>
+                                <select class="js-example-basic-single form-control select2" name="room-status-edit" id="room-status-edit">
+                                    <option disabled="true" selected>Trạng thái</option>
+                                    <option value="0">Phòng Chống</option>
+                                    <option value="1">Sắp chuyển vào</option>
+                                    <option value="2">Đang thuê</option>
+                                    <option value="3">Sắp dọn ra</option>
+                                </select>
+                            </div>
+                        </div><div class="row">
+
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-Acreage-edit" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary btn-save-room-edit">Lưu lại</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    <!---->
     <!--Thêm phòng-->
     <script>
+        // upload img
+        $('.btn-uploads').on('click', function () {
+            $('.upload-image-temps').click();
+        });
+        //
+
         $(document).ready(function () {
             // chọn tòa nhà call api tòa nhà
             load_branch();
+            load_roomtype();
         });
         // on change
         $('#ListBranch').on('change', function () {
@@ -192,6 +347,48 @@
 
             console.log('chọn branch rồi chọn phòng:' + branchId);
             select = document.getElementById('ListFloor');
+            var length = select.options.length;
+            for (i = length - 1; i >= 0; i--) {
+                select.options[i] = null;
+            }
+            var opt = document.createElement('option');
+            opt.innerHTML = 'Chọn tầng';
+            select.appendChild(opt);
+            opt.setAttribute("disabled", "true");
+            opt.setAttribute("selected","selected");
+
+             $.ajax({
+                type: 'GET',
+                dataType: "json",
+                 url: '@Model.Domain' + 'api/Floor/get-by-branch/' + branchId,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+                    console.log(list);
+
+                    for (let i = 0; i < list.length; i++) {
+                        var opti = document.createElement('option');
+                        console.log(list[i].Name);
+                        opti.value = list[i].Id;
+                        opti.innerHTML = list[i].Name;
+                        select.appendChild(opti);
+                        console.log(opti);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+
+        });
+
+        $('#ListBranch-edit').on('change', function () {
+            let branchId = $('#ListBranch-edit').val();
+            console.log('chọn branch rồi chọn phòng:' + branchId);
+            select = document.getElementById('ListFloor-edit');
             var length = select.options.length;
             for (i = length - 1; i >= 0; i--) {
                 select.options[i] = null;
@@ -241,6 +438,8 @@
             let acreage = $('input[name=txt-Acreage]').val();
             let deposit = $('input[name=txt-deposit]').val().replaceAll(',', '');
             let bedamount = $('input[name=txt-BedAmount]').val();
+            let roomTypeId = $('#ListRoomType').val();
+            let status = $('#room-status').val();
             // danh sách img (mảng Link image)
             let Images = document.getElementById("input-img").files;
             console.log(id);
@@ -251,8 +450,10 @@
             console.log(acreage);
             console.log(deposit);
             console.log(bedamount);
+            console.log(roomTypeId);
+            console.log(status);
             console.log(Images);
-            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || Images.length == 0) {
+            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || Images.length == 0 || ckstring(roomTypeId) || ckstring(status)) {
                 Swal.fire(
                     'Cảnh báo',
                     'Vui lòng nhập đầy đủ thông tin!',
@@ -267,12 +468,51 @@
                 let StringImageNames = ImageNames.join(';');
                 console.log(StringImageNames);
                 $(this).prop('disabled', true);
-                Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames);
+                Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames, roomTypeId, status);
 
             }
 
         });
-        function Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames) {
+        // save edit
+        $('.btn-save-room-edit').on('click', function () {
+            console.log('nhấn nút lưu!');
+            // lấy giữ liệu từ form
+            let id = $('#hdfId').val();
+            let name = $('input[name=txt-room-name-edit]').val();
+            let branchId = $('#ListBranch-edit').val();
+            let branchFloor = $('#ListFloor-edit').val();
+            let price = $('input[name=txt-room-price-edit]').val().replaceAll(',', '');
+            let acreage = $('input[name=txt-Acreage-edit]').val();
+            let deposit = $('input[name=txt-deposit-edit]').val().replaceAll(',', '');
+            let bedamount = $('input[name=txt-BedAmount-edit]').val();
+            let roomTypeId = $('#ListRoomType-edit').val();
+            let status = $('#room-status-edit').val();
+
+
+            console.log(id);
+            console.log(name);
+            console.log(branchId);
+            console.log(branchFloor);
+            console.log(price);
+            console.log(acreage);
+            console.log(deposit);
+            console.log(bedamount);
+            console.log(roomTypeId);
+            console.log(status);
+            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || ckstring(roomTypeId) || ckstring(status)) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin!',
+                    'warning'
+                )
+            }
+            else {
+                $(this).prop('disabled', true);
+                Update(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, roomTypeId, status);
+            }
+        });
+        //update
+        function Update(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, roomTypeId, status) {
             let data = {};
             data["id"] = id;
             data["deleted"] = false;
@@ -283,8 +523,59 @@
             data["price"] = price;
             data["acreage"] = acreage;
             data["deposit"] = deposit;
-            data["status"] = 0;
+            data["status"] = status; // status 0: phòng trống, 1: sắp chuyển vào, 2: đang thuê, 3: sắp dọn ra
             data["bedAmount"] = bedamount;
+            data["roomTypeId"] = roomTypeId;
+            
+            console.log(data);
+            let type_request = 'PUT';
+
+            $('#modal-room').modal('hide');
+            $.ajax({
+                url: '@Model.Domain' + 'api/Room',
+                data: JSON.stringify(data),
+                type: type_request,
+                dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                contentType: "application/json",
+                success: function (data) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Cập nhật dữ liệu thành công!',
+                            'success'
+                        );
+                    $('.btn-save-room-edit').prop('disabled', false);
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Rất tiếc đã xảy ra lỗi!',
+                        'error'
+                    );
+                    $('.btn-save-room-edit').prop('disabled', false);
+                    console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+
+        // insert
+        function Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames, roomTypeId, status) {
+            let data = {};
+            data["id"] = id;
+            data["deleted"] = false;
+            data["active"] = false;
+            data["name"] = name;
+            data["branchId"] = branchId;
+            data["branchFloor"] = branchFloor;
+            data["price"] = price;
+            data["acreage"] = acreage;
+            data["deposit"] = deposit;
+            data["status"] = status; // status 0: phòng trống, 1: sắp chuyển vào, 2: đang thuê, 3: sắp dọn ra
+            data["bedAmount"] = bedamount;
+            data["roomTypeId"] = roomTypeId;
             data["images"] = StringImageNames;
             console.log(data);
             let type_request = 'POST';
@@ -371,7 +662,8 @@
             return rs;
         }
 
-        function load_branch() {
+        function load_branch()
+        {
             console.log('call api');
             $.ajax({
                 type: 'GET',
@@ -386,12 +678,60 @@
                     console.log(list);
 
                     select = document.getElementById('ListBranch');
+
                     for (let i = 0; i < list.length; i++) {
                         var opt = document.createElement('option');
                         console.log(list[i].Name);
                         opt.value = list[i].Id;
                         opt.innerHTML = list[i].Name;
                         select.appendChild(opt);
+                        console.log(opt);
+                    }
+                    select2 = document.getElementById('ListBranch-edit');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        console.log(list[i].Name);
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select2.appendChild(opt);
+                        console.log(opt);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+        function load_roomtype() {
+            console.log('call api');
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/RoomType?PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + '@Model.Users.Id',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+                    console.log(list);
+
+                    select = document.getElementById('ListRoomType');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        console.log(list[i].Name);
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select.appendChild(opt);
+                        console.log(opt);
+                    }
+                    select2 = document.getElementById('ListRoomType-edit');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        console.log(list[i].Name);
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select2.appendChild(opt);
                         console.log(opt);
                     }
                 },
@@ -418,7 +758,7 @@
             load_Room();
         });
         function load_Room() {
-            console.log('call api');
+            console.log('call api load room');
             $.ajax({
                 type: 'GET',
                 dataType: "json",
@@ -443,7 +783,7 @@
 
                     for (let i = 0; i < list.length; i++) {
                         let item = list[i];
-                        console.log('row' + i);
+                        console.log(item);
                         html += `<tr>
                                         <td class="checkbox-col">
                                             <a href="javascript:;" class="toggle-collapse"><i class="fa fa-angle-down"></i></a>
@@ -461,14 +801,12 @@
                                         </td>
                                         <td data-column="col-type">
                                             <div class="custom-control custom-switch type-rent-switch">
-                                                <input type="checkbox" class="custom-control-input" id="type-room-1" checked="true">
-                                                <label class="custom-control-label" for="type-room-1"><span class="text-pausedo"></span></label>
+                                                <label class="custom-control-label"><span>`+ item.RoomTypeId+`</span></label>
                                             </div>
                                         </td>
                                         <td data-column="col-status">
                                             <span class="badge badge-warning wd-100 pd-5 tx-12">
-                                                Sắp
-                                                chuyển vào
+                                                `+ item.Status +`
                                             </span>
                                             <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>
                                         </td>
@@ -481,7 +819,7 @@
                                             <div class="dropdown__wrap">
                                                 <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                 <ul class="drop-menu">
-                                                    <li class="drop-menu-item"><a href="room-detail.php" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item"><a href="RoomDetail" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
                                                     <li class="drop-menu-item">
                                                         <a href="#js-electronicNote" data-toggle="modal" class="item-link">
                                                             <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
@@ -491,6 +829,11 @@
                                                     <li class="drop-menu-item">
                                                         <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="DetailImage(`+ item.Id +`)">
                                                             <span class="icon"><i class="fas fa-image" aria-hidden="true" ></i></span>Hình ảnh
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="EditRoom(`+ item.Id +`)">
+                                                            <span class="icon"><i class="fas fa-edit" aria-hidden="true"></i></span>Chỉnh sửa
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
@@ -709,35 +1052,6 @@
         });
     </script>
     <!--by baonguyen-->
-    <div class="modal fade modal-nopadding-right" id="modal-room-image" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-            <div class="modal-content">
-                <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-image"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <input type="hidden" name="hdfId" value="0" />
-                            <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Hình ảnh phòng</h4>
-                            <p class="tx-13 tx-color-03 mg-b-0">hình ảnh chi tiết</p>
-                        </div>
-                    </div><!-- media -->
-                </div><!-- modal-header -->
-                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
-                    <input type="hidden" name="hdfId" value="0" />
-                    <div class="form-group">
-                        <div id="image-byroomid"></div>
-                    </div>
-                </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
-                </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
-    </div><!-- modal -->
     <!--Call API Image Room Theo RoomID-->
     <script>
         function DetailImage(RoomID) {
@@ -757,11 +1071,44 @@
                     for (let i = 0; i < list.length; i++) {
                         let item = list[i];
                         html += '<img src="' + item.Link +'" alt="image" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" />';
-                        
+
                     }
                     let a = $('#image-byroomid').html(html);
                     console.log(a);
                     $('#modal-room-image').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+
+
+        function EditRoom(RoomID) {
+            console.log('call api Edit room');
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/Room/' + RoomID,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let item = data.Data;
+
+                    // lấy giữ liệu từ api
+                    $('#hdfId').val(item.Id);
+                    $('input[name=txt-room-name-edit]').val(item.Name);
+                    $('#ListBranch-edit').val(item.BranchId).change();
+                    $('#ListFloor-edit').val(item.BranchFloor).change();
+                    $('input[name=txt-room-price-edit]').val(format_money(item.Price));
+                    $('input[name=txt-Acreage-edit]').val(item.Acreage);
+                    $('input[name=txt-deposit-edit]').val(format_money(item.Deposit));
+                    $('input[name=txt-BedAmount-edit]').val(item.BedAmount);
+                    $('#ListRoomType-edit').val(item.RoomTypeId).change();
+                    $('#room-status-edit').val(item.Status).change();
+                    $('#modal-room-edit').modal('show');
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
