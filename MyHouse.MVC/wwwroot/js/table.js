@@ -14,3 +14,13 @@ class NotificationUser {
         this.isSeen = isSeen;
     }
 }
+class UtilitiesConfig
+{
+    constructor(Id,Name,Price,Deleted)
+    {
+        this.Id = Id;
+        this.Name = Name;
+        this.Price= Price;
+        this.Deleted= Deleted;
+    }
+}

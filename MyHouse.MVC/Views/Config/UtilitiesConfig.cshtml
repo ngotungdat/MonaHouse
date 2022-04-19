@@ -126,9 +126,7 @@
                 'Content-Type': 'application/json'
             },
             success: function (data, status, xhr) {
-                //console.log('data: ', data);
                 let list = data.Data.Items;
-                console.log('list: ', list);
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
@@ -195,9 +193,6 @@
         const id = $('input[name=hdfId]').val();
         const name = $('input[name=txt-name]').val();
         const price = $('input[name=txt-price]').val().replaceAll(',', '');
-        console.log(id);
-        console.log(name);
-        console.log(price);
         if (ckstring(name) || ckstring(price)) {
             Swal.fire(
                 'Cảnh báo',
@@ -235,7 +230,6 @@
             },
             contentType: "application/json",
             success: function (data) {
-                console.log(data);
                 load_data(get_api(page_index, page_size, SearchContent, OrderBy));
                 if (type_request == 'POST') {
                     Swal.fire(

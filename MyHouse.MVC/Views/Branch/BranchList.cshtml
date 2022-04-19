@@ -45,7 +45,13 @@
         font-size: 17px;
         color: #ff0000;
     }
-    
+    .chevron{
+        color: #484848
+    }
+    .chevron :hover
+    {
+        color: #19a7a7;
+    }
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <h4 class="mg-b-15 tx-spacing--1">DANH SÁCH TÒA NHÀ</h4>
@@ -124,20 +130,20 @@
                     <div class="row mg-t-10">
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP <span class="text-danger">(*)</span></label>
-                            <select id="dll-house-city" class="form-control">
-                                <option value="0">-----</option>
+                            <select id="dll-house-city" onchange="getDistrict(this.value)" class="form-control">
+                                <option value="0">Tỉnh/TP</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Quận/Huyện <span class="text-danger">(*)</span></label>
-                            <select name="dll-house-district" class="form-control">
-                                <option value="0">-----</option>
+                            <select id="dll-house-district" onchange="getWard(this.value)" class="form-control">
+                                <option value="0">Quận/Huyện</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phường/Xã <span class="text-danger">(*)</span></label>
-                            <select name="dll-house-ward" class="form-control">
-                                <option value="0">-----</option>
+                            <select id="dll-house-ward" class="form-control">
+                                <option value="0">Phường/Xã</option>
                             </select>
                         </div>
                     </div>
@@ -189,32 +195,28 @@
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phí giữ xe: </label>
                             <a href="#" class="ml-1" id="ck-isParkingFee"></a>
-                            @* <a href="#" class="ml-1" id="ck-isParkingFee"><i class="fas fa-check-circle"></i></a><Span class="ml-2">Tính phí giữ xe</Span>
-                            <a href="#" class="ml-1"><i class="fas fa-times-circle"></i><Span class="ml-2">Tính phí giữ xe</Span></a> *@
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="row mg-t-10">
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiện ích </label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiện ích</label>
                         </div>
                     </div>
                     <div class="row mg-t-10">
-                        <div class="col-sm-3 pad-20">
-                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        <div class="col-sm-1"  style="padding-top:25px;font-size: 25px;color: #484848;">
+                            <a href="#" class="chevron" ><i  class="fas fa-chevron-left"></i></a></div>
+                        <div class="col-sm-10">
+                            <div class="row" id="UtilitiesConfig-List">
+                                @* <div class="col-sm-3 pad-20">
+                                    <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh - 100,000đ</Span>
+                                    </a>
+                                </div> *@
+                            </div>
                         </div>
-                        <div class="col-sm-3 pad-20">
-                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
-                        </div>
-                        <div class="col-sm-3 pad-20">
-                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
-                        </div>
-                        <div class="col-sm-3 pad-20">
-                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
-                        </div>
-                        <div class="col-sm-3 pad-20">
-                            <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh</Span> </a>
+                        <div class="col-sm-1" style="padding-top:25px;font-size: 25px;color: #484848;">
+                            <a href="#" class="chevron"><i class="fas fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -237,7 +239,6 @@
     let token = '@Model.Token';
     let domain = '@Model.Domain';
     domain += 'api/Branch';
-
     $(function () {
         load_data(1, 20, 0);
     });
@@ -256,6 +257,10 @@
         $('textarea[name=txt-house-description]').val('');
         $('input[name=hdfImage]').val('');
         $('#modal-branch').modal('show');
+        $('select').select2({
+            dropdownParent: $('#modal-branch')
+        });
+        getUtilitiesConfig(1);
     });
 
     //load chi tiết nhà/dãy trọ
@@ -356,7 +361,7 @@
             }
         });
     }
-    
+
     let isParkingFee = true;
     let node = document.createElement('i');
     node.className = "fas fa-check-circle";
@@ -380,9 +385,11 @@
         document.getElementById('ck-isParkingFee').appendChild(node);
         document.getElementById('ck-isParkingFee').appendChild(text);
     })
+
     $( async function () {
         await getCity();
     })
+
     async function getCity() {
         let myDomain = '@Model.Domain';
         myDomain += 'api/catalogue/get-city-catalogue/countryId?countryId=1&PageIndex=1&PageSize=65';
@@ -392,10 +399,96 @@
             let opption = document.createElement('option');
             opption.value = item.Id;
             opption.text = item.Name;
-            console.log('opption:',opption);
             document.getElementById('dll-house-city').appendChild(opption);
         }
-        console.log('text:',data);
+    }
+
+    async function getDistrict(cityId)
+    {
+        if(cityId!=0)
+        {
+            let myDomain = '@Model.Domain';
+            myDomain += `api/catalogue/get-district-catalogue/cityId?cityId=${cityId}&PageIndex=1&PageSize=100`;
+            let data = await api_get(myDomain,token);
+
+            var optionOut = document.getElementById("dll-house-district");
+            for (var i=0; i<optionOut.length; i++) {
+                if(optionOut.value != 0)
+                    optionOut.remove(i); 
+            }
+
+            for(var item of data.Data.Items)
+            {
+                let opption = document.createElement('option');
+                opption.value = item.Id;
+                opption.text = item.Name;
+                document.getElementById('dll-house-district').appendChild(opption);
+            }
+        }
+        
+    }
+
+    async function getWard(districtId)
+    {
+        if(districtId != 0)
+        {
+            let myDomain = '@Model.Domain';
+            myDomain += `api/catalogue/get-ward-catalogue/districtId?districtid=${districtId}&PageIndex=1&PageSize=100`;
+            let data = await api_get(myDomain,token);
+
+            var optionOut = document.getElementById("dll-house-ward");
+            for (var i=0; i<optionOut.length; i++) {
+                if(optionOut.value != 0)
+                    optionOut.remove(i); 
+            }
+            for(var item of data.Data.Items)
+            {
+                let opption = document.createElement('option');
+                opption.value = item.Id;
+                opption.text = item.Name;
+                document.getElementById('dll-house-ward').appendChild(opption);
+            }
+        }
+    }
+    let utilitiesConfigs = new Array();
+    let myUtilities = new Array();
+    async function getUtilitiesConfig(pageindexUti) {
+            let myDomain = '@Model.Domain';
+            myDomain += `api/UtilitiesConfig?PageIndex=${pageindexUti}&PageSize=8&OrderBy=0&TenantId=0`;
+            let data = await api_get(myDomain, token);
+
+            for (var item of data.Data.Items) {
+                let div = document.createElement('div');
+                div.classList.add('col-sm-3');
+                div.classList.add('pad-20');
+
+                let a = document.createElement('a');
+                a.className = 'ml-1';
+                a.id = 'utilies-' +item.Id;
+
+                a.setAttribute("href", "javascript:;");
+                let i = document.createElement('i');
+                i.classList.add('fas');
+                i.classList.add('fa-check-circle');
+
+                let span = document.createElement('span');
+                span.className = 'ml-2';
+                span.appendChild(document.createTextNode(item.Name + ' - '+ format_money(item.Price) + 'đ'));
+
+                a.appendChild(i);
+                a.appendChild(span);
+                div.appendChild(a);
+                document.getElementById('UtilitiesConfig-List').appendChild(div);
+                let utilitiesConfig = new UtilitiesConfig(item.Id,item.Price,item.Name,item.Deleted);
+                utilitiesConfigs.push(utilitiesConfig);
+                myUtilities.push(utilitiesConfig);
+            }
+    }
+    
+    async function editUtilies(id)
+    {
+        let utilitiesConfig = utilitiesConfigs.find(id);
+        myUtilities.push(utilitiesConfig);
     }
 </script>
 
