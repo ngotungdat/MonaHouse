@@ -135,6 +135,27 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: #555;
             }
+        
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 38px;
+        user-select: none;
+        -webkit-user-select: none;
+        background-clip: padding-box;
+        border: 1px solid #c0ccda;
+        padding: 0.46875rem 0.625rem !important;
+    }   
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: unset !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 35px;
+    }
+    select.form-control {
+        background-size: 9px;
+    }
     </style>
     <div class="modal-loading" style="background-image: url('/house/loading.gif')"></div>
     <header class="navbar navbar-header navbar-header-fixed">

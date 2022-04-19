@@ -10,17 +10,17 @@ namespace Sample.Request.Auth
         /// <summary>
         /// Mã chức năng
         /// </summary>
-        public string ? PermitObjectId { get; set; }
+        public string PermitObjectId { get; set; }
 
         /// <summary>
         /// Mã quyền
         /// </summary>
-        public string ? PermissionId { get; set; }
+        public string PermissionId { get; set; }
 
         /// <summary>
         /// Mã nhóm
         /// </summary>
-        public string ? UserGroupId { get; set; }
+        public string UserGroupId { get; set; }
 
     }
 }
