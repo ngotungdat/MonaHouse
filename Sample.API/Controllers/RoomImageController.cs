@@ -23,7 +23,7 @@ namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Quản lý thông tin nhà")]
+    [Description("Quản lý hình ảnh phòng")]
     public class RoomImageController : BaseController<RoomImage, RoomImageModel, RoomImageRequest, BaseSearch>
     {
         protected IUserService userService;

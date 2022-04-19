@@ -137,6 +137,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<RoomTypeModel, RoomType>().ReverseMap();
             CreateMap<RoomTypeRequest, RoomType>().ReverseMap();
             CreateMap<PagedList<RoomTypeModel>, PagedList<RoomType>>().ReverseMap();
+
+            CreateMap<UserInRoomModel, UserInRoom>().ReverseMap();
+            CreateMap<UserInRoomRequest, UserInRoom>().ReverseMap();
+            CreateMap<PagedList<UserInRoomModel>, PagedList<UserInRoom>>().ReverseMap();
         }
     
 

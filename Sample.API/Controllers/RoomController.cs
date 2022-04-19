@@ -24,7 +24,7 @@ namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Quản lý thông tin nhà")]
+    [Description("Quản lý thông tin phòng")]
     public class RoomController : BaseController<Room, RoomModel, RoomRequest, RoomSearch>
     {
         protected IBranchService branchService;

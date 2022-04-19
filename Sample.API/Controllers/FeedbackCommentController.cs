@@ -24,7 +24,7 @@ namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Trung tâm phản hồi")]
+    [Description("Bình luận phản hồi")]
     [Authorize]
     public class FeedbackCommentController : BaseController<FeedbackComment, FeedbackCommentModel, FeedbackCommentRequest, BaseSearch>
     {

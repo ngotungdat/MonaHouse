@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Sample.Models.DomainModels;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-
-namespace Sample.Entities
+namespace Sample.Models
 {
-    public class UserInRoom : DomainEntities.AppDomain
+    public class UserInRoomModel : AppDomainModel
     {
         public int? UsersId { get; set; }
         /// <summary>
@@ -47,9 +44,7 @@ namespace Sample.Entities
         /// Trạng thái
         /// </summary>
         public int? Status { get; set; }
-        [NotMapped]
         public string FullName { get; set; }
-        [NotMapped]
-        public string Phone{ get; set; }
+        public string Phone { get; set; }
     }
 }

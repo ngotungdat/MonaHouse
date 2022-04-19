@@ -221,37 +221,36 @@
                         </div>
                     </div><!-- media -->
                 </div><!-- modal-header -->
-
-                <div class="upload-box mg-t-15 ">
-                    <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
-                        <div class="right-action">
-                            <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
+                <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                    <div class="upload-box mg-t-15 ">
+                        <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
+                            <div class="right-action">
+                                <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
+                            </div>
+                        </div>
+                        <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
+                        <div class="preview-image" id="image-byroomid">
+                            <div class="image-wrap">
+                                <div class="image-box lightgallery">
+                                    <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
+                                </div>
+                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="image-wrap">
+                                <div class="image-box lightgallery">
+                                    <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
+                                </div>
+                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                            </div>
                         </div>
                     </div>
-
-                    <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
-                    <div class="preview-image" id="image-byroomid">
-                        <div class="image-wrap">
-                            <div class="image-box lightgallery">
-                                <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
-                            </div>
-                            <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                        </div>
-                        <div class="image-wrap">
-                            <div class="image-box lightgallery">
-                                <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
-                            </div>
-                            <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                        </div>
-
+                </div>
+                    <!-- modal-body -->
+                    <div class="modal-footer pd-x-20 pd-y-15">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                        <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
                     </div>
-                </div>
-                <!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary btn-save-fee">Lưu lại</button>
-                </div>
-            </div><!-- modal-content -->
+                </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div><!-- modal -->
     <!--modal Edit Room-->
@@ -828,10 +827,12 @@
         });
         //
         // xóa img
+        let listImage = [];
         function deleteImage(index) {
-            console.log('delete index:' + index);
-            //document.getElementById("input-img").files.splice(index, 1);
-            console.log(document.getElementById("input-img").files);
+            
+            //list.remove(index);
+            listImage.splice(index,1);
+            console.log(listImage);
         }
         //
         $(document).ready(function () {
@@ -939,7 +940,8 @@
             let roomTypeId = $('#ListRoomType').val();
             let status = $('#room-status').val();
             // danh sách img (mảng Link image)
-            let Images = document.getElementById("input-img").files;
+           
+
             console.log(id);
             console.log(name);
             console.log(branchId);
@@ -950,8 +952,8 @@
             console.log(bedamount);
             console.log(roomTypeId);
             console.log(status);
-            console.log(Images);
-            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || Images.length == 0 || ckstring(roomTypeId) || ckstring(status)) {
+            console.log(listImage);
+            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || listImage.length == 0 || ckstring(roomTypeId) || ckstring(status)) {
                 Swal.fire(
                     'Cảnh báo',
                     'Vui lòng nhập đầy đủ thông tin!',
@@ -959,7 +961,7 @@
                 )
             }
             else {
-                let ImageNames = upload_img(Images);
+                let ImageNames = upload_img(listImage);
                 for (let i = 0; i < ImageNames.length; i++) {
                     ImageNames[i] = '@Model.Domain' + ImageNames[i];
                 }
@@ -1046,6 +1048,7 @@
                             'success'
                         );
                     $('.btn-save-room-edit').prop('disabled', false);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1096,6 +1099,7 @@
                             'success'
                         );
                     $('.btn-save-room').prop('disabled', false);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1110,13 +1114,14 @@
         }
         function readURL(input) {
             if (input.files && input.files[0]) {
+                listImage = [];
                 console.log(input.files.length);
                 let html = '';
                 for (let i = 0; i < input.files.length; i++) {
                     //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
                     html += `<div class="image-wrap">
                             <div class="image-box lightgallery">
-                                <a href="#" class=""> <img id="room-img-` + i + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
+                                <a id="room-img-href-` + i + `" href="#" class=""> <img id="room-img-` + i + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
                             </div>
                             <a id="img-` + i + `" onClick="deleteImage(`+i+`)" href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
                         </div>`;
@@ -1129,8 +1134,14 @@
                             .attr('src', e.target.result)
                             .width(150)
                             .height(200);
+                        $('#' + 'room-img-href-' + i)
+                            .attr('href', e.target.result)
                     };
                     reader.readAsDataURL(input.files[i]);
+                }
+                let value = document.getElementById("input-img").files;
+                for (let i of value) {
+                    listImage.push(i);
                 }
             }
 
@@ -1263,7 +1274,7 @@
 <!--Call API danh sách phòng phòng-->
 <script>
         let PageIndex = 1;
-        let PageSize = 3;
+        let PageSize = 20;
         let OrderBy = 0;
         let SearchContent = '';
         let TotalItem = 0;
@@ -1352,7 +1363,7 @@
                                             <div class="dropdown__wrap">
                                                 <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                 <ul class="drop-menu">
-                                                    <li class="drop-menu-item"><a href="RoomDetail" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item"><a href="./RoomDetail/`+item.Id+`" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
                                                     <li class="drop-menu-item">
                                                         <a href="#js-electronicNote" data-toggle="modal" class="item-link" onclick="electricRecord(`+ item.Id +`)">
                                                             <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
@@ -1684,6 +1695,7 @@
                     $('#ListRoomType-edit').val(item.RoomTypeId).change();
                     $('#room-status-edit').val(item.Status).change();
                     $('#modal-room-edit').modal('show');
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

@@ -24,7 +24,7 @@ namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Hợp đồng mẫu")]
+    [Description("Giấy phép")]
     [Authorize]
     public class LicenseController : BaseController<Entities.License, LicenseModel, LicenseRequest, LicenseSearch>
     {
