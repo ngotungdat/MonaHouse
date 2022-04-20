@@ -11,5 +11,6 @@ namespace Sample.Interface.Services
 {
     public interface IUserInRoomService : IDomainService<UserInRoom, BaseSearch>
     {
+        Task<List<UserInRoom>> GetByUserInRoomByRoomId(int id);
     }
 }

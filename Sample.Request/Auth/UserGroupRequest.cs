@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Request.Auth
 {
-    public class UserGroupRequest : AppDomainCatalogueRequest
+    public class UserGroupRequest : AppDomainRequest
     {
         #region Extension Properties
 
@@ -25,5 +25,11 @@ namespace Sample.Request.Auth
         public IList<PermitObjectPermissionRequest> PermitObjectPermissions { get; set; }
 
         #endregion
+        
+        public string Code { get; set; }
+        
+        public string Name { get; set; }
+        
+        public string Description { get; set; }
     }
 }

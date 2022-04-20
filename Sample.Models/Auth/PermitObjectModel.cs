@@ -9,7 +9,7 @@ namespace Sample.Models.Auth
     /// <summary>
     /// Chức năng người dùng
     /// </summary>
-    public class PermitObjectModel : AppDomainCatalogueModel
+    public class PermitObjectModel : AppDomainModel
     {
         /// <summary>
         /// Tên controller
@@ -39,6 +39,10 @@ namespace Sample.Models.Auth
 
 
         #endregion
+        public string Code { get; set; }
 
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

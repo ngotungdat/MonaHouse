@@ -44,5 +44,9 @@ namespace Sample.Models
         public int? BedAmount { get; set; }
         public int? RoomTypeId { get; set; }
         public string RoomTypeName { get; set; }
+        public int? FloorId { get; set; }
+        public string BranchName { get; set; }
+        public string FloorName { get; set; }
+
     }
 }

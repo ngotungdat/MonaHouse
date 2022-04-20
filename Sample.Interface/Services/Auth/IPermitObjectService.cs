@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sample.Interface.Services.Auth
 {
-    public interface IPermitObjectService : ICatalogueService<PermitObjects, BaseSearch>
+    public interface IPermitObjectService : IDomainService<PermitObjects, BaseSearch>
     {
     }
 }

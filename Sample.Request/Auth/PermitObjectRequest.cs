@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Request.Auth
 {
-    public class PermitObjectRequest : AppDomainCatalogueRequest
+    public class PermitObjectRequest : AppDomainRequest
     {
         /// <summary>
         /// Tên controller
@@ -36,5 +36,10 @@ namespace Sample.Request.Auth
 
 
         #endregion
+        public string Code { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

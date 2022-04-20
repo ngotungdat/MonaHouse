@@ -11,10 +11,14 @@ using Sample.Entities.Auth;
 
 namespace Sample.Service.Services.Auth
 {
-    public class PermitObjectService : CatalogueService<PermitObjects, BaseSearch>, IPermitObjectService
+    public class PermitObjectService : DomainService<PermitObjects, BaseSearch>, IPermitObjectService
     {
-        public PermitObjectService(IAppUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration) : base(unitOfWork, mapper, configuration)
+        public PermitObjectService(IAppUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
+        }
+        protected override string GetStoreProcName()
+        {
+            return "PermitObject_GetPagingData";
         }
     }
 }

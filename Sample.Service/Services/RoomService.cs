@@ -55,6 +55,7 @@ namespace Sample.Service.Services
             room.Deleted = itemModel.Deleted;
             room.Active = itemModel.Active;
             room.RoomTypeId = itemModel.RoomTypeId;
+            room.FloorId = itemModel.FloorId;
             //
             //var result = await this.CreateAsync(room);
             await this.unitOfWork.Repository<Room>().CreateAsync(room);

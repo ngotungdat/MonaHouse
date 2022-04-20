@@ -15,6 +15,10 @@ namespace Sample.Entities
         /// </summary>
         public int? BranchId { get; set; }
         /// <summary>
+        /// Tầng
+        /// </summary>
+        public int? FloorId { get; set; }
+        /// <summary>
         /// Tầng/Khu/Dãy
         /// </summary>
         public string BranchFloor { get; set; }
@@ -48,5 +52,9 @@ namespace Sample.Entities
         public int? RoomTypeId { get; set; }
         [NotMapped]
         public string RoomTypeName { get; set; }
+        [NotMapped]
+        public string BranchName { get; set; }
+        [NotMapped]
+        public string FloorName { get; set; }
     }
 }

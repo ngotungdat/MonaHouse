@@ -47,5 +47,7 @@ namespace Sample.Request
 
         public string Images { get; set; }
         public int? RoomTypeId { get; set; }
+        public int? FloorId { get; set; }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using Sample.Service.Services.DomainServices;
 using Sample.Interface.Services;
 using Sample.Interface.DbContext;
+using System.Threading.Tasks;
 
 namespace Sample.Service.Services
 {
@@ -18,6 +19,13 @@ namespace Sample.Service.Services
         {
             this.coreDbContext = coreDbContext;
         }
+
+        public async Task<List<UserInRoom>> GetByUserInRoomByRoomId(int id)
+        {
+            var result=(List<UserInRoom>) await this.GetAsync(d => d.RoomId == id);
+            return result;
+        }
+
         protected override string GetStoreProcName()
         {
             return "UserInRoom_GetPagingData";

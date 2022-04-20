@@ -14,7 +14,7 @@ using Sample.Entities.Search;
 
 namespace Sample.Service.Services.Auth
 {
-    public class UserGroupService : CatalogueService<UserGroups, UserInGroupSearch>, IUserGroupService
+    public class UserGroupService : DomainService<UserGroups, UserInGroupSearch>, IUserGroupService
     {
         IPermitObjectService permitObjectService;
         public UserGroupService(IAppUnitOfWork unitOfWork
@@ -192,7 +192,7 @@ namespace Sample.Service.Services.Auth
         public override async Task<string> GetExistItemMessage(UserGroups item)
         {
             string result = string.Empty;
-            bool isExistCode = await Queryable.AnyAsync(x => !x.Deleted && x.Id != item.Id && x.Code == item.Code);
+            bool isExistCode = await Queryable.AnyAsync(x => x.Deleted);
             if (item.Id > 0 && item.PermitObjectPermissions != null && item.PermitObjectPermissions.Any())
             {
                 foreach (var permitObject in item.PermitObjectPermissions)
@@ -229,6 +229,10 @@ namespace Sample.Service.Services.Auth
                 }
             }
             throw new Exception("Lỗi trong quá trình xử lý");
+        }
+        protected override string GetStoreProcName()
+        {
+            return "UserGroup_GetPagingData";
         }
     }
 }

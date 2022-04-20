@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services.Auth
 {
-    public interface IUserGroupService : ICatalogueService<UserGroups, UserInGroupSearch>
+    public interface IUserGroupService : IDomainService<UserGroups, UserInGroupSearch>
     {
         public Task<UserGroups> GetUserGroupsByPermitObjectId(string Id);
     }
