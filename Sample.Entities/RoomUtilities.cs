@@ -18,6 +18,7 @@ namespace Sample.Entities
         /// </summary>
         public int? UtilitiesId { get; set; }
         public double? Price { get; set; }
-
+        [NotMapped]
+        public string UtilitiName { get; set; }
     }
 }

@@ -757,7 +757,7 @@
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Lưu lại</button>
+                    <button type="button" class="btn btn-primary-edit-room-service">Lưu lại</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
@@ -1534,7 +1534,7 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-8 ">
                                                         <div class="legend-box pd-25  " data-label="Phí và dịch vụ">
-                                                            <a href="javascript:;" onclick="EditServiceRoom(`+item.Id+`)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <a href="#js-edit-service" onclick="EditServiceRoom(`+item.Id+`)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <div class="info-list">
@@ -1804,6 +1804,20 @@
 <!-- xu ly modal tien ich-->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
+    // nhan nut save
+    $('.btn-primary-edit-room-service').on('click', function () {
+        let data = {};
+        let lsUtilitiesAndPrice = ListUtiliti_service.join(";");
+        data["id"] = 0;
+        data["deleted"] = false;
+        data["active"] = true;
+        data["roomid"] = roomid;
+        data["listUtilitiesAndPrice"] = lsUtilitiesAndPrice;
+        // tham so chuen vao gom: roomId, UltilitiesId, price
+        let api_update_utilities_room = 'api/RoomUtilities/Update_Utilities_RoomService';
+        console.log(data);
+        create_data(data, api_update_utilities_room)
+    })
     //call api tien ich
     let api_utilitiConfig = 'api/UtilitiesConfig?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
 
@@ -1816,20 +1830,22 @@
             let item = list[i];
             html += '<tr>';
             html += '<td>' + item.Name + '</td>';
-            html += '<td><input data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
+            html += '<td><input id="RoomUtilitiesPrice-' + item.Id + '" data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
             html += '<td>' +
-                '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
+                '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" data-roomid="'+item.Id+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
             html += '</tr>';
         }
         $('#tbody-update-room-utilities').hide().html(html).show('slow');
     })
 
+    let roomid = 0;
     let ListRoomUtilies = [];
     function EditServiceRoom(RoomID) {
         // call api Room Utilities
-        let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+RoomID;
-
-        load_data_with_jquery(api_RoomUtilities).then(function (e) {
+        roomid = RoomID;
+        console.log(roomid);
+        let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' + '&RoomId=' + RoomID;
+        let rs = load_data_with_jquery(api_RoomUtilities).then(function (e) {
             ListRoomUtilies = [];
             ListUtiliti_service = [];
             let list = e.Data.Items;
@@ -1838,27 +1854,54 @@
             $('#js-edit-service').modal('show');
         })
     }
-
     let ListUtiliti_service = [];
     function RoomUtilitiesCheck() {
-        for (var j = 0; j < ListRoomUtilies.length; j++) {
-            let tmp = false;
+        if (ListRoomUtilies.length > 0) {
             for (var i = 0; i < ListUtiliesConfig.length; i++) {
-            var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
-                console.log(ListUtiliesConfig[i].Id, ListRoomUtilies[j].UtilitiesId);
-                if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId && tmp == false) {
-                    checkBox.checked = true;
-                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    console.log(ListUtiliti_service);
-                    tmp = true;
+                let tmp = false;
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+                for (var j = 0; j < ListRoomUtilies.length; j++) {
+                    if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId) {
+                        console.log('tick:' + ListUtiliesConfig[i].Id);
+                        checkBox.checked = true;
+                        ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                        input.value = format_money(ListRoomUtilies[j].Price);
+                        input.readOnly = true;
+                        console.log(ListUtiliti_service);
+                        tmp = true;
+                        break;
+                    }
+                    else{
+                        tmp = false;
+                    }
                 }
-                else {
-                    console.log(checkBox)
-                    tmp = false;
+                if (tmp == false) {
                     checkBox.checked = false;
-                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    ListUtiliti_service.splice(index,1);
+                    console.log('toe:' + ListUtiliesConfig[i].Id);
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    input.value = format_money(ListUtiliesConfig[i].Price);
+                    console.log(ListUtiliti_service);
+                    if (index >= 0) {
+                        ListUtiliti_service.splice(index, 1);
+                    }
+                    input.readOnly = false;
+                    console.log('index:'+index);
+                    console.log(ListUtiliti_service);
                 }
+            }
+            console.log(ListUtiliti_service);
+        }
+        else {
+            for (var i = 0; i < ListUtiliesConfig.length; i++) {
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
+                checkBox.checked = false;
+                let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                input.value = ListUtiliesConfig[i].Price;
+                ListUtiliti_service.splice(index, 1);
+                input.readOnly = false;
             }
         }
     }
@@ -1867,13 +1910,17 @@
         for (let i = 0; i < ListUtiliesConfig.length; i++) {
             if (ListUtiliesConfig[i].Id == ListUtiliesConfig[index].Id) {
                 var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
                 if (checkBox.checked == true) {
-                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
+                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    input.readOnly = true;
                     console.log(ListUtiliti_service);
                 }
                 else {
-                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    ListUtiliti_service.splice(index,1);
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    ListUtiliti_service.splice(index, 1);
+                    input.readOnly = false;
                     console.log(ListUtiliti_service);
                 }
             }

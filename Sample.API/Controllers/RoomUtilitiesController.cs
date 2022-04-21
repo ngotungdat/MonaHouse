@@ -35,8 +35,30 @@ namespace Sample.API.Controllers
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.domainService = serviceProvider.GetRequiredService<IRoomUtilitiService>();
-            
+            this.roomUtilitieService = serviceProvider.GetRequiredService<IRoomUtilitiService>();
         }
-        
+
+        [HttpPost]
+        [Route("Update_Utilities_RoomService")]
+        [AppAuthorize(new string[] { CoreContants.Update })]
+        public async Task<AppDomainResult> UpdateUtilitiesRoomService([FromBody] UpdateUtilitiesRoomRequest itemModel)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            bool success = false;
+            if (ModelState.IsValid)
+            {
+                success = await roomUtilitieService.UpdateUtilitiesRoom(itemModel);
+                if (success)
+                    appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                else
+                    throw new Exception("Lỗi trong quá trình xử lý");
+                appDomainResult.Success = success;
+            }
+            else
+            {
+                throw new AppException(ModelState.GetErrorMessage());
+            }
+            return appDomainResult;
+        }
     }
 }
