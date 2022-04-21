@@ -21,6 +21,7 @@ using Sample.Service.Services.Catalogue;
 using Sample.Interface.Services.Configuration;
 using Sample.Service.Services.Configurations;
 using Sample.Interface.DbContext;
+using Sample.Interface;
 
 namespace Sample.BaseAPI
 {
@@ -75,6 +76,7 @@ namespace Sample.BaseAPI
             services.AddScoped<INotificationUserService, NotificationUserService>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomImageService, RoomImageService>();
+            services.AddScoped<IRoomUtilitiService, RoomUtilitiesService>();
 
             #endregion
 

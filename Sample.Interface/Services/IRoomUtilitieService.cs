@@ -1,5 +1,4 @@
 ﻿using Sample.Entities;
-using Sample.Entities.DomainEntities;
 using Sample.Entities.Search;
 using Sample.Interface.Services.DomainServices;
 using System;
@@ -10,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IUserInRoomService : IDomainService<UserInRoom, UserInRoomSearch>
+    public interface IRoomUtilitiService: IDomainService<RoomUtilities,RoomUtilitiSearch>
     {
-        Task<List<UserInRoom>> GetByUserInRoomByRoomId(int id);
     }
 }

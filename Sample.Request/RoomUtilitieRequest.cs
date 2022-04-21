@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Sample.Request.DomainRequests;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Sample.Entities
+namespace Sample.Request
 {
-    public class RoomUtilities : DomainEntities.AppDomain
+    public class RoomUtilitieRequest: AppDomainRequest
     {
         /// <summary>
         /// Trung tâm 
