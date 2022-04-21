@@ -26,7 +26,7 @@ namespace Sample.API.Controllers.Auth
     [ApiController]
     [Description("Nhóm người dùng")]
     [Authorize]
-    public class UserGroupController : BaseCatalogueController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>
+    public class UserGroupController : BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>
     {
         private readonly IUserInGroupService userInGroupService;
         private readonly IPermitObjectService permitObjectService;
@@ -39,7 +39,7 @@ namespace Sample.API.Controllers.Auth
             , IWebHostEnvironment env)
             : base(serviceProvider, logger, env)
         {
-            this.catalogueService = serviceProvider.GetRequiredService<IUserGroupService>();
+            this.domainService = serviceProvider.GetRequiredService<IUserGroupService>();
             userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
             permissionService = serviceProvider.GetRequiredService<IPermissionService>();
             permitObjectPermissionService = serviceProvider.GetRequiredService<IPermitObjectPermissionService>();
@@ -60,7 +60,7 @@ namespace Sample.API.Controllers.Auth
         {
             AppDomainResult appDomainResult = new AppDomainResult();
 
-            var item = await this.catalogueService.GetByIdAsync(id);
+            var item = await this.domainService.GetByIdAsync(id);
             if (item != null)
             {
                 if (LoginContext.Instance.CurrentUser != null)

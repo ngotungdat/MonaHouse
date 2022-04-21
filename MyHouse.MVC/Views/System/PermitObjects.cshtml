@@ -465,7 +465,8 @@
             html += '<td>' + item.Id + '</td>';
             html += '<td>' + item.Name + '</td>';
             html += '<td>' +
-                '<input type="checkbox" id="add-form-checkactive-' + item.Id + '" onchange="AddFormCheck(' + i +')" ></td>';
+                '<input type="checkbox" id="add-form-checkactive-' + item.Id + '" onchange="AddFormCheck(' + i + ')" ></td>';
+            html += '</tr>';
         }
         $('#tbody-add-PermitObjects').hide().html(html).show('slow');
 

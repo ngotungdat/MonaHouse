@@ -27,11 +27,11 @@ namespace Sample.API.Controllers.Auth
     [ApiController]
     [Description("Chức năng người dùng")]
     [Authorize]
-    public class PermitObjectController : BaseCatalogueController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>
+    public class PermitObjectController : BaseController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>
     {
         public PermitObjectController(IServiceProvider serviceProvider, ILogger<BaseController<PermitObjects, PermitObjectModel, PermitObjectRequest, BaseSearch>> logger, IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
-            this.catalogueService = serviceProvider.GetRequiredService<IPermitObjectService>();
+            this.domainService = serviceProvider.GetRequiredService<IPermitObjectService>();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Sample.API.Controllers.Auth
             AppDomainResult appDomainResult = new AppDomainResult();
             try
             {
-                var item = await this.catalogueService.GetByIdAsync(id);
+                var item = await this.domainService.GetByIdAsync(id);
                 if (item != null)
                 {
                     var itemModel = mapper.Map<PermitObjectModel>(item);

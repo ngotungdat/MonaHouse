@@ -11,7 +11,11 @@
         margin-left: -15px;
         margin-bottom: 20px;
     }
-
+    .btn-primary-edit {
+        color: #fff;
+        background-color: #1ec8c8;
+        border-color: #1ec8c8;
+    }
     .modal-dialog {
         max-width: 20%;
     }
@@ -490,25 +494,66 @@
     </div><!-- modal-dialog -->
 </div>
 <!---->
+<!--modal add userinroom-->
+<div class="modal fade show" id="js-edit-rentor" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Khách ở phòng</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class=" room-info">
+                    <div class="row">
+                        <input type="hidden" name="txt-id-edit" value="0" />
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
+                            <select class="js-example-basic-single form-control select2" name="Status-edit" id="Status-edit">
+                                <option disabled="true" selected>Trạng thái</option>
+                                <option value="0">Đã chuyển</option>
+                                <option value="1">Đang ở</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary-edit">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
     var pathArray = window.location.pathname.split('/');
     var roomId = pathArray[3];
     console.log('roomId:' + roomId);
-    let api = 'api/userinroom?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+    let api = 'api/userinroom?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+roomId;
     let searchContent = '';
     let pageIndex = 1;
     let pageSize = 20;
     let orderBy = 0;
-    console.log(api);
     $(document).ready(function () {
+        Load_data();
+    });
+    function Load_data() {
         load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
             .then(function (e) {
                 let html = '';
                 console.log(e.Data.Items);
                 let List = e.Data.Items;
                 let stt = 0;
-                for (let i = 0; i < List.length;i++) {
+                for (let i = 0; i < List.length; i++) {
                     let item = List[i];
                     console.log(item);
                     let status = "";
@@ -520,22 +565,21 @@
                     }
                     stt++;
                     html += `<tr>
-                                    <td>`+stt+`</td>
-                                    <td>`+ item.FullName+`</td>
-                                    <td>`+ item.Phone +`</td>
-                                    <td>`+ item.CMT+`</td>
+                                    <td>`+ stt + `</td>
+                                    <td>`+ item.FullName + `</td>
+                                    <td>`+ item.Phone + `</td>
+                                    <td>`+ item.CMT + `</td>
                                     <td>14/07/2022</td>
                                     <td>DAKLAK</td>
-                                    <td>`+status+`</td>
+                                    <td>`+ status + `</td>
                                     <td>
-                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status +`"  data-toggle="modal" class="btn btn-info js-add-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                     </td>
                                 </tr>`;
                 }
                 $('#tbody-userinroom').html(html);
             });
-
-    });
+    }
     // them moi
     $('#add-userinroom').on('click', function () {
         $('input[name="txt-id"]').val(0);
@@ -574,15 +618,16 @@
             });
     });
     // edit ko sai
-   @* $(document).on('click','.js-add-rent', function () {
-        console.log('edit:' + $(this).attr('data-id'));
-        $('input[name="txt-id"]').val($(this).attr('data-id'));
-        $('input[name="txt-name"]').val($(this).attr('data-name'));
+    $(document).on('click','.js-edit-rent', function () {
+        @*$('input[name="txt-name"]').val($(this).attr('data-name'));
         $('input[name="txt-phone"]').val($(this).attr('data-phone'));
-        $('input[name="txt-cmnd"]').val($(this).attr('data-cmnd'));
-        $('select[name="txt-status"]').val($(this).attr('data-status')).change();
-        $('#js-add-rentor').modal('show');
-    });*@
+        $('input[name="txt-cmnd"]').val($(this).attr('data-cmnd'));*@
+
+        console.log('edit:' + $(this).attr('data-id'));
+        $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
+        $('select[name="Status-edit"]').val($(this).attr('data-status')).change();
+        $('#js-edit-rentor').modal('show');
+    });
     $('.btn-primary').on('click', function () {
         let id = $('input[name="txt-id"]').val();
         let userid = $('select[name="ListUserSearch"]').val();
@@ -606,18 +651,109 @@
             data["deleted"] = false;
             data["active"] = true;
             data["roomId"] = roomId;
-            
+
             let apiCRUD = 'api/userinroom';
             if (id == 0) {
-                $(this).prop('disabled', true);
-                let rs = create_data(data, apiCRUD);
-                console.log(rs);
+                create_data(data, apiCRUD).then(function (e) {
+                    load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
+                        .then(function (e) {
+                            let html = '';
+                            console.log(e.Data.Items);
+                            let List = e.Data.Items;
+                            let stt = 0;
+                            for (let i = 0; i < List.length; i++) {
+                                let item = List[i];
+                                console.log(item);
+                                let status = "";
+                                if (item.Status == 0) { // 0: don di; 1:dang o
+                                    status = '<span class="tx-danger">Đã chuyển</span>';
+                                }
+                                if (item.Status == 1) {
+                                    status = '<span class="tx-success">Đang ở</span>';
+                                }
+                                stt++;
+                                html += `<tr>
+                                    <td>`+ stt + `</td>
+                                    <td>`+ item.FullName + `</td>
+                                    <td>`+ item.Phone + `</td>
+                                    <td>`+ item.CMT + `</td>
+                                    <td>14/07/2022</td>
+                                    <td>DAKLAK</td>
+                                    <td>`+ status + `</td>
+                                    <td>
+                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>`;
+                            }
+                            $('#tbody-userinroom').html(html);
+                            $('#js-add-rentor').modal('hide');
+
+                        });
+                });
             }
             else {
-                $(this).prop('disabled', true);
-                update_data(data, apiCRUD);
+                update_data(data, apiCRUD).then(function (e) {
+                    load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
+                        .then(function (e) {
+                            let html = '';
+                            console.log(e.Data.Items);
+                            let List = e.Data.Items;
+                            let stt = 0;
+                            for (let i = 0; i < List.length; i++) {
+                                let item = List[i];
+                                console.log(item);
+                                let status = "";
+                                if (item.Status == 0) { // 0: don di; 1:dang o
+                                    status = '<span class="tx-danger">Đã chuyển</span>';
+                                }
+                                if (item.Status == 1) {
+                                    status = '<span class="tx-success">Đang ở</span>';
+                                }
+                                stt++;
+                                html += `<tr>
+                                    <td>`+ stt + `</td>
+                                    <td>`+ item.FullName + `</td>
+                                    <td>`+ item.Phone + `</td>
+                                    <td>`+ item.CMT + `</td>
+                                    <td>14/07/2022</td>
+                                    <td>DAKLAK</td>
+                                    <td>`+ status + `</td>
+                                    <td>
+                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>`;
+                            }
+                            $('#tbody-userinroom').html(html);
+                            $('#js-add-rentor').modal('hide');
 
+                        });
+                });;
             }
+
+        }
+
+
+    });
+    $('.btn-primary-edit').on('click', function () {
+        let id = $('input[name="txt-id-edit"]').val();
+        let status = $('select[name="Status-edit"]').val();
+        console.log(id);
+        console.log(status);
+        if ( ckstring(status)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            // lỗi
+            data["id"] = id;
+            data["status"] = status;
+            let apiCRUD = 'api/userinroom';
+            update_data(data, apiCRUD).then(function (e) { Load_data(); });;
+            $('#js-add-rentor').modal('hide');
         }
 
 

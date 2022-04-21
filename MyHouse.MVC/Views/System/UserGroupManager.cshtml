@@ -87,10 +87,10 @@
                             <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: chủ trọ">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" hidden>
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-code" required class="form-control" placeholder="Ví dụ: CHUTRO">
+                            <input type="text" name="txt-code" value="Staff" required class="form-control" >
                         </div>
                     </div>
                     <div class="row">
@@ -191,7 +191,7 @@
     $('.btn-add-user-group').on('click', function () {
         $('input[name=hdfId]').val(0);
         $('input[name=txt-name]').val('');
-        $('input[name=txt-code]').val('');
+        $('input[name=txt-code]').val('Staff');
         $('input[name=txt-description]').val('');
         $('#modal-user-group').modal('show');
     });
