@@ -93,19 +93,19 @@
 
         case 3: // chủ nhà -  chủ trọ
             <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
-            <li class="nav-item @ViewBag.Dashboard">
+            <li class="nav-item">
                 <a href="@Url.Action("Dashboard", "Home", new { area = "" })" class="nav-link"><i class="fas fa-chart-area"></i> <span class="mg-l-5">Thống kê</span></a>
             </li>
-            <li class="nav-item @ViewBag.ListHouse">
+            <li class="nav-item">
                 <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i class="fas fa-home"></i> <span class="mg-l-5">Nhà/Dãy trọ</span></a>
             </li>
-            <li class="nav-item @ViewBag.ListRoom">
+            <li class="nav-item">
                 <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i class="fas fa-hospital-alt"></i> <span class="mg-l-5">Phòng</span></a>
             </li>
-            <li class="nav-item @ViewBag.ElectrictWater">
+            <li class="nav-item">
                 <a href="@Url.Action("RecordList", "Record", new { area = "" })" class="nav-link"><i class="fas fa-edit"></i> <span class="mg-l-5">Ghi điện nước</span></a>
             </li>
-            <li class="nav-item @ViewBag.CollectList">
+            <li class="nav-item">
                 <a href="@Url.Action("PaymentHistoryList", "PaymentHistory", new { area = "" })" class="nav-link"><i class="fas fa-history"></i> <span class="mg-l-5">Lịch sử thu tiền</span></a>
             </li>
             <li class="nav-item with-sub">
