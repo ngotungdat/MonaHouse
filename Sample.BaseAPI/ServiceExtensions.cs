@@ -95,6 +95,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IPaymentMethodService, PaymentmethodService>();
             services.AddScoped<IRoomTypeService, RoomTypeService>();
             services.AddScoped<IUserInRoomService, UserInRoomService>();
+            services.AddScoped<IElectricWaterBillService, ElectricWaterBillService>();
 
             #endregion
 

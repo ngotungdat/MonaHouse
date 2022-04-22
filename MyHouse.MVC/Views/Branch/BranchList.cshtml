@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="row mg-t-10">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại <span class="text-danger">(*)</span></label>
                             <select name="dll-house-type" class="form-control">
                                 <option value="1" selected>Cửa hàng - Kiot</option>
@@ -119,15 +119,15 @@
                                 <option value="6">Chung cư</option>
                             </select>
                         </div>
-                        <div class="col-sm-6">
+                       @* <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Loại hình thuê <span class="text-danger">(*)</span></label>
                             <select name="dll-rental-form" class="form-control">
                                 <option value="1" selected>Bao phòng</option>
                                 <option value="2">Ký túc xá</option>
                             </select>
-                        </div>
+                        </div>*@
                     </div>
-                    <div class="row mg-t-10">
+                    @*<div class="row mg-t-10">
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tỉnh/TP <span class="text-danger">(*)</span></label>
                             <select id="dll-house-city" onchange="getDistrict(this.value)" class="form-control">
@@ -146,8 +146,8 @@
                                 <option value="0">Phường/Xã</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row mg-t-10">
+                    </div>*@
+                    @*<div class="row mg-t-10">
                         <div class="col-sm-4">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền điện (tính theo KWH)<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-electricfee" required class="form-control" data-type="currency" placeholder="Ví dụ: 5,000">
@@ -163,7 +163,7 @@
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tiền nước<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-waterfee" required class="form-control" data-type="currency" placeholder="Ví dụ: 50,000">
                         </div>
-                    </div>
+                    </div>*@
                     <div class="row mg-t-10">
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ <span class="text-danger">(*)</span></label>
@@ -186,7 +186,7 @@
                 </div>
                 
             </div><!-- modal-body -->
-            <div class="modal-body pd-sm-t-30 pd-sm-x-30" style="border-top: 1px solid #f1f1f1">
+            <!--<div class="modal-body pd-sm-t-30 pd-sm-x-30" style="border-top: 1px solid #f1f1f1">
                     <div class="media-body mg-sm-l-20">
                         <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Dịch vụ đi kèm</h4>
                     </div>
@@ -208,19 +208,19 @@
                         <div class="col-sm-1"  style="padding-top:25px;font-size: 25px;color: #484848;">
                             <a href="#" class="chevron" ><i  class="fas fa-chevron-left"></i></a></div>
                         <div class="col-sm-10">
-                            <div class="row" id="UtilitiesConfig-List">
+                            <div class="row" id="UtilitiesConfig-List">-->
                                 @* <div class="col-sm-3 pad-20">
                                     <a href="#" class="ml-1"><i class="fas fa-check-circle"></i><Span class="ml-2">Tủ lạnh - 100,000đ</Span>
                                     </a>
                                 </div> *@
-                            </div>
+                            <!--</div>
                         </div>
                         <div class="col-sm-1" style="padding-top:25px;font-size: 25px;color: #484848;">
                             <a href="#" class="chevron"><i class="fas fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
                 <button type="button" class="btn btn-primary btn-save-branch">Lưu lại</button>
@@ -349,6 +349,7 @@
                     );
                 }
                 $('.btn-save-branch').prop('disabled', false);
+                load_data(1, 20, 0);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -362,7 +363,7 @@
         });
     }
 
-    let isParkingFee = true;
+    @*let isParkingFee = true;
     let node = document.createElement('i');
     node.className = "fas fa-check-circle";
     document.getElementById('ck-isParkingFee').appendChild(node);
@@ -384,7 +385,7 @@
         }
         document.getElementById('ck-isParkingFee').appendChild(node);
         document.getElementById('ck-isParkingFee').appendChild(text);
-    })
+    })*@
 
     $( async function () {
         await getCity();
@@ -393,7 +394,8 @@
     async function getCity() {
         let myDomain = '@Model.Domain';
         myDomain += 'api/catalogue/get-city-catalogue/countryId?countryId=1&PageIndex=1&PageSize=65';
-        let data = await api_get(myDomain,token);
+        let data = await api_get(myDomain, token);
+        console.log('thanh pho:'+data);
         for(var item of data.Data.Items)
         {
             let opption = document.createElement('option');
@@ -450,7 +452,7 @@
             }
         }
     }
-    let utilitiesConfigs = new Array();
+    @*let utilitiesConfigs = new Array();
     let myUtilities = new Array();
     async function getUtilitiesConfig(pageindexUti) {
             let myDomain = '@Model.Domain';
@@ -489,6 +491,6 @@
     {
         let utilitiesConfig = utilitiesConfigs.find(id);
         myUtilities.push(utilitiesConfig);
-    }
+    }*@
 </script>
 

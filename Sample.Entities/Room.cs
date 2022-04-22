@@ -50,6 +50,15 @@ namespace Sample.Entities
         /// Loại phòng
         /// </summary>
         public int? RoomTypeId { get; set; }
+        /// <summary>
+        /// Giá Điện
+        /// </summary>
+        public double? ElectricPrice { get; set; }
+        /// <summary>
+        /// Giá nước
+        /// </summary>
+        public double? WaterPrice { get; set; }
+
         [NotMapped]
         public string RoomTypeName { get; set; }
         [NotMapped]

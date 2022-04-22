@@ -56,6 +56,9 @@ namespace Sample.Service.Services
             room.Active = itemModel.Active;
             room.RoomTypeId = itemModel.RoomTypeId;
             room.FloorId = itemModel.FloorId;
+            //giá diện nước mặc định 
+            room.ElectricPrice = 3000; // 3000 / kw điện
+            room.WaterPrice = 8000; // 8000/ m3 nước
             //
             //var result = await this.CreateAsync(room);
             await this.unitOfWork.Repository<Room>().CreateAsync(room);
