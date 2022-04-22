@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.AppDbContext;
 
 namespace Sample.AppDbContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422040447_Add_ElectricityWaterBil_by_BaoNguyen")]
+    partial class Add_ElectricityWaterBil_by_BaoNguyen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -996,7 +998,7 @@ namespace Sample.AppDbContext.Migrations
                     b.ToTable("CustomerResources");
                 });
 
-            modelBuilder.Entity("Sample.Entities.ElectricWaterBill", b =>
+            modelBuilder.Entity("Sample.Entities.ElectricityWaterBill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1064,7 +1066,7 @@ namespace Sample.AppDbContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ElectricWaterBills");
+                    b.ToTable("ElectricityWaterBills");
                 });
 
             modelBuilder.Entity("Sample.Entities.FeedBackType", b =>

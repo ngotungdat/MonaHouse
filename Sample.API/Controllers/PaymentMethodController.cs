@@ -25,16 +25,17 @@ namespace Sample.API.Controllers
         [ApiController]
         [Description("Phương thức thanh toán")]
         [Authorize]
-        public class PaymentMethodController : BaseController<PaymentMethod, PaymentMethodModel, PaymentMethodRequest, BaseSearch>
+        public class PaymentMethodController : BaseCatalogueController<PaymentMethod, PaymentMethodModel, PaymentMethodRequest, BaseSearch>
         {
             protected IPackageService packageService;
             protected IUserService userService;
             protected IPaymentMethodService paymentMethodService;
-            public PaymentMethodController(IServiceProvider serviceProvider, ILogger<BaseController<PaymentMethod, PaymentMethodModel, PaymentMethodRequest, BaseSearch>> logger
+            public PaymentMethodController(IServiceProvider serviceProvider, ILogger<BaseCatalogueController<PaymentMethod, PaymentMethodModel, PaymentMethodRequest, BaseSearch>> logger
                 , IConfiguration configuration, IWebHostEnvironment env) : base(serviceProvider, logger, env)
             {
                 this.domainService = serviceProvider.GetRequiredService<IPaymentMethodService>();
-                paymentMethodService = serviceProvider.GetRequiredService<IPaymentMethodService>();
+                this.catalogueService = serviceProvider.GetRequiredService<IPaymentMethodService>();
+            paymentMethodService = serviceProvider.GetRequiredService<IPaymentMethodService>();
             }
 
 

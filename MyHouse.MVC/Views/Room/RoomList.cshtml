@@ -64,6 +64,9 @@
     .col-sm-12 {
         padding-bottom: 15px;
     }
+    .col-sm-6 {
+        margin-bottom: 20px;
+    }
 </style>
 <div class="content content-fixed">
     <div class="fixed-filter sticky-top">
@@ -365,7 +368,7 @@
                                 <img src="assets/img/teacher.jpg" alt="avatar">
                             </span>
                         </div>
-                        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                       @* <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
                             <div class="info">
                                 <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
                                 <p class="affliate mg-b-0 mg-t-0 "><a href="mailto:vanlam@gmail.com" class="tx-color-03">vanlam@gmail.com</a></p>
@@ -373,35 +376,35 @@
                             <div class="quick-contact">
                                 <a href="tel:+84886706289"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="form-row">
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng trước</label>
-                            <input type="tel" class="form-control number-val" placeholder="Trống" value="1123392">
+                            <input id="electric-old-number"type="tel" class="form-control number-val" placeholder="Trống" >
                         </div>
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng này</label>
-                            <input type="tel" class="form-control number-val" placeholder="Trống">
+                            <input id="electric-new-number" type="tel" class="form-control number-val" placeholder="Trống">
                         </div>
                         <div class="col-12 upload-box mg-b-20">
                             <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
-                            <input type="file" class="hidden upload-image-input" accept="image/*">
+                            <input id="image-electric" type="file" class="hidden upload-image-input" accept="image/*">
                             <div class="preview-image"></div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Nước tháng trước</label>
-                            <input type="tel" class="form-control number-val" placeholder="Trống" value="223212">
+                            <input id="water-old-number" type="tel" class="form-control number-val" placeholder="Trống">
                         </div>
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Nước tháng này</label>
-                            <input type="tel" class="form-control number-val" placeholder="Trống">
+                            <input id="water-new-number" type="tel" class="form-control number-val" placeholder="Trống">
                         </div>
                         <div class="col-12 upload-box mg-b-20">
                             <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
-                            <input type="file" class="hidden upload-image-input" accept="image/*">
+                            <input id="image-water" type="file" class="hidden upload-image-input" accept="image/*">
                             <div class="preview-image"></div>
                         </div>
                     </div>
@@ -409,7 +412,7 @@
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Cập nhật</button>
+                    <button type="button" class="btn btn-primary electric-water-update">Cập nhật</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
@@ -638,7 +641,7 @@
                     <div class=" room-info">
                         <div class="row">
 
-                            <div class="col-md-6 ">
+                            @*<div class="col-md-6 ">
                                 <div class="row form-group">
                                     <div class="wd-120 col col-form-label">
                                         <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
@@ -653,7 +656,7 @@
                                         <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
 
                             <div class="col-md-6 ">
@@ -668,7 +671,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap wd-20 ht-20"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
                                         </div>
-                                        <input type="tel" placeholder="Số điện" class="form-control" value="3000">
+                                        <input id="electric-price" type="tel" placeholder="Số điện" class="form-control" data-type="currency" >
                                     </div>
                                 </div>
                             </div>
@@ -684,11 +687,11 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-droplet wd-20 ht-20"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></span>
                                         </div>
-                                        <input type="tel" placeholder="Số nước" class="form-control" value="3500">
+                                        <input id="water-price" type="tel" placeholder="Số nước" class="form-control" data-type="currency" >
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 ">
+                            @*<div class="col-md-6 ">
                                 <div class="row form-group">
                                     <div class="wd-120 col col-form-label">
                                         <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
@@ -719,7 +722,7 @@
                                         <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <div class="col-12">
                                 <div class="col-form-label">
@@ -757,7 +760,7 @@
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Lưu lại</button>
+                    <button type="button" class="btn btn-primary edit-room-service">Lưu lại</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
@@ -827,8 +830,8 @@
                                         <option value="" selected="">-Tất cả-</option>
                                         <option value="0">Phòng trống</option>
                                         <option value="1">Sắp chuyển vào</option>
-                                        <option value="2">Sắp dọn ra</option>
-                                        <option value="3">Đang ở</option>
+                                        <option value="2">Đang ở</option>
+                                        <option value="3">Sắp dọn ra</option>
                                     </select>
                                 </div>
                             </div>
@@ -1274,6 +1277,7 @@
                 processData: false,
                 success: function (data, status, xhr) {
                     console.log("upload thanh cong");
+                    console.log(data);
                     rs = data.Data;
                 },
                 error: function (xhr, status, error) {
@@ -1534,21 +1538,21 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-8 ">
                                                         <div class="legend-box pd-25  " data-label="Phí và dịch vụ">
-                                                            <a href="javascript:;" onclick="EditServiceRoom(`+item.Id+`)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <a href="#js-edit-service" onclick="EditServiceRoom(`+item.Id+`)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <div class="info-list">
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá phòng:</dd>
-                                                                            <dt class="">3.500.000</dt>
+                                                                            <dt class="">`+ format_money(item.Price) +`</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá điện / KW:</dd>
-                                                                            <dt class="">3500</dt>
+                                                                            <dt class="">`+ format_money(item.ElectricPrice) +`</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá nước:</dd>
-                                                                            <dt class="">0886706289</dt>
+                                                                            <dt class="">`+ format_money(item.WaterPrice) +`</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Điện tháng trước:</dd>
@@ -1568,27 +1572,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <div class="info-list">
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Mạng:</dd>
-                                                                            <dt class="">200.000</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Rác:</dd>
-                                                                            <dt class="">50.000</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Giữ xe:</dd>
-                                                                            <dt class="">150.000</dt>
-                                                                        </dl>
-
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Cáp TV:</dd>
-                                                                            <dt class="">
-                                                                                <span class="tx-second">100.000</span>
-                                                                            </dt>
-                                                                        </dl>
-
+                                                                    <div class="info-list-`+ item.Id +`">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1672,8 +1656,29 @@
                     TotalItem = data.Data.TotalItem;
                     TotalPage = data.Data.TotalPage;
                     load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
+                    // load xong phong thi load tien ich cua phong
+                    for (let i = 0; i < list.length; i++) {
+                        let item = list[i];
+                        // xu ly danh sach tien ich
+                        $(document).ready(function () {
+                            let api_loadRoomUtilities = 'api/RoomUtilities?RoomId=' + item.Id + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+                            load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
+                                let list = e.Data.Items;
+                                let html = '';
+                                for (let i = 0; i < list.length; i++) {
+                                    let item = list[i];
+                                    html += `<dl class="row-info">
+                                                    <dd class="">`+ item.UtilitiName + `:</dd>
+                                                    <dt class="">`+ format_money(item.Price) + `</dt>
+                                                </dl>`;
+                                }
+                                $('.info-list-'+item.Id).html(html);
+                            })
 
 
+                        })
+                        //
+                    }
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -1791,9 +1796,69 @@
             });
         }
 
-        function electricRecord(itemId) {
+    function electricRecord(itemId) {
+        roomid = itemId;
+            //call api lay hoa don moi nhat
+            let api_Electric_water_bill = 'api/ElectricWaterBill?RoomId=' + itemId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+            load_data_with_jquery(api_Electric_water_bill).then(function (e) {
+                let list = e.Data.Items;
+                // lay ra bill dau tien de lam so moi.
+                $('#electric-old-number').val(list[0].NewNumberElectric);
+                $('#water-old-number').val(list[0].NewNumberWater);
+            });
             $('#js-electronicNote').modal('show');
         }
+        // bat su kien khi ghi dien
+        $('.electric-water-update').on('click', function () {
+            let old_electric = $('#electric-old-number').val();
+            let new_electric=$('#electric-new-number').val();
+            let old_water = $('#water-old-number').val();
+            let new_water = $('#water-new-number').val();
+            let img_electric = document.getElementById('image-electric').files[0];
+            let img_water = document.getElementById('image-water').files[0];
+            console.log(old_electric);
+            console.log(new_electric);
+            console.log(old_water);
+            console.log(new_water);
+            console.log(img_electric);
+            console.log(img_water);
+            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) || img_electric.length == 0 || img_water.length == 0 ) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin!',
+                    'warning'
+                )
+            }
+            else {
+                let listImage = [];
+                listImage.push(img_electric);
+                listImage.push(img_water);
+                let ImageNames = upload_img(listImage);
+                //data
+                let data = {};
+                data["id"] = 0;
+                data["deleted"] = false;
+                data["active"] = true;
+                data["roomId"] = roomid;
+                data["electricPrice"] = 0;
+                data["waterPrice"] = 0;
+                data["oldNumberElectric"] = old_electric;
+                data["newNumberElectric"] = new_electric;
+                data["oldNumberWater"] = old_water;
+                data["newNumberWater"] = new_water;
+                data["writeDate"] = new Date();
+                data["waterImage"] = '@Model.Domain'+ImageNames[1];
+                data["electricImage"] = '@Model.Domain'+ImageNames[0];
+                data["electricBill"] = 0;
+                data["waterBill"] = 0;
+                //api to create bill electricwater
+                let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
+                $(this).prop('disabled', true);
+                create_data(data, api_Create_Electric_water_bill);
+
+            }
+        })
+
         function takeMoney(itemId) {
             $('#js-payMoney').modal('show');
         } function moveOut(itemId) {
@@ -1804,6 +1869,26 @@
 <!-- xu ly modal tien ich-->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
+    // nhan nut save
+    $('.edit-room-service').on('click', function () {
+        let data = {};
+        let lsUtilitiesAndPrice = ListUtiliti_service.join(";");
+        data["id"] = 0;
+        data["deleted"] = false;
+        data["active"] = true;
+        data["roomid"] = roomid;
+        data["listUtilitiesAndPrice"] = lsUtilitiesAndPrice;
+        // tham so chuen vao gom: roomId, UltilitiesId, price
+        let api_update_utilities_room = 'api/RoomUtilities/Update_Utilities_RoomService';
+        create_data(data, api_update_utilities_room);
+        // update gia dien nuoc
+        let ElectricAndWaterPrice = {};
+        ElectricAndWaterPrice["id"] = roomid;
+        ElectricAndWaterPrice["electricPrice"] = $('#electric-price').val().replaceAll(',','');
+        ElectricAndWaterPrice["waterPrice"] = $('#water-price').val().replaceAll(',', '');;
+        let api_update_electic_water_price = 'api/Room';
+        update_data(ElectricAndWaterPrice, api_update_electic_water_price);
+    })
     //call api tien ich
     let api_utilitiConfig = 'api/UtilitiesConfig?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
 
@@ -1816,20 +1901,21 @@
             let item = list[i];
             html += '<tr>';
             html += '<td>' + item.Name + '</td>';
-            html += '<td><input data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
+            html += '<td><input id="RoomUtilitiesPrice-' + item.Id + '" data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
             html += '<td>' +
-                '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
+                '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" data-roomid="'+item.Id+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
             html += '</tr>';
         }
         $('#tbody-update-room-utilities').hide().html(html).show('slow');
     })
 
+    let roomid = 0;
     let ListRoomUtilies = [];
     function EditServiceRoom(RoomID) {
         // call api Room Utilities
-        let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+RoomID;
-
-        load_data_with_jquery(api_RoomUtilities).then(function (e) {
+        roomid = RoomID;
+        let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' + '&RoomId=' + RoomID;
+        let call_api_RoomUtilities = load_data_with_jquery(api_RoomUtilities).then(function (e) {
             ListRoomUtilies = [];
             ListUtiliti_service = [];
             let list = e.Data.Items;
@@ -1837,28 +1923,55 @@
             RoomUtilitiesCheck();
             $('#js-edit-service').modal('show');
         })
+        let api_Room_by_id = 'api/Room/' + RoomID;
+        let call_api_Room_by_id = load_data_with_jquery(api_Room_by_id).then(function (e) {
+            let data = e.Data;
+            // gan vao modal
+            $('#electric-price').val(format_money(data.ElectricPrice));
+            $('#water-price').val(format_money(data.WaterPrice));
+        })
     }
-
     let ListUtiliti_service = [];
     function RoomUtilitiesCheck() {
-        for (var j = 0; j < ListRoomUtilies.length; j++) {
-            let tmp = false;
+        if (ListRoomUtilies.length > 0) {
             for (var i = 0; i < ListUtiliesConfig.length; i++) {
-            var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
-                console.log(ListUtiliesConfig[i].Id, ListRoomUtilies[j].UtilitiesId);
-                if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId && tmp == false) {
-                    checkBox.checked = true;
-                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    console.log(ListUtiliti_service);
-                    tmp = true;
+                let tmp = false;
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+                for (var j = 0; j < ListRoomUtilies.length; j++) {
+                    if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId) {
+                        checkBox.checked = true;
+                        ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                        input.value = format_money(ListRoomUtilies[j].Price);
+                        input.readOnly = true;
+                        tmp = true;
+                        break;
+                    }
+                    else{
+                        tmp = false;
+                    }
                 }
-                else {
-                    console.log(checkBox)
-                    tmp = false;
+                if (tmp == false) {
                     checkBox.checked = false;
-                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    ListUtiliti_service.splice(index,1);
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    input.value = format_money(ListUtiliesConfig[i].Price);
+                    if (index >= 0) {
+                        ListUtiliti_service.splice(index, 1);
+                    }
+                    input.readOnly = false;
                 }
+            }
+        }
+        else {
+            for (var i = 0; i < ListUtiliesConfig.length; i++) {
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
+                checkBox.checked = false;
+                let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                input.value = ListUtiliesConfig[i].Price;
+                ListUtiliti_service.splice(index, 1);
+                input.readOnly = false;
             }
         }
     }
@@ -1867,17 +1980,24 @@
         for (let i = 0; i < ListUtiliesConfig.length; i++) {
             if (ListUtiliesConfig[i].Id == ListUtiliesConfig[index].Id) {
                 var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
                 if (checkBox.checked == true) {
-                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    console.log(ListUtiliti_service);
+                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    input.readOnly = true;
                 }
                 else {
-                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + checkBox.getAttribute('data-price'));
-                    ListUtiliti_service.splice(index,1);
-                    console.log(ListUtiliti_service);
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    ListUtiliti_service.splice(index, 1);
+                    input.readOnly = false;
                 }
             }
         }
     }
+</script>
+<!---->
+<!-- xu ly tien dien nuoc trong modal tien ich-->
+<script>
+    // call api lay gai dien nuoc cua phong
 </script>
 <!---->

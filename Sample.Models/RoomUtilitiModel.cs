@@ -18,6 +18,6 @@ namespace Sample.Models
         /// </summary>
         public int? UtilitiesId { get; set; }
         public double? Price { get; set; }
-
+        public string UtilitiName { get; set; }
     }
 }

@@ -47,6 +47,14 @@ namespace Sample.Models
         public int? FloorId { get; set; }
         public string BranchName { get; set; }
         public string FloorName { get; set; }
+        /// <summary>
+        /// Giá Điện
+        /// </summary>
+        public double? ElectricPrice { get; set; }
+        /// <summary>
+        /// Giá nước
+        /// </summary>
+        public double? WaterPrice { get; set; }
 
     }
 }

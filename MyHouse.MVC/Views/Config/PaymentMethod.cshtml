@@ -255,7 +255,7 @@
                     $('#hdfId').val(0);
                     $('#txt-paymentcode').val(PaymentMethodCode);
                     $('#txt-user-id').val(userId);
-                    $('#txt-code').val('pmt' + userId + PaymentMethodCode + new Date().toString());
+                    $('#txt-code').val('pmt' + userId + PaymentMethodCode );
                     $('#txt-name').val(name);
                     let html = '<input type="checkbox" id="checkactive" value="True" onchange="Check() checked>' + '  <span class="badge badge-success">Hoạt động</span>';
                     $('#checkbox-paymentmethod').hide().html(html).show('slow');

@@ -48,6 +48,13 @@ namespace Sample.Request
         public string Images { get; set; }
         public int? RoomTypeId { get; set; }
         public int? FloorId { get; set; }
-
+        /// <summary>
+        /// Giá Điện
+        /// </summary>
+        public double? ElectricPrice { get; set; }
+        /// <summary>
+        /// Giá nước
+        /// </summary>
+        public double? WaterPrice { get; set; }
     }
 }

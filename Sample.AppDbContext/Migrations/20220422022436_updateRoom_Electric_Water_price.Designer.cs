@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.AppDbContext;
 
 namespace Sample.AppDbContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220422022436_updateRoom_Electric_Water_price")]
+    partial class updateRoom_Electric_Water_price
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -994,77 +996,6 @@ namespace Sample.AppDbContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CustomerResources");
-                });
-
-            modelBuilder.Entity("Sample.Entities.ElectricWaterBill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double?>("ElectricBill")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ElectricImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("ElectricPrice")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NewNumberElectric")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NewNumberWater")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("OldNumberElectric")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("OldNumberWater")
-                        .HasColumnType("float");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double?>("WaterBill")
-                        .HasColumnType("float");
-
-                    b.Property<string>("WaterImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("WaterPrice")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime?>("WriteDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ElectricWaterBills");
                 });
 
             modelBuilder.Entity("Sample.Entities.FeedBackType", b =>

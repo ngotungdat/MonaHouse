@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IPaymentMethodService: IDomainService<PaymentMethod, BaseSearch>
+    public interface IPaymentMethodService: ICatalogueService<PaymentMethod, BaseSearch>
     {
         Task<IList<PaymentMethod>> GetPaymentMethodByUserIdAndPaymentMethodCode(int userId, string paymentMethodCode);
     }

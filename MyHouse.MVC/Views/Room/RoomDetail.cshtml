@@ -89,20 +89,21 @@
                                 <dd class="">Giá nước:</dd>
                                 <dt class="">0886706289</dt>
                             </dl>
-                            <dl class="row-info">
+                            @*<dl class="row-info">
                                 <dd class="">Điện tháng trước:</dd>
                                 <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span></dt>
                             </dl>
                             <dl class="row-info">
                                 <dd class="">Nước tháng trước:</dd>
                                 <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span></dt>
-                            </dl>
+                            </dl>*@
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="info-list">
-                            <dl class="row-info">
+                            <div id="RoomUtilities-details"></div>
+                            @*<dl class="row-info">
                                 <dd class="">Mạng:</dd>
                                 <dt class="">200.000</dt>
                             </dl>
@@ -118,7 +119,7 @@
                             <dl class="row-info">
                                 <dd class="">Cáp TV:</dd>
                                 <dt class=""><span class="tx-second">100.000</span></dt>
-                            </dl>
+                            </dl>*@
 
                         </div>
                     </div>
@@ -748,14 +749,32 @@
         }
         else {
             let data = {};
-            // lỗi
             data["id"] = id;
             data["status"] = status;
             let apiCRUD = 'api/userinroom';
             update_data(data, apiCRUD).then(function (e) { Load_data(); });;
             $('#js-add-rentor').modal('hide');
         }
-
-
     });
+    // xu ly danh sach tien ich
+    $(document).ready(function () {
+        let api_loadRoomUtilities = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+        load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
+            let list = e.Data.Items;
+            let html = '';
+            console.log(list);
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                html += `<dl class="row-info">
+                                <dd class="">`+ item.UtilitiName + `:</dd>
+                                <dt class="">`+ format_money(item.Price) + `</dt>
+                            </dl>`;
+            }
+            $('#RoomUtilities-details').html(html);
+        })
+        
+       
+    })
+    //
+
 </script>
