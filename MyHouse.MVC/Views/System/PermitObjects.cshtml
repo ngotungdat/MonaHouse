@@ -1,4 +1,8 @@
 ﻿@model CoreModel
+@using Sample.Entities
+@{ 
+    Users user = Model.Users;
+}
 <style>
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
@@ -13,10 +17,10 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                    <li class="breadcrumb-item active" aria-current="page">Cấu hình nhóm quyền</li>
+                    <li class="breadcrumb-item active" aria-current="page">Trang quản trị</li>
                 </ol>
             </nav>
-            <h4 class="mg-b-0 tx-spacing--1">Danh sách nhóm quyền</h4>
+            <h4 class="mg-b-0 tx-spacing--1">Quản lý nhóm tài khoản</h4>
         </div>
     </div>
     <div class="row row-xs">
@@ -75,8 +79,8 @@
                     <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm quyền</h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Thêm nhóm quyền</p>
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Nhóm tài khoản</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm nhóm tài khoản</p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -86,12 +90,25 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mã nhóm quyền<span class="text-danger">(*)</span></label>
-                            <select id="txt-code" name="txt-code" required class="form-control" ></select>
+                            <select id="txt-code" name="txt-code" required class="form-control select2">
+                                @{
+                                    if (user.RoleNumber == 1)
+                                    {
+                                        <option value="CSKH">CSKH</option>
+                                        <option value="ChuNha">Chủ nhà</option>
+                                    }
+                                    else if (user.RoleNumber == 3)
+                                    {
+                                        <option value="Staff">Nhân viên</option>
+                                        <option value="Tenant">Khách thuê</option>
+                                    }
+                                }
+                            </select>
                         </div>
                     </div><div class="row">
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên nhóm quyền<span class="text-danger">(*)</span></label>
-                            <input type="text" name="txt-name" required class="form-control" placeholder="Ví dụ: Thêm phòng">
+                            <input type="text" name="txt-name" required class="form-control" placeholder="...">
                         </div>
                     </div>
                     <div class="row">
@@ -221,7 +238,7 @@
 
     $(document).ready(function () {
         load_data_custom(Custom_api);
-        load_data_UserGroup(UserGroup_api);
+        //load_data_UserGroup(UserGroup_api);
     });
     //Load dữ liệu theo api
     function load_data(api) {
@@ -339,12 +356,12 @@
         const description = $('input[name=txt-description]').val();
         const controllerNames = TmpListControllerCheckedInAddForm.join(";");
         const controllers = TmpListControllerCheckedInAddForm;
-        console.log(id);
-        console.log(code);
-        console.log(name);
-        console.log(description);
-        console.log(controllerNames);
-        console.log(controllers);
+        //console.log(id);
+        //console.log(code);
+        //console.log(name);
+        //console.log(description);
+        //console.log(controllerNames);
+        //console.log(controllers);
         if (ckstring(code) || ckstring(name) || ckstring(description) || ckstring(controllerNames)) {
             Swal.fire(
                 'Cảnh báo',
@@ -365,12 +382,12 @@
         const description = $('input[name=txt-description]').val();
         const controllerNames = TmpListControllerCheckedInEditForm.join(";");
         const controllers = TmpListControllerCheckedInEditForm;
-        console.log(id);
-        console.log(code);
-        console.log(name);
-        console.log(description);
-        console.log(controllerNames);
-        console.log(controllers);
+        //console.log(id);
+        //console.log(code);
+        //console.log(name);
+        //console.log(description);
+        //console.log(controllerNames);
+        //console.log(controllers);
         if (ckstring(code) || ckstring(name) || ckstring(description) || ckstring(controllerNames)) {
             Swal.fire(
                 'Cảnh báo',

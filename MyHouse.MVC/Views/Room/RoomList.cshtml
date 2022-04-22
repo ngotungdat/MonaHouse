@@ -172,7 +172,7 @@
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái phòng<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="room-status" id="room-status">
                                     <option disabled="true" selected>Trạng thái</option>
-                                    <option value="0">Phòng Chống</option>
+                                    <option value="0">Phòng trống</option>
                                     <option value="1">Sắp chuyển vào</option>
                                     <option value="2">Đang thuê</option>
                                     <option value="3">Sắp dọn ra</option>
@@ -919,9 +919,9 @@
                     </div>
                     <div class="table__filter-wrap">
                         <div class="table-responsive">
-                            <table class="table  tx-14  table-striped table-hover" id="table-list-room">
-                                <thead class="thead-primary">
-                                    <tr>
+                            <table class="table table-hover table-striped  border" id="table-list-room">
+                                <thead>
+                                    <tr class="tr-header-table">
                                         <th class="checkbox-col">
                                         </th>
                                         <th class="sort-label" data-column="col-house">Nhà / dãy trọ</th>
