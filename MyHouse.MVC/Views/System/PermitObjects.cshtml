@@ -326,6 +326,10 @@
 
     $('.btn-add-PermitObjects').on('click', function () {
         TmpListControllerCheckedInAddForm = [];
+        for (let i = 0; i < TmpListController.length; i++) {
+                var checkBox = document.getElementById("add-form-checkactive-" + TmpListController[i].Id);
+                checkBox.checked = false;
+        }
         $('input[name=hdfId]').val(0);
         $('select[name=txt-code]').val('');
         $('input[name=txt-name]').val('');
