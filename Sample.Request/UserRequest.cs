@@ -36,6 +36,11 @@ namespace Sample.Request
         public int? Status { get; set; }
 
         /// <summary>
+        /// Số chưng minh thư
+        /// </summary>
+        public string CitizenIdentification { get; set; }
+
+        /// <summary>
         /// Tuổi
         /// </summary>
         public int? Age { get; set; }
@@ -115,8 +120,8 @@ namespace Sample.Request
         /// 0 => Nữ
         /// 1 => Nam
         /// </summary>
-        [DefaultValue(false)]
-        public bool Gender { get; set; }
+        [DefaultValue(1)]
+        public int GenderNumber { get; set; }
 
         /// <summary>
         /// List id nhóm người dùng được chọn

@@ -92,6 +92,13 @@
             <li class="nav-item">
                 <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i class="fas fa-hospital-alt"></i> <span class="mg-l-5">Phòng</span></a>
             </li>
+            <li class="nav-item with-sub">
+                <a href="javascript:;" class="nav-link"><i class="fas fa-list-alt"></i> <span class="mg-l-5">Người dùng</span></a>
+                <ul class="navbar-menu-sub">
+                    <li class="nav-sub-item"><a href="@Url.Action("UserManager", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-user mr-3"></i>Khách hàng</a></li>
+                    <li class="nav-sub-item"><a href="@Url.Action("StaffManager", "System", new { area = "" })" class="nav-sub-link"><i class="fas fa-user-md mr-3"></i>Nhân viên</a></li>
+                </ul>
+            </li>
             @*<li class="nav-item">
                     <a href="@Url.Action("RecordList", "Record", new { area = "" })" class="nav-link"><i class="fas fa-edit"></i> <span class="mg-l-5">Ghi điện nước</span></a>
                 </li>

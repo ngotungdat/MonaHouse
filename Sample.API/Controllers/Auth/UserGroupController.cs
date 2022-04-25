@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Sample.BaseAPI.Controllers;
 using Sample.Request.Auth;
 using Sample.Entities.Auth;
-using Sample.Entities.Search;
+using Sample.Entities.DomainEntities;
 
 namespace Sample.API.Controllers.Auth
 {
@@ -26,7 +26,7 @@ namespace Sample.API.Controllers.Auth
     [ApiController]
     [Description("Nhóm người dùng")]
     [Authorize]
-    public class UserGroupController : BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>
+    public class UserGroupController : BaseController<UserGroups, UserGroupModel, UserGroupRequest, BaseSearch>
     {
         private readonly IUserInGroupService userInGroupService;
         private readonly IPermitObjectService permitObjectService;
@@ -35,7 +35,7 @@ namespace Sample.API.Controllers.Auth
         private readonly IPermitObjectPermissionService permitObjectPermissionService;
 
         public UserGroupController(IServiceProvider serviceProvider
-            , ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, UserInGroupSearch>> logger
+            , ILogger<BaseController<UserGroups, UserGroupModel, UserGroupRequest, BaseSearch>> logger
             , IWebHostEnvironment env)
             : base(serviceProvider, logger, env)
         {
@@ -113,10 +113,10 @@ namespace Sample.API.Controllers.Auth
         /// <returns></returns>
         [HttpGet("get-user-in-groups")]
         [AppAuthorize(new string[] { CoreContants.View })]
-        public async Task<AppDomainResult> GetUserInGroups([FromQuery] UserInGroupSearch searchUserInGroup)
+        public async Task<AppDomainResult> GetUserInGroups([FromQuery] Entities.Search.UserInGroupSearch searchUserinGroup)
         {
             AppDomainResult appDomainResult = new AppDomainResult();
-            var pagedList = await this.userInGroupService.GetPagedListData(searchUserInGroup);
+            var pagedList = await this.userInGroupService.GetPagedListData(searchUserinGroup);
             var pagedListModel = mapper.Map<PagedList<UserInGroupModel>>(pagedList);
             appDomainResult = new AppDomainResult()
             {

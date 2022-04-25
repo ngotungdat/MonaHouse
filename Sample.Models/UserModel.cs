@@ -39,6 +39,9 @@ namespace Sample.Models
         /// </summary>
         public int? Status { get; set; }
 
+        public string CitizenIdentification { get; set; }
+
+
         /// <summary>
         /// Tên trạng thái
         /// </summary>

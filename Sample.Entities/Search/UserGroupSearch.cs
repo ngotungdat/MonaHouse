@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sample.Entities.Search
 {
-    public class UserInGroupSearch : DomainEntities.BaseSearch
+    public class UserGroupSearch : DomainEntities.BaseSearch
     {
         /// <summary>
         /// Id người dùng
@@ -15,6 +15,6 @@ namespace Sample.Entities.Search
         ///// <summary>
         ///// Nhóm người dùng
         ///// </summary>
-        public int? UserGroupId { get; set; }
+        //public int? UserGroupId { get; set; }
     }
 }

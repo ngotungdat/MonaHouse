@@ -13,8 +13,22 @@ namespace MyHouse.MVC.Controllers
         public SystemController(IConfiguration configuration) : base(configuration)
         {
         }
-
+        /// <summary>
+        /// Quản lý khách hàng cảu chủ trọ
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> UserManager()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        /// <summary>
+        /// quản lý nhân viên của chủ trọ
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> StaffManager()
         {
             CoreModel coreModel = await GetCurrentSessionAsync();
             if (coreModel == null)

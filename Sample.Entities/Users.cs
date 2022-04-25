@@ -56,6 +56,9 @@ namespace Sample.Entities
         /// Giới tính
         /// </summary>
         public int GenderNumber { get; set; }
+        /// <summary>
+        /// Chứng minh thư
+        /// </summary>
         public string CitizenIdentification { get; set; }
         /// <summary>
         /// Ngày sinh

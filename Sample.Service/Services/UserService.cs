@@ -95,8 +95,9 @@ namespace Sample.Service.Services
                     {
                         UserInGroups userInGroup = new UserInGroups()
                         {
-                            //UserId = item.Id,
+                            UserId = item.Id,
                             UserGroupId = item.UserGroupId,
+                            TenantId=item.TenantId,
                             Id = 0
                         };
                         await this.unitOfWork.Repository<UserInGroups>().CreateAsync(userInGroup);

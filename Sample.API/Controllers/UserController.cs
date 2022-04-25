@@ -221,10 +221,20 @@ namespace Sample.BaseAPI.Controllers
             bool success = false;
             if (ModelState.IsValid)
             {
+
                 var item = mapper.Map<Users>(itemModel);
                 item.Password = SecurityUtilities.HashSHA1(itemModel.Password);
                 if (item != null)
                 {
+                    var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
+                    if (user != null)
+                    {
+                        item.TenantId = user.TenantId;
+                        item.RoleNumber = itemModel.UserGroupIds[0];
+                        item.DateOfBirth = itemModel.BirthDate;
+                        item.UserGroupId= itemModel.UserGroupIds[0];
+                        item.CitizenIdentification = itemModel.CitizenIdentification;
+                    }
                     // Kiểm tra item có tồn tại chưa?
                     var messageUserCheck = await this.domainService.GetExistItemMessage(item);
                     if (!string.IsNullOrEmpty(messageUserCheck))

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using Sample.Interface.UnitOfWork;
 using Sample.Interface.Services.Auth;
 using Sample.Entities.Auth;
-using Sample.Entities.Search;
+using Sample.Entities.DomainEntities;
 
 namespace Sample.Service.Services.Auth
 {
-    public class UserGroupService : DomainService<UserGroups, UserInGroupSearch>, IUserGroupService
+    public class UserGroupService : DomainService<UserGroups, BaseSearch>, IUserGroupService
     {
         IPermitObjectService permitObjectService;
         public UserGroupService(IAppUnitOfWork unitOfWork
