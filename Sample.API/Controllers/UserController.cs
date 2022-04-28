@@ -182,6 +182,7 @@ namespace Sample.BaseAPI.Controllers
             if (ModelState.IsValid)
             {
                 var item = mapper.Map<Users>(itemModel);
+                item.DateOfBirth = itemModel.BirthDate;
                 item.Updated = DateTime.UtcNow.AddHours(7);
                 item.UpdatedBy = LoginContext.Instance.CurrentUser.UserName;
                 if (itemModel.IsResetPassword)

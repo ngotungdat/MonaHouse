@@ -43,14 +43,11 @@ namespace Sample.Service.Services
             {
                 // zo notificationUser loc ra list co user t
                 List<NotificationUser> listNotificationUserGetByUser = new List<NotificationUser>();
-                var listNotificationUser = await this.GetAllAsync();
+                var listNotificationUser = await this.GetAsync(p => p.UsersId == item.Id);
                 foreach (NotificationUser notificationUser in listNotificationUser)
                 {
-                    if (notificationUser.UsersId == item.Id)
-                    {
                         notificationUser.isSeen = true;
                         listNotificationUserGetByUser.Add(notificationUser);
-                    }
                 }
                 // update isSeen
                 var result = await this.UpdateAsync(listNotificationUserGetByUser);

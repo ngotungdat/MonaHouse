@@ -175,10 +175,18 @@
                             <div id="checkbox-paymentmethod"></div>
                         </div>
                         <div class="col-sm-12">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">ảnh Logo<span class="text-danger">(*)</span></label>
-                            <div style="clear:left;"></div>
-                            <input id="input-img" type='file' onchange="readURL(this);" />
-                            <img id="blah" src="#" alt="your image" width="150" height="200" />
+                            <!---->
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                                <div style="clear:left;"></div>
+                                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                                </a>
+                                
+                            <!---->
+                            <input hidden id="input-img" type='file' onchange="readURL(this);" />
+                            <div style="padding-top:30px;" width: 50%; margin: 0 auto;">
+                                <img id="blah" src="#" alt="your image" width="150" height="200" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,7 +225,11 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+    // Chỉnh sửa from chọn ảnh
+    $('.btn-uploads').on('click', function () {
+        $('#input-img').click();
+    });
+    //
     //Load dữ liệu theo api
     function load_data(userId, PaymentMethodCode,name) {
         console.log(userId, PaymentMethodCode);

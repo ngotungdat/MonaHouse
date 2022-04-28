@@ -27,6 +27,27 @@ namespace MyHouse.MVC.Controllers
             if (coreModel == null)
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
+        }/// <summary>
+         /// Danh sách nhân viên admin
+         /// </summary>
+         /// <returns></returns>
+        public async Task<IActionResult> UserCSKH()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        /// <summary>
+        /// Trang cá nhân
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> ProfileUser()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
         }
         /// <summary>
         /// Danh sách chủ nhà trọ - Partial View
@@ -36,11 +57,11 @@ namespace MyHouse.MVC.Controllers
         /// <param name="OrderBy"></param>
         /// <param name="SearchContent"></param>
         /// <returns></returns>
-        public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent)
+        public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent,string roleNumber)
         {
             string domain = GetCurrentDomain();
             string token = HttpContext.Session.GetString("token");
-            RestClient client = new RestClient(domain + "api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy);
+            RestClient client = new RestClient(domain + "api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&RoleNumber="+roleNumber);
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);
@@ -65,7 +86,18 @@ namespace MyHouse.MVC.Controllers
             CoreModel coreModel = await GetCurrentSessionAsync();
             if (coreModel == null)
                 return RedirectToAction("Login", "Login");
+            RestClient client = new RestClient(coreModel.Domain + "api/user/"+userId);
+            client.Timeout = -1;
+            RestRequest request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + coreModel.Token);
+            IRestResponse response = await client.ExecuteAsync(request);
+            var obj = JObject.Parse(response.Content);
+            var data = obj["Data"];
+            UserModel model = JsonConvert.DeserializeObject<UserModel>(data.ToString());
+            coreModel.MyProperty = model;
             return PartialView(coreModel);
         }
+
+
     }
 }

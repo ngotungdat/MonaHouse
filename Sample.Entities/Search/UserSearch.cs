@@ -20,5 +20,6 @@ namespace Sample.Entities.Search
         /// Theo nhom người dùng
         /// </summary>
         public int? UserGroupId { get; set; }
+        public int? RoleNumber { get; set; }
     }
 }

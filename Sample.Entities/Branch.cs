@@ -104,5 +104,14 @@ namespace Sample.Entities
         [NotMapped]
         public string LinkImages { get; set; }
 
+        [NotMapped]
+        public int RoomCount { get; set; }
+
+        [NotMapped]
+        public int RoomBlank { get; set; }
+
+        [NotMapped]
+        public int UserCount { get; set; }
+
     }
 }

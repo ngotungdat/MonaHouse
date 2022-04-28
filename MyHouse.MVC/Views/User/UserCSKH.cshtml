@@ -36,14 +36,6 @@
     /*.input-group-text {
         padding: initial;
     }*/
-    /* BaoNguyen CSS*/
-    .col-sm-12 {
-        padding-bottom: 15px;
-    }
-
-    .col-sm-6 {
-        margin-bottom: 20px;
-    }
 </style>
 <div class="fixed-filter sticky-top">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -241,11 +233,11 @@
                     <span aria-hidden="true">&times;</span>
                 </a>
                 <div class="media align-items-center">
-                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-users"></i></span>
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-car-side mr-3"></i></span>
                     <div class="media-body mg-sm-l-20">
                         <input type="hidden" name="hdfId" value="0" />
                         <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase"></h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Khách hàng </p>
+                        <p class="tx-13 tx-color-03 mg-b-0">Thêm </p>
                     </div>
                 </div><!-- media -->
             </div><!-- modal-header -->
@@ -354,7 +346,6 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
-
 <!-- bat loi form-->
 <script>
     $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
@@ -376,7 +367,7 @@
     $(function () {
         load_data(1, 20, 0);
     });
-    let roleNumber = 3; // chu tro
+    let roleNumber = 2; // nhan vien CSKH
     function load_data(pageindex, pagesize, orderby) {
         $.get('/user/UserOwnerPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + '&roleNumber=' + roleNumber, function (data) {
             $('.table-userlist').html(data);

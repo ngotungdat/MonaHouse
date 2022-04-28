@@ -29,5 +29,11 @@ namespace Sample.Request
         /// Danh sách hình ảnh
         /// </summary>
         public IList<BranchImageRequest> BranchImages { get; set; }
+
+        public int RoomCount { get; set; }
+
+        public int RoomBlank { get; set; }
+
+        public int UserCount { get; set; }
     }
 }

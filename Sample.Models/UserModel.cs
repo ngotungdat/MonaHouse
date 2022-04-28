@@ -111,9 +111,10 @@ namespace Sample.Models
         public bool IsAdmin { get; set; }
 
         /// <summary>
-        /// Mật khẩu người dùng
+        /// Ảnh đại diện
         /// </summary>
         public string Avatar { get; set; }
+
 
         /// <summary>
         /// Cờ kiểm tra OTP của user

@@ -11,5 +11,6 @@ namespace Sample.Entities.Search
     {
         public int? status { get; set; }
         public int? roomtypeid { get; set; }
+        public int? BranchId { get; set; }
     }
 }

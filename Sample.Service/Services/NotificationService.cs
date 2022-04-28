@@ -27,10 +27,22 @@ namespace Sample.Service.Services
         protected IAppDbContext coreDbContext;
         protected INotificationUserService notificationUserService;
         protected IUserService userService;
-        public NotificationService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext, INotificationUserService notificationUserService, IUserService userService) : base(unitOfWork, mapper)
+        protected IRoomService roomService;
+        protected IUserInRoomService userInRoomService;
+        protected IBranchService branchService;
+        public NotificationService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext
+            , INotificationUserService notificationUserService
+            , IUserService userService
+            , IRoomService roomService
+            , IBranchService branchService
+            , IUserInRoomService userInRoomService
+            ) : base(unitOfWork, mapper)
         {
-            this.userService = userService;
             this.coreDbContext = coreDbContext;
+            this.userService = userService;
+            this.roomService = roomService;
+            this.branchService = branchService;
+            this.userInRoomService = userInRoomService;
             this.notificationUserService = notificationUserService;
         }
 
@@ -47,74 +59,178 @@ namespace Sample.Service.Services
 
             if(item!= null)
             {
-                string[] ListRoleId = item.RoleId.Split(",");
-                // Check role
-                int CountRole = ListRoleId.Count();
+                if (item.RoleId!=null&&item.BranchId==null&&item.RoomId==null) {
+                    #region Notification by role
+                    string[] ListRoleId = item.RoleId.Split(",");
+                    // Check role
+                    int CountRole = ListRoleId.Count();
+                    var users = await userService.GetAsync(p => p.TenantId == item.TenantId);
+                    // list user co roll trong notification moi tao
+                    List<Users> ListUserByRole = new List<Users>();
 
-                
-                var ListUser = await userService.GetAllAsync();
-                // list user co roll trong notification moi tao
-                List<Users> ListUserByRole = new List<Users>();
+                    // neu co' 1 role
+                    if (CountRole == 1)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.RoleNumber == Int32.Parse(ListRoleId[0]))
+                            {
+                                ListUserByRole.Add(user);
+                            }
+                        }
+                    }
+                    else if (CountRole == 2)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1]))
+                            {
+                                ListUserByRole.Add(user);
+                            }
+                        }
+                    }
+                    else if (CountRole == 3)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1]) || user.RoleNumber == Int32.Parse(ListRoleId[2]))
+                            {
+                                ListUserByRole.Add(user);
+                            }
+                        }
+                    }
+                    else if (CountRole == 4)
+                    {
+                        foreach (var user in users)
+                        {
+                            if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1]) || user.RoleNumber == Int32.Parse(ListRoleId[2]) || user.RoleNumber == Int32.Parse(ListRoleId[3]))
+                            {
+                                ListUserByRole.Add(user);
+                            }
+                        }
+                    }
+                    // create notificationUser in DB
+                    List<NotificationUser> ListNewNotificationuser = new List<NotificationUser>();
+                    foreach (var user in ListUserByRole)
+                    {
+                        NotificationUser notificationUser = new NotificationUser();
+                        notificationUser.Id = 0;
+                        notificationUser.UsersId = user.Id;
+                        notificationUser.Title = item.Title;
+                        notificationUser.Content = item.Content;
+                        notificationUser.NotificationId = item.Id;
+                        notificationUser.TenantId = item.TenantId;
+                        notificationUser.Created = item.Created;
+                        notificationUser.CreatedBy = item.CreatedBy;
+                        notificationUser.Updated = item.Updated;
+                        notificationUser.UpdatedBy = item.UpdatedBy;
+                        notificationUser.Deleted = item.Deleted;
+                        notificationUser.Active = item.Active;
+                        notificationUser.isSeen = false;
 
-                // neu co' 1 role
-                if (CountRole ==1) {
-                    foreach (var user in ListUser)
-                    {
-                        if (user.RoleNumber == Int32.Parse(ListRoleId[0])) {
-                            ListUserByRole.Add(user);
-                        }
+                        ListNewNotificationuser.Add(notificationUser);
                     }
+                    await notificationUserService.CreateAsync(ListNewNotificationuser);
+                    return true;
+                    #endregion
                 }
-                else if ( CountRole == 2 ) {
-                    foreach (var user in ListUser)
-                    {
-                        if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1]))
-                        {
-                            ListUserByRole.Add(user);
-                        }
-                    }
-                }
-                else if (CountRole == 3) {
-                    foreach (var user in ListUser)
-                    {
-                        if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1])|| user.RoleNumber == Int32.Parse(ListRoleId[2]))
-                        {
-                            ListUserByRole.Add(user);
-                        }
-                    }
-                }
-                else if (CountRole == 4) {
-                    foreach (var user in ListUser)
-                    {
-                        if (user.RoleNumber == Int32.Parse(ListRoleId[0]) || user.RoleNumber == Int32.Parse(ListRoleId[1])||user.RoleNumber == Int32.Parse(ListRoleId[2]) || user.RoleNumber == Int32.Parse(ListRoleId[3]))
-                        {
-                            ListUserByRole.Add(user);
-                        }
-                    }
-                }
-                // create notificationUser in DB
-                List<NotificationUser> ListNewNotificationuser = new List<NotificationUser>();
-                foreach(var user in ListUserByRole)
+                if (item.RoleId == null && item.BranchId != null && item.RoomId == null)
                 {
-                    NotificationUser notificationUser = new NotificationUser();
-                    notificationUser.Id = 0;
-                    notificationUser.UsersId = user.Id;
-                    notificationUser.Title = item.Title;
-                    notificationUser.Content = item.Content;
-                    notificationUser.NotificationId = item.Id;
-                    notificationUser.TenantId = item.TenantId;
-                    notificationUser.Created = item.Created;
-                    notificationUser.CreatedBy = item.CreatedBy;
-                    notificationUser.Updated = item.Updated;
-                    notificationUser.UpdatedBy = item.UpdatedBy;
-                    notificationUser.Deleted = item.Deleted;
-                    notificationUser.Active = item.Active;
-                    notificationUser.isSeen = false;
+                    #region Notification by Branch
+                    string[] Branchs = item.BranchId.Split(",");
+                    // danh sach branchs
+                    // tim tat ca room trong branchs
+                    List<Room> roomsInBranch = new List<Room>();
+                    foreach(string branchId in Branchs)
+                    {
+                        var rooms = await roomService.GetAsync(p => p.BranchId == Int32.Parse(branchId));
+                        foreach(Room room in rooms)
+                        {
+                            roomsInBranch.Add(room);
+                        }
+                    }
+                    // sau khi lấy tất cả các room
+                    // lấy tất cả user trong room
+                    List<Users> usersInBranchs = new List<Users>();
+                    foreach (Room room in roomsInBranch) {
+                        var usersInRoom = await userInRoomService.GetAsync(p=>p.RoomId==room.Id);
+                        foreach(var userInRoom in usersInRoom)
+                        {
+                            var UsersInBranch = await userService.GetAsync(p => p.Id == userInRoom.UsersId);
+                            foreach(var user in UsersInBranch)
+                            {
+                                usersInBranchs.Add(user);
+                            }
+                        }
+                    }
+                    // create notificationUser in DB
+                    List<NotificationUser> ListNewNotificationuser = new List<NotificationUser>();
+                    foreach (var user in usersInBranchs)
+                    {
+                        NotificationUser notificationUser = new NotificationUser();
+                        notificationUser.Id = 0;
+                        notificationUser.UsersId = user.Id;
+                        notificationUser.Title = item.Title;
+                        notificationUser.Content = item.Content;
+                        notificationUser.NotificationId = item.Id;
+                        notificationUser.TenantId = item.TenantId;
+                        notificationUser.Created = item.Created;
+                        notificationUser.CreatedBy = item.CreatedBy;
+                        notificationUser.Updated = item.Updated;
+                        notificationUser.UpdatedBy = item.UpdatedBy;
+                        notificationUser.Deleted = item.Deleted;
+                        notificationUser.Active = item.Active;
+                        notificationUser.isSeen = false;
 
-                    ListNewNotificationuser.Add(notificationUser);
+                        ListNewNotificationuser.Add(notificationUser);
+                    }
+                    await notificationUserService.CreateAsync(ListNewNotificationuser);
+                    return true;
+                    #endregion
                 }
-                await notificationUserService.CreateAsync(ListNewNotificationuser);
-                return true;
+                if (item.RoleId == null && item.BranchId == null && item.RoomId != null)
+                {
+                    #region Notification by room
+                    string[] roomIds = item.RoomId.Split(",");
+                    // lay danh sach room
+                    List<Users> usersInRooms = new List<Users>();
+                    foreach (var roomId in roomIds) {
+                        var usersInRoom = await userInRoomService.GetAsync(p => p.RoomId ==Int32.Parse(roomId));
+                        foreach (var userInRoom in usersInRoom)
+                        {
+                            var UsersInBranch = await userService.GetAsync(p => p.Id == userInRoom.UsersId);
+                            foreach (var user in UsersInBranch)
+                            {
+                                usersInRooms.Add(user);
+                            }
+                        }
+                    }
+                    // create notificationUser in DB
+                    List<NotificationUser> ListNewNotificationuser = new List<NotificationUser>();
+                    foreach (var user in usersInRooms)
+                    {
+                        NotificationUser notificationUser = new NotificationUser();
+                        notificationUser.Id = 0;
+                        notificationUser.UsersId = user.Id;
+                        notificationUser.Title = item.Title;
+                        notificationUser.Content = item.Content;
+                        notificationUser.NotificationId = item.Id;
+                        notificationUser.TenantId = item.TenantId;
+                        notificationUser.Created = item.Created;
+                        notificationUser.CreatedBy = item.CreatedBy;
+                        notificationUser.Updated = item.Updated;
+                        notificationUser.UpdatedBy = item.UpdatedBy;
+                        notificationUser.Deleted = item.Deleted;
+                        notificationUser.Active = item.Active;
+                        notificationUser.isSeen = false;
+
+                        ListNewNotificationuser.Add(notificationUser);
+                    }
+                    await notificationUserService.CreateAsync(ListNewNotificationuser);
+                    return true;
+                    #endregion
+                }
+                return false;
             }
             return false;
         }

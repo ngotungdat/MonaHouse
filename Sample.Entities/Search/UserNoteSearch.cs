@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Sample.Entities.Search
 {
-    public class LicenseSearch : DomainEntities.BaseSearch
+    public class UserNoteSearch : DomainEntities.BaseSearch
     {
-        //public string CustomerId { get; set; }
+        public int UserID { get; set; }
     }
 }

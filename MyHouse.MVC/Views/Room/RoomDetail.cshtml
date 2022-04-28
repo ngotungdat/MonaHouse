@@ -230,15 +230,15 @@
 
                                     <th><span class="small">Số điện<span></span></span></th>
                                     <th><span class="small">Số nước</span></th>
-                                    <th><span class="small">Wifi</span></th>
-                                    <th><span class="small">Cáp truyền hình</span></th>
-                                    <th><span class="small">Gửi xe</span></th>
-                                    <th><span class="small">Gas</span></th>
+                                    <th><span class="small">Giá điện</span></th>
+                                    <th><span class="small">Giá nước</span></th>
+                                    <th><span class="small">Tiền điện</span></th>
+                                    <th><span class="small">Tiền nước</span></th>
                                     <th><span class="small">Khác</span></th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="elctric-history">
                                 <tr>
                                     <td>1</td>
                                     <td>Tháng 06/2020</td>
@@ -544,6 +544,9 @@
     let pageIndex = 1;
     let pageSize = 20;
     let orderBy = 0;
+    // danh sach khach hang trong phong
+    let customersInRoom = [];
+
     $(document).ready(function () {
         Load_data();
     });
@@ -557,6 +560,9 @@
                 for (let i = 0; i < List.length; i++) {
                     let item = List[i];
                     console.log(item);
+                    customersInRoom.push(item.UsersId);
+                    console.log('cus:' + customersInRoom);
+
                     let status = "";
                     if (item.Status == 0) { // 0: don di; 1:dang o
                         status = '<span class="tx-danger">Đã chuyển</span>';
@@ -579,7 +585,9 @@
                                 </tr>`;
                 }
                 $('#tbody-userinroom').html(html);
-            });
+            })
+            .then(function (e) { LoadFind(); }
+            );
     }
     // them moi
     $('#add-userinroom').on('click', function () {
@@ -588,10 +596,10 @@
         $('select[name="Status"]').val(1).change();
     });
     // tim kiem
-    $(document).ready( function () {
+    function LoadFind () {
+        let RoleNumber = 5; // khach hang
 
-
-        let apiUser = 'api/user/GetAllUserByTenantId?TenantId=' +'@Model.Users.Id';
+        let apiUser = 'api/user?RoleNumber=' + RoleNumber+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +'@Model.Users.Id';
 
         load_data_with_jquery(apiUser, searchContent, pageIndex, pageSize, orderBy)
             .then(function (e) {
@@ -606,24 +614,30 @@
                 opt.setAttribute("selected", "selected");*@
                 select = document.getElementById('ListUserSearch');
                 console.log('abc:'+e);
-                let list = e.Data;
+                let list = e.Data.Items;
+
                 for (let i = 0; i < list.length; i++) {
-                    var opti = document.createElement('option');
-                    opti.value = list[i].Id;
-                    opti.innerHTML = list[i].FullName;
-                    select.appendChild(opti);
+                    console.log(list[i].Id);
+                    let rs = customersInRoom.includes(list[i].Id);
+                    console.log(rs);
+                    console.log('cus:'+customersInRoom);
+                    if (rs) {
+                        console.log('user:' + list[i].Id + 'has in room');
+                    }
+                    else {
+                        var opti = document.createElement('option');
+                        opti.value = list[i].Id;
+                        opti.innerHTML = list[i].FullName;
+                        select.appendChild(opti);
+                    }
                 }
                 @*$("#ListUserSearch").select2({
                     dropdownParent: $('#js-add-rentor .modal-content')
                 });*@
             });
-    });
-    // edit ko sai
+    }
+    // edit 
     $(document).on('click','.js-edit-rent', function () {
-        @*$('input[name="txt-name"]').val($(this).attr('data-name'));
-        $('input[name="txt-phone"]').val($(this).attr('data-phone'));
-        $('input[name="txt-cmnd"]').val($(this).attr('data-cmnd'));*@
-
         console.log('edit:' + $(this).attr('data-id'));
         $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
         $('select[name="Status-edit"]').val($(this).attr('data-status')).change();
@@ -645,7 +659,6 @@
         }
         else {
             let data = {};
-            // lỗi
             data["id"] = id;
             data["usersId"] = userid;
             data["status"] = status;
@@ -656,78 +669,13 @@
             let apiCRUD = 'api/userinroom';
             if (id == 0) {
                 create_data(data, apiCRUD).then(function (e) {
-                    load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
-                        .then(function (e) {
-                            let html = '';
-                            console.log(e.Data.Items);
-                            let List = e.Data.Items;
-                            let stt = 0;
-                            for (let i = 0; i < List.length; i++) {
-                                let item = List[i];
-                                console.log(item);
-                                let status = "";
-                                if (item.Status == 0) { // 0: don di; 1:dang o
-                                    status = '<span class="tx-danger">Đã chuyển</span>';
-                                }
-                                if (item.Status == 1) {
-                                    status = '<span class="tx-success">Đang ở</span>';
-                                }
-                                stt++;
-                                html += `<tr>
-                                    <td>`+ stt + `</td>
-                                    <td>`+ item.FullName + `</td>
-                                    <td>`+ item.Phone + `</td>
-                                    <td>`+ item.CMT + `</td>
-                                    <td>14/07/2022</td>
-                                    <td>DAKLAK</td>
-                                    <td>`+ status + `</td>
-                                    <td>
-                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
-                                    </td>
-                                </tr>`;
-                            }
-                            $('#tbody-userinroom').html(html);
-                            $('#js-add-rentor').modal('hide');
-
-                        });
+                    location.reload(true);
                 });
+                $('#js-add-rentor').modal('hide');
             }
             else {
                 update_data(data, apiCRUD).then(function (e) {
-                    load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
-                        .then(function (e) {
-                            let html = '';
-                            console.log(e.Data.Items);
-                            let List = e.Data.Items;
-                            let stt = 0;
-                            for (let i = 0; i < List.length; i++) {
-                                let item = List[i];
-                                console.log(item);
-                                let status = "";
-                                if (item.Status == 0) { // 0: don di; 1:dang o
-                                    status = '<span class="tx-danger">Đã chuyển</span>';
-                                }
-                                if (item.Status == 1) {
-                                    status = '<span class="tx-success">Đang ở</span>';
-                                }
-                                stt++;
-                                html += `<tr>
-                                    <td>`+ stt + `</td>
-                                    <td>`+ item.FullName + `</td>
-                                    <td>`+ item.Phone + `</td>
-                                    <td>`+ item.CMT + `</td>
-                                    <td>14/07/2022</td>
-                                    <td>DAKLAK</td>
-                                    <td>`+ status + `</td>
-                                    <td>
-                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
-                                    </td>
-                                </tr>`;
-                            }
-                            $('#tbody-userinroom').html(html);
-                            $('#js-add-rentor').modal('hide');
-
-                        });
+                    location.reload(true);
                 });;
             }
 
@@ -752,7 +700,7 @@
             data["id"] = id;
             data["status"] = status;
             let apiCRUD = 'api/userinroom';
-            update_data(data, apiCRUD).then(function (e) { Load_data(); });;
+            update_data(data, apiCRUD).then(function (e) { location.reload(true); });;
             $('#js-add-rentor').modal('hide');
         }
     });
@@ -772,9 +720,60 @@
             }
             $('#RoomUtilities-details').html(html);
         })
-        
-       
     })
-    //
+    // load lịch sử điện nước
+    $(document).ready(function () {
+        let api_Load_electric_history ='api/ElectricWaterBill?RoomId=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=4';
+        load_data_with_jquery(api_Load_electric_history).then(function (e) {
+            let list = e.Data.Items;
+            let html = '';
+            console.log(list);
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                // chỉnh sửa định dạng ngày
+                var date = new Date(item.WriteDate);
+                let dob = 'Ngày '+((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' +((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' +  date.getFullYear();
+                //
+                html += `<tr>
+                                    <td>`+(i+1)+`</td>
+                                    <td>`+ dob+`</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberElectric+`</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberElectric+`</p>
+                                            <div class="lightgallery">
+                                                <a href="`+ item.ElectricImage+`" class="">
+                                                    Hình
+                                                    ảnh<img src="`+ item.ElectricImage+`" alt="" class="hidden">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberWater+`</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberWater+`</p>
+                                            <div class="lightgallery">
+                                                <a href="`+ item.WaterImage +`" class="">
+                                                    Hình
+                                                    ảnh<img src="`+ item.WaterImage+`" alt="" class="hidden">
+                                                </a>
+                                            </div>
 
+                                        </div>
+                                    </td>
+                                    <td>`+ format_money(item.ElectricPrice) +`</td>
+                                    <td>`+ format_money(item.WaterPrice) +`</td>
+                                    <td>`+ format_money(item.ElectricBill) +`</td>
+                                    <td>`+ format_money(item.WaterBill) +`</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>`;
+            }
+            $('#elctric-history').html(html);
+        })
+    });
 </script>

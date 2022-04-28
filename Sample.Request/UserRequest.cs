@@ -61,6 +61,10 @@ namespace Sample.Request
         /// Họ tên người dùng
         /// </summary>
         public string FullName { get; set; }
+        /// <summary>
+        /// ảnh đại diện
+        /// </summary>
+        public string Avatar { get; set; }
 
         /// <summary>
         /// Số lần vi phạm

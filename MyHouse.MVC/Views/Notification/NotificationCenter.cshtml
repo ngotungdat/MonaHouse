@@ -1,6 +1,6 @@
 ﻿@model CoreModel
 @using Sample.Entities
-@{ 
+@{
     Users user = Model.Users;
 }
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -66,7 +66,6 @@
             <div class="col-sm-12 form-group">
                 <label class="">Chọn khu vực, tòa nhà:</label>
                 <select name="ddl-branch" class="select2 form-control" id="ddl-branch" multiple="">
-                    
                 </select>
 
             </div>
@@ -77,8 +76,8 @@
         <div class="form-row row-xs">
             <div class="col-sm-12 form-group">
                 <label class="">Chọn khu vực, tòa nhà:</label>
-                <select name="ddl-branch-to-room" class="select2 form-control" id="ddl-branch-to-room" multiple="">
-                    
+                <select name="ddl-branch-to-room" class="select2 form-control" id="ddl-branch-to-room" onchange="loadRoomInBranch(this.value)">
+                    <option disabled="true" selected>--Chọn tòa nhà--</option>
                 </select>
 
             </div>
@@ -89,6 +88,7 @@
             <div class="col-sm-12 form-group">
                 <label class="">Chọn phòng :</label>
                 <select name="ddl-room" class="select2 form-control" id="ddl-room" multiple="">
+                    @*<option disabled="true" selected>--Chọn phòng--</option>*@
                 </select>
 
             </div>
@@ -151,7 +151,6 @@
                                 <tr class="tr-header-table">
                                     <th class="sort-label" data-column="col-name">Thời Gian</th>
                                     <th class="sort-label" data-column="col-electronic">Phạm Vi</th>
-                                    <th class="sort-label " data-column="col-service">Định Vị</th>
                                     <th class="sort-label " data-column="col-service">Email</th>
                                     <th class="sort-label " data-column="col-service">Tiêu đề</th>
                                     @*<th class="sort-label text-table-center" data-column="col-service">Thao tác</th>*@
@@ -190,6 +189,7 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
     $("#select-form-role").prop('disabled', false);
     console.log('ahihihihihihih');
@@ -251,11 +251,29 @@
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
                     var date = new Date(item.Created);
+                    // check pham vi thong bao
+                    let notification_range = '';
+                    if (item.RoleId != null && item.BranchId == null && item.RoomId == null) {
+                        notification_range = 'Phân quyền';
+                    }
+                    if (item.RoleId == null && item.BranchId != null && item.RoomId== null) {
+                        notification_range = 'Khu vực, tòa nhà';
+                    } if (item.RoleId == null && item.BranchId == null && item.RoomId != null) {
+                        notification_range = 'Phòng';
+                    }
+                    // check Is Email
+                    let isEmail = '';
+                    console.log(item.IsSendMail);
+                    if (item.IsSendMail == false) {
+                        isEmail = '<span class="badge badge-danger wd-100 pd-5 tx-12" name="is-sendmail">không mail</span >';
+                    }
+                    else {
+                        isEmail = '<span class="badge badge-success wd-100 pd-5 tx-12" name="is-sendmail">đã gửi mail</span >';
+                    }
                     html += '<tr>';
                     html += '<td>' + date.toLocaleString("en-GB") + '</td>';
-                    html += '<td>' + item.RoleId + '</td>';
-                    html += '<td>' + item.BranchName + '</td>';
-                    html += '<td>' + item.IsSendMail + '</td>';
+                    html += '<td>' + notification_range + '</td>';
+                    html += '<td>' + isEmail + '</td>';
                     html += '<td>' + item.Title + '</td>';
                     html += '</tr>';
                 }
@@ -414,9 +432,12 @@
 
 
     $('.btn-save-Notification').click(function () {
+        console.log("aaaaa");
         var id = 0;
         var title = $('input[name=txt-title]').val();
         var roleID = $('select[name=ddl-role]').val();
+        var branchIds = $('#ddl-branch').val();
+        var roomIds=$('#ddl-room').val()
         var isEmail = false;
         if ($('input[name=is-email]').is(':checked')) {
             isEmail = true;
@@ -426,36 +447,100 @@
         }
         var counttext = tinymce.editors[0].contentDocument.activeElement.innerText;
         var desc = tinymce.editors[0].contentDocument.activeElement.innerHTML;
-        console.log(title, roleID);
-        console.log(desc);
-        console.log(id);
-        if (ckstring(title) || ckstring(roleID) || ckstring(desc)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            $(this).prop('disabled', true);
-            insert_or_update(id, title, roleID, desc, isEmail);
-        }
+        ///
+        
+            var value = $('select[name=ddl-type]').val();
+            console.log('may da chon looai chuaaaa !!!!');
+            if (value == 0) {
+                toast.create({
+                    title: 'Thông báo!',
+                    text: 'Vui lòng chọn dạng gửi thông báo',
+                    icon: 'error_outline',
+                    classBackground: 'noti-error',
+                    timeout: 3000
+                })
+            }
+            // TH1: gửi theo role
+            if (value==1) {
+                console.log('gửi thông báo theo role');
+                if (ckstring(title) || ckstring(roleID) || ckstring(desc)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    let data = {};
+                    data["id"] = id;
+                    data["title"] = title; //I just wanted to show you how you can add values to a json object
+                    data["roleid"] = roleID.toString();
+                    data["content"] = desc;
+                    data["active"] = true;
+                    data["deleted"] = false;
+                    data['isSendMail'] = isEmail;
+                    console.log('data:' + id, title, roleID.toString(), desc, isEmail);
+                    insert_or_update(data);
+                }
+            }
+            // TH2: gửi theo tòa nhà
+            if (value == 2) {
+                console.log('gửi thông báo theo tòa nhà');
+                if (ckstring(title) || ckstring(branchIds) || ckstring(desc)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    let data = {};
+                    data["id"] = id;
+                    data["title"] = title; //I just wanted to show you how you can add values to a json object
+                    data["branchId"] = branchIds.toString();
+                    data["content"] = desc;
+                    data["active"] = true;
+                    data["deleted"] = false;
+                    data['isSendMail'] = isEmail;
+                    console.log('data:' + id, title, branchIds.toString(), desc, isEmail);
+                    insert_or_update(data);
+                }
+            }
+            // TH3: gửi theo phòng
+            if (value == 3) {
+                console.log('gửi thông báo theo phòng');
+                if (ckstring(title) || ckstring(roomIds) || ckstring(desc)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    let data = {};
+                    data["id"] = id;
+                    data["title"] = title; //I just wanted to show you how you can add values to a json object
+                    data["roomId"] = roomIds.toString();
+                    data["content"] = desc;
+                    data["active"] = true;
+                    data["deleted"] = false;
+                    data['isSendMail'] = isEmail;
+                    console.log('data:' + id, title, roomIds.toString(), desc, isEmail);
+                    insert_or_update(data);
+                }
+            }
+        //
+        
+        
+        
     });
 
 
-    function insert_or_update(id, title, roleID, desc, isEmail) {
+    function insert_or_update(data) {
 
-        let data = {};
-        data["id"] = id;
-        data["title"] = title; //I just wanted to show you how you can add values to a json object
-        data["roleid"] = roleID.toString();
-        data["content"] = desc;
-        data["active"] = true;
-        data["deleted"] = false;
-        data['isSendMail'] = isEmail;
-        console.log('data:' + id, title, roleID.toString(), desc, isEmail);
+        
         let type_request = '';
-        if (ckstring(id) || id == 0) {
+        if (ckstring(data.id) || data.id == 0) {
             type_request = 'POST';
         }
         else {
@@ -550,7 +635,7 @@
             '/house/assets/css/dashforge.css',
             '/house/assets/css/custom.css',
             '/house/assets/css/dashforge.profile.css'
-            
+
         ],
         height: 250,
         images_dataimg_filter: function (img) {
@@ -565,6 +650,32 @@
         },
         fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
     });
-
+    //#region Load room from branch
+    function loadRoomInBranch(BranchID) {
+        // xóa danh sách room cũ
+        select = document.getElementById('ddl-room');
+        var length = select.options.length;
+        for (i = length - 1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+        @*var opt = document.createElement('option');
+        opt.innerHTML = 'Chọn phòng';
+        select.appendChild(opt);
+        opt.setAttribute("disabled", "true");
+        opt.setAttribute("selected", "selected");*@
+        //
+        let api_load_room_in_Banch = 'api/Room?BranchId=' + BranchID + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + '@Model.Users.TenantId';
+        load_data_with_jquery(api_load_room_in_Banch).then(function (e) {
+            let rooms = e.Data.Items;
+            selectRoom = document.getElementById('ddl-room');
+            for (let i = 0; i < rooms.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = rooms[i].Id;
+                opt.innerHTML = rooms[i].Name;
+                selectRoom.appendChild(opt);
+            }
+        })
+    }
+    //#endregion
 </script>
 

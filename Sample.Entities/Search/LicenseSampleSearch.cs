@@ -9,6 +9,5 @@ namespace Sample.Entities.Search
 {
     public class LicenseSampleSearch : DomainEntities.BaseSearch
     {
-        public string Code { get; set; }
     }
 }

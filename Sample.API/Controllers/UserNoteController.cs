@@ -20,21 +20,22 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+
 namespace Sample.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Description("Giấy phép mẫu")]
+    [Description("Quản lý ghi chú CSKH ADMIN")]
     [Authorize]
-    public class LicenseSampleController : BaseController<LicenseSample, LicenseSampleModel, LicenseSampleRequest, LicenseSampleSearch>
+    public class UserNoteController : BaseController<UserNote, UserNoteModel, UserNoteRequest, UserNoteSearch>
     {
-  
-        public LicenseSampleController(IServiceProvider serviceProvider, ILogger<BaseController<LicenseSample, LicenseSampleModel, LicenseSampleRequest, LicenseSampleSearch>> logger
+        protected IUserNoteService userService;
+        public UserNoteController(IServiceProvider serviceProvider, ILogger<BaseController<UserNote, UserNoteModel, UserNoteRequest, UserNoteSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
-            this.domainService = serviceProvider.GetRequiredService<ILicenseSampleService>();
+            this.domainService = serviceProvider.GetRequiredService<IUserNoteService>();
         }
-        
+       
     }
 }

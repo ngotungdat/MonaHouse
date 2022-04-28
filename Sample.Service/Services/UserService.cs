@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Sample.Service.Services.DomainServices;
 using Sample.Entities.Search;
 using Sample.Entities.Auth;
+using System.Reflection;
 
 namespace Sample.Service.Services
 {
@@ -89,7 +90,12 @@ namespace Sample.Service.Services
                     // Tạo mới nhóm người dùng
                     await this.unitOfWork.Repository<Users>().CreateAsync(item);
                     await this.unitOfWork.SaveAsync();
-
+                    if (item.RoleNumber == 3)
+                    {
+                        item.TenantId = item.Id;
+                        this.unitOfWork.Repository<Users>().Update(item);
+                        await this.unitOfWork.SaveAsync();
+                    }
                     //Lưu thông tin user thuộc nhóm người dùng
                     if (item.UserGroupId != 0)
                     {
@@ -97,6 +103,7 @@ namespace Sample.Service.Services
                         {
                             UserId = item.Id,
                             UserGroupId = item.UserGroupId,
+
                             TenantId=item.TenantId,
                             Id = 0
                         };
@@ -123,16 +130,51 @@ namespace Sample.Service.Services
         {
             bool result = false;
             var existItem = await this.Queryable.Where(e => e.Id == item.Id).FirstOrDefaultAsync();
+            int oldTenant = existItem.TenantId;
+            int oldRoleNumber = existItem.RoleNumber;
             if (existItem != null)
             {
+                //kiểm tra nếu Properties nào null thì lấy lại data cũ.
+                try
+                {
+                    foreach (PropertyInfo item_old in existItem.GetType().GetProperties())
+                    {
+                        foreach (PropertyInfo item_new in item.GetType().GetProperties())
+                        {
+                            if (item_old.Name == item_new.Name)
+                            {
+                                var value_old = item_old.GetValue(existItem);
+                                var value_new = item_new.GetValue(item);
+                                if (value_old != value_new)
+                                {
+                                    item_old.SetValue(existItem, value_new ?? value_old);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                //
+                if (existItem.TenantId == 0)
+                {
+                    existItem.TenantId = oldTenant;
+                }
+                if (existItem.RoleNumber == 0)
+                {
+                    existItem.RoleNumber = oldRoleNumber;
+                }
                 //if (!item.IsResetPassword)
                 //    item.Password = existItem.Password;
                 var currentCreated = existItem.Created;
                 var currentCreatedByInfo = existItem.CreatedBy;
-                existItem = mapper.Map<Users>(item);
+                //existItem = mapper.Map<Users>(item);
                 existItem.Created = currentCreated;
                 existItem.CreatedBy = currentCreatedByInfo;
-
+                //existItem.Password = SecurityUtilities.HashSHA1(item.Password);
 
                 this.unitOfWork.Repository<Users>().Update(existItem);
                 await this.unitOfWork.SaveAsync();

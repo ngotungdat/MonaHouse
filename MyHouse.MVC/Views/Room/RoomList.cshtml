@@ -80,9 +80,8 @@
                         </div>
                         <div class="form-group mg-r-15 group-select">
                             <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></label>
-                            <select name="" class="form-control">
-                                <option value="">321 CMT8, Lý Thường Kiệt</option>
-                                <option value="" selected="">319 CMT8 , Trương Định</option>
+                            <select id="branch-search-main" name="branch-search-main" class="form-control" onchange="sort_data_Branch(this.value)" >
+                                
                             </select>
                         </div>
                         <div class="form-group group-select">
@@ -877,10 +876,9 @@
                             <div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Nhà / dãy trọ</label>
-                                    <select name="" class="form-control">
+                                    <select id="branch-search" name="branch-search" class="form-control" onchange="sort_data_Branch(this.value)">
                                         <option value="">-Tất cả-</option>
-                                        <option value="1" selected="">319 CMT7, Trương Định</option>
-                                        <option value="1">64 Út Tịch</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1160,7 +1158,7 @@
                             'success'
                         );
                     $('.btn-save-room-edit').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1211,7 +1209,7 @@
                             'success'
                         );
                     $('.btn-save-room').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1314,6 +1312,20 @@
                         opt.innerHTML = list[i].Name;
                         select2.appendChild(opt);
                     }
+                    select3 = document.getElementById('branch-search');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select3.appendChild(opt);
+                    }
+                    select4 = document.getElementById('branch-search-main');
+                    for (let i = 0; i < list.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select4.appendChild(opt);
+                    }
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
@@ -1376,14 +1388,15 @@
         let TotalPage = 0;
         let Status = -1;
         let RoomType = -1;
+        let BranchId = -1;
         $(document).ready(function () {
-            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
         });
-        function load_Room(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType) {
+        function load_Room(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType, _BranchId) {
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: '@Model.Domain' + 'api/Room?PageIndex=' + _PageIndex + '&PageSize=' + _PageSize + '&status=' + _Status + '&roomtypeid=' + _RoomType + '&SearchContent='+_SearchContent+'&OrderBy='+OrderBy+'&TenantId=' + '@Model.Users.Id',
+                url: '@Model.Domain' + 'api/Room?PageIndex=' + _PageIndex + '&PageSize=' + _PageSize + '&status=' + _Status + '&roomtypeid=' + _RoomType + '&SearchContent=' + _SearchContent + '&OrderBy=' + _OrderBy + '&BranchId=' + _BranchId+'&TenantId=' + '@Model.Users.Id',
                 headers: {
                     'Authorization': 'Bearer ' + '@Model.Token',
                     'Content-Type': 'application/json'
@@ -1689,29 +1702,34 @@
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
     });
 
     //Enter tìm kiếm
     $('input[name=search]').keyup(function (event) {
         if (event.keyCode === 13) {
             SearchContent = $('input[name=search]').val();
-            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
         }
     });
     //Sắp xếp
     function sort_data_name(val) {
         OrderBy = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
 
     }
     function sort_data_status(val) {
         Status = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
 
     } function sort_data_room_type(val) {
         RoomType = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+    }
+    function sort_data_Branch(val) {
+        console.log(val);
+        BranchId = val;
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
     }
     //load phân trang
     $(function () {
@@ -1721,7 +1739,7 @@
     function load_to_page(index_click) {
         PageIndex = index_click;
         //load lại data
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
     }
 </script>
 <!--by baonguyen-->

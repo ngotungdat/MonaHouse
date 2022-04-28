@@ -67,6 +67,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<PaymentMethod>(x => x.ToTable("PaymentMethods"));
             modelBuilder.Entity<RoomType>(x => x.ToTable("RoomTypes"));
             modelBuilder.Entity<ElectricWaterBill>(x => x.ToTable("ElectricWaterBills"));
+            modelBuilder.Entity<UserNote>(x => x.ToTable("UserNotes"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -120,6 +121,7 @@ namespace Sample.AppDbContext
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<ElectricWaterBill> ElectricWaterBills { get; set; }
+        public DbSet<UserNote> UserNotes { get; set; }
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

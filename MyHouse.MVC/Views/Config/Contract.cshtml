@@ -74,7 +74,7 @@
     let total_page = 0;
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+        return domain + '?&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&TenantId=' + '@Model.Users.TenantId';
     }
     $(document).ready(function () {
         load_data(get_api(page_index, page_size, SearchContent, OrderBy));
