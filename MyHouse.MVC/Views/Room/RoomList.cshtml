@@ -191,7 +191,7 @@
                                 <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
                                     <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
                                 </a>
-                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
+                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this,'input-img','room-img');" multiple />
                                 <div style="clear:left;"></div>
                                 <div class="preview-image" id="room-img"></div>
 
@@ -217,7 +217,6 @@
                     <div class="media align-items-center">
                         <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-image"></i></span>
                         <div class="media-body mg-sm-l-20">
-                            <input type="hidden" name="hdfId" value="0" />
                             <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Hình ảnh phòng</h4>
                             <p class="tx-13 tx-color-03 mg-b-0">hình ảnh chi tiết</p>
                         </div>
@@ -225,15 +224,17 @@
                 </div><!-- modal-header -->
                 <div class="modal-body pd-sm-t-30 pd-sm-x-30">
                     <div class="row">
+                        <input type="hidden" id="hdfId-update-room-image" value="0" />
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
                             <div style="clear:left;"></div>
                             <a href="javascript:;" class="btn btn-outline-primary btn-uploads-edit btn-block">
                                 <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
                             </a>
-                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps-edit remove-items" onchange="readURL(this);" multiple />
+                            <input id="input-img-edit" type='file' name="electricimg" class="hidden upload-image-temps-edit remove-items" onchange="readURL(this,'input-img-edit','image-byroomidEdit');" multiple />
                             <div style="clear:left;"></div>
                             <div class="preview-image" id="image-byroomid"></div>
+                            <div class="preview-image" id="image-byroomidEdit"></div>
 
                         </div>
                     </div>
@@ -962,9 +963,9 @@
         $('.btn-uploads').on('click', function () {
             $('.upload-image-temps').click();
         });
-        $('.btn-uploads-edit').on('click', function () {
-            $('.upload-image-temps-edit').click();
-        });
+    $('.btn-uploads-edit').on('click', function () {
+        $('.upload-image-temps-edit').click();
+    });
         //
         // xóa img
         let listImage = [];
@@ -1057,11 +1058,75 @@
         });
     //on click
     $('.btn-save-image-edit').on('click', function () {
-        // lay du lieu anh ms load
-        // khi nhan ' luu xoa' toan bo anh cu
-        // upload anh moi'
-
+        let StringAddImageLinks = '';
+        let StringdeleteImageId = '';
+        // lay du lieu anh moi' load
+        console.log('them moi anh'+listImage);
+        // lay' danh sach anh muon' xoa'
+        console.log('xoa anh'+listImageToDelete);
+        // upload anh moi' va luu roomImage
+        if (listImage.length > 0) {
+            let ImageNames = upload_img(listImage);
+                for (let i = 0; i < ImageNames.length; i++) {
+                    ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                }
+            StringAddImageLinks = ImageNames.join(';');
+        }
+        // danh sach anh bi xoa' chuyen doi sang Chuoi String
+        if (listImageToDelete.length > 0) {
+            StringdeleteImageId = listImageToDelete.join(';');
+        }
+        if (ckstring(StringAddImageLinks) && ckstring(StringdeleteImageId)) {
+            Swal.fire(
+                'Cảnh báo',
+                'hình ảnh không thay đổi!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data['roomId'] = $('#hdfId-update-room-image').val();
+            data['stringAddImageLinks'] = StringAddImageLinks;
+            data['stringdeleteImageId'] = StringdeleteImageId;
+            console.log(data.roomId, data.StringAddImageLinks, data.StringdeleteImageId);
+            update_image_room(data);
+        }
     });
+    // function updata anh
+    function update_image_room(data) {
+        $('.btn-save-image-edit').prop('disabled', true);
+        let type_request = 'POST';
+            $.ajax({
+                url: '@Model.Domain' + 'api/RoomImage/UpdateImageRoom',
+                data: JSON.stringify(data),
+                type: type_request,
+                dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                contentType: "application/json",
+                success: function (data) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Cập nhật dữ liệu thành công!',
+                            'success'
+                        );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Rất tiếc đã xảy ra lỗi!',
+                        'error'
+                    );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+    }
+
 
         $('.btn-save-room').on('click', function () {
             // lấy giữ liệu từ form
@@ -1221,8 +1286,10 @@
                     console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
-        }
-        function readURL(input) {
+    }
+    // lấy thông tin và hiển thị hình ảnh
+    function readURL(input, inputId, loadId) {
+        console.log(inputId, loadId);
             if (input.files && input.files[0]) {
                 listImage = [];
                 let html = '';
@@ -1235,7 +1302,7 @@
                             <a id="img-` + i + `" onClick="deleteImage(`+i+`)" href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
                         </div>`;
                 }
-                $('#room-img').hide().html(html).show('slow');
+                $('#' + loadId).hide().html(html).show('slow');
                 for(let i = 0; i < input.files.length; i++) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
@@ -1248,7 +1315,7 @@
                     };
                     reader.readAsDataURL(input.files[i]);
                 }
-                let value = document.getElementById("input-img").files;
+                let value = document.getElementById(inputId).files;
                 for (let i of value) {
                     listImage.push(i);
                 }
@@ -1722,7 +1789,8 @@
         Status = val;
         load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
 
-    } function sort_data_room_type(val) {
+    }
+    function sort_data_room_type(val) {
         RoomType = val;
         load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
     }
@@ -1745,8 +1813,11 @@
 <!--by baonguyen-->
 <!--Call API Image Room Theo RoomID-->
 <script>
-    let listImageEdit = [];
-        function DetailImage(RoomID) {
+    // cập nhật hình ảnh phòng
+    let listImageToDelete = [];
+    
+    function DetailImage(RoomID) {
+        listImageToDelete = [];
             $.ajax({
                 type: 'GET',
                 dataType: "json",
@@ -1756,6 +1827,7 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (data, status, xhr) {
+                    $('#hdfId-update-room-image').val(RoomID);
                     let list = data.Data;
                     let html = '';
                     for (let i = 0; i < list.length; i++) {
@@ -1763,13 +1835,11 @@
                         let image = {};
                         image["id"] = item.Id;
                         image["link"] = item.Link;
-                        listImageEdit.push(image);
-
                         html += `<div class="image-wrap">
                             <div class="image-box lightgallery">
                                 <a href="`+ item.Link + `" class=""> <img style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="` + item.Link +`" alt="image" class="img "></a>
                             </div>
-                            <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                            <a href="javascript:;" class="delete-image" onClick="addImageIntoDelete(`+ item.Id +`)" ><i class="fas fa-times"></i></a>
                         </div>`;
                     }
                     let a = $('#image-byroomid').html(html);
@@ -1781,7 +1851,11 @@
             });
         }
 
-
+    function addImageIntoDelete(data) {
+        listImageToDelete.push(data);
+        console.log(listImageToDelete);
+    }
+//
         function EditRoom(RoomID) {
             $.ajax({
                 type: 'GET',

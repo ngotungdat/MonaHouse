@@ -62,5 +62,31 @@ namespace Sample.API.Controllers
             }
             throw new Exception("Lỗi trong quá trình xủ lý");
         }
+        [HttpPost]
+        [Route("UpdateImageRoom")]
+        [AppAuthorize(new string[] { CoreContants.Update })]
+        public async Task<AppDomainResult> UpdateImageRoom([FromBody] UpdateRoomImageRequest updateRoomImageRequest)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+
+            if (updateRoomImageRequest != null)
+            {
+                bool result = await roomImageService.UpdateImagesRoom(updateRoomImageRequest);
+                if (!result)
+                {
+                    throw new Exception("Lỗi trong quá trình xủ lý");
+                }
+                appDomainResult = new AppDomainResult
+                {
+                    Success = true,
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.UPDATE_SUCCESS
+                };
+
+
+                return appDomainResult;
+            }
+            throw new Exception("Lỗi trong quá trình xủ lý");
+        }
     }
 }

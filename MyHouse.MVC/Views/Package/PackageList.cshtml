@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mô tả thêm <span class="text-danger">(*)</span></label>
-                    <textarea rows="2" name="txt-description" class="form-control" placeholder="..."></textarea>
+                    <textarea rows="2" name="txt-description" id="txt-description" class="form-control" placeholder="..."></textarea>
                 </div>
                 <div class="form-group mg-0">
                     <div class="form-check form-switch col-sm-3 mt-3">
@@ -108,7 +108,80 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    
+        let tiny= tinymce.init({
+            readonly: false,
+            selector: '#txt-description',
+            oninit: "setPlainText",
+            plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+            paste_as_text: true,
+            inline: false,
+            menubar: false,
+            toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+            ],
+            height: 250,
+            images_dataimg_filter: function (img) {
+                return img.hasAttribute('internal-blob');
+            },
+            setup: (editor) => {
+                editor.ui.registry.addButton('UploadImage', {
+                    text: 'Image',
+                    icon: 'image',
+                    onAction: uploadImage
+                });
+                //editor.on('init', function () {
+                    //load your content here!
+                    //tinymce.activeEditor.setContent(data);
+                    //or
+                    //tinymce.editors[0].setContent(html);
+                //});
+            },
+            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+            @*init_instance_callback: function (editor) {
+                editor.on('ExecCommand', function (e) {
+                    console.log('The ' + e.command + ' command was fired.');
+                });
+            }*@
+        });
+        function uploadImage() {
+            var editor = tinymce.activeEditor;
+            // create input element, call modal dialog w
+            var fileInput = document.createElement('input');
+            fileInput.setAttribute('type', 'file');
+            fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+            // if file is submitted run our key code
+            fileInput.addEventListener('change', () => {
 
+                if (fileInput.files != null && fileInput.files[0] != null) {
+                    // create instance of FileReader()
+                    var formData = new FormData();
+                    formData.append("FileUpload", fileInput.files[0]);
+                    $.ajax({
+                        async: false,
+                        type: 'POST',
+                        url: '/Admin/PostNewFeed/UploadFilePost',
+                        data: formData,
+                        dataType: 'json',
+                        contentType: false,
+                        processData: false,
+                        success: function (msg) {
+                            console.log(msg.l);
+                            editor.insertContent('<img src="' + msg.l + '"/>');
+                        },
+                        error: function (error) {
+                            console.log('error upload file audio');
+                        }
+                    });
+                }
+            });
+            fileInput.click()
+        }
+    
+</script>
 <script>
     let PageIndex = 1;
     let PageSize = 20;
@@ -155,7 +228,7 @@
                                 <div class="media" style="padding-right:0">
                                     <div class="media-body ">
                                         <div class="group-top">
-                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="javascript:;">${item.Title}</a></h6>
+                                            <h6 class="mg-b-5 tx-inverse house-title"><a href="./PackageDetail/`+ item.Id + `?title=` + item.Title+`">${item.Title}</a></h6>
                                             <div class="house-meta">
                                                 <p>
                                                     <span class="value">${format_money(item.Price)}</span> <span class="lb">/tháng</span>
@@ -206,7 +279,7 @@
         }
     });
 
-    $('.btn-add-package').on('click', function () {
+    $('.btn-add-package').on('click', function (event) {
         $('input[name=txt-title]').val('');
         $('textarea[name=txt-title-description]').val('');
         $('input[name=txt-limitedRoom]').val('');
@@ -215,6 +288,7 @@
         $('select[name=dll-type-of-rental]').val(1);
         $('select[name=dll-package-type]').val(1);
         $('#switch-active').val(true);
+        tinyMCE.activeEditor.setContent($('textarea[name=txt-description]').val());
         $('#modal-add-package').modal('show');
     });
 
@@ -237,7 +311,10 @@
             $('#switch-active').prop("checked", false);
             $('#switch-active').val(true);
         }
+        console.log(tiny);
+        tinyMCE.activeEditor.setContent($('textarea[name=txt-description]').val());
         $('#modal-add-package').modal('show');
+
     });
 
     //xóa gói phần mềm

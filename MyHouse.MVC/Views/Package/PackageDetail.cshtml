@@ -1,0 +1,576 @@
+﻿@model CoreModel
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
+<style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        margin-bottom: 20px;
+    }
+
+    .btn-primary-edit {
+        color: #fff;
+        background-color: #1ec8c8;
+        border-color: #1ec8c8;
+    }
+
+    .modal-dialog {
+        max-width: 20%;
+    }
+</style>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-md-flex align-items-center justify-content-between mg-b-20">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Danh sách Gói Dịch vụ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Gói dùng thử</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Thông tin phòng-->
+    <div class="row mg-b-30 flex-wrap-1" id="print-bill-section">
+        <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+            <div class="room-infor legend-box pd-25  rounded" data-label="Thông tin Gói dịch vụ">
+                <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="info-list">
+                    <dl class="row-info">
+                        <dd class="">Tên Gói dịch vụ:</dd>
+                        <dt class="title-name"></dt>
+                    </dl>
+                    <dl class="row-info hide-on-print">
+                        <dd class="">Trạng thái:</dd>
+                        <dt class="">
+                            <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                Đã đặt cọc
+                            </span>
+                        </dt>
+                    </dl>
+
+
+                    <dl class="row-info">
+                        <dd class="">Người đại diện:</dd>
+                        <dt class="">Trương Văn Lam</dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Điện thoại:</dd>
+                        <dt class="">0886706289</dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Ngày hét hạn:</dd>
+                        <dt class="">20/11/2020</dt>
+                    </dl>
+                    <dl class="row-info ">
+                        <dd class="">Tiêu đề mô tả:</dd>
+                        <dt class=""><span class="tx-danger title-description"></span></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Giá gói dịch vụ:</dd>
+                        <dt class="price"></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Mô tả chi tiết:</dd>
+                        <dt class="description"></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Thể loại gói dịch vụ:</dd>
+                        <dt class="package-type"></dt>
+                    </dl>
+
+                    <dl class="row-info ">
+                        <dd class="">Số phòng giới hạn:</dd>
+                        <dt class=""><span class="tx-danger limit-room"></span></dt>
+                    </dl>
+                    <dl class="row-info ">
+                        <dd class="">kiểu thuê nhà/trọ:</dd>
+                        <dt class="type-of-rental"></dt>
+                    </dl>
+                    <dl class="row-info ">
+                        <dd class=""></dd>
+                        
+                        <dt class=""><button type="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button></dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 ">
+            <div class="legend-box pd-25  " data-label="Hướng dẫn chọn gói dịch vụ phù hợp">
+                <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Giới thiệu:</dd>
+                                <dt class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec volutpat odio. Aenean id libero turpis. Quisque hendreri ibendum felis id, blandit lectus. Donec mattis faucibus mauris nec rhoncus. Nam gravida turpis ut libero ornare posuere. Proin sodales imperdiet dolor, id tempus nibh auctor sed. Pellentesque enim sem, fringilla ac consectetur ut, egestas nec orci.</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Điều 1:</dd>
+                                <dt class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec volutpat odio. Aenean id libero turpis. Quisque hendreri ibendum felis id, blandit lectus. Donec mattis faucibus mauris nec rhoncus. Nam gravida turpis ut libero ornare posuere. Proin sodales imperdiet dolor, id tempus nibh auctor sed. Pellentesque enim sem, fringilla ac consectetur ut, egestas nec orci.</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Điều 2:</dd>
+                                <dt class="">Vivamus fringilla ligula turpis, a efficitur lacus blandit ac. Aen dui. Duis suscipit arcu ac dui pellentesque placerat. Phasellus sed sapien libero. Ut volutpat, sapien ac faucibus posuere, quam nisl consectetur neque, eu feugiat lacus erat rhoncus mauris. Nullam tellus magna, auctor in rutrum at, ullamcorper ut velit. In tempor, sem quis vulputate mollis, elit elit tempus purus, in egestas risus urna a sapien. Sed sodales eros eu sapien cursus, vitae gravida dui rutrum.</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Điều 3:</dd>
+                                <dt class="">0886706289</dt>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <div id="RoomUtilities-details"></div>
+                            @*<dl class="row-info">
+                                    <dd class="">Mạng:</dd>
+                                    <dt class="">200.000</dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Rác:</dd>
+                                    <dt class="">50.000</dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Giữ xe:</dd>
+                                    <dt class="">150.000</dt>
+                                </dl>
+
+                                <dl class="row-info">
+                                    <dd class="">Cáp TV:</dd>
+                                    <dt class=""><span class="tx-second">100.000</span></dt>
+                                </dl>*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+       
+    </div>
+    <!-- End thông tin phòng-->
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Thông tin và báo cáo gói dịch vụ</h4>
+            </div>
+            @*<div class="d-none d-md-flex">
+                    <div class="form-group mb-0 mg-r-10">
+                        <select name="branch" id="jsft-branch" class="form-control">
+                            <option value="#">Tất cả chi nhánh</option>
+                            <option value="#">Chi nhánh 2</option>
+                            <option value="#">Chi nhánh 3</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="sliders" class="wd-10 mg-r-5"></i> Lọc dữ liệu</button>
+                </div>*@
+        </div>
+        <div class="row row-xs">
+            <div class="col-12">
+                
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="chart-ref">
+                            <a href="@Url.Action("Reportew", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                            <span class="chart-image">
+                                <img src="~/house/assets/img/line-chart.svg" alt="chart">
+                            </span>
+                            <h6>Thống kê điện nước</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="chart-ref">
+                            <a href="@Url.Action("Reportempty", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                            <span class="chart-image">
+                                <img src="~/house/assets/img/spear-chart.svg" alt="chart">
+                            </span>
+                            <h6>Tỉ lệ lấp đầy</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="chart-ref">
+                            <a href="@Url.Action("Reportdebt", "Home", new { area = "" })" class="link" rel="noopener"> </a>
+                            <span class="chart-image">
+                                <img src="~/house/assets/img/bar-chart.svg" alt="chart">
+                            </span>
+                            <h6>Thống kê nợ</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="chart-ref">
+                            <a href="@Url.Action("Reporttype", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                            <span class="chart-image">
+                                <img src="~/house/assets/img/pie-chart.svg" alt="chart">
+                            </span>
+                            <h6>Thống kê loại phòng</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="chart-ref">
+                            <a href="@Url.Action("Reporthouse", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                            <span class="chart-image">
+                                <img src="~/house/assets/img/spear-chart.svg" alt="chart">
+                            </span>
+                            <h6>Danh thu nhà và chi phí</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-6 mg-b-10">
+                <div class="card">
+                    <div class="card-body pd-y-20 pd-x-25">
+                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">100</h3>
+                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Nhà</a></h6>
+                        <p class="tx-11 tx-color-03 mg-b-0">Tổng số nhà hiện có</p>
+                    </div><!-- card-body -->
+                </div><!-- card -->
+            </div><!-- col -->
+            <div class="col-lg-3 col-md-6 mg-b-10">
+                <div class="card">
+                    <div class="card-body pd-y-20 pd-x-25">
+                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">99</h3>
+                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng</a></h6>
+                        <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng hiện có</p>
+                    </div><!-- card-body -->
+                </div><!-- card -->
+            </div><!-- col -->
+            <div class="col-lg-3 col-md-6 mg-b-10">
+                <div class="card">
+                    <div class="card-body pd-y-20 pd-x-25">
+                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">89 <span class="tx-color-04">/ 90</span></h3>
+                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng đang thuê</a></h6>
+                        <p class="tx-11 tx-color-03 mg-b-0">Số lượng phòng đang thuê</p>
+                    </div><!-- card-body -->
+                </div><!-- card -->
+            </div><!-- col -->
+            <div class="col-lg-3 col-md-6 mg-b-10">
+                <div class="card">
+                    <div class="card-body pd-y-20 pd-x-25">
+                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">70</h3>
+                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Sắp dọn ra</a></h6>
+                        <p class="tx-11 tx-color-03 mg-b-0">Phòng sắp dọn ra trong 2 tháng tới</p>
+                    </div><!-- card-body -->
+                </div><!-- card -->
+            </div><!-- col -->
+            <div class="col-12 mg-b-30">
+                <div class="card seperate-card">
+                    <div class="card-header bd-b-0 pd-t-20 pd-lg-t-25 pd-l-20 pd-lg-l-25">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <p class="mg-b-5 tx-color-03"><span class="tx-medium tx-color-01">Tổng doanh thu</span></p>
+                                <p class="tx-24 mg-b-0">@ViewBag.Total</p>
+                            </div>
+                        </div>
+                    </div><!-- card-header -->
+                    <div class="card-body pd-lg-x-25 pd-lg-t-0">
+                        <div class="row align-items-sm-end">
+                            <div class="col-12">
+                                <div class="chart-six" style="height:325px;">
+                                    <canvas id="js-customer-chart"></canvas>
+                                </div>
+                                <div id="legend-area"></div>
+                            </div>
+                        </div>
+                    </div><!-- card-body -->
+                </div><!-- card -->
+            </div>
+            <!-- Endd ====== ================ -->
+        </div><!-- row -->
+    </div><!-- container -->
+</div>
+
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var roomId = pathArray[3];
+    console.log('roomId:' + roomId);
+    let api = 'api/userinroom?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+roomId;
+    let searchContent = '';
+    let pageIndex = 1;
+    let pageSize = 20;
+    let orderBy = 0;
+    // danh sach khach hang trong phong
+    let customersInRoom = [];
+
+    $(document).ready(function () {
+        Load_data();
+    });
+    function Load_data() {
+        load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
+            .then(function (e) {
+                let html = '';
+                console.log(e.Data.Items);
+                let List = e.Data.Items;
+                let stt = 0;
+                for (let i = 0; i < List.length; i++) {
+                    let item = List[i];
+                    console.log(item);
+                    customersInRoom.push(item.UsersId);
+                    console.log('cus:' + customersInRoom);
+
+                    let status = "";
+                    if (item.Status == 0) { // 0: don di; 1:dang o
+                        status = '<span class="tx-danger">Đã chuyển</span>';
+                    }
+                    if (item.Status == 1) {
+                        status = '<span class="tx-success">Đang ở</span>';
+                    }
+                    stt++;
+                    html += `<tr>
+                                    <td>`+ stt + `</td>
+                                    <td>`+ item.FullName + `</td>
+                                    <td>`+ item.Phone + `</td>
+                                    <td>`+ item.CMT + `</td>
+                                    <td>14/07/2022</td>
+                                    <td>DAKLAK</td>
+                                    <td>`+ status + `</td>
+                                    <td>
+                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                    </td>
+                                </tr>`;
+                }
+                $('#tbody-userinroom').html(html);
+            })
+            .then(function (e) { LoadFind(); }
+            );
+    }
+    // them moi
+    $('#add-userinroom').on('click', function () {
+        $('input[name="txt-id"]').val(0);
+        $('select[name="ListUserSearch"]').val('');
+        $('select[name="Status"]').val(1).change();
+    });
+    // tim kiem
+    function LoadFind () {
+        let RoleNumber = 5; // khach hang
+
+        let apiUser = 'api/user?RoleNumber=' + RoleNumber+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +'@Model.Users.Id';
+
+        load_data_with_jquery(apiUser, searchContent, pageIndex, pageSize, orderBy)
+            .then(function (e) {
+                @*var length = select.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    select.options[i] = null;
+                }
+                var opt = document.createElement('option');
+                opt.innerHTML = 'Tìm kiếm ...';
+                select.appendChild(opt);
+                opt.setAttribute("disabled", "true");
+                opt.setAttribute("selected", "selected");*@
+                select = document.getElementById('ListUserSearch');
+                console.log('abc:'+e);
+                let list = e.Data.Items;
+
+                for (let i = 0; i < list.length; i++) {
+                    console.log(list[i].Id);
+                    let rs = customersInRoom.includes(list[i].Id);
+                    console.log(rs);
+                    console.log('cus:'+customersInRoom);
+                    if (rs) {
+                        console.log('user:' + list[i].Id + 'has in room');
+                    }
+                    else {
+                        var opti = document.createElement('option');
+                        opti.value = list[i].Id;
+                        opti.innerHTML = list[i].FullName;
+                        select.appendChild(opti);
+                    }
+                }
+                @*$("#ListUserSearch").select2({
+                    dropdownParent: $('#js-add-rentor .modal-content')
+                });*@
+            });
+    }
+    // edit
+    $(document).on('click','.js-edit-rent', function () {
+        console.log('edit:' + $(this).attr('data-id'));
+        $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
+        $('select[name="Status-edit"]').val($(this).attr('data-status')).change();
+        $('#js-edit-rentor').modal('show');
+    });
+    $('.btn-primary').on('click', function () {
+        let id = $('input[name="txt-id"]').val();
+        let userid = $('select[name="ListUserSearch"]').val();
+        let status = $('select[name="Status"]').val();
+        console.log(id);
+        console.log(userid);
+        console.log(status);
+        if (ckstring(userid) || ckstring(status)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = id;
+            data["usersId"] = userid;
+            data["status"] = status;
+            data["deleted"] = false;
+            data["active"] = true;
+            data["roomId"] = roomId;
+
+            let apiCRUD = 'api/userinroom';
+            if (id == 0) {
+                create_data(data, apiCRUD).then(function (e) {
+                    location.reload(true);
+                });
+                $('#js-add-rentor').modal('hide');
+            }
+            else {
+                update_data(data, apiCRUD).then(function (e) {
+                    location.reload(true);
+                });;
+            }
+
+        }
+
+
+    });
+    $('.btn-primary-edit').on('click', function () {
+        let id = $('input[name="txt-id-edit"]').val();
+        let status = $('select[name="Status-edit"]').val();
+        console.log(id);
+        console.log(status);
+        if ( ckstring(status)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = id;
+            data["status"] = status;
+            let apiCRUD = 'api/userinroom';
+            update_data(data, apiCRUD).then(function (e) { location.reload(true); });;
+            $('#js-add-rentor').modal('hide');
+        }
+    });
+    // xu ly danh sach tien ich
+    $(document).ready(function () {
+        let api_loadRoomUtilities = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+        load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
+            let list = e.Data.Items;
+            let html = '';
+            console.log(list);
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                html += `<dl class="row-info">
+                                <dd class="">`+ item.UtilitiName + `:</dd>
+                                <dt class="">`+ format_money(item.Price) + `</dt>
+                            </dl>`;
+            }
+            $('#RoomUtilities-details').html(html);
+        })
+    })
+    // load lịch sử điện nước
+    $(document).ready(function () {
+        let api_Load_electric_history ='api/ElectricWaterBill?RoomId=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=4';
+        load_data_with_jquery(api_Load_electric_history).then(function (e) {
+            let list = e.Data.Items;
+            let html = '';
+            console.log(list);
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                // chỉnh sửa định dạng ngày
+                var date = new Date(item.WriteDate);
+                let dob = 'Ngày '+((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' +((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' +  date.getFullYear();
+                //
+                html += `<tr>
+                                    <td>`+(i+1)+`</td>
+                                    <td>`+ dob+`</td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberElectric+`</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberElectric+`</p>
+                                            <div class="lightgallery">
+                                                <a href="`+ item.ElectricImage+`" class="">
+                                                    Hình
+                                                    ảnh<img src="`+ item.ElectricImage+`" alt="" class="hidden">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="value tx-right tx-sm-center">
+                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberWater+`</p>
+                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberWater+`</p>
+                                            <div class="lightgallery">
+                                                <a href="`+ item.WaterImage +`" class="">
+                                                    Hình
+                                                    ảnh<img src="`+ item.WaterImage+`" alt="" class="hidden">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>`+ format_money(item.ElectricPrice) +`</td>
+                                    <td>`+ format_money(item.WaterPrice) +`</td>
+                                    <td>`+ format_money(item.ElectricBill) +`</td>
+                                    <td>`+ format_money(item.WaterBill) +`</td>
+                                    <td>0</td>
+                                    <td>
+                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
+                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
+                                    </td>
+                                </tr>`;
+            }
+            $('#elctric-history').html(html);
+        })
+    });
+</script>
+
+<script>
+    //#region load title
+    var url = new URL(window.location);
+    console.log(url);
+    console.log(url.searchParams.get("title"));
+    $('.title-name').html(url.searchParams.get("title"));
+    //#endregion
+    //#region load content
+        var pathArray = window.location.pathname.split('/');
+        var Id = pathArray[3];
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' +'api/Package/' + Id,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    //console.log('data: ', data);
+                    let result = data.Data;
+                    console.log(result.Description);
+                    $('.title-description').html(result.TitleDescription);
+                    $('.price').html(result.Price);
+                    $('.description').html(result.Description);
+                    $('.type-of-rental').html(result.TypeOfRental);
+                    $('.package-type').html(result.PackageType);
+                    $('.limit-room').html(result.LimitedRoom);
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('.btn-print').on('click', function () {
+                window.print();
+            })
+        });
+        //#endregion
+</script>
