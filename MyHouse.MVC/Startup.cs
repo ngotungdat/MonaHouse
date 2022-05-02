@@ -29,7 +29,7 @@ namespace MyHouse.MVC
             //In-Memory
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromHours(8);
                 //options.Cookie.HttpOnly = true;
                 //options.Cookie.IsEssential = true;
             });

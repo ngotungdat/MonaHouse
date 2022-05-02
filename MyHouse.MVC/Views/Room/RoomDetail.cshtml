@@ -160,8 +160,8 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped  border">
-                            <thead class="valign-middle">
-                                <tr>
+                            <thead>
+                                <tr class="tr-header-table">
                                     <th>STT</th>
                                     <th>Họ tên</th>
                                     <th>SĐT</th>
@@ -400,10 +400,10 @@
                             <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table  valign-center tx-nowrap table-striped tx-center">
-                            <thead class="valign-middle">
-                                <tr>
+                    <div class="">
+                        <table class="table table-hover table-striped  border">
+                            <thead class="">
+                                <tr class="tr-header-table">
                                     <th>Tháng</th>
                                     <th>Tiền nhà</th>
                                     <th><span class="">Tiền điện<span></span></span></th>
@@ -469,7 +469,7 @@
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn khách hàng<span class="text-danger">(*)</span></label>
                             <select class="js-example-basic-single form-control select2" name="ListUserSearch" id="ListUserSearch">
-                                <option disabled="true" selected>tìm kiếm</option>
+                                <option disabled selected>---</option>
                             </select>
                         </div>
                     </div>
@@ -479,9 +479,9 @@
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
                             <select class="js-example-basic-single form-control select2" name="Status" id="Status">
-                                <option disabled="true" selected>Trạng thái</option>
+                                <option disabled selected>Trạng thái</option>
                                 <option value="0">Đã chuyển</option>
-                                <option value="1">Đang ở</option>
+                                <option value="1">Đang thuê</option>
                             </select>
                         </div>
                     </div>
@@ -519,9 +519,9 @@
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
                             <select class="js-example-basic-single form-control select2" name="Status-edit" id="Status-edit">
-                                <option disabled="true" selected>Trạng thái</option>
+                                <option disabled selected>Trạng thái</option>
                                 <option value="0">Đã chuyển</option>
-                                <option value="1">Đang ở</option>
+                                <option value="1">Đang thuê</option>
                             </select>
                         </div>
                     </div>
@@ -568,7 +568,7 @@
                         status = '<span class="tx-danger">Đã chuyển</span>';
                     }
                     if (item.Status == 1) {
-                        status = '<span class="tx-success">Đang ở</span>';
+                        status = '<span class="tx-success">Đang thuê</span>';
                     }
                     stt++;
                     html += `<tr>

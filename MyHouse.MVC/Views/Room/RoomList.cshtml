@@ -124,7 +124,7 @@
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tòa nhà<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="ListBranch" id="ListBranch">
-                                    <option disabled="true" selected>Chọn tòa nhà</option>
+                                    <option disabled selected>--- Chọn tòa nhà ---</option>
                                 </select>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn tầng<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="ListFloor" id="ListFloor">
-                                    <option disabled="true" selected>Chọn tầng</option>
+                                    <option disabled selected>--- Chọn tầng ---</option>
                                 </select>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn loại phòng<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="ListRoomType" id="ListRoomType">
-                                    <option disabled="true" selected>Chọn Loại</option>
+                                    <option disabled selected>--- Chọn Loại ---</option>
                                 </select>
                             </div>
 
@@ -170,7 +170,7 @@
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái phòng<span class="text-danger">(*)</span></label>
                                 <select class="js-example-basic-single form-control select2" name="room-status" id="room-status">
-                                    <option disabled="true" selected>Trạng thái</option>
+                                    <option disabled selected>--- Trạng thái ---</option>
                                     <option value="0">Phòng trống</option>
                                     <option value="1">Sắp chuyển vào</option>
                                     <option value="2">Đang thuê</option>
@@ -735,8 +735,8 @@
                                     <div class="col-sm-12">
                                         <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Lựa chọn Tiện ích cho phòng<span class="text-danger">(*)</span></label>
                                         <div class="table__filter-wrap">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped  border">
+                                            <div class="">
+                                                <table class="table table-hover table-striped">
                                                     <thead class="">
                                                         <tr class="tr-header-table">
                                                             <th class="sort-label" data-column="col-electronic">Tên tiện ích</th>
@@ -781,7 +781,7 @@
                         </div>
                         <div class="table__header-right">
                             <div class="header__right-action">
-                                <div class="select-sort">
+                                @*<div class="select-sort">
                                     <span>Sắp trống: </span>
                                     <select name="" class="form-control">
                                         <option value="">Tháng sau</option>
@@ -790,7 +790,7 @@
                                         <option value="">4 tháng tới</option>
                                         <option value="">5 tháng tới</option>
                                     </select>
-                                </div>
+                                </div>*@
                                 <div class="select-sort">
                                     <span>Sắp xếp: </span>
                                     <select name="" class="form-control" onchange="sort_data_name(this.value)">
@@ -1494,7 +1494,7 @@
                             status = "Sắp chuyển vào";
                         }if (item.Status == 2) {
                             CssClass="badge badge-primary wd-100 pd-5 tx-12";
-                            status = "Đang thuể";
+                            status = "Đang thuê";
                         } if (item.Status == 3) {
                             CssClass="badge badge-danger wd-100 pd-5 tx-12";
                             status = "Sắp dọn ra";
