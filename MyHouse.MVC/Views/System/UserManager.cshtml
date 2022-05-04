@@ -52,7 +52,14 @@
                             <thead class="">
                                 <tr class="tr-header-table">
                                     <th class="sort-label" data-column="col-name">Tên truy cập</th>
-                                    <th class="sort-label" data-column="col-electronic">Tên đầy đủ</th>
+                                    <th class="sort-label" data-column="col-name">Tên đầy đủ</th>
+                                    <th class="sort-label" data-column="col-electronic">Số điện thoại</th>
+                                    <th class="sort-label" data-column="col-electronic">Email</th>
+                                    <th class="sort-label" data-column="col-electronic">Địa chỉ</th>
+                                    <th class="sort-label" data-column="col-electronic">Ngày sinh</th>
+                                    <th class="sort-label" data-column="col-electronic">Số CCCD/CMND</th>
+                                    <th class="sort-label" data-column="col-electronic">Ngày tạo</th>
+                                    <th class="sort-label" data-column="col-electronic">Trạng thái</th>
                                     <th class="sort-label " data-column="col-service">Thuộc nhóm</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
@@ -361,9 +368,21 @@
                 let html = '';
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+                    var date = new Date(item.DateOfBirth);
+                    var datecr = new Date(item.DateOfBirth);
+                    let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' +  date.getFullYear();
+                    let DateCreated = ((datecr.getDate() > 9) ? datecr.getDate() : ('0' + datecr.getDate())) + '/' + ((datecr.getMonth() > 8) ? (datecr.getMonth() + 1) : ('0' + (datecr.getMonth() + 1))) + '/' + datecr.getFullYear();
+
                     html += '<tr>';
                     html += '<td>' + item.UserName + '</td>';
                     html += '<td>' + item.FullName + ' </td>';
+                    html += '<td>' + item.Phone + ' </td>';
+                    html += '<td>' + item.Email + ' </td>';
+                    html += '<td>' + item.Address + ' </td>';
+                    html += '<td>' + dob + ' </td>';
+                    html += '<td>' + item.CitizenIdentification + ' </td>';
+                    html += '<td>' + DateCreated + ' </td>';
+                    html += '<td>' + item.Status + ' </td>';
                     html += '<td>' + item.UserGroupName + '</td>';
                     html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
                         + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
@@ -454,7 +473,7 @@
     function UpdateUser(data) {
         let user = data.Data;
         console.log(user);
-        $('input[name=update-hdfId]').val(user.Id);                  
+        $('input[name=update-hdfId]').val(user.Id);
         $('#update-username').val(user.UserName);
         $('#update-fullname').val(user.FullName);
         $('#update-phone').val(user.Phone);
@@ -620,7 +639,7 @@
             insert_or_update(data);
         }
     });
-    
+
     function insert_or_update(data) {
 
         let url ='@Model.Domain'+'api/user';

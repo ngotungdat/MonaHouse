@@ -1,10 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "AddCustomer";
-    Layout = "~/Views/Shared/_LayoutHouse.cshtml";
-}
-
-<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+﻿<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-sm-flex align-items-center justify-content-between ">
         <div>
             <nav aria-label="breadcrumb">
@@ -16,9 +10,24 @@
         </div>
     </div>
     <form id="js-step-goin" class="needs-validation wizard clearfix vertical" role="application">
-        <div class="steps clearfix"><ul role="tablist"><li role="tab" aria-disabled="false" class="first current" aria-selected="true"><a id="js-step-goin-t-0" href="#js-step-goin-h-0" aria-controls="js-step-goin-p-0"><span class="current-info audible">current step: </span><span class="number">1</span> <span class="title">Thông tin phòng</span></a></li><li role="tab" aria-disabled="false" class="done" aria-selected="false"><a id="js-step-goin-t-1" href="#js-step-goin-h-1" aria-controls="js-step-goin-p-1"><span class="number">2</span> <span class="title">Thông tin người thuê</span></a></li><li role="tab" class="last done" aria-disabled="false" aria-selected="false"><a id="js-step-goin-t-2" href="#js-step-goin-h-2" aria-controls="js-step-goin-p-2"><span class="number">3</span> <span class="title">Thanh toán</span></a></li></ul></div><div class="content clearfix">
-            <h3 id="js-step-goin-h-0" tabindex="-1" class="title current">Thông tin phòng</h3>
-            <section id="js-step-goin-p-0" role="tabpanel" aria-labelledby="js-step-goin-h-0" class="body current" aria-hidden="false" style="">
+        <div class="steps clearfix">
+            <ul role="tablist">
+                <li role="tab" aria-disabled="false" class="first done" aria-selected="false">
+                    <a id="js-step-goin-t-0" href="#js-step-goin-h-0" aria-controls="js-step-goin-p-0">
+                        <span class="number">1</span> <span class="title">Thông tin phòng</span>
+                    </a>
+                </li>
+                <li role="tab" aria-disabled="false" class="done" aria-selected="true">
+                    <a id="js-step-goin-t-1" href="#js-step-goin-h-1" aria-controls="js-step-goin-p-1"><span class="number">2</span> <span class="title">Thông tin người thuê</span></a>
+                </li>
+                <li role="tab" class="last done" aria-disabled="false" aria-selected="true">
+                    <a id="js-step-goin-t-2" href="#js-step-goin-h-2" aria-controls="js-step-goin-p-2"><span class="current-info audible">current step: </span><span class="number">3</span> <span class="title">Thanh toán</span></a>
+                </li>
+            </ul>
+         </div>
+        <div class="content clearfix">
+            <h3 id="js-step-goin-h-0" tabindex="-1" class="title">Thông tin phòng</h3>
+            <section id="js-step-goin-p-0" role="tabpanel" aria-labelledby="js-step-goin-h-0" class="body" aria-hidden="true" style="">
                 <div class="row mg-t-15">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -114,7 +123,7 @@
                 </div>
             </section>
             <h3 id="js-step-goin-h-1" tabindex="-1" class="title">Thông tin người thuê</h3>
-            <section class="body" id="js-step-goin-p-1" role="tabpanel" aria-labelledby="js-step-goin-h-1" aria-hidden="true" style="display: none;">
+            <section class="body current" id="js-step-goin-p-1" role="tabpanel" aria-labelledby="js-step-goin-h-1" aria-hidden="false" style="">
                 <div class="row ">
                     <div class="col-sm form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên</label>
@@ -168,8 +177,8 @@
                 </div>
             </section>
 
-            <h3 id="js-step-goin-h-2" tabindex="-1" class="title">Thanh toán</h3>
-            <section id="js-step-goin-p-2" role="tabpanel" aria-labelledby="js-step-goin-h-2" class="body" aria-hidden="true" style="display: none;">
+            <h3 id="js-step-goin-h-2" tabindex="-1" class="title current">Thanh toán</h3>
+            <section id="js-step-goin-p-2" role="tabpanel" aria-labelledby="js-step-goin-h-2" class="body " aria-hidden="false" style="">
                 <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin cấu hình">
                     <div class="row">
                         <div class="col-md-6">
@@ -325,7 +334,73 @@
                 </div>
 
             </section>
-        </div><div class="actions clearfix"><ul role="menu" aria-label="Pagination"><li aria-disabled="true" class="disabled"><a href="#previous" role="menuitem">Quay lại</a></li><li aria-hidden="false" class="" aria-disabled="false" style=""><a href="#next" role="menuitem">Tiếp tục</a></li><li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Finish</a></li></ul></div>
+        </div><div class="actions clearfix"><ul role="menu" aria-label="Pagination"><li aria-disabled="false" class=""><a href="#previous" role="menuitem">Quay lại</a></li><li aria-hidden="true" class="disabled" aria-disabled="true" style="display: none;"><a href="#next" role="menuitem">Tiếp tục</a></li><li aria-hidden="false" style=""><a href="#finish" role="menuitem">Finish</a></li></ul></div>
     </form>
 </div>
+<script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
 
+    function showTab(n) {
+        // This function will display the specified tab of the form ...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        // ... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        // ... and run a function that displays the correct step indicator:
+        //fixStepIndicator(n)
+    }
+    
+    $(document).ready(function() {
+
+        $('.js-add-service').on('click', function() {
+            const html = ` <div class="row align-items-center mg-b-20">
+                            <div class="col pl-r-5">
+                                <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="">
+                            </div>
+                            <div class="col pd-l-5">
+                                <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="">
+                            </div>
+                            <div class="col pd-l-0 flex-grow-0">
+                                <a href="javascript:;" class="tx-danger delete-service"><i data-feather="minus-square"></i></a>
+                            </div>
+                        </div>`;
+            $('.list-services').append(html);
+            feather.replace();
+        });
+        $('.list-services').on('click', '.delete-service', function() {
+            $(this).closest('.row').remove();
+        });
+        // $('#js-select-package').on('change', function(e) {
+        //     let $fields = $('.toggle-field');
+        //     let $upload = $('.upload-box');
+        //     let value = $(this).val();
+        //     console.log($fields);
+        //     switch (value) {
+        //         case 'type-all': {
+        //             $fields.prop('disabled', true);
+        //             $fields.addClass('disabled');
+        //             $fields.attr('placeholder', 'Đã bao gồm tiền phòng');
+        //             $upload.fadeOut();
+        //             break;
+        //         }
+        //         case 'type-day': {
+        //             $fields.removeClass('disabled');
+        //             $fields.prop('disabled', false);
+        //             $fields.attr('placeholder', 'Số ban đầu');
+        //             $upload.fadeIn();
+        //             break;
+        //         }
+        //     }
+        // });
+    });
+</script>

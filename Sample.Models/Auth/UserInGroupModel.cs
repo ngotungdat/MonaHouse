@@ -24,6 +24,14 @@ namespace Sample.Models.Auth
         public string UserName { get; set; }
         public string FullName { get; set; }
         public string UserGroupName { get; set; }
+
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string CitizenIdentification { get; set; }
+        public string Address { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? UserCreated { get; set; }
+        public int? Status { get; set; }
         #region Extension Properties
 
         /// <summary>

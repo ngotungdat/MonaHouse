@@ -26,6 +26,20 @@ namespace Sample.Entities.Auth
         public string FullName { get; set; }
         [NotMapped]
         public string UserGroupName { get; set; }
+        [NotMapped]
+        public string Phone { get; set; }
+        [NotMapped]
+        public string Email{ get; set; }
+        [NotMapped]
+        public string CitizenIdentification { get; set; }
+        [NotMapped]
+        public string Address { get; set; }
+        [NotMapped]
+        public DateTime? DateOfBirth { get; set; }
+        [NotMapped]
+        public DateTime? UserCreated { get; set; }
+        [NotMapped]
+        public int? Status { get; set; }
         #region Extension Properties
 
         /// <summary>

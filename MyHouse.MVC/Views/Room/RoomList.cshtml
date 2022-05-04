@@ -363,11 +363,11 @@
                 </div><!-- modal-header -->
                 <div class="modal-body ">
                     <div class="d-flex align-items-center owner-wrap mg-b-15">
-                        <div class="owner-avatar d-flex align-items-center">
+                        @*<div class="owner-avatar d-flex align-items-center">
                             <span class="avatar overflow-hidden rounded-circle">
                                 <img src="assets/img/teacher.jpg" alt="avatar">
                             </span>
-                        </div>
+                        </div>*@
                        @* <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
                             <div class="info">
                                 <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
@@ -1880,7 +1880,7 @@
                     $('#ListRoomType-edit').val(item.RoomTypeId).change();
                     $('#room-status-edit').val(item.Status).change();
                     $('#modal-room-edit').modal('show');
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
+                    //load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

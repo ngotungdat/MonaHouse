@@ -28,6 +28,15 @@ namespace Sample.Request.Auth
         /// </summary>
         public UserGroupRequest UserGroups { get; set; }
 
+        #region prop_by_baoNguyen
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string CitizenIdentification { get; set; }
+        public string Address { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? UserCreated { get; set; }
+        public int? Status { get; set; }
+        #endregion
         #endregion
     }
 }
