@@ -40,11 +40,11 @@
                 <div class="info-list">
                     <dl class="row-info">
                         <dd class="">Tên phòng:</dd>
-                        <dt class="">Phòng 01</dt>
+                        <dt class="room-name">Phòng 01</dt>
                     </dl>
                     <dl class="row-info hide-on-print">
                         <dd class="">Trạng thái:</dd>
-                        <dt class="">
+                        <dt class="room-status">
                             <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
                                 Đã đặt cọc
                             </span>
@@ -54,11 +54,11 @@
 
                     <dl class="row-info">
                         <dd class="">Người đại diện:</dd>
-                        <dt class="">Trương Văn Lam</dt>
+                        <dt class="room-userinroom-representative-name"></dt>
                     </dl>
                     <dl class="row-info">
                         <dd class="">Điện thoại:</dd>
-                        <dt class="">0886706289</dt>
+                        <dt class="room-userinroom-representative-phone"></dt>
                     </dl>
                     <dl class="row-info">
                         <dd class="">Ngày dọn vào:</dd>
@@ -489,13 +489,13 @@
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary">Lưu lại</button>
+                <button type="button" class="btn btn-primary user-in-room-add">Lưu lại</button>
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
 <!---->
-<!--modal add userinroom-->
+<!--modal edit userinroom-->
 <div class="modal fade show" id="js-edit-rentor" style="padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -525,6 +525,12 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="user-id" id="user-id"/>
+                            <button type="button" class="col-sm-12 btn btn-primary update-room-representative">Cấp quyền người đại diện</button>
+                        </div>
+                    </div>
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
@@ -544,6 +550,25 @@
     let pageIndex = 1;
     let pageSize = 20;
     let orderBy = 0;
+    //#region thong tin chi tiet phong
+    let api_room_detail = 'api/room/' + roomId;
+    load_data_with_jquery(api_room_detail).then(function (e) {
+        console.log(e.Data);
+        let item = e.Data;
+        $('.room-name').html(item.Name);
+        $('.room-status').html(item.Status);
+        // load thogn tin nguoi dai dien
+        let api_room_representative = 'api/user/' + item.UserInRoomRepresentative;
+        load_data_with_jquery(api_room_representative).then(function (e) {
+            let user_data = e.Data;
+            $('.room-userinroom-representative-name').html(user_data.FullName);
+            $('.room-userinroom-representative-phone').html(user_data.Phone);
+        });
+        //$('.room-name').val(item.Name);
+        //$('.room-name').val(item.Name);
+    });
+    //#endregion
+
     // danh sach khach hang trong phong
     let customersInRoom = [];
 
@@ -554,14 +579,11 @@
         load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
             .then(function (e) {
                 let html = '';
-                console.log(e.Data.Items);
                 let List = e.Data.Items;
                 let stt = 0;
                 for (let i = 0; i < List.length; i++) {
                     let item = List[i];
-                    console.log(item);
                     customersInRoom.push(item.UsersId);
-                    console.log('cus:' + customersInRoom);
 
                     let status = "";
                     if (item.Status == 0) { // 0: don di; 1:dang o
@@ -580,7 +602,7 @@
                                     <td>DAKLAK</td>
                                     <td>`+ status + `</td>
                                     <td>
-                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                        <a href="javascript:;" data-user-id="`+item.UsersId+`" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                     </td>
                                 </tr>`;
                 }
@@ -613,16 +635,11 @@
                 opt.setAttribute("disabled", "true");
                 opt.setAttribute("selected", "selected");*@
                 select = document.getElementById('ListUserSearch');
-                console.log('abc:'+e);
                 let list = e.Data.Items;
 
                 for (let i = 0; i < list.length; i++) {
-                    console.log(list[i].Id);
                     let rs = customersInRoom.includes(list[i].Id);
-                    console.log(rs);
-                    console.log('cus:'+customersInRoom);
                     if (rs) {
-                        console.log('user:' + list[i].Id + 'has in room');
                     }
                     else {
                         var opti = document.createElement('option');
@@ -638,18 +655,18 @@
     }
     // edit 
     $(document).on('click','.js-edit-rent', function () {
-        console.log('edit:' + $(this).attr('data-id'));
         $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
+        $('input[name="user-id"]').val($(this).attr('data-user-id'));
         $('select[name="Status-edit"]').val($(this).attr('data-status')).change();
         $('#js-edit-rentor').modal('show');
     });
-    $('.btn-primary').on('click', function () {
+    $('.user-in-room-add').on('click', function () {
         let id = $('input[name="txt-id"]').val();
         let userid = $('select[name="ListUserSearch"]').val();
         let status = $('select[name="Status"]').val();
-        console.log(id);
-        console.log(userid);
-        console.log(status);
+        //console.log(id);
+        //console.log(userid);
+        //console.log(status);
         if (ckstring(userid) || ckstring(status)) {
             Swal.fire(
                 'Cảnh báo',
@@ -686,8 +703,6 @@
     $('.btn-primary-edit').on('click', function () {
         let id = $('input[name="txt-id-edit"]').val();
         let status = $('select[name="Status-edit"]').val();
-        console.log(id);
-        console.log(status);
         if ( ckstring(status)) {
             Swal.fire(
                 'Cảnh báo',
@@ -700,17 +715,27 @@
             data["id"] = id;
             data["status"] = status;
             let apiCRUD = 'api/userinroom';
-            update_data(data, apiCRUD).then(function (e) { location.reload(true); });;
+            update_data(data, apiCRUD).then(function (e) { location.reload(true); });
             $('#js-add-rentor').modal('hide');
         }
     });
+    // cap quyen nguoi dai dien
+    $('.update-room-representative').on('click', function () {
+        console.log($('input[name="user-id"]').val());
+        let userInRoomRepresentative = $('input[name="user-id"]').val();
+        let api_update_representative = 'api/room';
+        let data_update_representative = {};
+        data_update_representative["id"] = roomId;
+        data_update_representative["userInRoomRepresentative"] = userInRoomRepresentative;
+        update_data(data_update_representative, api_update_representative).then(function (e) { location.reload(true); });
+    })
+
     // xu ly danh sach tien ich
     $(document).ready(function () {
         let api_loadRoomUtilities = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
         load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
             let list = e.Data.Items;
             let html = '';
-            console.log(list);
             for (let i = 0; i < list.length; i++) {
                 let item = list[i];
                 html += `<dl class="row-info">
@@ -723,11 +748,10 @@
     })
     // load lịch sử điện nước
     $(document).ready(function () {
-        let api_Load_electric_history ='api/ElectricWaterBill?RoomId=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=4';
+        let api_Load_electric_history = 'api/ElectricWaterBill?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
         load_data_with_jquery(api_Load_electric_history).then(function (e) {
             let list = e.Data.Items;
             let html = '';
-            console.log(list);
             for (let i = 0; i < list.length; i++) {
                 let item = list[i];
                 // chỉnh sửa định dạng ngày

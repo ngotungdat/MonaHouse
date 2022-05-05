@@ -44,6 +44,14 @@ namespace Sample.Request
         /// Số lượng giường - đối với ký túc xá
         /// </summary>
         public int? BedAmount { get; set; }
+        /// <summary>
+        /// người đại diện phòng
+        /// </summary>
+        public int? UserInRoomRepresentative { get; set; }
+
+        // NOT MAPPING
+        public string FullName { get; set; }
+        public string Phone { get; set; }
         public int? RoomTypeId { get; set; }
         public string RoomTypeName { get; set; }
         public int? FloorId { get; set; }

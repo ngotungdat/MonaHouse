@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Models
 {
-    public class ElectricityWaterBillModel : AppDomainModel
+    public class ElectricWaterBillModel : AppDomainModel
     {
         public int RoomId { get; set; }
         public double? ElectricPrice { get; set; }

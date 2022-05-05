@@ -58,7 +58,15 @@ namespace Sample.Entities
         /// Giá nước
         /// </summary>
         public double? WaterPrice { get; set; }
+        /// <summary>
+        /// người đại diện phòng
+        /// </summary>
+        public int? UserInRoomRepresentative { get; set; }
 
+        [NotMapped]
+        public string FullName { get; set; }
+        [NotMapped]
+        public string Phone { get; set; }
         [NotMapped]
         public string RoomTypeName { get; set; }
         [NotMapped]

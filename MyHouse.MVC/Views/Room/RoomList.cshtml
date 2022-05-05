@@ -363,6 +363,8 @@
                 </div><!-- modal-header -->
                 <div class="modal-body ">
                     <div class="d-flex align-items-center owner-wrap mg-b-15">
+                        <input type="hidden" id="electric-price-for-bill" />
+                        <input type="hidden" id="water-price-for-bill" />
                         @*<div class="owner-avatar d-flex align-items-center">
                             <span class="avatar overflow-hidden rounded-circle">
                                 <img src="assets/img/teacher.jpg" alt="avatar">
@@ -417,7 +419,7 @@
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div>
-    <!-- Modal Thu tien-->
+    <!-- Modal tinh tien-->
     <div class="modal fade show" id="js-payMoney" style=" padding-right: 17px;" tabindex="-1" role="dialog" aria-hidden="true" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -434,12 +436,7 @@
                 </div><!-- modal-header -->
                 <div class="modal-body ">
                     <div class="d-flex align-items-center owner-wrap mg-b-15">
-                        <div class="owner-avatar d-flex align-items-center">
-                            <span class="avatar overflow-hidden rounded-circle">
-                                <img src="assets/img/teacher.jpg" alt="avatar">
-                            </span>
 
-                        </div>
                         <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
                             <div class="info">
                                 <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
@@ -451,16 +448,23 @@
                         </div>
                     </div>
                     <div class="row mg-b-15  align-items-center">
+                        <input type="hidden" id="room-id-checkout-month" />
                         <div class="col">
-                            <select name="" class="form-control">
-                                <option value="" selected="">Tháng 1</option>
-                                <option value="">Tháng 2</option>
+                            <select name="ddl-year" id="ddl-year" class="form-control">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mg-b-15  align-items-center">
+                        <div class="col">
+                            <select name="ddl-month" id="ddl-month" class="form-control">
+                                
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <span class="lb">Điện tháng trước:</span>
+                            <span class="lb">Tiền điện theo tháng :</span>
                         </div>
                         <div class="col tx-right">
                             <span class="value tx-color-01 tx-medium">1.000.000 <sup>đ</sup></span>
@@ -468,7 +472,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <span class="lb">Nước tháng trước:</span>
+                            <span class="lb">Tiền nước theo tháng:</span>
                         </div>
                         <div class="col tx-right">
                             <span class="value tx-color-01 tx-medium">300.000 <sup>đ</sup></span>
@@ -476,20 +480,13 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <span class="lb">Dịch vụ thêm:</span>
+                            <span class="lb">Phí Dịch vụ:</span>
                         </div>
                         <div class="col tx-right">
                             <span class="value tx-color-01 tx-medium">1.000.000 <sup>đ</sup></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <span class="lb">Tiền nợ:</span>
-                        </div>
-                        <div class="col tx-right">
-                            <span class="value tx-color-01 tx-medium">1.000.000 <sup>đ</sup></span>
-                        </div>
-                    </div>
+
 
                     <div class="row mg-b-10">
                         <div class="col">
@@ -499,11 +496,9 @@
                             <span class="value tx-color-03 tx-medium tx-danger">3.300.000 <sup>đ</sup></span>
                         </div>
                     </div>
-
-                    <hr class="mg-b-15 mg-t-5">
                     <div class="row mg-b-10 align-items-center">
                         <div class="col">
-                            <span class="lb">Đã nhận:</span>
+                            <span class="lb">Chi phí phát sinh:</span>
                         </div>
                         <div class="col">
                             <input type="tel" data-type="currency" class="form-control" placeholder="0">
@@ -512,15 +507,51 @@
                     </div>
                     <div class="row mg-b-10 align-items-center">
                         <div class="col">
-                            <span class="lb">Hình thức:</span>
+                            <span class="lb">Số tiền được giảm:</span>
                         </div>
                         <div class="col">
-                            <select name="" class="form-control">
-                                <option value="" selected="">Chuyển khoản</option>
-                                <option value="">Tiền mặt</option>
-                            </select>
+                            <input type="tel" data-type="currency" class="form-control" placeholder="0">
+                        </div>
+
+                    </div>
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Tổng nhận:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger">3.300.000 <sup>đ</sup></span>
                         </div>
                     </div>
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Ghi chú:</span>
+                        </div>
+                        <div class="col">
+                            <textarea class="form-control" placeholder="ghi chú"></textarea>
+                        </div>
+
+                    </div>
+                    @*<div class="row mg-b-10 align-items-center">
+            <div class="col">
+                <span class="lb">Đã nhận:</span>
+            </div>
+            <div class="col">
+                <input type="tel" data-type="currency" class="form-control" placeholder="0">
+            </div>
+
+        </div>
+        <div class="row mg-b-10 align-items-center">
+            <div class="col">
+                <span class="lb">Hình thức:</span>
+            </div>
+            <div class="col">
+                <select name="" class="form-control">
+                    <option value="" selected="">Chuyển khoản</option>
+                    <option value="">Tiền mặt</option>
+                </select>
+            </div>
+        </div>*@
 
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
@@ -1553,8 +1584,13 @@
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-payMoney" data-toggle="modal" class="item-link">
-                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" onclick="takeMoney(`+ item.Id +`)"></i></span>Thu
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id +`)">
+                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Tính tiền
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-payMoney" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id +`)">
+                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Thu
                                                             tiền
                                                         </a>
                                                     </li>
@@ -1599,11 +1635,11 @@
 
                                                                 <dl class="row-info">
                                                                     <dd class="">Người đại diện:</dd>
-                                                                    <dt class="">Trương Văn Lam</dt>
+                                                                    <dt class="">`+item.FullName+`</dt>
                                                                 </dl>
                                                                 <dl class="row-info">
                                                                     <dd class="">Điện thoại:</dd>
-                                                                    <dt class="">0886706289</dt>
+                                                                    <dt class="">`+ item.Phone +`</dt>
                                                                 </dl>
                                                                 <dl class="row-info">
                                                                     <dd class="">Ngày dọn vào:</dd>
@@ -1887,16 +1923,25 @@
                 }
             });
         }
-
+    // ghi điện
     function electricRecord(itemId) {
         roomid = itemId;
             //call api lay hoa don moi nhat
             let api_Electric_water_bill = 'api/ElectricWaterBill?RoomId=' + itemId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
             load_data_with_jquery(api_Electric_water_bill).then(function (e) {
                 let list = e.Data.Items;
+                console.log(list);
                 // lay ra bill dau tien de lam so moi.
                 $('#electric-old-number').val(list[0].NewNumberElectric);
                 $('#water-old-number').val(list[0].NewNumberWater);
+                // lấy giá điện nước
+                let api_GetPrice_Electric_Water = 'api/Room/' + itemId;
+                load_data_with_jquery(api_GetPrice_Electric_Water).then(function (e) {
+                    let data = e.Data;
+                    // gan vao modal
+                    $('#electric-price-for-bill').val(format_money(data.ElectricPrice));
+                    $('#water-price-for-bill').val(format_money(data.WaterPrice));
+                })
             });
             $('#js-electronicNote').modal('show');
         }
@@ -1908,6 +1953,8 @@
             let new_water = $('#water-new-number').val();
             let img_electric = document.getElementById('image-electric').files[0];
             let img_water = document.getElementById('image-water').files[0];
+            let price_electric = $('#electric-price-for-bill').val();
+            let price_water = $('#water-price-for-bill').val();
             console.log(old_electric);
             console.log(new_electric);
             console.log(old_water);
@@ -1932,28 +1979,32 @@
                 data["deleted"] = false;
                 data["active"] = true;
                 data["roomId"] = roomid;
-                data["electricPrice"] = 0;
-                data["waterPrice"] = 0;
+                data["electricPrice"] = price_electric;
+                data["waterPrice"] = price_water;
                 data["oldNumberElectric"] = old_electric;
                 data["newNumberElectric"] = new_electric;
                 data["oldNumberWater"] = old_water;
                 data["newNumberWater"] = new_water;
                 data["writeDate"] = new Date();
                 data["waterImage"] = '@Model.Domain'+ImageNames[1];
-                data["electricImage"] = '@Model.Domain'+ImageNames[0];
-                data["electricBill"] = 0;
-                data["waterBill"] = 0;
+                data["electricImage"] = '@Model.Domain' + ImageNames[0];
+                //  giá tiền điện và nước (đổi từ kiểu string -> number)
+                let eletric_price_edit = price_electric.replace(",", "");
+                let water_price_edit = price_electric.replace(",", "");
+                let electricBill = (new_electric - old_electric) * eletric_price_edit;
+                let waterBill = (new_water - old_water) * water_price_edit;
+                data["electricBill"] = electricBill;
+                data["waterBill"] = waterBill;
                 //api to create bill electricwater
                 let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
                 $(this).prop('disabled', true);
                 create_data(data, api_Create_Electric_water_bill);
-
+                $('#js-electronicNote').modal('hide');
+                location.reload(true);
             }
         })
 
-        function takeMoney(itemId) {
-            $('#js-payMoney').modal('show');
-        } function moveOut(itemId) {
+        function moveOut(itemId) {
             $('#js-goOut').modal('show');
         }
 </script>
@@ -2090,6 +2141,55 @@
 <!---->
 <!-- xu ly tien dien nuoc trong modal tien ich-->
 <script>
-    // call api lay gai dien nuoc cua phong
+    //#region Tính tiền phòng theo tháng
+
+    
+    // chọn năm, tự động là năm hiện tại, lâu nhất là 5 năm
+    let get_current_year = new Date().getFullYear();
+    let ddl_year = document.getElementById('ddl-year');
+    for (let i = 0; i < 5; i++) {
+        var opt = document.createElement('option');
+        opt.value = get_current_year;
+        opt.innerHTML ='Năm '+ get_current_year;
+        get_current_year--;
+        ddl_year.appendChild(opt);
+    }
+    // chọn tháng 
+    let ddl_month = document.getElementById('ddl-month');
+    for (let i = 1; i <= 12; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML ='Tháng '+ i;
+        ddl_month.appendChild(opt);
+    }
+    function takeMoney(itemId) {
+        $('#room-id-checkout-month').val(itemId);
+        $('#ddl-month').val(new Date().getMonth()).change();
+        $('#ddl-year').val(new Date().getFullYear()).change();
+        // sau khi chọn ngày tháng năm kiểm tra
+        //    
+        $('#js-payMoney').modal('show');
+    }
+    @*$('#ddl-month').on('change', function () {
+        console.log('change month');
+        checkout_room();
+    });*@
+    $('#ddl-year').on('change', function () {
+        console.log('change year');
+        checkout_room();
+    });
+    function checkout_room() {
+        // lấy thông tin điện nước trả ra tiền điện nước tháng/ năm dó
+        let roomId = $('#room-id-checkout-month').val();
+        let month = $('#ddl-month').val();
+        let year = $('#ddl-year').val();
+        console.log(roomId, month, year);
+        
+        let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId=1&Month=4&Year=2022';
+        load_data_with_jquery(api_get_electricwaterbillformonth).then(function (e) {
+            console.log(e.Data);
+        })
+    }
+    //#endregion
 </script>
 <!---->

@@ -2,6 +2,7 @@
 using Sample.Entities.DomainEntities;
 using Sample.Entities.Search;
 using Sample.Interface.Services.DomainServices;
+using Sample.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace Sample.Interface.Services
 {
     public interface IElectricWaterBillService : IDomainService<ElectricWaterBill, ElectricityWaterBillSearch>
     {
+        Task<IList<ElectricWaterBill>> GetElectricWaterBillWhenCheckOutWithMonth(GetElectricWaterBillWithMonthRequest request );
     }
 }

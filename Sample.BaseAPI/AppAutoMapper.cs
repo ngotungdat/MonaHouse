@@ -146,9 +146,9 @@ namespace Sample.Models.AutoMapper
             CreateMap<RoomUtilitieRequest, RoomUtilities>().ReverseMap();
             CreateMap < PagedList <RoomUtilitiModel>, PagedList<RoomUtilities>>().ReverseMap();
 
-            CreateMap<ElectricityWaterBillModel, ElectricWaterBill>().ReverseMap();
+            CreateMap<ElectricWaterBillModel, ElectricWaterBill>().ReverseMap();
             CreateMap<ElectricityWaterBillRequest, ElectricWaterBill>().ReverseMap();
-            CreateMap<PagedList<ElectricityWaterBillModel>, PagedList<ElectricWaterBill>>().ReverseMap();
+            CreateMap<PagedList<ElectricWaterBillModel>, PagedList<ElectricWaterBill>>().ReverseMap();
 
             CreateMap<UserNoteModel, UserNote>().ReverseMap();
             CreateMap<UserNoteRequest, UserNote>().ReverseMap();
