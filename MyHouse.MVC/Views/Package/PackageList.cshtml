@@ -1,17 +1,24 @@
 ﻿@model CoreModel
+@using Sample.Entities
+@{
+    Users users = Model.Users;
+}
 <style>
     .modal-dialog {
         max-width: 45%
     }
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
-    <h4 class="mg-b-15 tx-spacing--1">Gói cho thuê</h4>
+    <h4 class="mg-b-15 tx-spacing--1">Dịch vụ phần mềm</h4>
     <div class="row row-xs">
         <div class="col">
             <div class="table__filter__wrap ">
                 <div class="table__filter-header mg-t-0-f">
                     <div class="table__header-left">
-                        <a href="javascript:;" class="btn btn-primary btn-add-package" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        @if (users.RoleNumber == 1)
+                        {
+                            <a href="javascript:;" class="btn btn-primary btn-add-package" data-toggle="modal"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+                        }
                     </div>
                     <div class="table__header-right">
                         <div class="header__right-action">
@@ -110,7 +117,7 @@
 </div><!-- modal -->
 <script src="~/house/lib/tinymce/tinymce.min.js"></script>
 <script>
-    
+
         let tiny= tinymce.init({
             readonly: false,
             selector: '#txt-description',
@@ -180,7 +187,7 @@
             });
             fileInput.click()
         }
-    
+
 </script>
 <script>
     let PageIndex = 1;
@@ -223,6 +230,16 @@
                     let html = ``;
                     for (let i = 0; i < list.length; i++) {
                         let item = list[i];
+                        let btn_delete = ``;
+                        let btn_edit = ``;
+                        let btn_action = ``;
+                        if (@users.RoleNumber == 1) {
+                            btn_delete = `<a href="javascript:;" class="edit-house update-house btn-delete-package text-danger" data-id="${item.Id}"><i class="far fa-trash-alt"></i></a>`;
+                            btn_edit = `<a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>`;
+                        }
+                        else if (@users.RoleNumber == 3) {
+                            btn_action = `<button type="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                        }
                         html += ` <div class="house-wrap col-md-4">
                             <div class="house-item border">
                                 <div class="media" style="padding-right:0">
@@ -244,12 +261,12 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <a href="javascript:;" class="edit-house update-house btn-delete-package text-danger" data-id="${item.Id}"><i class="far fa-trash-alt"></i></a>
+                                        ${btn_delete}
                                         <div class="house-address">
                                         </div>
                                         <div class="align-items-center">
-                                            <a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>
-                                            <button type="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>
+                                            ${btn_edit}
+                                            ${btn_action}
                                         </div>
                                     </div>
                                 </div>
