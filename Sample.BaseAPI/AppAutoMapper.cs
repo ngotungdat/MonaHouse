@@ -153,6 +153,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<UserNoteModel, UserNote>().ReverseMap();
             CreateMap<UserNoteRequest, UserNote>().ReverseMap();
             CreateMap<PagedList<UserNoteModel>, PagedList<UserNote>>().ReverseMap();
+
+            CreateMap<RoomReceiptModel, RoomReceipt>().ReverseMap();
+            CreateMap<RoomReceiptRequest, RoomReceipt>().ReverseMap();
+            CreateMap<PagedList<RoomReceiptModel>, PagedList<RoomReceipt>>().ReverseMap();
         }
     }
     

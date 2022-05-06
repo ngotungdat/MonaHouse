@@ -36,7 +36,7 @@ namespace Sample.API.Controllers
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.domainService = serviceProvider.GetRequiredService<IRoomService>();
-            roomService = serviceProvider.GetRequiredService<IRoomService>();
+            this.roomService = serviceProvider.GetRequiredService<IRoomService>();
             this.configuration = configuration;
         }
         [HttpPost]
@@ -58,6 +58,25 @@ namespace Sample.API.Controllers
                 else
                     throw new AppException("Item không tồn tại");
             
+            return appDomainResult;
+        }
+
+        [HttpGet]
+        [Route("CheckOutRoom")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> CheckOutRoom([FromQuery] CheckOutRoomRequest request)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            if (ModelState.IsValid)
+            {
+                double total_money_checkout = await roomService.CheckOutRoomWithMonth(request);
+                appDomainResult.Data = total_money_checkout;
+                appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                appDomainResult.Success = true;
+            }
+            else
+                throw new AppException("Item không tồn tại");
+
             return appDomainResult;
         }
     }

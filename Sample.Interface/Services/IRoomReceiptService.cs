@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IRoomService : IDomainService<Room, RoomSearch>
+    public interface IRoomReceiptService : IDomainService<RoomReceipt, RoomReceiptSearch>
     {
-        Task<bool> AddNewRoomWithImage(RoomWithImgRequest itemModel);
-        Task<double> CheckOutRoomWithMonth(CheckOutRoomRequest request);
     }
 }

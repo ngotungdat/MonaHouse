@@ -25,12 +25,20 @@ namespace Sample.Service.Services
         protected IAppDbContext coreDbContext;
         protected IUserService userService;
         protected IRoomImageService roomImageService;
+        protected IElectricWaterBillService electricWaterBillService;
+        protected IRoomUtilitiService roomUtilitiService;
+        protected IRoomService roomService;
         public RoomService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext
             ,IUserService UserService
-            ,IRoomImageService RoomImageService) : base(unitOfWork, mapper)
+            ,IRoomImageService RoomImageService
+            ,IElectricWaterBillService ElectricWaterBillService
+            ,IRoomUtilitiService RoomUtilitiService
+            ) : base(unitOfWork, mapper)
         {
             this.userService = UserService;
             this.roomImageService = RoomImageService;
+            this.electricWaterBillService = ElectricWaterBillService;
+            this.roomUtilitiService = RoomUtilitiService;
             this.coreDbContext = coreDbContext;
         }
 
@@ -96,6 +104,51 @@ namespace Sample.Service.Services
 
             
             return returnResult;
+        }
+
+        public async Task<double> CheckOutRoomWithMonth(CheckOutRoomRequest request)
+        {
+            // lấy ra danh sách ghi điện theo tháng và năm
+            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
+            // kiểm tra ngày dọn vào của người đại diện trong phòng để tính toán điện nước
+            // chưa có chức năng dọn vào !!!!!!!!!!!!!!!
+
+            // tiền điện nước tháng đó
+            double? electric_bill = 0;
+            double? water_bill = 0;
+            foreach(ElectricWaterBill electricWaterBill in ElectricWaterBills)
+            {
+                if(electricWaterBill.ElectricBill != null)
+                {
+                    electric_bill += electricWaterBill.ElectricBill;
+                }
+                if (electricWaterBill.WaterBill != null)
+                {
+                    water_bill += electricWaterBill.WaterBill;
+                }
+            }
+            // lấy danh sách dịch vụ của phòng
+            IList<RoomUtilities> roomUtilities = await roomUtilitiService.GetAsync(p=> p.RoomId==request.RoomId);
+            // tiền dich vụ của phòng
+            double? room_utilitie_bill = 0;
+            foreach (RoomUtilities roomUtilitie in roomUtilities)
+            {
+                if (roomUtilitie.Price != null)
+                {
+                    room_utilitie_bill += roomUtilitie.Price;
+                }
+                
+            }
+            // lấy giá phòng
+            double? room_price_bill = 0;
+            if (room_price_bill != null)
+            {
+                room_price_bill = this.GetById(request.RoomId).Price;
+            }
+            // tổng giá tiền phải chi chả theo tháng 
+            double total_money_bill = 0;
+            total_money_bill = (double)(room_price_bill+ electric_bill + water_bill + room_utilitie_bill );
+            return total_money_bill;
         }
 
         protected override string GetStoreProcName()

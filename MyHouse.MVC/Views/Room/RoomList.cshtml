@@ -449,25 +449,40 @@
                     </div>
                     <div class="row mg-b-15  align-items-center">
                         <input type="hidden" id="room-id-checkout-month" />
-                        <div class="col">
+                        <div class="col-sm-6">
                             <select name="ddl-year" id="ddl-year" class="form-control">
-                                
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select name="ddl-month" id="ddl-month" class="form-control">
                             </select>
                         </div>
                     </div>
-                    <div class="row mg-b-15  align-items-center">
-                        <div class="col">
-                            <select name="ddl-month" id="ddl-month" class="form-control">
-                                
-                            </select>
-                        </div>
+
+                    <div class="row">
+                        <table class="table  valign-center tx-nowrap table-striped tx-center">
+                            @*<caption class="tx-left-f mg-b-0-f">Lịch sử thanh toán</caption>*@
+                            <thead class="valign-middle">
+                                <tr>
+                                    <th>Ngày ghi</th>
+                                    <th>Số điện tiêu thụ</th>
+                                    <th><span class="">Số nước tiêu thụ<span></span></span></th>
+                                    <th><span class="">Giá điện</span></th>
+                                    <th><span class="">Giá nước</span></th>
+                                    <th><span class="">Tiền điện</span></th>
+                                    <th><span class="">Tiền nước</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="electric-water-bill">
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row">
                         <div class="col">
                             <span class="lb">Tiền điện theo tháng :</span>
                         </div>
                         <div class="col tx-right">
-                            <span class="value tx-color-01 tx-medium">1.000.000 <sup>đ</sup></span>
+                            <span class="value tx-color-01 tx-medium" id="electric-bill-with-month"> <sup>đ</sup></span>
                         </div>
                     </div>
                     <div class="row">
@@ -475,25 +490,47 @@
                             <span class="lb">Tiền nước theo tháng:</span>
                         </div>
                         <div class="col tx-right">
-                            <span class="value tx-color-01 tx-medium">300.000 <sup>đ</sup></span>
+                            <span class="value tx-color-01 tx-medium" id="water-bill-with-month"><sup>đ</sup></span>
                         </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row">
+                        <table class="table  valign-center tx-nowrap table-striped tx-center">
+                            @*<caption class="tx-left-f mg-b-0-f">Lịch sử thanh toán</caption>*@
+                            <thead class="valign-middle">
+                                <tr>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Phí dịch vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="room-ultilities-checkout">
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row">
                         <div class="col">
                             <span class="lb">Phí Dịch vụ:</span>
                         </div>
                         <div class="col tx-right">
-                            <span class="value tx-color-01 tx-medium">1.000.000 <sup>đ</sup></span>
+                            <span class="value tx-color-01 tx-medium" id="room-utilities-bill"><sup>đ</sup></span>
                         </div>
                     </div>
-
-
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Giá phòng:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger" id="room-price-checkout"> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
                     <div class="row mg-b-10">
                         <div class="col">
                             <span class="lb tx-medium">Tổng thu:</span>
                         </div>
                         <div class="col tx-right">
-                            <span class="value tx-color-03 tx-medium tx-danger">3.300.000 <sup>đ</sup></span>
+                            <span class="value tx-color-03 tx-medium tx-danger" id="total-money-checkout"><sup>đ</sup></span>
                         </div>
                     </div>
                     <div class="row mg-b-10 align-items-center">
@@ -501,7 +538,7 @@
                             <span class="lb">Chi phí phát sinh:</span>
                         </div>
                         <div class="col">
-                            <input type="tel" data-type="currency" class="form-control" placeholder="0">
+                            <input id="price-plus" type="tel" data-type="currency" class="form-control" placeholder="0" value="0">
                         </div>
 
                     </div>
@@ -510,7 +547,7 @@
                             <span class="lb">Số tiền được giảm:</span>
                         </div>
                         <div class="col">
-                            <input type="tel" data-type="currency" class="form-control" placeholder="0">
+                            <input id="price-subtract" type="tel" data-type="currency" class="form-control" placeholder="0" value="0">
                         </div>
 
                     </div>
@@ -519,7 +556,7 @@
                             <span class="lb tx-medium">Tổng nhận:</span>
                         </div>
                         <div class="col tx-right">
-                            <span class="value tx-color-03 tx-medium tx-danger">3.300.000 <sup>đ</sup></span>
+                            <span id="total-money-after-edit" class="value tx-color-03 tx-medium tx-danger"> <sup>đ</sup></span>
                         </div>
                     </div>
                     <hr class="mg-b-15 mg-t-5">
@@ -528,7 +565,7 @@
                             <span class="lb">Ghi chú:</span>
                         </div>
                         <div class="col">
-                            <textarea class="form-control" placeholder="ghi chú"></textarea>
+                            <textarea id="note-checkout" class="form-control" placeholder="ghi chú"></textarea>
                         </div>
 
                     </div>
@@ -556,7 +593,7 @@
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Lưu lại</button>
+                    <button type="button" class="btn btn-primary btn-checkout">Lưu lại</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
@@ -1601,7 +1638,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="/Room/AddCustomer" class="item-link">
+                                                        <a href="/Room/AddCustomer/`+item.Id+`" class="item-link">
                                                             <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
                                                             vào
                                                         </a>
@@ -1989,8 +2026,8 @@
                 data["waterImage"] = '@Model.Domain'+ImageNames[1];
                 data["electricImage"] = '@Model.Domain' + ImageNames[0];
                 //  giá tiền điện và nước (đổi từ kiểu string -> number)
-                let eletric_price_edit = price_electric.replace(",", "");
-                let water_price_edit = price_electric.replace(",", "");
+                let eletric_price_edit = price_electric.replaceAll(",", "");
+                let water_price_edit = price_electric.replaceAll(",", "");
                 let electricBill = (new_electric - old_electric) * eletric_price_edit;
                 let waterBill = (new_water - old_water) * water_price_edit;
                 data["electricBill"] = electricBill;
@@ -2143,7 +2180,7 @@
 <script>
     //#region Tính tiền phòng theo tháng
 
-    
+
     // chọn năm, tự động là năm hiện tại, lâu nhất là 5 năm
     let get_current_year = new Date().getFullYear();
     let ddl_year = document.getElementById('ddl-year');
@@ -2154,7 +2191,7 @@
         get_current_year--;
         ddl_year.appendChild(opt);
     }
-    // chọn tháng 
+    // chọn tháng
     let ddl_month = document.getElementById('ddl-month');
     for (let i = 1; i <= 12; i++) {
         var opt = document.createElement('option');
@@ -2167,29 +2204,162 @@
         $('#ddl-month').val(new Date().getMonth()).change();
         $('#ddl-year').val(new Date().getFullYear()).change();
         // sau khi chọn ngày tháng năm kiểm tra
-        //    
+        // load phí dịch vụ của phòng
+        checkout_room_ultilities(itemId);
+        checkout_room_price(itemId);
         $('#js-payMoney').modal('show');
     }
-    @*$('#ddl-month').on('change', function () {
+    $('#ddl-month').on('change', function () {
         console.log('change month');
         checkout_room();
-    });*@
-    $('#ddl-year').on('change', function () {
+        // tính lai tổng tiền mỗi lân thay đổi tháng\
+
+        @*let electric_bill = $('#electric-bill-with-month').html().replace(",","");
+        let water_bill = $('#water-bill-with-month').html().replace(",", "");
+        let room_utilities_bill = $('#room-utilities-bill').html().replace(",", "");
+        let room_price_bill = $('#room-price-checkout').html().replace(",", "");
+        console.log("electric:"+electric_bill);
+        let total_money_checkout = electric_bill + water_bill + room_utilities_bill + room_price_bill;
+        $('#total-money-checkout').html(format_money(total_money_checkout));*@
+
+    });
+    @*$('#ddl-year').on('change', function () {
         console.log('change year');
         checkout_room();
-    });
+    });*@
     function checkout_room() {
         // lấy thông tin điện nước trả ra tiền điện nước tháng/ năm dó
         let roomId = $('#room-id-checkout-month').val();
         let month = $('#ddl-month').val();
         let year = $('#ddl-year').val();
         console.log(roomId, month, year);
-        
-        let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId=1&Month=4&Year=2022';
+        let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId='+roomId+'&Month='+month+'&Year='+year;
         load_data_with_jquery(api_get_electricwaterbillformonth).then(function (e) {
+            //danh sách tiền điện theo tháng
+            // ở đây sẽ kiểm tra ngày vào và ra trọ của khách với ngày ghi điện
+            // chưa có chức năng dọn vào nên để đó chưa làm :)))
             console.log(e.Data);
+            let items = e.Data;
+            let html = '';
+            let electric_bill = 0;
+            let water_bill = 0;
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                electric_bill += item.ElectricBill;
+                water_bill += item.WaterBill;
+                var date = new Date(item.WriteDate);
+                let date_write = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+                html += `<tr>
+                                    <td>`+ date_write +`</td>
+                                    <td>`+ (item.NewNumberElectric - item.OldNumberElectric)+`</td>
+                                    <td>`+ (item.NewNumberWater - item.OldNumberWater) + `</td>
+                                    <td>`+ format_money(item.ElectricPrice) +`</td>
+                                    <td>`+ format_money(item.WaterPrice) +`</td>
+                                    <td>`+ format_money(item.ElectricBill) +`</td>
+                                    <td>`+ format_money(item.WaterBill) +`</td>
+                                </tr>`;
+            }
+            $('#electric-bill-with-month').html(format_money(electric_bill));
+            $('#water-bill-with-month').html(format_money(water_bill));
+            $('#electric-water-bill').html(html);
+        })
+        // lấy ra tổng tiền tháng đó
+        let api_get_total_money_checkout = 'api/Room/CheckOutRoom?RoomId=' + roomId + '&Month=' + month + '&Year=' + year;
+        load_data_with_jquery(api_get_total_money_checkout).then(function (e) {
+            $('#total-money-checkout').html(format_money(e.Data));
+            let total_money = e.Data;
+            let price_sub = $('#price-subtract').val().replaceAll(",","");
+            let price_plus = $('#price-plus').val().replaceAll(",", "");
+            let total_money_after = parseFloat(total_money) - parseFloat(price_sub) + parseFloat(price_plus);
+            $('#total-money-after-edit').html(format_money(total_money_after));
         })
     }
+    function checkout_room_ultilities(roomId) {
+        let api_get_roomutilities_formonth = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+        load_data_with_jquery(api_get_roomutilities_formonth).then(function (e) {
+            console.log(e.Data);
+            let items = e.Data.Items;
+            let room_utilities_bill = 0;
+            let html = '';
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                room_utilities_bill += item.Price;
+                html += `<tr>
+                                    <td>`+ item.UtilitiName + `</td>
+                                    <td>`+ format_money(item.Price) + `</td>
+                                </tr>`;
+            }
+            $('#room-utilities-bill').html(format_money(room_utilities_bill));
+            $('#room-ultilities-checkout').html(html);
+        })
+    }
+    function checkout_room_price(roomId) {
+        let api_get_roomprice_formonth = 'api/Room/' + roomId;
+        load_data_with_jquery(api_get_roomprice_formonth).then(function (e) {
+            console.log(e.Data);
+            let item = e.Data;
+            $('#room-price-checkout').html(format_money(item.Price));
+        })
+    }
+    $('#price-plus').on('change', function () {
+        let total_money = $('#total-money-checkout').html().replaceAll(",", "");
+        let price_sub = $('#price-subtract').val().replaceAll(",", "");
+        let price_plus = $('#price-plus').val().replaceAll(",", "");
+        console.log(total_money);
+        console.log(price_plus);
+        console.log(price_sub);
+        let total_money_after = parseFloat(total_money) - parseFloat(price_sub) + parseFloat(price_plus);
+        $('#total-money-after-edit').html(format_money(total_money_after));
+    })
+    $('#price-subtract').on('change', function () {
+        let total_money = $('#total-money-checkout').html().replaceAll(",", "");
+        let price_sub = $('#price-subtract').val().replaceAll(",", "");
+        let price_plus = $('#price-plus').val().replaceAll(",", "");
+        console.log(total_money);
+        console.log(price_plus);
+        console.log(price_sub);
+        let total_money_after = parseFloat(total_money) - parseFloat(price_sub) + parseFloat(price_plus);
+        $('#total-money-after-edit').html(format_money(total_money_after));
+    })
+    // lưu tính tiền thành hóa đơn với trạng thái đang chờ thanh toán
+    $('.btn-checkout').on('click', function () {
+        let roomId = $('#room-id-checkout-month').val();
+        let month = $('#ddl-month').val();
+        let year = $('#ddl-year').val();
+        let plus_bill = $('#price-plus').val().replaceAll(",", "");
+        let sub_bill = $('#price-subtract').val().replaceAll(",", "");
+        let note_checkOut = $('#note-checkout').val();
+        if (ckstring(month) || ckstring(year) || ckstring(plus_bill) || ckstring(sub_bill) || ckstring(roomId)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng điền đầy đủ thông tin',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            // Năm tháng mà người dùng muốn thanh toán
+            let date = '1/' + month + '/' + year; // dd/mm/yyyy
+            
+
+            data["id"] = 0;
+            data["roomId"] = roomId;
+            data["date"] = date.split("/").reverse().join("-");
+            data["plusBill"] = plus_bill;
+            data["subBill"] = sub_bill;
+            data["note"] = note_checkOut;
+            data["status"] = 0; // chờ thanh toán
+            data["deleted"] = false;
+            data["active"] = true;
+
+            let api_Create_roomReceipt = 'api/RoomReceipt';
+            create_data(data, api_Create_roomReceipt).then(function (e) {
+                console.log(e);
+            })
+        }
+        
+    })
+
     //#endregion
 </script>
 <!---->

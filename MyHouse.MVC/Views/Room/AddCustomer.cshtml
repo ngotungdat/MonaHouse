@@ -11,317 +11,361 @@
             </nav>
         </div>
     </div>
-    <div id="js-step-goin" >
-            <h3>Thông tin phòng</h3>
-            <section>
-                <div class="row mg-t-15">
+    <div id="js-step-goin">
+        <h3>Thông tin phòng</h3>
+        <section>
+            <div class="row mg-t-15">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Loại thuê phòng</label>
+                        <select name="ListRoomType" id="ListRoomType" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước</label>
+                        <select name="" id="js-select-package" class="form-control">
+                            <option value="type-all">Bao điện nước</option>
+                            <option value="type-day" selected="">Theo mức sử dụng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">Giá thuê</label>
+                        <input type="tel" id="txt-room-price" name="name=txt-room-price" class="form-control" placeholder="0" data-type="currency" required="">
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
+                        <input type="text" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" id="electric_write">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
+                        <input type="hidden" id="electric-price-for-bill" />
+                        <input type="hidden" id="electric-old-number" />
+                        <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                    </div>
+                    <div class="upload-box">
+                        <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
+                        <input id="image-electric" type="file" class="hidden upload-image-input toggle-field" accept="image/*" multiple="">
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+                <div class="col-md-6" id="water_write">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
+                        <input type="hidden" id="water-price-for-bill" />
+                        <input type="hidden" id="water-old-number" />
+                        <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                    </div>
+
+                    <div class="upload-box">
+                        <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
+                        <input id="image-water" type="file" class="hidden upload-image-input  toggle-field" accept="image/*" multiple="">
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+                <div class="col-md-12 mg-t-30">
+                    <div class="card ">
+                        <div class="card-body">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Lựa chọn Tiện ích cho phòng<span class="text-danger">(*)</span></label>
+                            <div class="table__filter-wrap">
+                                <div class="">
+                                    <table class="table table-hover table-striped">
+                                        <thead class="">
+                                            <tr class="tr-header-table">
+                                                <th class="sort-label" data-column="col-electronic">Tên tiện ích</th>
+                                                <th class="sort-label " data-column="col-service">Giá tiền tiện ích</th>
+                                                <th class="sort-label " data-column="col-service">Lựa chọn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-update-room-utilities">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <h3>Thông tin người thuê</h3>
+        <section>
+            <div class="row ">
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên</label>
+                    <input type="text" class="form-control" id="fullname" placeholder="Họ tên" required="">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                        Số điện
+                        thoại
+                    </label>
+                    <input type="tel" required class="form-control" id="phone" placeholder="SĐT" data-type="number">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                        Địa chỉ
+                        email
+                    </label>
+                    <input type="email"  class="form-control" id="mail" placeholder="0">
+                </div>
+
+            </div>
+            <div class="row ">
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quê quán</label>
+                    <input type="text" class="form-control" id="hometown" placeholder="Quê của bạn...">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số người ở</label>
+                    <input type="tel" class="form-control" id="number-cusinroom" placeholder="0">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quan hệ</label>
+                    <input type="text" class="form-control" id="relationship" placeholder="VD: Vợ chồng">
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Tên tài khoản</label>
+                    <input type="text" required class="form-control" id="user-name" placeholder="NGUYENVANA">
+                </div>
+                
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh</label>
+                    <div class="input-icon">
+                        <input id="txt-dob" name="txt-dob" type="tel" required class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/1999" readonly="true" autocomplete="off">
+                        <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Giới tính</label>
+                    <select class="js-example-basic-single form-control select2" required name="ddl-gender" id="ddl-gender">
+                        <option disabled="true" selected>Giới tính</option>
+                        <option value="0">Giới tính Nữ</option>
+                        <option value="1">Giới tính Nam</option>
+                        <option value="3">Không xác định</option>
+                    </select>
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú</label>
+                    <input type="text" name="txt-address" id="txt-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số CMND/CCCD</label>
+                    <input type="text" name="txt-cmnd" id="txt-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
+                </div>
+            </div>
+            <div class="row ">
+                @*<div class="col-sm form-group">
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quyền người dùng</label>
+                    <select class="js-example-basic-single form-control select2" required name="ddl-role" id="ddl-role">
+                        <option disabled="true" selected>Quyền người dùng</option>
+                        <option value="5">Khách hàng</option>
+                        <option value="4">Nhân viên</option>
+                    </select>
+                </div>*@
+                <div class="col-sm form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu<span class="text-danger">(*)</span></label>
+                    <input type="password" name="txt-pwd" id="txt-pwd" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                </div>
+                <div class="col-sm form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu<span class="text-danger">(*)</span></label>
+                    <input type="password" name="txt-pwdconfirm" id="txt-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                    <span id='message2'></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-row">
+                        <div class="col-12 upload-box mg-b-15">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh giấy tờ
+
+                            </a>
+                            <inpu id="cmnd-image" type="file" class="hidden upload-image-input" accept="image/*" multiple="multiple">
+                            <div class="preview-image"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <h3>Thanh toán</h3>
+        <section>
+            <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin cấu hình">
+                <div class="row">
                     <div class="col-md-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Giá phòng:</dd>
+                                <dt class=""><b id="room-price"></b>  / tháng</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá điện / KW:</dd>
+                                <dt class="electric-price"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá nước:</dd>
+                                <dt class="water-price"></dt>
+                            </dl>
+                            @*<dl class="row-info">
+                                <dd class="">Điện tháng trước:</dd>
+                                <dt class="">
+                                    <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
+                                        2.000.000
+                                        / 130 kW
+                                    </span>
+                                </dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Nước tháng trước:</dd>
+                                <dt class="">
+                                    <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
+                                        1.500.000
+                                        / m<sup>3</sup>
+                                    </span>
+                                </dt>
+                            </dl>*@
+                            <dl class="row-info mg-b-15 mg-md-b-0">
+                                <dd class="">Ngày dọn vào:</dd>
+                                <dt class=""><span class="">20/04/2020</span></dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-list">
+                            @*<dl class="row-info">
+                                <dd class="">Mạng:</dd>
+                                <dt class="">200.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Rác:</dd>
+                                <dt class="">50.000</dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giữ xe:</dd>
+                                <dt class="">150.000</dt>
+                            </dl>
+
+                            <dl class="row-info">
+                                <dd class="">Cáp TV:</dd>
+                                <dt class=""><span class="tx-second">100.000</span></dt>
+                            </dl>
+*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="legend-box pd-15" data-label="Thông tin thanh toán">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Loại thuê phòng</label>
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Cọc
+                                trước
+                            </label>
                             <select name="" id="" class="form-control">
-                                <option value="type-longday">Dài hạn</option>
-                                <option value="type-shortday">Ngắn hạn</option>
+                                <option value="1">1 tháng</option>
+                                <option value="2">2 tháng</option>
+                                <option value="3" selected="">3 tháng</option>
+                                <option value="4">4 tháng</option>
+                                <option value="5">5 tháng</option>
+                                <option value="6">6 tháng</option>
+                                <option value="7">7 tháng</option>
+                                <option value="8">8 tháng</option>
+                                <option value="9">9 tháng</option>
+                                <option value="10">10 tháng</option>
+                                <option value="11">11 tháng</option>
+                                <option value="12">12 tháng</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước</label>
-                            <select name="" id="js-select-package" class="form-control">
-                                <option value="type-all">Bao điện nước</option>
-                                <option value="type-day" selected="">Theo ngày</option>
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Trả trước
+                                tới
+                            </label>
+                            <select name="" id="" class="form-control">
+                                <option value="1">Hết tháng 1</option>
+                                <option value="2">Hết tháng 2</option>
+                                <option value="3">Hết tháng 3</option>
+                                <option value="4" selected="">Hết tháng 4</option>
+                                <option value="5">Hết tháng 5</option>
+                                <option value="6">Hết tháng 6</option>
+                                <option value="7">Hết tháng 7</option>
+                                <option value="8">Hết tháng 8</option>
+                                <option value="9">Hết tháng 9</option>
+                                <option value="10">Hết tháng 10</option>
+                                <option value="11">Hết tháng 11</option>
+                                <option value="12">Hết tháng 12</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Giá thuê</label>
-                            <input type="tel" class="form-control" placeholder="0" data-type="currency" required="">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Hình
+                                thức
+                            </label>
+                            <select name="" id="" class="form-control">
+                                <option value="" selected="">Chuyển khoản</option>
+                                <option value="">Tiền mặt</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="col-md-6 ">
-                        <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
-                            <input type="text" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
-                        </div>
-                    </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
-                            <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required="">
-                        </div>
-                        <div class="upload-box">
-                            <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
-                            <input type="file" class="hidden upload-image-input toggle-field" accept="image/*" multiple="">
-                            <div class="preview-image"></div>
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Tổng
+                                tiền
+                            </label>
+                            <div class="input-group mg-b-10">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="total-money">3 tháng 5 ngày = </span>
+                                </div>
+                                <input type="text" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="3.150.000" disabled="">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
-                            <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required="">
-                        </div>
-
-                        <div class="upload-box">
-                            <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
-                            <input type="file" class="hidden upload-image-input  toggle-field" accept="image/*" multiple="">
-                            <div class="preview-image"></div>
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Thực nhận của
+                                khách
+                            </label>
+                            <input type="text" class="form-control" placeholder="0">
                         </div>
                     </div>
-                    <div class="col-md-12 mg-t-30">
-                        <div class="card ">
-                            <div class="card-body">
-                                <div class="list-services">
-                                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Dịch vụ phòng</label>
-                                    <div class="row align-items-center mg-b-20">
-                                        <div class="col pl-r-5">
-                                            <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="Wifi">
-                                        </div>
-                                        <div class="col pd-l-5">
-                                            <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="200.000">
-                                        </div>
-                                        <div class="col pd-l-0 flex-grow-0">
-                                            <a href="javascript:;" class="tx-danger delete-service"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg></a>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center mg-b-20">
-                                        <div class="col pl-r-5">
-                                            <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="Cáp">
-                                        </div>
-                                        <div class="col pd-l-5">
-                                            <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="200.000">
-                                        </div>
-                                        <div class="col pd-l-0 flex-grow-0">
-                                            <a href="javascript:;" class="tx-danger delete-service"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line></svg></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="javascript:;" class="btn btn-primary js-add-service "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Thêm dịch vụ</a>
-                            </div>
-                        </div>
 
-                    </div>
 
                 </div>
-            </section>
-            <h3>Thông tin người thuê</h3>
-            <section>
-                <div class="row ">
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên</label>
-                        <input type="text" class="form-control" placeholder="Họ tên" required="">
-                    </div>
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                            Số điện
-                            thoại
-                        </label>
-                        <input type="tel" class="form-control" placeholder="SĐT" data-type="number">
-                    </div>
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                            Địa chỉ
-                            email
-                        </label>
-                        <input type="email" class="form-control" placeholder="0">
-                    </div>
+            </div>
 
-                </div>
-                <div class="row ">
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quê quán</label>
-                        <input type="text" class="form-control" placeholder="Quê của bạn...">
-                    </div>
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số người ở</label>
-                        <input type="tel" class="form-control" placeholder="0">
-                    </div>
-                    <div class="col-sm form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Quan hệ</label>
-                        <input type="text" class="form-control" placeholder="VD: Vợ chồng">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-row">
-                            <div class="col-12 upload-box mg-b-15">
-                                <a href="javascript:;" class="btn btn-outline-primary btn-upload">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh giấy tờ
-
-                                </a>
-                                <input type="file" class="hidden upload-image-input" accept="image/*" multiple="multiple">
-                                <div class="preview-image"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <h3>Thanh toán</h3>
-            <section>
-                <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin cấu hình">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-list">
-                                <dl class="row-info">
-                                    <dd class="">Giá phòng:</dd>
-                                    <dt class="">3.500.000 / tháng</dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Giá điện / KW:</dd>
-                                    <dt class=""><span class="tx-success">Đã bao gồm</span></dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Giá nước:</dd>
-                                    <dt class=""><span class="tx-success">Đã bao gồm</span></dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Điện tháng trước:</dd>
-                                    <dt class="">
-                                        <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
-                                            2.000.000
-                                            / 130 kW
-                                        </span>
-                                    </dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Nước tháng trước:</dd>
-                                    <dt class="">
-                                        <span tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">
-                                            1.500.000
-                                            / m<sup>3</sup>
-                                        </span>
-                                    </dt>
-                                </dl>
-                                <dl class="row-info mg-b-15 mg-md-b-0">
-                                    <dd class="">Ngày dọn vào:</dd>
-                                    <dt class=""><span class="">20/04/2020</span></dt>
-                                </dl>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-list">
-                                <dl class="row-info">
-                                    <dd class="">Mạng:</dd>
-                                    <dt class="">200.000</dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Rác:</dd>
-                                    <dt class="">50.000</dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Giữ xe:</dd>
-                                    <dt class="">150.000</dt>
-                                </dl>
-
-                                <dl class="row-info">
-                                    <dd class="">Cáp TV:</dd>
-                                    <dt class=""><span class="tx-second">100.000</span></dt>
-                                </dl>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="legend-box pd-15" data-label="Thông tin thanh toán">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-4">
-                            <div class="form-group">
-                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                                    Cọc
-                                    trước
-                                </label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1 tháng</option>
-                                    <option value="2">2 tháng</option>
-                                    <option value="3" selected="">3 tháng</option>
-                                    <option value="4">4 tháng</option>
-                                    <option value="5">5 tháng</option>
-                                    <option value="6">6 tháng</option>
-                                    <option value="7">7 tháng</option>
-                                    <option value="8">8 tháng</option>
-                                    <option value="9">9 tháng</option>
-                                    <option value="10">10 tháng</option>
-                                    <option value="11">11 tháng</option>
-                                    <option value="12">12 tháng</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="form-group">
-                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                                    Trả trước
-                                    tới
-                                </label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">Hết tháng 1</option>
-                                    <option value="2">Hết tháng 2</option>
-                                    <option value="3">Hết tháng 3</option>
-                                    <option value="4" selected="">Hết tháng 4</option>
-                                    <option value="5">Hết tháng 5</option>
-                                    <option value="6">Hết tháng 6</option>
-                                    <option value="7">Hết tháng 7</option>
-                                    <option value="8">Hết tháng 8</option>
-                                    <option value="9">Hết tháng 9</option>
-                                    <option value="10">Hết tháng 10</option>
-                                    <option value="11">Hết tháng 11</option>
-                                    <option value="12">Hết tháng 12</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                                    Hình
-                                    thức
-                                </label>
-                                <select name="" id="" class="form-control">
-                                    <option value="" selected="">Chuyển khoản</option>
-                                    <option value="">Tiền mặt</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                                    Tổng
-                                    tiền
-                                </label>
-                                <div class="input-group mg-b-10">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="total-money">3 tháng 5 ngày = </span>
-                                    </div>
-                                    <input type="text" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="3.150.000" disabled="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
-                                    Thực nhận của
-                                    khách
-                                </label>
-                                <input type="text" class="form-control" placeholder="0">
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </section>
-        </div>
+        </section>
+    </div>
 </div>
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script src="~/house/lib/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/house/lib/moment/moment.js"></script>
 <script>
@@ -370,6 +414,7 @@
     }
 
     function checkrequired(event, currentIndex, newIndex) {
+        load_room_utilities();
         if (currentIndex > newIndex) {
             return true;
         }
@@ -450,4 +495,250 @@
         //     }
         // });
     });
+</script>
+<script>
+    //#region load thong tin phong
+    $(document).ready(function () {
+        var pathArray = window.location.pathname.split('/');
+        var RoomID = pathArray[3];
+        console.log('roomId:' + RoomID);
+        //load roomType
+        $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/RoomType?PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + '@Model.Users.Id',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+
+                    select = document.getElementById('ListRoomType');
+                    for (let i = 0; i < list.length; i++) {
+                        let obj = { id : list[i].Id ,name : list[i].Name };
+                        var opt = document.createElement('option');
+                        opt.value = list[i].Id;
+                        opt.innerHTML = list[i].Name;
+                        select.appendChild(opt);
+                    }
+                    // load room
+                    $.ajax({
+                            type: 'GET',
+                            dataType: "json",
+                            url: '@Model.Domain' + 'api/Room/' + RoomID,
+                            headers: {
+                                'Authorization': 'Bearer ' + '@Model.Token',
+                                'Content-Type': 'application/json'
+                            },
+                            success: function (data, status, xhr) {
+                                let item = data.Data;
+                                // lấy giữ liệu từ api
+                                //$('#hdfId').val(item.Id);
+                                //$('input[name=txt-room-name-edit]').val(item.Name);
+                                //$('#ListBranch-edit').val(item.BranchId).change();
+                                //$('#ListFloor-edit').val(item.BranchFloor).change();
+                                $('#txt-room-price').val(format_money(item.Price));
+                                $('#room-price').html(format_money(item.Price));
+                                //$('input[name=txt-Acreage-edit]').val(item.Acreage);
+                                //$('input[name=txt-deposit-edit]').val(format_money(item.Deposit));
+                                //$('input[name=txt-BedAmount-edit]').val(item.BedAmount);
+                                $('#ListRoomType').val(item.RoomTypeId).change();
+                                //$('#room-status-edit').val(item.Status).change();
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                            }
+                        });
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+    })
+    //#endregion
+    //#region chọn gói điện nước
+    $('#js-select-package').on('change', function () {
+        console.log("asdadasd");
+        if ($('#js-select-package').val() == 'type-all') {
+            // disable ghi điện nước
+            $('.electric-price').html('<span class="tx-success">Đã bao gồm</span>');
+            $('.water-price').html('<span class="tx-success">Đã bao gồm</span>');
+            $('#electric_write').css("display", "none");
+            $('#water_write').css("display", "none");
+        }
+        else {
+            // enable ghi điện nước
+            $('.electric-price').html($('#electric-price-for-bill').val() + 'đ');
+            $('.water-price').html($('#water-price-for-bill').val() + 'đ');
+            $('#electric_write').css("display", "block");
+            $('#water_write').css("display", "block");
+        }
+    })
+    //#endregion
+    //#region Ghi điện trước kho dọn vào phòng
+    // lấy ra lần ghi điện mới nhât để làm số cũ
+    $(document).ready(function () {
+        var pathArray = window.location.pathname.split('/');
+        var RoomID = pathArray[3];
+        let api_Electric_water_bill = 'api/ElectricWaterBill?RoomId=' + RoomID + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+                load_data_with_jquery(api_Electric_water_bill).then(function (e) {
+                    let list = e.Data.Items;
+                    console.log(list);
+                    // lay ra bill dau tien de lam so moi.
+                    $('#electric-old-number').val(list[0].NewNumberElectric);
+                    $('#water-old-number').val(list[0].NewNumberWater);
+                    console.log(list[0].NewNumberElectric);
+                    console.log(list[0].NewNumberWater);
+                    // lấy giá điện nước
+                    let api_GetPrice_Electric_Water = 'api/Room/' + RoomID;
+                    load_data_with_jquery(api_GetPrice_Electric_Water).then(function (e) {
+                        let data = e.Data;
+                        // gan vao modal
+                        $('#electric-price-for-bill').val(format_money(data.ElectricPrice));
+                        $('#water-price-for-bill').val(format_money(data.WaterPrice));
+                        $('.electric-price').html(format_money(data.ElectricPrice)+'đ');
+                        $('.water-price').html(format_money(data.WaterPrice)+'đ');
+                        console.log(data.ElectricPrice);
+                        console.log(data.WaterPrice);
+                    })
+                });
+    })
+    //#endregion
+    //#region Tiện ích trong phòng
+    let ListRoomUtilies = [];
+    let ListUtiliesConfig = [];
+    let ListUtiliti_service = [];
+    let ListUtiliti_service_tmp = [];
+    $(document).ready(function () {
+        var pathArray = window.location.pathname.split('/');
+        var RoomID = pathArray[3];
+        //call api tien ich
+        let api_utilitiConfig = 'api/UtilitiesConfig?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+
+        load_data_with_jquery(api_utilitiConfig).then(function (e) {
+            let list = e.Data.Items;
+            let html = '';
+            ListUtiliesConfig = list;
+            for (var i = 0; i < list.length; i++) {
+                let item = list[i];
+                html += '<tr>';
+                html += '<td>' + item.Name + '</td>';
+                html += '<td><input id="RoomUtilitiesPrice-' + item.Id + '" data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
+                html += '<td>' +
+                    '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" data-roomid="'+item.Id+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
+                html += '</tr>';
+            }
+            $('#tbody-update-room-utilities').hide().html(html).show('slow');
+            // check zo tiện ích nào mà phòng đó có
+            // call api Room Utilities
+            let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' + '&RoomId=' + RoomID;
+            load_data_with_jquery(api_RoomUtilities).then(function (e) {
+                ListRoomUtilies = [];
+                ListUtiliti_service = [];
+                ListUtiliti_service_tmp = [];
+                let list = e.Data.Items;
+                ListRoomUtilies = list;
+                RoomUtilitiesCheck();
+                $('#js-edit-service').modal('show');
+            })
+        })
+    })
+    function RoomUtilitiesCheck() {
+        if (ListRoomUtilies.length > 0) {
+            for (var i = 0; i < ListUtiliesConfig.length; i++) {
+                let tmp = false;
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+                for (var j = 0; j < ListRoomUtilies.length; j++) {
+                    if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId) {
+                        checkBox.checked = true;
+                        //
+                        ListUtiliti_service_tmp.push(ListUtiliesConfig[i].Name + ':' + input.value.replaceAll(',', ''));
+                        //
+                        ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                        input.value = format_money(ListRoomUtilies[j].Price);
+                        input.readOnly = true;
+                        tmp = true;
+                        break;
+                    }
+                    else {
+                        tmp = false;
+                    }
+                }
+                if (tmp == false) {
+                    checkBox.checked = false;
+                    //
+                    let indet = ListUtiliti_service_tmp.indexOf(ListUtiliesConfig[i].Name + ':' + input.value.replaceAll(',', ''));
+                    if (indet >= 0) {
+                        ListUtiliti_service_tmp.splice(index, 1);
+                    }
+                    //
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    input.value = format_money(ListUtiliesConfig[i].Price);
+                    if (index >= 0) {
+                        ListUtiliti_service.splice(index, 1);
+                    }
+                    input.readOnly = false;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < ListUtiliesConfig.length; i++) {
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
+                checkBox.checked = false;
+                let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                input.value = ListUtiliesConfig[i].Price;
+                ListUtiliti_service.splice(index, 1);
+                input.readOnly = false;
+            }
+        }
+    }
+    // kiem tra khi bat dau chin checkbox
+    function RoomUtilitiesCheckBox(index) {
+        for (let i = 0; i < ListUtiliesConfig.length; i++) {
+            if (ListUtiliesConfig[i].Id == ListUtiliesConfig[index].Id) {
+                var checkBox = document.getElementById("RoomUtilities-" + ListUtiliesConfig[i].Id);
+                var input = document.getElementById("RoomUtilitiesPrice-" + ListUtiliesConfig[i].Id);
+
+                if (checkBox.checked == true) {
+                    ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    //
+                    ListUtiliti_service_tmp.push(ListUtiliesConfig[i].Name + ':' + input.value.replaceAll(',', ''));
+                    console.log(ListUtiliti_service_tmp);
+                    //
+                    input.readOnly = true;
+                    console.log(ListUtiliti_service);
+                }
+                else {
+                    //
+                    let indet = ListUtiliti_service_tmp.indexOf(ListUtiliesConfig[i].Name + ':' + input.value.replaceAll(',', ''));
+                    ListUtiliti_service_tmp.splice(indet, 1);
+                    console.log(ListUtiliti_service_tmp);
+                    //
+                    let index = ListUtiliti_service.indexOf(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
+                    ListUtiliti_service.splice(index, 1);
+                    input.readOnly = false;
+                    console.log(ListUtiliti_service);
+                }
+            }
+        }
+    }
+    
+    //#endregion
+    //#region tiện ích phòng sau khi chỉnh sửa
+    function load_room_utilities() {
+        let html = '';
+        //xử lý chuỗi
+        for (let i = 0; i < ListUtiliti_service_tmp.length; i++){
+            html += `<dl class="row-info">
+                                <dd class="">`+ ListUtiliti_service_tmp[i].split(":")[0] +`</dd>
+                                <dt class="">`+ format_money(ListUtiliti_service_tmp[i].split(":")[1]) +`</dt>
+                            </dl>`;
+        }
+        $('.info-list').html(html);
+    }
+    //#endregion
 </script>
