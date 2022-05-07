@@ -1,0 +1,388 @@
+﻿
+@using Sample.Entities
+@{
+
+    Users user = Model.Users;
+}
+<style>
+    .select2-container .select2-selection--single {
+        height: 36px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 34px;
+    }
+</style>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row">
+        <div class="col-lg-4 user-container">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="user-info-profile">
+                        <div class="user-avatar">
+                            <label for="upload-avatar" class="avatar-upload">
+                                <img src="" alt="avatar" value="" required>
+                            </label>
+                        </div>
+                        <div class="user-info">
+                            <ul>
+                                <li>
+                                    <p class="txt-name"></p>
+                                </li>
+                                <li>
+                                    <p class="type"><span class="lb">Loại tài khoản:</span><span class="value">Premium</span></p>
+                                </li>
+                                <li>
+                                    <p class="email"><span class="lb">Ngày hết hạn:</span><span class="value">20/04/2020</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="user-action-profile">
+                        <ul>
+                            <li class="active"><a href="#">Thay đổi thông tin</a></li>
+                            <li><a href="@@Url.Action(" Option", "Account" , new { area="" })">Cấu hình phòng</a></li>
+                            <li><a href="@@Url.Action(" Price", "PriceTable" , new { area="" })">Gia hạn và nâng cấp gói</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 content-board">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="title-page">Thông tin tài khoản</h4>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Tên tài khoản</label>
+                            <input type="text" class="form-control username" value="" disabled>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Tên người dùng</label>
+                            <input type="text" name="txt-fullname" id="txt-fullname" class="form-control txt-fullname" placeholder="Số điện thoại" value="" required>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Số điện thoại</label>
+                            <input type="number" name="txt-phone" id="txt-phone" class="form-control txt-phone" placeholder="Số điện thoại" value="" required>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Email</label>
+                            <input type="email" name="txt-email" id="txt-email" class="form-control txt-email" placeholder="Email" value="">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" name="txt-address" id="txt-address" class="form-control txt-address" placeholder="Email" value="">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Ngày sinh</label>
+                            <input type="text" name="txt-birthday" id="txt-birthday" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh</label>
+                            <div style="clear:left;"></div>
+                            <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh đại diện
+                            </a>
+                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" />
+                            <div style="clear:left;"></div>
+                            <div class="preview-image" id="room-img"></div>
+                        </div>
+                        <div class="col-md-6 offset-md-6 tx-md-right">
+                            <button class="btn btn-primary btn-updateuser" type="submit">Cập nhật thông tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:20px;">
+                <div class="card-body">
+                    <h4 class="title-page">Cập nhật mật khẩu </h4>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Mật khẩu mới</label>
+                            <input type="password" name="txt-pass" id="txt-pass" class="form-control" autocomplete="new-password" />
+                        </div> <div class="col-md-4 form-group">
+                            <label>Nhập lại Mật khẩu mới</label>
+                            <input type="password" name="txt-passconfirm" id="txt-passconfirm" class="form-control" autocomplete="new-password" />
+                            <span id="message"></span>
+                        </div> <div class="col-md-4 form-group">
+                            <label>Mật khẩu cũ</label>
+                            <input type="password" name="txt-passold" id="txt-passold" class="form-control" autocomplete="new-password" />
+                        </div>
+                        <div class="col-md-6 offset-md-6 tx-md-right">
+                            <button class="btn btn-primary btn-updateuserpwd" type="submit">Cập nhật thông tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
+<script>
+     var pathArray = window.location.pathname.split('/');
+    var userId = pathArray[3];
+
+    let api = 'api/user/10'
+    let searchContent = '';
+    let pageIndex = 1;
+    let pageSize = 20;
+    let orderBy = 0;
+    //#region thong tin chi tiet phong
+    $(document).ready(function () {
+        load_data_with_jquery(api).then(function (e) {
+
+            console.log(e.Data);
+            let item = e.Data;
+            console.log(item);
+        })
+    });
+    //loadthong tin userid
+    let api_user = 'api/user/' + userId;
+    load_data_with_jquery(api_user).then(function (e) {
+        let user_data = e.Data;
+        $('.avatar').val(user_data.Avatar);
+        $('.txt-name').html(user_data.FullName);
+        $('.username').val(user_data.UserName);
+        $('.txt-fullname').val(user_data.FullName);
+
+
+        $('.txt-phone').val(user_data.Phone);
+
+        $('.txt-email').val(user_data.Email);
+        $('.txt-address').val(user_data.Address);
+    });
+
+    // bat loi form
+    $('#txt-pass, #txt-passconfirm').on('keyup', function () {
+        if ($('#txt-pass').val() == $('#txt-passconfirm').val()) {
+            $('#message').html('Matching').css('color', 'green');
+        } else {
+            $('#message').html('Not Matching').css('color', 'red');
+        }
+    });
+    // upload image
+    $('.btn-uploads').on('click', function () {
+        $('.upload-image-temps').click();
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            //listImage = [];
+            let html = '';
+            for (let i = 0; i < input.files.length; i++) {
+                //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
+                html += `<div class="image-wrap">
+                            <div class="image-box lightgallery">
+                                <a id="room-img-href-` + i + `" href="#" class=""> <img id="room-img-` + i + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
+                            </div>
+                            <a id="img-` + i + `"  href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                        </div>`;
+            }
+            $('#room-img').hide().html(html).show('slow');
+            for (let i = 0; i < input.files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' + 'room-img-' + i)
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                    $('#' + 'room-img-href-' + i)
+                        .attr('href', e.target.result)
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+            let value = document.getElementById("input-img").files;
+            //for (let i of value) {
+            //    listImage.push(i);
+            //}
+        }
+    }
+    function upload_img(files) {
+            let rs = [];
+            var formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                },
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    console.log("upload thanh cong");
+                    console.log(data);
+                    rs = data.Data;
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return rs;
+        }
+    //
+    //xu ly ngay thang nam
+    $(document).ready(function () {
+        var date = new Date('@user.DateOfBirth');
+        let dob = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+        $('#txt-birthday').val(dob);
+    })
+    // cap nhat thong tin user
+    $('.btn-updateuser').on('click', function () {
+        let id = $('txt-hdId').val();
+        let fullname = $('#txt-fullname').val();
+        let username = $('#username').val();
+
+        let phone = $('#txt-phone').val();
+        let email= $('#txt-email').val();
+        let address= $('#txt-address').val();
+        let birthday = $('#txt-birthday').val();
+        let avatar = document.getElementById("input-img").files;
+        let dob = birthday.split("/").reverse().join("-");
+        if (ckstring(fullname) || ckstring(phone) || ckstring(email) || ckstring(address) || ckstring(birthday) || ckstring(dob)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ và chính xác thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let images = [];
+            if (avatar.length > 0) {
+                images= upload_img(avatar);
+            }
+            let data = {};
+            if (images.length > 0) {
+                data["avatar"] = '@Model.Domain'+ images;
+            }
+            data["id"] = userId;
+            data["userName"] = username;
+            data["fullName"] = fullname;
+            data["phone"] = phone;
+            data["email"] = email;
+            data["address"] = address;
+            data["birthDate"] = dob;
+            data["active"] = true;
+            data["deleted"] = false;
+            console.log(data);
+            insert_or_update(data);
+        }
+    });
+    function insert_or_update(data) {
+
+        let url ='@Model.Domain'+'api/user';
+        let type_request = '';
+        if (ckstring(data.id) || data.id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+            url = '@Model.Domain' + 'api/user/' + data.id;
+        }
+        $('#modal-user-in-group').modal('hide');
+        $.ajax({
+            url: url,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    // cap nhat mat khau
+    $('.btn-updateuserpwd').on('click', function () {
+        let oldPwd = $('#txt-passold').val();
+        let newPwd = $('#txt-pass').val();
+        let confirmNewPwd = $('#txt-passconfirm').val();
+
+        if (newPwd != confirmNewPwd || ckstring(newPwd) || ckstring(oldPwd) || ckstring(confirmNewPwd)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ và chính xác thông tin!',
+g                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data['oldPassword'] = oldPwd;
+            data['newPassword'] = newPwd;
+            data['confirmNewPassword'] = confirmNewPwd;
+            Change_pwd(data);
+        }
+    });
+    function Change_pwd(data_change_pwd) {
+        let url = '@Model.Domain' + 'api/authenticate/changePassword/' + @user.Id;
+        type_request = 'PUT';
+        $.ajax({
+            url: url,
+            data: JSON.stringify(data_change_pwd),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+
+</script>

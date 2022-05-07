@@ -593,9 +593,15 @@
                         status = '<span class="tx-success">Đang thuê</span>';
                     }
                     stt++;
+                    console.log(item)
                     html += `<tr>
                                     <td>`+ stt + `</td>
-                                    <td>`+ item.FullName + `</td>
+                                    <td data-column="col-house">
+                                            <a href="/room/ProfileTenantDetail/`+ item.UsersId + `">
+                                                `+ item.FullName +`
+                                            </a>
+                                    </td>
+                              
                                     <td>`+ item.Phone + `</td>
                                     <td>`+ item.CMT + `</td>
                                     <td>14/07/2022</td>
