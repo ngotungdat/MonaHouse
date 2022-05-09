@@ -242,7 +242,11 @@ namespace Sample.BaseAPI.Controllers
                         throw new AppException(messageUserCheck);
                     success = await userService.CreateAsync(item);
                     if (success)
+                    {
+                        // trả ra id của thg user mới tạo
+                        appDomainResult.Data = item;
                         appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                    }
                     else
                         throw new Exception("Lỗi trong quá trình xử lý");
                     appDomainResult.Success = success;

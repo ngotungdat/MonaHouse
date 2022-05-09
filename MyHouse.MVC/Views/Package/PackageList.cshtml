@@ -284,11 +284,11 @@
         $('textarea[name=txt-title-description]').val('');
         $('input[name=txt-limitedRoom]').val('');
         $('input[name=txt-price]').val('');
-        $('textarea[name=txt-description]').val('');
+        //$('textarea[name=txt-description]').val('');
         $('select[name=dll-type-of-rental]').val(1);
         $('select[name=dll-package-type]').val(1);
         $('#switch-active').val(true);
-        tinyMCE.activeEditor.setContent($('textarea[name=txt-description]').val());
+        tinyMCE.activeEditor.setContent('');
         $('#modal-add-package').modal('show');
     });
 
@@ -311,7 +311,7 @@
             $('#switch-active').prop("checked", false);
             $('#switch-active').val(true);
         }
-        console.log(tiny);
+        //console.log(tiny);
         tinyMCE.activeEditor.setContent($('textarea[name=txt-description]').val());
         $('#modal-add-package').modal('show');
 
@@ -342,7 +342,9 @@
         const limitedRoom = $('input[name=txt-limitedRoom]').val().replaceAll(',', '');
         const price = $('input[name=txt-price]').val().replaceAll(',', '');
         const active = $('input[name=hidden-package]').val();
-        const description = $('textarea[name=txt-description]').val();
+        //const description = $('textarea[name=txt-description]').val();
+        const description = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        //tinymce.editors[0].contentDocument.activeElement.innerHTML;
         const type_of_rental = $('select[name=dll-type-of-rental]').val();
         const package_type = $('select[name=dll-package-type]').val();
         if (ckstring(title) || ckstring(titleDescription) || ckstring(limitedRoom) || ckstring(price) || ckstring(description) || ckstring(type_of_rental) || ckstring(package_type)) {

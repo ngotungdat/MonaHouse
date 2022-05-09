@@ -260,7 +260,7 @@
         $('select').select2({
             dropdownParent: $('#modal-branch')
         });
-        getUtilitiesConfig(1);
+        //getUtilitiesConfig(1);
     });
 
     //load chi tiết nhà/dãy trọ
@@ -290,7 +290,7 @@
             list_images.push(singleObj);
         });
         //kiểm tra ràng buộc bắt buộc nhập
-        if (ckstring(name) || ckstring(list_images)) {
+        if (ckstring(name) @*|| ckstring(list_images)*@) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -320,6 +320,7 @@
         }
         else {
             type_request = 'PUT';
+            console.log('aaaaaa');
         }
         $.ajax({
             url: domain,
@@ -387,9 +388,9 @@
         document.getElementById('ck-isParkingFee').appendChild(text);
     })*@
 
-    $( async function () {
+    @*$( async function () {
         await getCity();
-    })
+    })*@
 
     async function getCity() {
         let myDomain = '@Model.Domain';

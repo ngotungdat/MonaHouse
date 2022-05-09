@@ -41,7 +41,7 @@
                 <div class="col-md-6 ">
                     <div class="form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
-                        <input type="text" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
+                        <input type="text" id="date-into-room" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
                         <input type="hidden" id="electric-price-for-bill" />
                         <input type="hidden" id="electric-old-number" />
-                        <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
                     </div>
                     <div class="upload-box">
                         <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
@@ -65,7 +65,7 @@
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
                         <input type="hidden" id="water-price-for-bill" />
                         <input type="hidden" id="water-old-number" />
-                        <input type="tel" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
                     </div>
 
                     <div class="upload-box">
@@ -244,13 +244,13 @@
                             </dl>*@
                             <dl class="row-info mg-b-15 mg-md-b-0">
                                 <dd class="">Ngày dọn vào:</dd>
-                                <dt class=""><span class="">20/04/2020</span></dt>
+                                <dt class=""><span class="date-into_room-replace"></span></dt>
                             </dl>
 
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="info-list">
+                        <div class="info-list" id="room-utilities-pay">
                             @*<dl class="row-info">
                                 <dd class="">Mạng:</dd>
                                 <dt class="">200.000</dt>
@@ -281,7 +281,7 @@
                                 Cọc
                                 trước
                             </label>
-                            <select name="" id="" class="form-control">
+                            <select name="deposit" id="deposit" class="form-control">
                                 <option value="1">1 tháng</option>
                                 <option value="2">2 tháng</option>
                                 <option value="3" selected="">3 tháng</option>
@@ -303,7 +303,7 @@
                                 Trả trước
                                 tới
                             </label>
-                            <select name="" id="" class="form-control">
+                            <select name="first-pay" id="first-pay" class="form-control">
                                 <option value="1">Hết tháng 1</option>
                                 <option value="2">Hết tháng 2</option>
                                 <option value="3">Hết tháng 3</option>
@@ -325,9 +325,9 @@
                                 Hình
                                 thức
                             </label>
-                            <select name="" id="" class="form-control">
-                                <option value="" selected="">Chuyển khoản</option>
-                                <option value="">Tiền mặt</option>
+                            <select name="payment-method" id="payment-method" class="form-control">
+                                <option value="0" selected="">Chuyển khoản</option>
+                                <option value="1">Tiền mặt</option>
                             </select>
                         </div>
                     </div>
@@ -342,9 +342,9 @@
                             </label>
                             <div class="input-group mg-b-10">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="total-money">3 tháng 5 ngày = </span>
+                                    <span class="input-group-text" >Tổng tiền = </span>
                                 </div>
-                                <input type="text" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="3.150.000" disabled="">
+                                <input type="text" id="total-money" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="0" disabled="">
                             </div>
                         </div>
                     </div>
@@ -354,7 +354,7 @@
                                 Thực nhận của
                                 khách
                             </label>
-                            <input type="text" class="form-control" placeholder="0">
+                            <input data-type="currency" id="money-take" class="form-control" placeholder="0">
                         </div>
                     </div>
 
@@ -381,7 +381,7 @@
             }
         }
         $currentStepForm.addClass('was-validated');
-        var data = [];
+        @*var data = [];
         $('.list-service').each(function (e) {
             var addon = {};
             addon["Name"] = $(this).find('.list-service-name').val();
@@ -405,16 +405,216 @@
         console.log(JSON.stringify(ListObject))
         $('input[name="hdfObjIMG"]').val();
         $($('a[role="menuitem"]')[2]).css({ "opacity": "0.8", "pointer-events": "none", "cursor": "default" });
-        $('#form-assign-renter').submit();
+        $('#form-assign-renter').submit();*@
 
     }
 
     function onAfterSubmitForm() {
         alert('Chạy sau khi Submit form');
+        // update phong
+        var pathArray = window.location.pathname.split('/');
+        let RoomID = pathArray[3];
+        let room_type = $('#ListRoomType').val();
+        let room_price = $('#txt-room-price').val();
+        if (ckstring(RoomID) || ckstring(room_type) || ckstring(room_price)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = RoomID;
+            data["roomTypeId"] = room_type;
+            data["price"] = room_price;
+            console.log(RoomID);
+            console.log(room_type);
+            console.log(room_price);
+            let api_update_room = 'api/Room';
+            update_data(data, api_update_room);
+        }
+        // ghi dien nuoc hoac khong
+        let old_electric = $('#electric-old-number').val();
+        let new_electric = $('#electric-new-number').val();
+        let old_water = $('#water-old-number').val();
+        let new_water = $('#water-new-number').val();
+        let img_electric = document.getElementById('image-electric').files[0];
+        let img_water = document.getElementById('image-water').files[0];
+        let price_electric = $('#electric-price-for-bill').val();
+        let price_water = $('#water-price-for-bill').val();
+        console.log(old_electric);
+        console.log(new_electric);
+        console.log(old_water);
+        console.log(new_water);
+        console.log(img_electric);
+        console.log(img_water);
+        if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) || img_electric.length == 0 || img_water.length == 0) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let listImage = [];
+            listImage.push(img_electric);
+            listImage.push(img_water);
+            let ImageNames = upload_img(listImage);
+            //data
+            let data = {};
+            data["id"] = 0;
+            data["deleted"] = false;
+            data["active"] = true;
+            data["roomId"] = RoomID;
+            data["electricPrice"] = price_electric;
+            data["waterPrice"] = price_water;
+            data["oldNumberElectric"] = old_electric;
+            data["newNumberElectric"] = new_electric;
+            data["oldNumberWater"] = old_water;
+            data["newNumberWater"] = new_water;
+            data["writeDate"] = new Date();
+            data["waterImage"] = '@Model.Domain' + ImageNames[1];
+            data["electricImage"] = '@Model.Domain' + ImageNames[0];
+            //  giá tiền điện và nước (đổi từ kiểu string -> number)
+            let eletric_price_edit = price_electric.replaceAll(",", "");
+            let water_price_edit = price_electric.replaceAll(",", "");
+            let electricBill = (new_electric - old_electric) * eletric_price_edit;
+            let waterBill = (new_water - old_water) * water_price_edit;
+            data["electricBill"] = electricBill;
+            data["waterBill"] = waterBill;
+            //api to create bill electricwater
+            let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
+            create_data(data, api_Create_Electric_water_bill);
+        }
+        // update dich vu phong
+        let data_room_utilities = {};
+        let lsUtilitiesAndPrice = ListUtiliti_service.join(";");
+        data_room_utilities["id"] = 0;
+        data_room_utilities["deleted"] = false;
+        data_room_utilities["active"] = true;
+        data_room_utilities["roomid"] = RoomID;
+        data_room_utilities["listUtilitiesAndPrice"] = lsUtilitiesAndPrice;
+        // tham so chuen vao gom: roomId, UltilitiesId, price
+        let api_update_utilities_room = 'api/RoomUtilities/Update_Utilities_RoomService';
+        console.log(RoomID);
+        console.log(lsUtilitiesAndPrice);
+        create_data(data_room_utilities, api_update_utilities_room);
+
+        // them moi nguoi thue phong
+        const id = 0;
+        const username = $('#user-name').val();
+        const fullname = $('#fullname').val();
+        const phone = $('#phone').val();
+        const email = $('#mail').val();
+        const dob = $('#txt-dob').val();
+        const address = $('#txt-address').val();
+        const gender = $('#ddl-gender').val();
+        const role = 5; // set role là khách hàng // là người đại diện của phòng đó
+        const pwd = $('#txt-pwd').val();
+        const pwdconfirm = $('#txt-pwdconfirm').val();
+        const cmnd = $('#txt-cmnd').val();
+        console.log(id);
+        console.log(fullname);
+        console.log(username);
+        console.log(phone);
+        console.log(email);
+        console.log(dob);
+        console.log(address);
+        console.log(gender);
+        console.log(role);
+        console.log(cmnd);
+        console.log(pwd);
+        console.log(pwdconfirm);
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) || ckstring(cmnd) || ckstring(pwd) || ckstring(pwdconfirm)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            
+            let data = {};
+            data["id"] = id;
+            data["userName"] = username;
+            data["fullName"] = fullname;
+            data["phone"] = phone;
+            data["email"] = email;
+            data["birthDate"] = dob.split("/").reverse().join("-");
+            data["address"] = address;
+            data["genderNumber"] = gender;
+            let userGroupIds = [];
+            userGroupIds.push(role);
+            data["userGroupIds"] = userGroupIds;
+            data["citizenIdentification"] = cmnd;
+            data["password"] = pwd;
+            data["confirmPassWord"] = pwdconfirm;
+            data["status"] = 0;
+            data["isAdmin"] = false;
+            data["deleted"] = false;
+            data["active"] = true;
+            console.log('add: ' + data);
+            let api_create_user = 'api/user';
+            create_data(data, api_create_user).then(function (e) {
+                console.log(e.Data);
+                console.log(e.Data.Id);
+                // them moi hop dong( ngày dọn vào phòng, tiền cọc, tiền trả trước, phwuogn thức thanh toán, tổng tiền, tổng tiền nhận đươc, tiền khách hàng nợ
+            //  roomid, userid )
+                let date_into_room = $('#date-into-room').val();
+                let deposit = $('#deposit').val();
+                let first_pay = $('#first-pay').val();
+                let payment_method = $('#payment-method').val();
+                let hometown = $('#hometown').val();
+                let numCusInRoom = $('#number-cusinroom').val();
+                let relationship = $('#relationship').val();
+                let money_take = $('#money-take').val().replaceAll(",", "");
+                let roomId = RoomID;
+                let userId = e.Data.Id;
+                console.log(date_into_room);
+                console.log(deposit);
+                console.log(first_pay);
+                console.log(payment_method);
+                console.log(money_take);
+                console.log(roomId);
+                console.log(userId);
+                if (ckstring(date_into_room) || ckstring(deposit) || ckstring(first_pay) || ckstring(payment_method) || ckstring(money_take) || ckstring(roomId) || ckstring(userId)) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Vui lòng nhập đầy đủ thông tin!',
+                        'warning'
+                    )
+                }
+                else {
+                    let data = {};
+                    data["roomId"] = roomId;
+                    data["userId"] = userId;
+                    data["dateIntoRoom"] = date_into_room;
+                    data["deposit"] = deposit;
+                    data["prepay"] = first_pay;
+                    data["homeTown"] = hometown;
+                    data["numCusInRoom"] = numCusInRoom;
+                    data["relationship"] = relationship;
+                    data["paymentMethod"] = payment_method;
+                    data["takeMoney"] = money_take;
+                    data["deleted"] = false;
+                    data["active"] = true;
+                    let api_create_user = 'api/RoomContractRepresentative';
+                    create_data(data, api_create_user).then(function (e) {
+                        console.log(e);
+                    })
+                }
+            });
+        }
+
+            
+        console.log('Chạy sau khi Submit form');
+        
     }
 
     function checkrequired(event, currentIndex, newIndex) {
         load_room_utilities();
+        load_total_money();
         if (currentIndex > newIndex) {
             return true;
         }
@@ -447,8 +647,8 @@
             titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
             startIndex: 0,
             onStepChanging: checkrequired,
-            onFinishing: onBeforeSubmitForm,
-            //onFinished:onAfterSubmitForm
+            //onFinishing: onBeforeSubmitForm,
+            onFinished:onAfterSubmitForm
         });
     }
     initForm();
@@ -516,7 +716,7 @@
 
                     select = document.getElementById('ListRoomType');
                     for (let i = 0; i < list.length; i++) {
-                        let obj = { id : list[i].Id ,name : list[i].Name };
+
                         var opt = document.createElement('option');
                         opt.value = list[i].Id;
                         opt.innerHTML = list[i].Name;
@@ -726,19 +926,106 @@
             }
         }
     }
-    
+
     //#endregion
     //#region tiện ích phòng sau khi chỉnh sửa
+    let room_utilities_price = 0;
     function load_room_utilities() {
+        room_utilities_price = 0;
         let html = '';
         //xử lý chuỗi
         for (let i = 0; i < ListUtiliti_service_tmp.length; i++){
+            // tính tiền theo tiện ích phòng
+            room_utilities_price += parseFloat(ListUtiliti_service_tmp[i].split(":")[1]);
             html += `<dl class="row-info">
                                 <dd class="">`+ ListUtiliti_service_tmp[i].split(":")[0] +`</dd>
                                 <dt class="">`+ format_money(ListUtiliti_service_tmp[i].split(":")[1]) +`</dt>
                             </dl>`;
         }
-        $('.info-list').html(html);
+        $('#room-utilities-pay').html(html);
+        // load lại giá phòng
+        $('#room-price').html($('#txt-room-price').val());
+        console.log('ahihihhihi' + room_utilities_price);
+        // load lại ngày dọn vào phòng
+        $('.date-into_room-replace').html($('#date-into-room').val());
     }
+    //#endregion
+    //#region thông tin thanh toán
+    // tổng tiền = tiền cọc + tiền trả trước + tiền dịch vụ
+    function load_total_money() {
+        let room_price = $('#txt-room-price').val().replaceAll(",", "");
+        let deposit = $('#deposit').val();
+        let first_pay = $('#first-pay').val();
+        console.log(room_price);
+        console.log(deposit);
+        console.log(first_pay);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        $('#total-money').val(format_money(total_money));
+    }
+    $('#deposit').on('change', function () {
+        let room_price = $('#txt-room-price').val().replaceAll(",", "");
+        let deposit = $('#deposit').val();
+        let first_pay = $('#first-pay').val();
+        console.log(room_price);
+        console.log(deposit);
+        console.log(first_pay);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        $('#total-money').val(format_money(total_money));
+    })
+    $('#first-pay').on('change', function () {
+        let room_price = $('#txt-room-price').val().replaceAll(",", "");
+        let deposit = $('#deposit').val();
+        let first_pay = $('#first-pay').val();
+        console.log(room_price);
+        console.log(deposit);
+        console.log(first_pay);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        $('#total-money').val(format_money(total_money));
+    })
+    //#endregion
+
+    //#region xử lý hình ảnh
+    function upload_img(files) {
+            let rs = [];
+            var formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                },
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    console.log("upload thanh cong");
+                    console.log(data);
+                    rs = data.Data;
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return rs;
+        }
+    //#endregion
+    //#region Bắt lỗi form điền pwdconfirm
+    $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
+        if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {
+            $('#message').html('Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+    });
+    $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
+        if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
+            $('#message2').html('Matching').css('color', 'green');
+        } else
+            $('#message2').html('Not Matching').css('color', 'red');
+    });
     //#endregion
 </script>
