@@ -1,4 +1,9 @@
 ﻿@model CoreModel
+
+@using Sample.Entities
+@{
+    Users user = Model.Users;
+}
 <style>
     .table__filter__wrap .table tr th, .table__filter__wrap .table tr td {
         min-width: 80px;
@@ -8,8 +13,41 @@
         padding-bottom: 15px;
     }
 
+    .table-striped tbody tr:nth-of-type(2n+1) {
+        background-color: #f3f4f7;
+    }
+
     .col-sm-6 {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+    }
+
+    .shorter-text {
+        display: block;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 70px;
+    }
+    .center {
+        display: block;
+        margin-right: 222px;
+        width: 50%;
+        max-width:auto;
+        height:140px;
+    }
+    .changeImage {
+max-width: 200px;
+
+height: auto;
+margin-left:200px
+
+
+}
+    .flex-container {
+        display: flex;
+        font-weight:700;
+        font-size: 17px;
     }
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -51,20 +89,21 @@
                         <table class="table table-hover table-striped  border">
                             <thead class="">
                                 <tr class="tr-header-table">
+                                    <th class="checkbox-col"</th>
                                     <th class="sort-label" data-column="col-name">Tên truy cập</th>
                                     <th class="sort-label" data-column="col-name">Tên đầy đủ</th>
                                     <th class="sort-label" data-column="col-electronic">Số điện thoại</th>
                                     <th class="sort-label" data-column="col-electronic">Email</th>
-                                    <th class="sort-label" data-column="col-electronic">Địa chỉ</th>
-                                    <th class="sort-label" data-column="col-electronic">Ngày sinh</th>
-                                    <th class="sort-label" data-column="col-electronic">Số CCCD/CMND</th>
+                                    @*<th class="sort-label" data-column="col-electronic">Địa chỉ</th>*@
+                                    @*<th class="sort-label" data-column="col-electronic">Ngày sinh</th>*@
+                                    @*<th class="sort-label" data-column="col-electronic">Số CCCD/CMND</th>*@
                                     <th class="sort-label" data-column="col-electronic">Ngày tạo</th>
                                     <th class="sort-label" data-column="col-electronic">Trạng thái</th>
                                     <th class="sort-label " data-column="col-service">Thuộc nhóm</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-user-in-group">
+                            <tbody class="tbody-hideitem" id="tbody-user-in-group" style="background-color: #f3f4f7">
                             </tbody>
                         </table>
                     </div>
@@ -140,7 +179,6 @@
                                 <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
                             </div>
                         </div>*@
-
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
@@ -160,7 +198,7 @@
                                 <option value="4">Nhân viên</option>
                             </select>
                         </div>
-                        
+
                     </div>
                     <hr />
                     <div class="row">
@@ -257,18 +295,18 @@
                         </div>
                     </div>
                     @*<div class="row">
-            <div class="col-sm-12">
-                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
-                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
-            </div>
-        </div>*@
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
+                            </div>
+                        </div>*@
 
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
                             <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -278,11 +316,11 @@
                     </div>
                     <hr />
                     @*<div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhập mật khẩu cũ<span class="text-danger">(*)</span></label>
-                            <input type="password" name="update-pwdold" id="update-pwdold" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                        </div>
-                    </div>*@
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhập mật khẩu cũ<span class="text-danger">(*)</span></label>
+                                <input type="password" name="update-pwdold" id="update-pwdold" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                            </div>
+                        </div>*@
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu mới<span class="text-danger">(*)</span></label>
@@ -295,18 +333,18 @@
                         </div>
                     </div>
                     @*<div class="row">
-            <div class="col-sm-12">
-                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
-                <div style="clear:left;"></div>
-                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
-                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
-                </a>
-                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
-                <div style="clear:left;"></div>
-                <div class="preview-image" id="room-img"></div>
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                                <div style="clear:left;"></div>
+                                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                                </a>
+                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
+                                <div style="clear:left;"></div>
+                                <div class="preview-image" id="room-img"></div>
 
-            </div>
-        </div>*@
+                            </div>
+                        </div>*@
                 </div>
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
@@ -373,20 +411,147 @@
                     let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' +  date.getFullYear();
                     let DateCreated = ((datecr.getDate() > 9) ? datecr.getDate() : ('0' + datecr.getDate())) + '/' + ((datecr.getMonth() > 8) ? (datecr.getMonth() + 1) : ('0' + (datecr.getMonth() + 1))) + '/' + datecr.getFullYear();
 
+                    if (item.Status == 0) {
+                        CssClass = "badge badge-light wd-100 pd-5 tx-12";
+                        status = "Đã vào ";
+                    } if (item.Status == 1) {
+                        CssClass = "badge badge-warning wd-100 pd-5 tx-12";
+                        status = "Sắp chuyển vào";
+                    } if (item.Status == 2) {
+                        CssClass = "badge badge-primary wd-100 pd-5 tx-12";
+                        status = "Đang thuê";
+                    } if (item.Status == 3) {
+                        CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+                        status = "Sắp dọn ra";
+                    }
                     html += '<tr>';
-                    html += '<td>' + item.UserName + '</td>';
+                    html +=`<td class="checkbox-col">
+                                            <a href="javascript:;" class="toggle-collapse"><i class="fa fa-angle-down"></i></a>
+                                        </td>`
+                    html += '<td  data-column="col-name">' + item.UserName + '</td>';
                     html += '<td>' + item.FullName + ' </td>';
                     html += '<td>' + item.Phone + ' </td>';
                     html += '<td>' + item.Email + ' </td>';
-                    html += '<td>' + item.Address + ' </td>';
-                    html += '<td>' + dob + ' </td>';
-                    html += '<td>' + item.CitizenIdentification + ' </td>';
+                   
                     html += '<td>' + DateCreated + ' </td>';
-                    html += '<td>' + item.Status + ' </td>';
+                    html += ` <td data - column="col-status" >
+                        <span class="`+ CssClass +`" name="status">
+                            `+ status +`
+                        </span>
+                        <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>
+                    </td>`
                     html += '<td>' + item.UserGroupName + '</td>';
                     html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
                         + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
-                    html += '</tr>';
+                    html += `<tr>
+                        < td class="checkbox-col" >
+
+                                    <tr class="collapse-row">
+                                        <td colspan="12">
+                                            <div class="table-content">
+                                                <div class="row flex-wrap-1 mg-t-15">
+                                                    <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+                                                        <div class="room-infor legend-box pd-25  rounded " data-label="Thông Khách Hàng">
+                                                            <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <div class="info-list" style="  text-align: center line-height: 300px;">
+                                                               <dl class="row-info hide-on-print"class="center">
+                                                                    <dd class="center"></dd>
+                                                                    <dt class="">
+
+                                                                        <center><img src="@user.Avatar" alt="avatar" class="center"></center>
+
+                                                                    </dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Tên Khách Hàng:</dd>
+                                                                    <dt class="">@user.FullName</dt>
+                                                                </dl>
+                                                                <dl class="row-info hide-on-print">
+                                                                    <dd class="">Loại Tài khoản :</dd>
+                                                                    <dt class="">
+                                                                        <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                                                            Gold
+                                                                        </span>
+                                                                    </dt>
+                                                                </dl>
+
+                                                                                                                  </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-8 ">
+                                                        <div class="legend-box pd-25  " data-label="Thông Tin Chung">
+
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="info-list">
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Tên Đầy Đủ:</dd>
+                                                                            <dt class="">@user.FullName</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Số Điện Thoại:</dd>
+                                                                            <dt class="">@user.Phone</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Email:</dd>
+                                                                            <dt class="">@user.Email</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Địa Chỉ:</dd>
+                                                                            <dt class="">@user.Address</dt>
+                                                                        </dl>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="info-list">
+                                                                       <dl class="row-info">
+                                                                            <dd class="">Ngày Sinh:</dd>
+                                                                            <dt class="">@user.DateOfBirth</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Số CMND/CCCD:</dd>
+                                                                            <dt class="">@user.CitizenIdentification</dt>
+                                                                        </dl>
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Ngày Tạo:</dd>
+                                                                            <dt class="">@user.Created</dt>
+                                                                        </dl>
+
+                                                                        <dl class="row-info">
+                                                                            <dd class="">Thuộc Nhóm:</dd>
+                                                                            <dt class="">
+                                                                                <span class="tx-second">Thuê</span>
+                                                                            </dt>
+                                                                        </dl>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                            <div class="flex-container">
+                                                                  <div class="col-md-4 form-group">
+                                                                      <label><p>CMND Mặt trước</p></label>
+                                                                        <img src="@user.Avatar" alt="avatar" class="changeImage">
+                                                                   </div>
+                                                                 <div class="col-md-4 form-group">
+                                                                        <label><p>CMND Mặt Sau</p></label>
+                                                                        <img src="@user.Avatar" alt="avatar" class="changeImage">
+                                                                   </div>
+                                                             </div>
+                                                </div>
+                                              </div>
+
+                                        </td>
+                                    </tr>
+
+                    html += '</tr>'`;
+
                 }
                 $('#tbody-user-in-group').hide().html(html).show('slow');
                 total_item = data.Data.TotalItem;
@@ -397,6 +562,8 @@
                 alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
             }
         });
+
+        $('[data-toggle="tooltip"]').tooltip()
     }
     //nút tìm kiếm
     $('#btn-search').on('click', function () {

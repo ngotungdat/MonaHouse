@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MyHouse.MVC.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
+using Sample.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +44,17 @@ namespace MyHouse.MVC.Controllers
             if (coreModel == null)
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
+        }
+        public async Task<IActionResult> ProfileTenantDetail(int id)
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+
+            ViewBag.Id = id;
+
+            return View(coreModel);
+
         }
 
     }
