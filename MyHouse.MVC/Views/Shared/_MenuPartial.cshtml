@@ -17,10 +17,10 @@
             </li>
             <li class="nav-item">
                 <a href="/User/UserCSKH" class="nav-link"><i class="fas fa-user-md"></i><span class="mg-l-5">Nhân viên</span></a>
-                
+
             </li>
             <li class="nav-item">
-                <a href="/Package/PackageList" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Gói cho thuê</span></a>
+                <a href="/Package/PackageList" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Dịch vụ</span></a>
             </li>
             <li class="nav-item with-sub">
                 <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Cấu hình</span></a>
@@ -91,6 +91,9 @@
                 <a href="@Url.Action("Dashboard", "Home", new { area = "" })" class="nav-link"><i class="fas fa-chart-area"></i> <span class="mg-l-5">Thống kê</span></a>
             </li>
             <li class="nav-item">
+                <a href="/Package/PackageList" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Dịch vụ</span></a>
+            </li>
+            <li class="nav-item">
                 <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i class="fas fa-home"></i> <span class="mg-l-5">Nhà/Dãy trọ</span></a>
             </li>
             <li class="nav-item">
@@ -113,7 +116,7 @@
                 <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Cấu hình</span></a>
                 <ul class="navbar-menu-sub">
                     <li class="nav-sub-item"><a href="@Url.Action("Cities", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-city mr-3"></i>Địa chỉ</a></li>
-                    <li class="nav-sub-item"><a href="@Url.Action("VehicleFeeConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-car-side mr-3"></i>Phí giữ xe</a></li>
+                    @*<li class="nav-sub-item"><a href="@Url.Action("VehicleFeeConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-car-side mr-3"></i>Phí giữ xe</a></li>*@
                     <li class="nav-sub-item"><a href="@Url.Action("UtilitiesConfig", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Tiện ích</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("Contract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Mẫu Giấy Phép</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("ListAllContract", "Config", new { area = "" })" class="nav-sub-link"><i class="fas fa-puzzle-piece mr-3"></i>Xem Giấy Phép</a></li>

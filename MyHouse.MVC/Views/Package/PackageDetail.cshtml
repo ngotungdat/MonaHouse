@@ -38,7 +38,6 @@
     <div class="row mg-b-30 flex-wrap-1" id="print-bill-section">
         <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
             <div class="room-infor legend-box pd-25  rounded" data-label="Thông tin Gói dịch vụ">
-                <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                 <div class="info-list">
                     <dl class="row-info">
                         <dd class="">Tên Gói dịch vụ:</dd>
@@ -87,205 +86,43 @@
                         <dd class="">Số phòng giới hạn:</dd>
                         <dt class=""><span class="tx-danger limit-room"></span></dt>
                     </dl>
-                    <dl class="row-info ">
-                        <dd class="">kiểu thuê nhà/trọ:</dd>
-                        <dt class="type-of-rental"></dt>
-                    </dl>
-                    <dl class="row-info ">
-                        <dd class=""></dd>
-                        
-                        <dt class=""><button type="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button></dt>
-                    </dl>
+                    <div class="text-center mg-t-10">
+                        @if (user.RoleNumber == 3)
+                        {
+                            <a href="javascript:;" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-8 ">
-            <div class="legend-box pd-25  " data-label="Hướng dẫn chọn gói dịch vụ phù hợp">
-                <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+            <div class="legend-box pd-25  " data-label="Chi tiết hạng mục">
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="info-list">
-                            <dl class="row-info">
-                                <dd class="">Giới thiệu:</dd>
-                                <dt class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec volutpat odio. Aenean id libero turpis. Quisque hendreri ibendum felis id, blandit lectus. Donec mattis faucibus mauris nec rhoncus. Nam gravida turpis ut libero ornare posuere. Proin sodales imperdiet dolor, id tempus nibh auctor sed. Pellentesque enim sem, fringilla ac consectetur ut, egestas nec orci.</dt>
-                            </dl>
+                            <p>
+                                Chào mừng bạn đến với Mona Media!
+                                Cảm ơn bạn đã sử dụng các sản phẩm và dịch vụ của chúng tôi (“Dịch vụ”). Dịch vụ được cung cấp bởi Công ty TNHH Mona Media. Có trụ sở tại Số373/226 Lý Thường Kiệt, Phường 8, Quận Tân Bình, TP. Hồ Chí Minh, Việt Nam.
 
-                            <dl class="row-info">
-                                <dd class="">Điều 1:</dd>
-                                <dt class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec volutpat odio. Aenean id libero turpis. Quisque hendreri ibendum felis id, blandit lectus. Donec mattis faucibus mauris nec rhoncus. Nam gravida turpis ut libero ornare posuere. Proin sodales imperdiet dolor, id tempus nibh auctor sed. Pellentesque enim sem, fringilla ac consectetur ut, egestas nec orci.</dt>
-                            </dl>
+                                Bằng việc sử dụng Dịch vụ của chúng tôi, bạn đang đồng ý với các điều khoản này. Vui lòng đọc kỹ các điều khoản này.
 
-                            <dl class="row-info">
-                                <dd class="">Điều 2:</dd>
-                                <dt class="">Vivamus fringilla ligula turpis, a efficitur lacus blandit ac. Aen dui. Duis suscipit arcu ac dui pellentesque placerat. Phasellus sed sapien libero. Ut volutpat, sapien ac faucibus posuere, quam nisl consectetur neque, eu feugiat lacus erat rhoncus mauris. Nullam tellus magna, auctor in rutrum at, ullamcorper ut velit. In tempor, sem quis vulputate mollis, elit elit tempus purus, in egestas risus urna a sapien. Sed sodales eros eu sapien cursus, vitae gravida dui rutrum.</dt>
-                            </dl>
+                                Mục đích và phạm vi thu thập thông tin
+                                Các thông tin thông tin cá nhân của các thành viên, có thể được chúng tôi sử dụng vào những mục đích hợp pháp dưới đây:
 
-                            <dl class="row-info">
-                                <dd class="">Điều 3:</dd>
-                                <dt class="">0886706289</dt>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="info-list">
-                            <div id="RoomUtilities-details"></div>
-                            @*<dl class="row-info">
-                                    <dd class="">Mạng:</dd>
-                                    <dt class="">200.000</dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Rác:</dd>
-                                    <dt class="">50.000</dt>
-                                </dl>
-                                <dl class="row-info">
-                                    <dd class="">Giữ xe:</dd>
-                                    <dt class="">150.000</dt>
-                                </dl>
+                                + Dùng để phân tích xu hướng tiêu dùng của khách hàng, với mục đích xây dựng những dịch vụ mới, hoặc cải thiện những dịch vụ cũ.
 
-                                <dl class="row-info">
-                                    <dd class="">Cáp TV:</dd>
-                                    <dt class=""><span class="tx-second">100.000</span></dt>
-                                </dl>*@
+                                + Dùng để liên lạc với thành viên khi chúng tôi điều tra thông tin khách hàng, tổ chức khuyến mại, trao đổi ý kiến thông tin trên bảng đánh giá, bình luận
 
+                                Trong trường hợp máy chủ lưu trữ thông tin bị hacker tấn công dẫn đến mất mát dữ liệu cá nhân thành viên, ban quản trị website sẽ có trách nhiệm thông báo vụ việc cho cơ quan chức năng điều tra xử lý kịp thời và thông báo cho thành viên được biết.
+
+                                Trong trường hợp khách hàng phát hiện thông tin cá nhân bị  sử dụng sai mục đích hoặc bị xâm phạm thì khách hàng có thể gửi khiếu nại thông qua kênh chăm sóc khách hàng của chúng tôi, khi nhận được các thông tin khiếu nại của thành viên, chúng tôi sẽ dùng mọi biện pháp cần thiết để ngăn chặng không cho thông tin cá nhân đó bị tiếp tục xâm phạm, đồng thời có các biện pháp hỗ trợ  để bảo vệ quyền và lợi ích hợp pháp của khách hàng.Khách hàng có quyền gửi khiếu nại về việc lộ thông tin cá nhân cho bên thứ 3 đến Ban quản trị của website. Khi tiếp nhận những phản hồi này, chúng tôi sẽ xác nhận lại thông tin, phải có trách nhiệm trả lời lý do và hướng dẫn thành viên khôi phục và bảo mật lại thông tin.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
-       
     </div>
-    <!-- End thông tin phòng-->
-    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
-        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
-            <div>
-                <h4 class="mg-b-0 tx-spacing--1">Thông tin và báo cáo gói dịch vụ</h4>
-            </div>
-            @*<div class="d-none d-md-flex">
-                    <div class="form-group mb-0 mg-r-10">
-                        <select name="branch" id="jsft-branch" class="form-control">
-                            <option value="#">Tất cả chi nhánh</option>
-                            <option value="#">Chi nhánh 2</option>
-                            <option value="#">Chi nhánh 3</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="sliders" class="wd-10 mg-r-5"></i> Lọc dữ liệu</button>
-                </div>*@
-        </div>
-        <div class="row row-xs">
-            <div class="col-12">
-                
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="chart-ref">
-                            <a href="@Url.Action("Reportew", "Home", new { area = "" })" class="link" rel="noopener"></a>
-                            <span class="chart-image">
-                                <img src="~/house/assets/img/line-chart.svg" alt="chart">
-                            </span>
-                            <h6>Thống kê điện nước</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="chart-ref">
-                            <a href="@Url.Action("Reportempty", "Home", new { area = "" })" class="link" rel="noopener"></a>
-                            <span class="chart-image">
-                                <img src="~/house/assets/img/spear-chart.svg" alt="chart">
-                            </span>
-                            <h6>Tỉ lệ lấp đầy</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="chart-ref">
-                            <a href="@Url.Action("Reportdebt", "Home", new { area = "" })" class="link" rel="noopener"> </a>
-                            <span class="chart-image">
-                                <img src="~/house/assets/img/bar-chart.svg" alt="chart">
-                            </span>
-                            <h6>Thống kê nợ</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="chart-ref">
-                            <a href="@Url.Action("Reporttype", "Home", new { area = "" })" class="link" rel="noopener"></a>
-                            <span class="chart-image">
-                                <img src="~/house/assets/img/pie-chart.svg" alt="chart">
-                            </span>
-                            <h6>Thống kê loại phòng</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="chart-ref">
-                            <a href="@Url.Action("Reporthouse", "Home", new { area = "" })" class="link" rel="noopener"></a>
-                            <span class="chart-image">
-                                <img src="~/house/assets/img/spear-chart.svg" alt="chart">
-                            </span>
-                            <h6>Danh thu nhà và chi phí</h6>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-3 col-md-6 mg-b-10">
-                <div class="card">
-                    <div class="card-body pd-y-20 pd-x-25">
-                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">100</h3>
-                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Nhà</a></h6>
-                        <p class="tx-11 tx-color-03 mg-b-0">Tổng số nhà hiện có</p>
-                    </div><!-- card-body -->
-                </div><!-- card -->
-            </div><!-- col -->
-            <div class="col-lg-3 col-md-6 mg-b-10">
-                <div class="card">
-                    <div class="card-body pd-y-20 pd-x-25">
-                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">99</h3>
-                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng</a></h6>
-                        <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng hiện có</p>
-                    </div><!-- card-body -->
-                </div><!-- card -->
-            </div><!-- col -->
-            <div class="col-lg-3 col-md-6 mg-b-10">
-                <div class="card">
-                    <div class="card-body pd-y-20 pd-x-25">
-                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">89 <span class="tx-color-04">/ 90</span></h3>
-                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng đang thuê</a></h6>
-                        <p class="tx-11 tx-color-03 mg-b-0">Số lượng phòng đang thuê</p>
-                    </div><!-- card-body -->
-                </div><!-- card -->
-            </div><!-- col -->
-            <div class="col-lg-3 col-md-6 mg-b-10">
-                <div class="card">
-                    <div class="card-body pd-y-20 pd-x-25">
-                        <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28">70</h3>
-                        <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Sắp dọn ra</a></h6>
-                        <p class="tx-11 tx-color-03 mg-b-0">Phòng sắp dọn ra trong 2 tháng tới</p>
-                    </div><!-- card-body -->
-                </div><!-- card -->
-            </div><!-- col -->
-            <div class="col-12 mg-b-30">
-                <div class="card seperate-card">
-                    <div class="card-header bd-b-0 pd-t-20 pd-lg-t-25 pd-l-20 pd-lg-l-25">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <p class="mg-b-5 tx-color-03"><span class="tx-medium tx-color-01">Tổng doanh thu</span></p>
-                                <p class="tx-24 mg-b-0">@ViewBag.Total</p>
-                            </div>
-                        </div>
-                    </div><!-- card-header -->
-                    <div class="card-body pd-lg-x-25 pd-lg-t-0">
-                        <div class="row align-items-sm-end">
-                            <div class="col-12">
-                                <div class="chart-six" style="height:325px;">
-                                    <canvas id="js-customer-chart"></canvas>
-                                </div>
-                                <div id="legend-area"></div>
-                            </div>
-                        </div>
-                    </div><!-- card-body -->
-                </div><!-- card -->
-            </div>
-            <!-- Endd ====== ================ -->
-        </div><!-- row -->
-    </div><!-- container -->
 </div>
 
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")

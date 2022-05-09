@@ -99,27 +99,24 @@
         </div>
 
     </div>
-    
 
-    <div class="table-responsive">
 
-        <table class="table  valign-center tx-nowrap table-striped tx-center border">
-            <caption >
-                <p class="tx-left-f mg-b-0-f">Lịch sử Ghi chú</p>
-                <a  href="javascript:;" class=" btn btn-sm btn-info btn-add-noteuser" style="border: none" data-userid-add="@user.Id" data-toggle="modal"> Thêm ghi chú</a>
-            </caption>
-            <thead class="valign-middle">
-                <tr>
-                    <th>Ghi chú</th>
-                    <th>Ngày tạo</th>
-                    <th><span class="">Người tạo<span></span></span></th>
-                    <th><span class="">chỉnh sửa</span></th>
-                </tr>
-            </thead>
-            <tbody class="user-notes-@user.Id">
-            </tbody>
-        </table>
-
+    <div class="">
+        <a href="javascript:;" class=" btn btn-sm btn-info btn-add-noteuser" style="border: none" data-userid-add="@user.Id" data-toggle="modal"> Thêm ghi chú</a>
+        <div class="mg-t-10">
+            <table class="table table-hover table-striped  border">
+                <thead>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <th>Ngày tạo</th>
+                        <th><span class="">Người tạo<span></span></span></th>
+                        <th><span class="">Chỉnh sửa</span></th>
+                    </tr>
+                </thead>
+                <tbody class="user-notes-@user.Id">
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table  valign-center tx-nowrap table-striped tx-center border">
