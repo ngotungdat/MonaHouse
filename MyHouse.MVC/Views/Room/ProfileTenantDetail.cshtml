@@ -52,11 +52,13 @@
         <div class="col-lg-8 content-board">
             <div class="card">
                 <div class="card-body">
+                  
                     <h4 class="title-page">Thông tin tài khoản</h4>
                     <div class="row">
+                        <input type="hidden" id="hdfId" name="hdfId" value="" />
                         <div class="col-md-4 form-group">
                             <label>Tên tài khoản</label>
-                            <input type="text" class="form-control username" value="" disabled>
+                            <input type="text" class="form-control" name="user-name" id="user-name" required >
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Tên người dùng</label>
@@ -76,7 +78,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Ngày sinh</label>
-                            <input type="text" name="txt-birthday" id="txt-birthday" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
+                            <input type="text" name="txt-dob" id="txt-dob" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
                         </div>
 
                         <div class="col-md-12 form-group">
@@ -124,7 +126,6 @@
 <script>
      var pathArray = window.location.pathname.split('/');
     var userId = pathArray[3];
-
     let api = 'api/user/10'
     let searchContent = '';
     let pageIndex = 1;
@@ -134,25 +135,29 @@
     $(document).ready(function () {
         load_data_with_jquery(api).then(function (e) {
 
-            console.log(e.Data);
             let item = e.Data;
-            console.log(item);
         })
     });
     //loadthong tin userid
     let api_user = 'api/user/' + userId;
     load_data_with_jquery(api_user).then(function (e) {
         let user_data = e.Data;
-        $('.avatar').val(user_data.Avatar);
-        $('.txt-name').html(user_data.FullName);
-        $('.username').val(user_data.UserName);
-        $('.txt-fullname').val(user_data.FullName);
+        $('#hdfId').val(user_data.Id);
+
+        $('#avatar').val(user_data.Avatar);
+        $('#txt-name').html(user_data.FullName);
+        $('#user-name').val(user_data.UserName);
+        $('#txt-fullname').val(user_data.FullName);
 
 
-        $('.txt-phone').val(user_data.Phone);
+        $('#txt-phone').val(user_data.Phone);
+ 
+        var date = new Date(user_data.DateOfBirth);
+        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        $('#txt-dob').val(dob);
 
-        $('.txt-email').val(user_data.Email);
-        $('.txt-address').val(user_data.Address);
+        $('#txt-email').val(user_data.Email);
+        $('#txt-address').val(user_data.Address);
     });
 
     // bat loi form
@@ -179,6 +184,9 @@
                             </div>
                             <a id="img-` + i + `"  href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
                         </div>`;
+                html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
+                    + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                html += '</tr>';
             }
             $('#room-img').hide().html(html).show('slow');
             for (let i = 0; i < input.files.length; i++) {
@@ -217,8 +225,6 @@
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
-                    console.log("upload thanh cong");
-                    console.log(data);
                     rs = data.Data;
                 },
                 error: function (xhr, status, error) {
@@ -229,14 +235,10 @@
         }
     //
     //xu ly ngay thang nam
-    $(document).ready(function () {
-        var date = new Date('@user.DateOfBirth');
-        let dob = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
-        $('#txt-birthday').val(dob);
-    })
+
     // cap nhat thong tin user
-    $('.btn-updateuser').on('click', function () {
-        let id = $('txt-hdId').val();
+    @*$('.btn-updateuser').on('click', function () {
+        let id = $('input[name=hdfId]').val();
         let fullname = $('#txt-fullname').val();
         let username = $('#username').val();
 
@@ -262,7 +264,7 @@
             if (images.length > 0) {
                 data["avatar"] = '@Model.Domain'+ images;
             }
-            data["id"] = userId;
+            data["hdfId"] = id;
             data["userName"] = username;
             data["fullName"] = fullname;
             data["phone"] = phone;
@@ -274,9 +276,9 @@
             console.log(data);
             insert_or_update(data);
         }
-    });
+    });*@
     function insert_or_update(data) {
-
+        console.log(data);
         let url ='@Model.Domain'+'api/user';
         let type_request = '';
         if (ckstring(data.id) || data.id == 0) {
@@ -323,6 +325,116 @@
             }
         });
     }
+      // chinh sua khach hang
+
+    @*function UpdateUser(data) {
+        let user = data.Data;
+        console.log(user);
+        $('input[name=update-hdfId]').val(user.Id);
+        $('#username').val(user.UserName);
+        $('#txt-fullname').val(user.FullName);
+        $('#txt-phone').val(user.Phone);
+        $('#txt-email').val(user.Email);
+        //xu ly ngay thang nam
+        var date = new Date(user.DateOfBirth);
+        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        $('#txt-dob').val(dob.toString());
+        $('#txt-address').val(user.Address);
+
+
+        //// xu li doi mat khau rieng
+        ////$('#update-pwdold').val("");
+        ////$('#update-pwd').val("");
+        ////$('#update-pwdconfirm').val('');
+        //$('#modal-update-user').modal('show');
+    }*@
+    $('.btn-updateuser').click(function () {
+        const id = $('input[name=hdfId]').val();
+        const username = $('#user-name').val();
+        const fullname = $('#txt-fullname').val();
+        const phone = $('#txt-phone').val();
+        const email = $('#txt-email').val();
+        const dob = $('#txt-dob').val();
+
+        const address = $('#txt-address').val();
+
+
+        // change password
+        //const pwdold = $('#update-pwdold').val();
+        const pwd = $('#update-pwd').val();
+        const pwdconfirm = $('#update-pwdconfirm').val();
+
+
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(email) || ckstring(dob) || ckstring(address)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else if ( @*(ckstring(pwdold) == false) ||*@ (ckstring(pwd) == false) || (ckstring(pwdconfirm) == false)) {
+            if (@*(ckstring(pwdold) == false) &&*@ (ckstring(pwd) == false) && (ckstring(pwdconfirm) == false)) {
+                let data = {};
+                data["id"] = id;
+                data["userName"] = username;
+                data["fullName"] = fullname;
+                data["phone"] = phone;
+                data["email"] = email;
+                data["birthDate"] = dob.split("/").reverse().join("-");
+                console.log(dob.split("/").reverse().join("-"));
+                data["address"] = address;
+                //data["genderNumber"] = null;
+                //data["citizenIdentification"] = null;
+                data["status"] = 0;
+                data["isAdmin"] = false;
+                data["deleted"] = false;
+                data["active"] = true;
+                data["isResetPassword"] = true;
+                data["newPassWord"] = pwd;
+                data["confirmNewPassWord"] = pwdconfirm;
+                // update pwd
+                //let data_change_pwd = {}
+                //data_change_pwd["id"] = id;
+                //data_change_pwd["oldPassword"] = pwdold;
+                //data_change_pwd["newPassword"] = pwd;
+                //data_change_pwd["confirmNewPassword"] = pwdconfirm;
+                //Change_pwd(data_change_pwd)
+                console.log(data);
+                insert_or_update(data);
+            }
+            else {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin để cập nhật mật khẩu!',
+                    'warning'
+                )
+            }
+        }
+        else if (@*(ckstring(pwdold) == true) && *@(ckstring(pwd) == true) && (ckstring(pwdconfirm) == true)) {
+            let data = {};
+            data["id"] = id;
+            data["userName"] = username;
+            data["fullName"] = fullname;
+            data["phone"] = phone;
+            data["email"] = email;
+            data["birthDate"] = dob.split("/").reverse().join("-");
+            console.log(dob.split("/").reverse().join("-"));
+            data["address"] = address;
+            //data["genderNumber"] = null;
+            //data["citizenIdentification"] = null;
+            data["status"] = 0;
+            data["isAdmin"] = false;
+            data["deleted"] = false;
+            data["active"] = true;
+            console.log(data);
+            insert_or_update(data);
+            
+        }
+
+        console.log(pwdold);
+        console.log(pwd);
+        console.log(pwdconfirm);
+    });
     // cap nhat mat khau
     $('.btn-updateuserpwd').on('click', function () {
         let oldPwd = $('#txt-passold').val();
@@ -333,7 +445,7 @@
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ và chính xác thông tin!',
-g                'warning'
+                'warning'
             )
         }
         else {
