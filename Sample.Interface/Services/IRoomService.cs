@@ -15,5 +15,6 @@ namespace Sample.Interface.Services
     {
         Task<bool> AddNewRoomWithImage(RoomWithImgRequest itemModel);
         Task<double> CheckOutRoomWithMonth(CheckOutRoomRequest request);
+        Task<bool> GetOutRoom(int roomId, DateTime dateTime);
     }
 }

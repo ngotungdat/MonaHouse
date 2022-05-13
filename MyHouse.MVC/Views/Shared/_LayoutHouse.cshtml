@@ -259,5 +259,10 @@
     function format_money(input) {
         return parseInt(input).toLocaleString();
     }
-
+    function format_date(input) {
+        // chỉnh sửa định dạng ngày
+        var date = new Date(input);
+        return ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        //
+    }
 </script>

@@ -26,8 +26,8 @@
                     <div class="form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước</label>
                         <select name="" id="js-select-package" class="form-control">
-                            <option value="type-all">Bao điện nước</option>
-                            <option value="type-day" selected="">Theo mức sử dụng</option>
+                            <option value="1">Bao điện nước</option>
+                            <option value="0" selected="">Theo mức sử dụng</option>
                         </select>
                     </div>
                 </div>
@@ -37,11 +37,19 @@
                         <input type="tel" id="txt-room-price" name="name=txt-room-price" class="form-control" placeholder="0" data-type="currency" required="">
                     </div>
                 </div>
-
+                <div class="col-md-6 ">
+                    
+                </div>
                 <div class="col-md-6 ">
                     <div class="form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
-                        <input type="text" id="date-into-room" class="form-control datetimepicker date-only" placeholder="0" required="" autocomplete="off">
+                        <input type="text" id="date-into-room" class="form-control datetimepicker date-only" placeholder="20/11/2020" required="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
+                        <input type="text" id="date-getout-room" class="form-control datetimepicker date-only" placeholder="20/11/2020" required="" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -251,24 +259,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="info-list" id="room-utilities-pay">
-                            @*<dl class="row-info">
-                                <dd class="">Mạng:</dd>
-                                <dt class="">200.000</dt>
-                            </dl>
-                            <dl class="row-info">
-                                <dd class="">Rác:</dd>
-                                <dt class="">50.000</dt>
-                            </dl>
-                            <dl class="row-info">
-                                <dd class="">Giữ xe:</dd>
-                                <dt class="">150.000</dt>
-                            </dl>
-
-                            <dl class="row-info">
-                                <dd class="">Cáp TV:</dd>
-                                <dt class=""><span class="tx-second">100.000</span></dt>
-                            </dl>
-*@
+                            
                         </div>
                     </div>
                 </div>
@@ -381,42 +372,19 @@
             }
         }
         $currentStepForm.addClass('was-validated');
-        @*var data = [];
-        $('.list-service').each(function (e) {
-            var addon = {};
-            addon["Name"] = $(this).find('.list-service-name').val();
-            addon["Price"] = $(this).find('.list-service-price').val();
-            data.push(addon);
-        });
-        $('input[name="hdfObjAddon"]').val(JSON.stringify(data));
-        $('input[name="hdfStatusRent"]').val($('input[name="ck-regisRent"]').prop('checked'));
-        var ListObject = [];
-        $('.preview-image').each(function () {
-            var object = {};
-            var name = $(this).attr('data-name');
-            object["Name"] = name;
-            var listIMG = [];
-            $(this).find('img').each(function (index, e) {
-                listIMG.push({ "ID": $(e).attr('data-id'), "URL": $(e).attr('src') });
-            });
-            object["DataIMG"] = listIMG;
-            ListObject.push(object);
-        });
-        console.log(JSON.stringify(ListObject))
-        $('input[name="hdfObjIMG"]').val();
-        $($('a[role="menuitem"]')[2]).css({ "opacity": "0.8", "pointer-events": "none", "cursor": "default" });
-        $('#form-assign-renter').submit();*@
-
     }
 
     function onAfterSubmitForm() {
         alert('Chạy sau khi Submit form');
-        // update phong
         var pathArray = window.location.pathname.split('/');
         let RoomID = pathArray[3];
+        // update phong
         let room_type = $('#ListRoomType').val();
         let room_price = $('#txt-room-price').val();
-        if (ckstring(RoomID) || ckstring(room_type) || ckstring(room_price)) {
+        let Electric_Water_Package = $('#js-select-package').val();
+        let date_into_Room = $('#date-into-room').val().split("/").reverse().join("-");
+        let date_getout_Room = $('#date-getout-room').val().split("/").reverse().join("-");;
+        if (ckstring(RoomID) || ckstring(room_type) || ckstring(room_price) || ckstring(Electric_Water_Package) || ckstring(date_into_Room) || ckstring(date_getout_Room)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -428,65 +396,90 @@
             data["id"] = RoomID;
             data["roomTypeId"] = room_type;
             data["price"] = room_price;
+            data["electricWaterPackage"] = Electric_Water_Package; // 1: bao dien nuoc, 0: khong bao dien nuoc
+            // nếu ngày vào phòng lơn hơn ngày hôm nay đổi trạng thái sang " sắp chuyển vào " ngược lại là đang thuê
+            if (new Date(date_into_Room).getTime() > new Date().getTime()) {
+                data["status"] = 1;
+            }
+            else {
+                data["status"] = 2;
+            }
+            
+            //
+            data["dateInToRoom"] = date_into_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
+            data["dateGetOutRoom"] = date_getout_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
             console.log(RoomID);
             console.log(room_type);
             console.log(room_price);
+            console.log(Electric_Water_Package);
+            console.log(date_into_Room);
+            console.log(date_getout_Room);
             let api_update_room = 'api/Room';
             update_data(data, api_update_room);
         }
         // ghi dien nuoc hoac khong
-        let old_electric = $('#electric-old-number').val();
-        let new_electric = $('#electric-new-number').val();
-        let old_water = $('#water-old-number').val();
-        let new_water = $('#water-new-number').val();
-        let img_electric = document.getElementById('image-electric').files[0];
-        let img_water = document.getElementById('image-water').files[0];
-        let price_electric = $('#electric-price-for-bill').val();
-        let price_water = $('#water-price-for-bill').val();
-        console.log(old_electric);
-        console.log(new_electric);
-        console.log(old_water);
-        console.log(new_water);
-        console.log(img_electric);
-        console.log(img_water);
-        if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) || img_electric.length == 0 || img_water.length == 0) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
+
+        if ($('#js-select-package').val() == '1') {
+            //bao điện nước => update phong
+            console.log("bao điện nước");
         }
         else {
-            let listImage = [];
-            listImage.push(img_electric);
-            listImage.push(img_water);
-            let ImageNames = upload_img(listImage);
-            //data
-            let data = {};
-            data["id"] = 0;
-            data["deleted"] = false;
-            data["active"] = true;
-            data["roomId"] = RoomID;
-            data["electricPrice"] = price_electric;
-            data["waterPrice"] = price_water;
-            data["oldNumberElectric"] = old_electric;
-            data["newNumberElectric"] = new_electric;
-            data["oldNumberWater"] = old_water;
-            data["newNumberWater"] = new_water;
-            data["writeDate"] = new Date();
-            data["waterImage"] = '@Model.Domain' + ImageNames[1];
-            data["electricImage"] = '@Model.Domain' + ImageNames[0];
-            //  giá tiền điện và nước (đổi từ kiểu string -> number)
-            let eletric_price_edit = price_electric.replaceAll(",", "");
-            let water_price_edit = price_electric.replaceAll(",", "");
-            let electricBill = (new_electric - old_electric) * eletric_price_edit;
-            let waterBill = (new_water - old_water) * water_price_edit;
-            data["electricBill"] = electricBill;
-            data["waterBill"] = waterBill;
-            //api to create bill electricwater
-            let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
-            create_data(data, api_Create_Electric_water_bill);
+            // không bao điện nước
+            let old_electric = $('#electric-old-number').val();
+            let new_electric = $('#electric-new-number').val();
+            let old_water = $('#water-old-number').val();
+            let new_water = $('#water-new-number').val();
+            let img_electric = document.getElementById('image-electric').files[0];
+            let img_water = document.getElementById('image-water').files[0];
+            let price_electric = $('#electric-price-for-bill').val();
+            let price_water = $('#water-price-for-bill').val();
+            console.log(old_electric);
+            console.log(new_electric);
+            console.log(old_water);
+            console.log(new_water);
+            console.log(img_electric);
+            console.log(img_water);
+            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) || img_electric.length == 0 || img_water.length == 0) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin!',
+                    'warning'
+                )
+            }
+            else {
+                let listImage = [];
+                listImage.push(img_electric);
+                listImage.push(img_water);
+                let ImageNames = upload_img(listImage);
+                //data
+                let data = {};
+                data["id"] = 0;
+                data["deleted"] = false;
+                data["active"] = true;
+                data["roomId"] = RoomID;
+                data["electricPrice"] = price_electric;
+                data["waterPrice"] = price_water;
+                data["oldNumberElectric"] = old_electric;
+                data["newNumberElectric"] = new_electric;
+                data["oldNumberWater"] = old_water;
+                data["newNumberWater"] = new_water;
+                data["writeDate"] = new Date();
+                data["waterImage"] = '@Model.Domain' + ImageNames[1];
+                data["electricImage"] = '@Model.Domain' + ImageNames[0];
+                //  giá tiền điện và nước (đổi từ kiểu string -> number)
+                let eletric_price_edit = price_electric.replaceAll(",", "");
+                let water_price_edit = price_electric.replaceAll(",", "");
+                let electricBill = (new_electric - old_electric) * eletric_price_edit;
+                let waterBill = (new_water - old_water) * water_price_edit;
+                data["electricBill"] = electricBill;
+                data["waterBill"] = waterBill;
+                //api to create bill electricwater
+                let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
+                create_data(data, api_Create_Electric_water_bill);
+            }
         }
+
+
         // update dich vu phong
         let data_room_utilities = {};
         let lsUtilitiesAndPrice = ListUtiliti_service.join(";");
@@ -534,7 +527,7 @@
             )
         }
         else {
-            
+
             let data = {};
             data["id"] = id;
             data["userName"] = username;
@@ -554,6 +547,13 @@
             data["isAdmin"] = false;
             data["deleted"] = false;
             data["active"] = true;
+            // tiền nợ người dùng nêu chưa trả đủ khi dọn vào
+            let total_money = $('#total-money').val().replaceAll(",", "");
+            let take_money = $('#money-take').val().replaceAll(",", "");
+            let debtMoney = parseFloat(total_money) - parseFloat(take_money);
+            console.log('debt' + debtMoney);
+            data["debtMoney"] = debtMoney;
+            //
             console.log('add: ' + data);
             let api_create_user = 'api/user';
             create_data(data, api_create_user).then(function (e) {
@@ -603,16 +603,32 @@
                     create_data(data, api_create_user).then(function (e) {
                         console.log(e);
                     })
+                    // update người đại diện phòng đó
+                    let api_update_room_user = 'api/Room';
+                    let data_update_room_user = {};
+                    data_update_room_user["id"] = RoomID;
+                    data_update_room_user["active"] = true;
+                    data_update_room_user["userInRoomRepresentative"] = userId;
+                    update_data(data_update_room_user, api_update_room_user);
+                    // thêm mới người vào phòng
+                    let data_new_user_in_room = {};
+                    data_new_user_in_room["id"] = 0;
+                    data_new_user_in_room["usersId"] = userId;
+                    data_new_user_in_room["status"] = 1; // 1: đang ở , 2: đã chuyển
+                    data_new_user_in_room["deleted"] = false;
+                    data_new_user_in_room["active"] = true;
+                    data_new_user_in_room["roomId"] = RoomID;
+                    let api_new_user_in_room = 'api/userinroom';
+                    create_data(data_new_user_in_room, api_new_user_in_room);
                 }
             });
         }
-
-            
         console.log('Chạy sau khi Submit form');
-        
+
     }
 
     function checkrequired(event, currentIndex, newIndex) {
+        
         load_room_utilities();
         load_total_money();
         if (currentIndex > newIndex) {
@@ -654,7 +670,7 @@
     initForm();
     $(document).ready(function () {
 
-        $('.js-add-service').on('click', function () {
+        @*$('.js-add-service').on('click', function () {
             const html = ` <div class="row align-items-center mg-b-20">
                             <div class="col pl-r-5">
                                 <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="">
@@ -671,7 +687,7 @@
         });
         $('.list-services').on('click', '.delete-service', function () {
             $(this).closest('.row').remove();
-        });
+        });*@
         // $('#js-select-package').on('change', function(e) {
         //     let $fields = $('.toggle-field');
         //     let $upload = $('.upload-box');
@@ -759,13 +775,21 @@
     //#endregion
     //#region chọn gói điện nước
     $('#js-select-package').on('change', function () {
-        console.log("asdadasd");
-        if ($('#js-select-package').val() == 'type-all') {
+        let $fields = $('.toggle-field');
+        let $upload = $('.upload-box');
+       
+        console.log($fields);
+        if ($('#js-select-package').val() == '1') {
             // disable ghi điện nước
             $('.electric-price').html('<span class="tx-success">Đã bao gồm</span>');
             $('.water-price').html('<span class="tx-success">Đã bao gồm</span>');
             $('#electric_write').css("display", "none");
             $('#water_write').css("display", "none");
+            //
+            $fields.prop('disabled', true);
+            $fields.addClass('disabled');
+            $fields.attr('placeholder', 'Đã bao gồm tiền phòng');
+            $upload.fadeOut();
         }
         else {
             // enable ghi điện nước
@@ -773,6 +797,10 @@
             $('.water-price').html($('#water-price-for-bill').val() + 'đ');
             $('#electric_write').css("display", "block");
             $('#water_write').css("display", "block");
+            $fields.removeClass('disabled');
+            $fields.prop('disabled', false);
+            $fields.attr('placeholder', 'Số ban đầu');
+            $upload.fadeIn();
         }
     })
     //#endregion
@@ -786,10 +814,17 @@
                     let list = e.Data.Items;
                     console.log(list);
                     // lay ra bill dau tien de lam so moi.
-                    $('#electric-old-number').val(list[0].NewNumberElectric);
-                    $('#water-old-number').val(list[0].NewNumberWater);
-                    console.log(list[0].NewNumberElectric);
-                    console.log(list[0].NewNumberWater);
+                    // nếu chưa có hóa đơn nào
+                    if (list.length > 0) {
+                        $('#electric-old-number').val(list[0].NewNumberElectric);
+                        $('#water-old-number').val(list[0].NewNumberWater);
+                        console.log(list[0].NewNumberElectric);
+                        console.log(list[0].NewNumberWater);
+                    }
+                    else {
+                        $('#electric-old-number').val(0);
+                        $('#water-old-number').val(0);
+                    }
                     // lấy giá điện nước
                     let api_GetPrice_Electric_Water = 'api/Room/' + RoomID;
                     load_data_with_jquery(api_GetPrice_Electric_Water).then(function (e) {
@@ -853,11 +888,11 @@
                 for (var j = 0; j < ListRoomUtilies.length; j++) {
                     if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId) {
                         checkBox.checked = true;
+                        input.value = format_money(ListRoomUtilies[j].Price);
                         //
                         ListUtiliti_service_tmp.push(ListUtiliesConfig[i].Name + ':' + input.value.replaceAll(',', ''));
                         //
                         ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
-                        input.value = format_money(ListRoomUtilies[j].Price);
                         input.readOnly = true;
                         tmp = true;
                         break;
@@ -931,6 +966,11 @@
     //#region tiện ích phòng sau khi chỉnh sửa
     let room_utilities_price = 0;
     function load_room_utilities() {
+        let date_into_Room = $('#date-into-room').val().split("/").reverse().join("-");
+        console.log(new Date(date_into_Room).getTime());
+        console.log(new Date().getTime());
+        console.log(new Date(date_into_Room).getTime() < new Date().getTime());
+        console.log(ListUtiliti_service_tmp);
         room_utilities_price = 0;
         let html = '';
         //xử lý chuỗi
@@ -985,6 +1025,7 @@
     //#endregion
 
     //#region xử lý hình ảnh
+    //
     function upload_img(files) {
             let rs = [];
             var formData = new FormData();
@@ -1014,6 +1055,7 @@
             return rs;
         }
     //#endregion
+
     //#region Bắt lỗi form điền pwdconfirm
     $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
         if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {

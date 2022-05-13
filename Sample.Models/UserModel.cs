@@ -115,6 +115,10 @@ namespace Sample.Models
         /// </summary>
         public string Avatar { get; set; }
 
+        /// <summary>
+        /// Tiền nợ
+        /// </summary>
+        public double? DebtMoney { get; set; }
 
         /// <summary>
         /// Cờ kiểm tra OTP của user

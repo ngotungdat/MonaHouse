@@ -70,5 +70,10 @@ namespace Sample.Models
                 }
             }
         }
+        /// <summary>
+        /// Thời gian sử dụng của gói
+        /// </summary>
+        public int UserdTime { get; set; }
+
     }
 }

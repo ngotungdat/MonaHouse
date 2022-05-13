@@ -44,5 +44,10 @@ namespace Sample.Entities
         /// </summary>
         [Required]
         public int PackageType { get; set; }
+        /// <summary>
+        /// Thời gian bắt buộc sử dụng gói
+        /// </summary>
+        [Required]
+        public int UserdTime { get; set; }
     }
 }

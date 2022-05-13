@@ -12,12 +12,12 @@ namespace Sample.Entities
         /// <summary>
         /// Tên dãy nhà
         /// </summary>
-        [Required]
+        //[Required]
         public string Name { get; set; }
         /// <summary>
         /// Loại
         /// </summary>
-        [Required]
+        //[Required]
         public int? Type { get; set; }
         /// <summary>
         /// Địa chỉ
@@ -26,7 +26,7 @@ namespace Sample.Entities
         /// <summary>
         /// Hình thức cho thuê
         /// </summary>
-        [Required]
+        //[Required]
         public int? RentalForm { get; set; }
         /// <summary>
         /// Tỉnh

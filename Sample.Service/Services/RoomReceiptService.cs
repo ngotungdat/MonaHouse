@@ -20,13 +20,16 @@ namespace Sample.Service.Services
         protected IElectricWaterBillService electricWaterBillService;
         protected IRoomUtilitiService roomUtilitiService;
         protected IRoomService roomService;
+        protected IUserService userService;
 
         public RoomReceiptService(IAppUnitOfWork unitOfWork, IMapper mapper
             , IElectricWaterBillService ElectricWaterBillService
             , IRoomUtilitiService RoomUtilitiService
             , IRoomService RoomService
+            , IUserService UserService
             ) : base(unitOfWork, mapper)
         {
+            this.userService = UserService;
             this.electricWaterBillService = ElectricWaterBillService;
             this.roomUtilitiService = RoomUtilitiService;
             this.roomService = RoomService;
@@ -37,8 +40,10 @@ namespace Sample.Service.Services
         }
         public override async Task<bool> CreateAsync(RoomReceipt item)
         {
+            // lấy thông tin phòng
+            Room room = roomService.GetById((int)item.RoomId);
             // lấy ra danh sách ghi điện theo tháng và năm
-            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => p.RoomId == item.RoomId && p.WriteDate.Value.Month == item.Date.Value.Month && p.WriteDate.Value.Year == item.Date.Value.Year);
+            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) > 0 && p.RoomId == item.RoomId && p.WriteDate.Value.Month == item.Date.Value.Month && p.WriteDate.Value.Year == item.Date.Value.Year);
             // kiểm tra ngày dọn vào của người đại diện trong phòng để tính toán điện nước
             // chưa có chức năng dọn vào !!!!!!!!!!!!!!!
 
@@ -72,7 +77,7 @@ namespace Sample.Service.Services
             double? room_price_bill = 0;
             if (room_price_bill != null)
             {
-                room_price_bill = roomService.GetById(item.RoomId).Price;
+                room_price_bill = roomService.GetById((int)item.RoomId).Price;
             }
             // tổng giá tiền phải chi chả theo tháng 
             double total_money_bill = 0;
@@ -87,6 +92,57 @@ namespace Sample.Service.Services
             item.FinalBill = total_money_bill + item.PlusBill - item.SubBill;
             
             return await base.CreateAsync(item);
+        }
+
+        public override async Task<bool> UpdateAsync(RoomReceipt item)
+        {
+            // kiểm tra user còn nợ ko
+            Users user = userService.GetById(Int32.Parse(item.UserId));
+            RoomReceipt roomReceipt = this.GetById(item.Id);
+            item.Active = true;
+            item.MoneyDebtRoomReceipt = (double)(roomReceipt.FinalBill - item.MoneyRecive);
+            if (item.MoneyDebtRoomReceipt > 0)
+            {
+                item.Status = 1; // 0:chưa thanh toán 1:còn thiếu 2: đã thanh toán
+                // user chưa trả hết hóa đơn tiền phòng => tăng số tiền nợ của user
+                user.DebtMoney = user.DebtMoney + item.DebtMoney;
+            }
+            if (item.MoneyDebtRoomReceipt == 0)
+            {
+                item.Status = 2;
+            }
+            if (item.MoneyDebtRoomReceipt < 0)
+            {
+                if (user.DebtMoney > 0)
+                {
+                    // trừ nợ
+                    var val = user.DebtMoney + item.MoneyDebtRoomReceipt; // ở đây do trả dư debt đang là số âm
+                    if (val > 0)
+                    {
+                        // user sau khi trả nợ vẫn còn nợ
+                        item.MoneyDebtRoomReceipt = 0;
+                        item.Status = 2;
+                        user.DebtMoney = val;
+
+                    }
+                    if (val == 0)
+                    {
+                        // user trả hết nợ
+                        item.MoneyDebtRoomReceipt = 0;
+                        item.Status = 2;
+                        user.DebtMoney = 0;
+                    }
+                    if (val > 0)
+                    {
+                        // user trả dư số tiền
+                        throw new Exception("Trả dư tiền rồi bạn ơi");
+                    }
+                }
+            }
+            var rs= await userService.UpdateAsync(user);
+            if (rs == false) { throw new Exception(" lỗi trong quá trình xử lý"); }
+            
+            return await base.UpdateAsync(item);
         }
     }
 }

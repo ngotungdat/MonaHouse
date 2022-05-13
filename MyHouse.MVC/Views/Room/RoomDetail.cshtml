@@ -40,14 +40,12 @@
                 <div class="info-list">
                     <dl class="row-info">
                         <dd class="">Tên phòng:</dd>
-                        <dt class="room-name">Phòng 01</dt>
+                        <dt class="room-name"></dt>
                     </dl>
                     <dl class="row-info hide-on-print">
                         <dd class="">Trạng thái:</dd>
                         <dt class="room-status">
-                            <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
-                                Đã đặt cọc
-                            </span>
+                            
                         </dt>
                     </dl>
 
@@ -62,11 +60,11 @@
                     </dl>
                     <dl class="row-info">
                         <dd class="">Ngày dọn vào:</dd>
-                        <dt class="">20/11/2020</dt>
+                        <dt class="room-dateinroom"></dt>
                     </dl>
                     <dl class="row-info mg-b-0">
                         <dd class="">Tiền nợ:</dd>
-                        <dt class=""><span class="tx-danger">3.500.000</span></dt>
+                        <dt class=""><span class="tx-danger room-userinroom-representative-debt">0</span></dt>
                     </dl>
                 </div>
             </div>
@@ -79,15 +77,15 @@
                         <div class="info-list">
                             <dl class="row-info">
                                 <dd class="">Giá phòng:</dd>
-                                <dt class="">3.500.000</dt>
+                                <dt class="room-price"></dt>
                             </dl>
                             <dl class="row-info">
                                 <dd class="">Giá điện / KW:</dd>
-                                <dt class="">3500</dt>
+                                <dt class="room-electric-price"></dt>
                             </dl>
                             <dl class="row-info">
                                 <dd class="">Giá nước:</dd>
-                                <dt class="">0886706289</dt>
+                                <dt class="room-water-price"></dt>
                             </dl>
                             @*<dl class="row-info">
                                 <dd class="">Điện tháng trước:</dd>
@@ -103,24 +101,6 @@
                     <div class="col-sm-6">
                         <div class="info-list">
                             <div id="RoomUtilities-details"></div>
-                            @*<dl class="row-info">
-                                <dd class="">Mạng:</dd>
-                                <dt class="">200.000</dt>
-                            </dl>
-                            <dl class="row-info">
-                                <dd class="">Rác:</dd>
-                                <dt class="">50.000</dt>
-                            </dl>
-                            <dl class="row-info">
-                                <dd class="">Giữ xe:</dd>
-                                <dt class="">150.000</dt>
-                            </dl>
-
-                            <dl class="row-info">
-                                <dd class="">Cáp TV:</dd>
-                                <dt class=""><span class="tx-second">100.000</span></dt>
-                            </dl>*@
-
                         </div>
                     </div>
                 </div>
@@ -174,8 +154,8 @@
                             </thead>
                             <tbody id="tbody-userinroom">
                             </tbody>
-                            @await Html.PartialAsync("_PaginationPartial")
                         </table>
+                        @await Html.PartialAsync("_PaginationPartial")
                     </div>
 
                     <div class="upload-box mg-t-15 ">
@@ -239,147 +219,7 @@
                                 </tr>
                             </thead>
                             <tbody id="elctric-history">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tháng 06/2020</td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>200.000</td>
-                                    <td>150.000</td>
-                                    <td>50.000</td>
-                                    <td>20.000</td>
-                                    <td>0</td>
-                                    <td>
-                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Tháng 07/2020</td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span><span class="tx-danger">Chưa nhập</span></p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span><span class="tx-danger">Chưa nhập</span></p>
-
-
-                                        </div>
-                                    </td>
-                                    <td>200.000</td>
-                                    <td>150.000</td>
-                                    <td>50.000</td>
-                                    <td>20.000</td>
-                                    <td>0</td>
-                                    <td>
-                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Tháng 08/2020</td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>200.000</td>
-                                    <td>150.000</td>
-                                    <td>50.000</td>
-                                    <td>20.000</td>
-                                    <td>0</td>
-                                    <td>
-                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Tháng 09/2020</td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>11002320</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>11002320</p>
-                                            <div class="lightgallery">
-                                                <a href="assets/img/dongho.jpg" class="">
-                                                    Hình
-                                                    ảnh<img src="assets/img/dongho.jpg" alt="" class="hidden">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>200.000</td>
-                                    <td>150.000</td>
-                                    <td>50.000</td>
-                                    <td>20.000</td>
-                                    <td>0</td>
-                                    <td>
-                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
@@ -400,47 +240,8 @@
                             <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
                         </div>
                     </div>
-                    <div class="">
-                        <table class="table table-hover table-striped  border">
-                            <thead class="">
-                                <tr class="tr-header-table">
-                                    <th>Tháng</th>
-                                    <th>Tiền nhà</th>
-                                    <th><span class="">Tiền điện<span></span></span></th>
-                                    <th><span class="">Tiền nước</span></th>
-                                    <th><span class="">Dịch vụ</span></th>
-                                    <th><span class="">Tổng tiền</span></th>
-                                    <th><span class="">Thực nhận</span></th>
-                                    <th><span class="">Còn lại</span></th>
-                                    <th><span class="">Hình thức</span></th>
-                                    <th><span class="">Thao tác</span></th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Tháng 06/2020</td>
-                                    <td>3.000.000</td>
-                                    <td>500.000</td>
-                                    <td>226.00</td>
-                                    <td>300.000</td>
-                                    <td>4.126.000</td>
-                                    <td>3.500.000</td>
-                                    <td>626.000</td>
-                                    <td>Chuyển khoản</td>
-                                    <td><a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
+                    <div class="" id="history-room-receipt">
+                        
                     </div>
                 </div>
             </div>
@@ -545,11 +346,25 @@
     var pathArray = window.location.pathname.split('/');
     var roomId = pathArray[3];
     console.log('roomId:' + roomId);
-    let api = 'api/userinroom?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+roomId;
-    let searchContent = '';
-    let pageIndex = 1;
-    let pageSize = 20;
-    let orderBy = 0;
+    //Phân trang UserInRoom
+    let page_index_UserInRoom = 1;
+    let page_size_UserInRoom = 20;
+    let SearchContent_UserInRoom = '';
+    let OrderBy_UserInRoom = 0;
+    let total_item_UserInRoom = 0;
+    let total_page_UserInRoom = 0;
+    //
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index_UserInRoom, page_size_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(index_click) {
+        page_index_UserInRoom = index_click;
+        //load lại data
+        load_data();
+    }
+    //
     //#region thong tin chi tiet phong
     let api_room_detail = 'api/room/' + roomId;
     load_data_with_jquery(api_room_detail).then(function (e) {
@@ -557,12 +372,22 @@
         let item = e.Data;
         $('.room-name').html(item.Name);
         $('.room-status').html(item.Status);
+        // chỉnh sửa định dạng ngày
+        var date = new Date(item.DateInToRoom);
+        let dateInToRoom = 'Ngày ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        //
+        $('.room-dateinroom').html(dateInToRoom);
+        $('.room-price').html(format_money(item.Price));
+        $('.room-electric-price').html(format_money(item.ElectricPrice));
+        $('.room-water-price').html(format_money(item.WaterPrice));
         // load thogn tin nguoi dai dien
         let api_room_representative = 'api/user/' + item.UserInRoomRepresentative;
         load_data_with_jquery(api_room_representative).then(function (e) {
             let user_data = e.Data;
+            console.log(user_data);
             $('.room-userinroom-representative-name').html(user_data.FullName);
             $('.room-userinroom-representative-phone').html(user_data.Phone);
+            $('.room-userinroom-representative-debt').html(format_money(user_data.DebtMoney));
         });
         //$('.room-name').val(item.Name);
         //$('.room-name').val(item.Name);
@@ -576,7 +401,8 @@
         Load_data();
     });
     function Load_data() {
-        load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
+        let api = 'api/userinroom?PageIndex=' + page_index_UserInRoom + '&PageSize=' + page_size_UserInRoom + '&OrderBy=' + OrderBy_UserInRoom+'&TenantId=@Model.Users.Id' + '&RoomId=' + roomId;
+        load_data_with_jquery(api)
             .then(function (e) {
                 let html = '';
                 let List = e.Data.Items;
@@ -601,7 +427,7 @@
                                                 `+ item.FullName +`
                                             </a>
                                     </td>
-                              
+
                                     <td>`+ item.Phone + `</td>
                                     <td>`+ item.CMT + `</td>
                                     <td>14/07/2022</td>
@@ -613,6 +439,9 @@
                                 </tr>`;
                 }
                 $('#tbody-userinroom').html(html);
+                total_item_UserInRoom = e.Data.TotalItem;
+                total_page_UserInRoom = e.Data.TotalPage;
+                load_pagination(pagination(page_index_UserInRoom, total_page_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
             })
             .then(function (e) { LoadFind(); }
             );
@@ -629,7 +458,7 @@
 
         let apiUser = 'api/user?RoleNumber=' + RoleNumber+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +'@Model.Users.Id';
 
-        load_data_with_jquery(apiUser, searchContent, pageIndex, pageSize, orderBy)
+        load_data_with_jquery(apiUser)
             .then(function (e) {
                 @*var length = select.options.length;
                 for (i = length - 1; i >= 0; i--) {
@@ -659,7 +488,7 @@
                 });*@
             });
     }
-    // edit 
+    // edit
     $(document).on('click','.js-edit-rent', function () {
         $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
         $('input[name="user-id"]').val($(this).attr('data-user-id'));
@@ -806,4 +635,15 @@
             $('#elctric-history').html(html);
         })
     });
+</script>
+<script>
+    $(function () {
+        load_data_roomReceipt();
+    });
+
+    function load_data_roomReceipt() {
+        $.get('/Room/HistoryRoomReceiptPartial?id=roomreceipt', function (data) {
+            $('#history-room-receipt').html(data);
+        });
+    }
 </script>

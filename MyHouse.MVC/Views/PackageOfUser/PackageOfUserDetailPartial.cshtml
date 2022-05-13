@@ -1,0 +1,665 @@
+﻿@model CoreModel
+@using Sample.Models
+@{
+    PackageOfUserModel packageOfUser = (PackageOfUserModel)Model.MyProperty;
+    Layout = "";
+}
+<div class="table-content">
+    <div class="row flex-wrap-1 mg-t-15">
+        <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+            <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin khách hàng">
+                <div class="info-list">
+                    <img class="avatar-@packageOfUser.Id" src="#" />
+                    <dl class="row-info hide-on-print mg-t-10">
+                        <dd class="">Tài khoản</dd>
+                        <dt class="">
+                            <span tabindex="0" class="badge badge-success valign-middle user-status-@packageOfUser.Id" role="button">
+
+                            </span>
+                        </dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Ngày sinh</dd>
+                        <dt class="user-dateofbirth-@packageOfUser.Id"></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Tên đăng nhập</dd>
+                        <dt class="user-username-@packageOfUser.Id"></dt>
+                    </dl>
+                    <dl class="row-info mg-b-0">
+                        <dd class="">Địa chỉ</dd>
+                        <dt class=""><span class="tx-danger user-address-@packageOfUser.Id"> </span></dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8 ">
+            <div class="legend-box pd-25  " data-label="Thông tin gói dịch vụ">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Gói phần mềm:</dd>
+                                <dt class="title-package-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Giá tiền</dd>
+                                <dt class="package-price-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Số phòng giới hạn:</dd>
+                                <dt class="room-limited-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Thời gian giới hạn:</dd>
+                                <dt class="used-time-@packageOfUser.Id"></dt>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="info-list">
+                            <dl class="row-info">
+                                <dd class="">Tiêu đề:</dd>
+                                <dt class="title-desc-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Mô tả:</dd>
+                                <dt class="desc-@packageOfUser.Id"></dt>
+                            </dl>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="">
+        <a href="javascript:;" class=" btn btn-sm btn-info btn-add-noteuser" style="border: none" data-userid-add="@packageOfUser.Id" data-toggle="modal"> Thêm ghi chú</a>
+        <div class="mg-t-10">
+            <table class="table table-hover table-striped  border">
+                <thead>
+                    <tr>
+                        <th>Ghi chú</th>
+                        <th>Ngày tạo</th>
+                        <th><span class="">Người tạo<span></span></span></th>
+                        <th><span class="">Chỉnh sửa</span></th>
+                    </tr>
+                </thead>
+                <tbody class="user-notes-@packageOfUser.Id">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Modal-->
+<!-- MODAL UPDATE USER-->
+<div class="modal fade modal-nopadding-right" id="modal-update-user" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-users"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="update-hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase"></h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Cập nhật thông tin người dùng </p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <input type="hidden" name="update-hdfId" value="0" />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Tài khoản<span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-username" id="update-username" required class="form-control" readonly>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Đầy Đủ<span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-fullname" id="update-fullname" required class="form-control" placeholder="Ví dụ: Nguyễn Văn A">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại <span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-phone" id="update-phone" data-type="number" required class="form-control" placeholder="Ví dụ: 0933110546">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger">(*)</span></label>
+                            <div class="input-icon">
+                                <input id="update-dob" name="update-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/1999" autocomplete="off">
+                                <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Email<span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-email" id="update-email" required class="form-control" placeholder="Ví dụ: nguyenvana99@gmail.com">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giới tính<span class="text-danger">(*)</span></label>
+                            <select class="js-example-basic-single form-control select2" name="update-gender" id="update-gender">
+                                <option disabled="true" selected>Giới tính</option>
+                                <option value="0">Giới tính Nữ</option>
+                                <option value="1">Giới tính Nam</option>
+                                <option value="3">Không xác định</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
+                                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
+                            </div>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger">(*)</span></label>
+                            <input type="text" name="update-cmnd" id="update-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
+                        </div>
+                    </div>
+                    <hr />
+                    @*<div class="row">
+                            <div class="col-sm-6">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhập mật khẩu cũ<span class="text-danger">(*)</span></label>
+                                <input type="password" name="update-pwdold" id="update-pwdold" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                            </div>
+                        </div>*@
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu mới<span class="text-danger">(*)</span></label>
+                            <input type="password" name="update-pwd" id="update-pwd" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu mới<span class="text-danger">(*)</span></label>
+                            <input type="password" name="update-pwdconfirm" id="update-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                            <span id='message'></span>
+                        </div>
+                    </div>
+                    @*<div class="row">
+                            <div class="col-sm-12">
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                                <div style="clear:left;"></div>
+                                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                                </a>
+                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
+                                <div style="clear:left;"></div>
+                                <div class="preview-image" id="room-img"></div>
+
+                            </div>
+                        </div>*@
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-update-user">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!--Modal note-->
+<div class="modal fade modal-nopadding-right" id="content_note_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase"></h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Ghi chú </p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <input type="hidden" id="note-hdfid" value="0" />
+                <input type="hidden" id="user-hdfid" value="0" />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nội dung<span class="text-danger">(*)</span></label>
+                            <textarea type="text" name="content-note" id="content-note" required class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-note">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<script>
+    // CURD ghi chú người dùng
+    $('.btn-add-noteuser').on('click', function () {
+        $('#note-hdfid').val(0);
+        $('#content-note').val("");
+        $('#user-hdfid').val($(this).attr('data-userid-add'));
+        $('#content_note_modal').modal('show');
+    })
+    $(document).on('click', '.btn-edit-content-note', function (){
+        console.log('aaaaa');
+        $('#note-hdfid').val($(this).attr('data-id'));
+        $('#content-note').val($(this).attr('data-content'));
+        $('#user-hdfid').val($(this).attr('data-userid'));
+        $('#content_note_modal').modal('show');
+    })
+    $('.btn-save-note').on('click', function(){
+        let id = $('#note-hdfid').val();
+        let content = $('#content-note').val();
+        let userid = $('#user-hdfid').val();
+        if (ckstring(id) || ckstring(content) || ckstring(userid)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = id;
+            data["content"] = content;
+            data["userID"] = userid;
+            data["deleted"] = false;
+            data["active"] = true;
+            insert_or_update_user_note(data);
+        }
+    })
+    function insert_or_update_user_note(data) {
+        let type_request = '';
+        if (ckstring(data.id) || data.id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+        }
+        $('#content_note_modal').modal('hide');
+        $.ajax({
+            url: '@Model.Domain' +'api/UserNote',
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>
+<script>
+    //tự gọi lấy data khi có view khác gọi đến
+    $(function () {
+        load_packageOfUser('@Model.Domain' + 'api/PackageOfUser?PackageId=' +@packageOfUser.Id+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + @Model.Users.Id);
+        load_user_note('@Model.Domain' + 'api/UserNote?UserID='+'@packageOfUser.UserId'+'&PageIndex=1&PageSize=20&OrderBy=0');
+    });
+    //Load dữ liệu chi tiết user theo api
+    function load_packageOfUser(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                let packageOfUser = data.Data.Items[0];
+                console.log(data.Data);
+                console.log(packageOfUser);
+                $('.avatar-' + packageOfUser.Id).attr("src", packageOfUser.Avatar);
+                $('.user-status-' + packageOfUser.Id).html(packageOfUser.FullName);
+                $('.user-dateofbirth-' + packageOfUser.Id).html(moment(packageOfUser.DateOfBirth).format("DD-MM-YYYY"));
+                $('.user-username-' + packageOfUser.Id).html(packageOfUser.FullName);
+                $('.user-address-' + packageOfUser.Id).html(packageOfUser.Address);
+                $('.title-package-' + packageOfUser.Id).html(packageOfUser.Title);
+                $('.package-price-' + packageOfUser.Id).html(format_money(packageOfUser.Price) + '/ Tháng');
+                $('.room-limited-' + packageOfUser.Id).html(packageOfUser.LimitedRoom);
+                $('.used-time-' + packageOfUser.Id).html(packageOfUser.UserdTime + ' Tháng');
+                $('.title-desc-' + packageOfUser.Id).html(packageOfUser.TitleDescription);
+                $('.desc-' + packageOfUser.Id).html(packageOfUser.Description);
+
+            },
+            error: function (xhr, status, error) {
+                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    function load_user_note(api) {
+        console.log(api);
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+
+                let userNotes = data.Data.Items;
+                let userID = 0;
+                let html = '';
+                for (let i = 0; i < userNotes.length; i++) {
+                    let item = userNotes[i]
+                    userID = item.UserID;
+                    html += `<tr>
+                    <td>`+ item.Content+`</td>
+                    <td>`+ moment(item.Created).format("DD-MM-YYYY")+`</td>
+                    <td>`+ item.CreatedBy+`</td>
+                    <td>
+                        <a href="javascript:;" data-content="`+ item.Content + `" data-userid="` + item.UserID + `" data-id="` + item.Id + `" class=" btn-edit-content-note" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>`;
+                }
+                $('.user-notes-' + userID).html(html);
+            },
+            error: function (xhr, status, error) {
+                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //
+    // chinh sua khach hang
+    $(document).on('click', '.btn-edit-user-in-group', function () {
+        let userId = $(this).attr('data-id');
+        // call api user
+        $.ajax({
+            url: '@Model.Domain' +'api/user/'+ userId,
+            type: 'GET',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data);
+                UpdateUser(data);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    });
+    function UpdateUser(data) {
+        let user = data.Data;
+        console.log(user);
+        $('input[name=update-hdfId]').val(user.Id);
+        $('#update-username').val(user.UserName);
+        $('#update-fullname').val(user.FullName);
+        $('#update-phone').val(user.Phone);
+        $('#update-email').val(user.Email);
+        //xu ly ngay thang nam
+        var date = new Date(user.DateOfBirth);
+        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+
+        $('#update-dob').val(dob.toString());
+        $('#update-address').val(user.Address);
+        $('#update-gender').val(user.GenderNumber).change();
+        $('#update-cmnd').val(user.CitizenIdentification);
+        // xu li doi mat khau rieng
+        $('#update-pwdold').val("");
+        $('#update-pwd').val("");
+        $('#update-pwdconfirm').val('');
+        $('#modal-update-user').modal('show');
+    }
+    $('.btn-update-user').click(function () {
+        const id = $('input[name=update-hdfId]').val();
+        const username = $('#update-username').val();
+        const fullname = $('#update-fullname').val();
+        const phone = $('#update-phone').val();
+        const email = $('#update-email').val();
+        const dob = $('#update-dob').val();
+        const address = $('#update-address').val();
+        const gender = $('#update-gender').val();
+        const cmnd = $('#update-cmnd').val();
+        // change password
+        //const pwdold = $('#update-pwdold').val();
+        const pwd = $('#update-pwd').val();
+        const pwdconfirm = $('#update-pwdconfirm').val();
+        console.log(id);
+        console.log(fullname);
+        console.log(username);
+        console.log(phone);
+        console.log(email);
+        console.log(dob);
+        console.log(address);
+        console.log(gender);
+        console.log(cmnd);
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(cmnd) ) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else if ( @*(ckstring(pwdold) == false) ||*@ (ckstring(pwd) == false) || (ckstring(pwdconfirm) == false)) {
+            if (@*(ckstring(pwdold) == false) &&*@ (ckstring(pwd) == false) && (ckstring(pwdconfirm) == false)) {
+                console.log('update user + update password');
+                let data = {};
+                data["id"] = id;
+                data["userName"] = username;
+                data["fullName"] = fullname;
+                data["phone"] = phone;
+                data["email"] = email;
+                data["birthDate"] = dob.split("/").reverse().join("-");
+                data["address"] = address;
+                data["genderNumber"] = gender;
+                data["citizenIdentification"] = cmnd;
+                data["status"] = 0;
+                data["isAdmin"] = false;
+                data["deleted"] = false;
+                data["active"] = true;
+                data["isResetPassword"] = true;
+                data["newPassWord"] = pwd;
+                data["ConfirmNewPassWord"] = pwdconfirm;
+                console.log('update user + pwd: ' + data);
+                // update pwd
+                //let data_change_pwd = {}
+                //data_change_pwd["id"] = id;
+                //data_change_pwd["oldPassword"] = pwdold;
+                //data_change_pwd["newPassword"] = pwd;
+                //data_change_pwd["confirmNewPassword"] = pwdconfirm;
+                //Change_pwd(data_change_pwd)
+                insert_or_update(data);
+            }
+            else {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đầy đủ thông tin để cập nhật mật khẩu!',
+                    'warning'
+                )
+            }
+        }
+        else if (@*(ckstring(pwdold) == true) && *@(ckstring(pwd) == true) && (ckstring(pwdconfirm) == true)) {
+            let data = {};
+            data["id"] = id;
+            data["userName"] = username;
+            data["fullName"] = fullname;
+            data["phone"] = phone;
+            data["email"] = email;
+            data["birthDate"] = dob.split("/").reverse().join("-");
+            data["address"] = address;
+            data["genderNumber"] = gender;
+            data["citizenIdentification"] = cmnd;
+            data["status"] = 0;
+            data["isAdmin"] = false;
+            data["deleted"] = false;
+            data["active"] = true;
+            console.log('update user: ' + data);
+            insert_or_update(data);
+        }
+
+        //console.log(pwdold);
+        console.log(pwd);
+        console.log(pwdconfirm);
+    });
+    $('.btn-save-user-in-group').click(function () {
+        const id = $('input[name=hdfId]').val();
+        const username = $('#txt-username').val();
+        const fullname = $('#txt-fullname').val();
+        const phone = $('#txt-phone').val();
+        const email = $('#txt-email').val();
+        const dob = $('#txt-dob').val();
+        const address = $('#txt-address').val();
+        const gender = $('#ddl-gender').val();
+        const role = $('#ddl-role').val();
+        const pwd = $('#txt-pwd').val();
+        const pwdconfirm = $('#txt-pwdconfirm').val();
+        const cmnd = $('#txt-cmnd').val();
+        console.log(id);
+        console.log(fullname);
+        console.log(username);
+        console.log(phone);
+        console.log(email);
+        console.log(dob);
+        console.log(address);
+        console.log(gender);
+        console.log(role);
+        console.log(cmnd);
+        console.log(pwd);
+        console.log(pwdconfirm);
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) || ckstring(cmnd) || ckstring(pwd) || ckstring(pwdconfirm)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            $(this).prop('disabled', true);
+            let data = {};
+            data["id"] = id;
+            data["userName"] = username;
+            data["fullName"] = fullname;
+            data["phone"] = phone;
+            data["email"] = email;
+            data["birthDate"] = dob.split("/").reverse().join("-");
+            data["address"] = address;
+            data["genderNumber"] = gender;
+            let userGroupIds = [];
+            userGroupIds.push(role);
+            data["userGroupIds"] = userGroupIds;
+            data["citizenIdentification"] = cmnd;
+            data["password"] = pwd;
+            data["confirmPassWord"] = pwdconfirm;
+            data["status"] = 0;
+            data["isAdmin"] = false;
+            data["deleted"] = false;
+            data["active"] = true;
+            console.log('add: '+data);
+            insert_or_update(data);
+        }
+    });
+
+    function insert_or_update(data) {
+
+        let url ='@Model.Domain'+'api/user';
+        let type_request = '';
+        if (ckstring(data.id) || data.id == 0) {
+            type_request = 'POST';
+        }
+        else {
+            type_request = 'PUT';
+            url = '@Model.Domain' + 'api/user/' + data.id;
+        }
+        $('#modal-user-in-group').modal('hide');
+        $.ajax({
+            url: url,
+            data: JSON.stringify(data),
+            type: type_request,
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            contentType: "application/json",
+            success: function (data) {
+                if (type_request == 'POST') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Thêm dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                else if (type_request == 'PUT') {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Cập nhật dữ liệu thành công!',
+                        'success'
+                    );
+                }
+                $('.btn-save-user-in-group').prop('disabled', false);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                $('.btn-save-user-in-group').prop('disabled', false);
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+</script>

@@ -80,17 +80,16 @@
                         </div>
                         <div class="form-group mg-r-15 group-select">
                             <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></label>
-                            <select id="branch-search-main" name="branch-search-main" class="form-control" onchange="sort_data_Branch(this.value)" >
-                                
+                            <select id="branch-search-main" name="branch-search-main" class="form-control" onchange="sort_data_Branch(this.value)">
                             </select>
                         </div>
-                        <div class="form-group group-select">
+                        @*<div class="form-group group-select">
                             <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
                             <select name="" class="form-control">
                                 <option value="">Tháng 1</option>
                                 <option value="" selected="">Tháng 2</option>
                             </select>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -366,24 +365,24 @@
                         <input type="hidden" id="electric-price-for-bill" />
                         <input type="hidden" id="water-price-for-bill" />
                         @*<div class="owner-avatar d-flex align-items-center">
-                            <span class="avatar overflow-hidden rounded-circle">
-                                <img src="assets/img/teacher.jpg" alt="avatar">
-                            </span>
-                        </div>*@
-                       @* <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
-                            <div class="info">
-                                <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
-                                <p class="affliate mg-b-0 mg-t-0 "><a href="mailto:vanlam@gmail.com" class="tx-color-03">vanlam@gmail.com</a></p>
-                            </div>
-                            <div class="quick-contact">
-                                <a href="tel:+84886706289"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
-                            </div>
-                        </div>*@
+                                <span class="avatar overflow-hidden rounded-circle">
+                                    <img src="assets/img/teacher.jpg" alt="avatar">
+                                </span>
+                            </div>*@
+                        @* <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
+                                <div class="info">
+                                    <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
+                                    <p class="affliate mg-b-0 mg-t-0 "><a href="mailto:vanlam@gmail.com" class="tx-color-03">vanlam@gmail.com</a></p>
+                                </div>
+                                <div class="quick-contact">
+                                    <a href="tel:+84886706289"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+                                </div>
+                            </div>*@
                     </div>
                     <div class="form-row">
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng trước</label>
-                            <input id="electric-old-number"type="tel" class="form-control number-val" placeholder="Trống" >
+                            <input id="electric-old-number" type="tel" class="form-control number-val" placeholder="Trống">
                         </div>
                         <div class="col-sm-6  form-group">
                             <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng này</label>
@@ -435,18 +434,7 @@
                     </div><!-- media -->
                 </div><!-- modal-header -->
                 <div class="modal-body ">
-                    <div class="d-flex align-items-center owner-wrap mg-b-15">
-
-                        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
-                            <div class="info">
-                                <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
-                                <p class="affliate mg-b-0 mg-t-0 "><a href="mailto:vanlam@gmail.com" class="tx-color-03">vanlam@gmail.com</a></p>
-                            </div>
-                            <div class="quick-contact">
-                                <a href="tel:+84886706289"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="hidden" id="user-id" />
                     <div class="row mg-b-15  align-items-center">
                         <input type="hidden" id="room-id-checkout-month" />
                         <div class="col-sm-6">
@@ -570,6 +558,170 @@
 
                     </div>
                     @*<div class="row mg-b-10 align-items-center">
+                            <div class="col">
+                                <span class="lb">Đã nhận:</span>
+                            </div>
+                            <div class="col">
+                                <input type="tel" data-type="currency" class="form-control" placeholder="0">
+                            </div>
+
+                        </div>
+                        <div class="row mg-b-10 align-items-center">
+                            <div class="col">
+                                <span class="lb">Hình thức:</span>
+                            </div>
+                            <div class="col">
+                                <select name="" class="form-control">
+                                    <option value="" selected="">Chuyển khoản</option>
+                                    <option value="">Tiền mặt</option>
+                                </select>
+                            </div>
+                        </div>*@
+
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary btn-checkout">Lưu lại</button>
+                </div>
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div>
+    <!-- Modal thu tien tien-->
+    <div class="modal fade show" id="js-takeMoney" style=" padding-right: 17px;" tabindex="-1" role="dialog" aria-hidden="true" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mb-0">Phòng số 01</h4>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body ">
+                    <div class="row mg-b-15  align-items-center">
+                        <input type="hidden" id="room-id-checkout-month-take-money" />
+                        <input type="hidden" id="roomreceipt-take-money" />
+                        <input type="hidden" id="go-out-room" />
+                        <div class="col-sm-6">
+                            <select name="ddl-year-take-money" id="ddl-year-take-money" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select name="ddl-month-take-money" id="ddl-month-take-money" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mg-b-15  align-items-center">
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Người đại diện</label>
+                            <select name="ddl-user-take-money" id="ddl-user-take-money" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <span class="lb">Tiền điện theo tháng :</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium"><i id="electric-bill-with-month-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="lb">Tiền nước theo tháng:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium" ><i id="water-bill-with-month-take-money"></i><sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
+
+                    <div class="row">
+                        <div class="col">
+                            <span class="lb">Phí Dịch vụ:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium"><i id="room-utilities-bill-take-money"></i><sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Giá phòng:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger" ><i id="room-price-checkout-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Tiền phát sinh:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger" ><i id="plus-price-checkout-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Tiền được giảm:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger" ><i id="sub-price-checkout-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Tổng tiền phòng:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger"> <i id="total-money-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <div class="row mg-b-10">
+                        <div class="col">
+                            <span class="lb tx-medium">Tiền nợ của người đại diện:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-03 tx-medium tx-danger"><i id="user-debt-checkout-take-money"></i> <sup>đ</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Hình thức:</span>
+                        </div>
+                        <div class="col">
+                            <select name="dll-payment-method" id="dll-payment-method" class="form-control">
+                                <option value="0" selected="">Chuyển khoản</option>
+                                <option value="1">Tiền mặt</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Đã nhận:</span>
+                        </div>
+                        <div class="col">
+                            <input id="money-take" type="tel" data-type="currency" class="form-control" placeholder="0">
+                        </div>
+
+                    </div>
+                    <div class="row mg-b-10 align-items-center">
+                        <div class="col">
+                            <span class="lb">Ghi chú:</span>
+                        </div>
+                        <div class="col">
+                            <textarea id="note-money-take" class="form-control" placeholder="ghi chú"></textarea>
+                        </div>
+
+                    </div>
+                    @*<div class="row mg-b-10 align-items-center">
             <div class="col">
                 <span class="lb">Đã nhận:</span>
             </div>
@@ -593,14 +745,15 @@
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary btn-checkout">Lưu lại</button>
+                    <button type="button" class="btn btn-primary btn-money-take">Lưu lại</button>
+                    <button type="button" class="btn btn-primary btn-go-out-intakemoney">Dọn ra</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div>
     <!--modal don ra -->
-    <div class="modal fade show" id="js-goOut" style=" padding-right: 17px;" tabindex="-1" role="dialog" aria-hidden="true" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade show" id="js-goOut" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-hidden="true" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" style=" max-width: 30%;">
             <div class="modal-content">
                 <div class="modal-header ">
                     <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
@@ -609,83 +762,27 @@
                     <div class="media align-items-center">
                         <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
                         <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mb-0">Phòng số 01</h4>
+                            <h4 class="tx-18 tx-sm-20 mb-0">Dọn ra</h4>
                         </div>
                     </div><!-- media -->
                 </div><!-- modal-header -->
                 <div class="modal-body ">
-                    <div class="d-flex align-items-center owner-wrap mg-b-15">
-                        <div class="owner-avatar d-flex align-items-center">
-                            <span class="avatar overflow-hidden rounded-circle">
-                                <img src="assets/img/teacher.jpg" alt="avatar">
-                            </span>
-                        </div>
-                        <div class="owner-info d-flex align-items-center justify-content-between pd-l-10 flex-grow-1">
-                            <div class="info">
-                                <p class="name mg-b-0 tx-color-01 tx-medium">Trương Văn Lam</p>
-                                <p class="affliate mg-b-0 mg-t-0 "><a href="mailto:vanlam@gmail.com" class="tx-color-03">vanlam@gmail.com</a></p>
-                            </div>
-                            <div class="quick-contact">
-                                <a href="tel:+84886706289"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
-                                <div class="input-icon">
-                                    <input type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/2019" disabled="" autocomplete="off">
-                                    <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                            <input type="hidden" id="room-go-out-id" />
                             <div class="form-group">
                                 <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
                                 <div class="input-icon">
-                                    <input type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/2019" readonly="true" autocomplete="off">
+                                    <input id="date-go-out" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/2019" readonly="true" autocomplete="off">
                                     <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-row">
-                                <div class="col-12 form-group">
-                                    <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Điện tháng này</label>
-                                    <input type="tel" class="form-control number-val" placeholder="Trống">
-                                </div>
-                                <div class="col-12 upload-box mg-b-15">
-                                    <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
-                                    <input type="file" class="hidden upload-image-input" accept="image/*">
-                                    <div class="preview-image"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                            <div class="form-row">
-                                <div class="col-12 form-group">
-                                    <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Nước tháng này</label>
-                                    <input type="tel" class="form-control number-val" placeholder="Trống">
-                                </div>
-                                <div class="col-12 upload-box mg-b-15">
-                                    <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
-                                    <input type="file" class="hidden upload-image-input" accept="image/*">
-                                    <div class="preview-image"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary">Lưu lại</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#js-goOut-success" data-dismiss="modal">Thu tiền</button>
+                    <button type="button" class="btn btn-primary btn-go-out">Lưu lại</button>
                 </div>
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
@@ -710,21 +807,21 @@
                         <div class="row">
 
                             @*<div class="col-md-6 ">
-                                <div class="row form-group">
-                                    <div class="wd-120 col col-form-label">
-                                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
-                                            Giá
-                                            phòng / tháng:
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 col input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                    <div class="row form-group">
+                                        <div class="wd-120 col col-form-label">
+                                            <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                                                Giá
+                                                phòng / tháng:
+                                            </span>
                                         </div>
-                                        <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        <div class="flex-grow-1 col input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                            </div>
+                                            <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
 
 
                             <div class="col-md-6 ">
@@ -739,7 +836,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap wd-20 ht-20"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
                                         </div>
-                                        <input id="electric-price" type="tel" placeholder="Số điện" class="form-control" data-type="currency" >
+                                        <input id="electric-price" type="tel" placeholder="Số điện" class="form-control" data-type="currency">
                                     </div>
                                 </div>
                             </div>
@@ -755,42 +852,42 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-droplet wd-20 ht-20"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></span>
                                         </div>
-                                        <input id="water-price" type="tel" placeholder="Số nước" class="form-control" data-type="currency" >
+                                        <input id="water-price" type="tel" placeholder="Số nước" class="form-control" data-type="currency">
                                     </div>
                                 </div>
                             </div>
                             @*<div class="col-md-6 ">
-                                <div class="row form-group">
-                                    <div class="wd-120 col col-form-label">
-                                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
-                                            Điện
-                                            tháng trước:
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 col input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                    <div class="row form-group">
+                                        <div class="wd-120 col col-form-label">
+                                            <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                                                Điện
+                                                tháng trước:
+                                            </span>
                                         </div>
-                                        <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        <div class="flex-grow-1 col input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                            </div>
+                                            <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class="row form-group">
-                                    <div class="wd-120 col col-form-label">
-                                        <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
-                                            Nước
-                                            tháng trước:
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 col input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                <div class="col-md-6 ">
+                                    <div class="row form-group">
+                                        <div class="wd-120 col col-form-label">
+                                            <span class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">
+                                                Nước
+                                                tháng trước:
+                                            </span>
                                         </div>
-                                        <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        <div class="flex-grow-1 col input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign wd-20 ht-20"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                                            </div>
+                                            <input type="tel" placeholder="Số nước" class="form-control" value="3.500.000" data-type="currency">
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
 
                             <div class="col-12">
                                 <div class="col-form-label">
@@ -819,7 +916,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -850,34 +947,33 @@
                         <div class="table__header-right">
                             <div class="header__right-action">
                                 @*<div class="select-sort">
-                                    <span>Sắp trống: </span>
-                                    <select name="" class="form-control">
-                                        <option value="">Tháng sau</option>
-                                        <option value="">2 tháng tới</option>
-                                        <option value="">3 tháng tới</option>
-                                        <option value="">4 tháng tới</option>
-                                        <option value="">5 tháng tới</option>
-                                    </select>
-                                </div>*@
+                                        <span>Sắp trống: </span>
+                                        <select name="" class="form-control">
+                                            <option value="">Tháng sau</option>
+                                            <option value="">2 tháng tới</option>
+                                            <option value="">3 tháng tới</option>
+                                            <option value="">4 tháng tới</option>
+                                            <option value="">5 tháng tới</option>
+                                        </select>
+                                    </div>*@
                                 <div class="select-sort">
                                     <span>Sắp xếp: </span>
                                     <select name="" class="form-control" onchange="sort_data_name(this.value)">
-                                        <option value="0">Tên trọ A-Z ↓</option>
-                                        <option value="1">Tên trọ Z-A ↑</option>
+                                        <option value="0">Tên tòa nhà A-Z ↓</option>
+                                        <option value="1">Tên tòa nhà Z-A ↑</option>
 
-                                        <option value="">Tiền nợ ↓</option>
-                                        <option value="">Tiền nợ ↑</option>
+                                        @*<option value="">Tiền nợ ↓</option>
+                                        <option value="">Tiền nợ ↑</option>*@
                                     </select>
                                 </div>
                                 <div class="select-sort">
                                     <span>Trạng thái: </span>
-                                    <select name="" class="form-control">
-                                        <option value="">Sắp chuyển vào</option>
-                                        <option value="">Phòng trống</option>
-                                        <option value="">Sắp dọn ra</option>
-                                        <option value="">Chưa có khách dọn vào</option>
-                                        <option value="">Đã thu tiền</option>
-                                        <option value="">Chưa thu tiền</option>
+                                    <select name="" class="form-control" onchange="sort_data_status(this.value)">
+                                        <option value="" selected="">-Tất cả-</option>
+                                        <option value="0">Phòng trống</option>
+                                        <option value="1">Sắp chuyển vào</option>
+                                        <option value="2">Đang ở</option>
+                                        <option value="3">Sắp dọn ra</option>
                                     </select>
                                 </div>
                                 <div class="mg-b-15">
@@ -906,9 +1002,9 @@
                             <div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Điện nước</label>
-                                    <select name="" class="form-control">
+                                    <select name="" class="form-control" onchange="sort_data_electric(this.value)">
                                         <option value="">-Tất cả-</option>
-                                        <option value="1" selected="">Chưa ghi</option>
+                                        <option value="0" selected="">Chưa ghi</option>
                                         <option value="1" selected="">Đã ghi</option>
                                     </select>
                                 </div>
@@ -947,17 +1043,17 @@
                                     <label>Nhà / dãy trọ</label>
                                     <select id="branch-search" name="branch-search" class="form-control" onchange="sort_data_Branch(this.value)">
                                         <option value="">-Tất cả-</option>
-                                        
+
                                     </select>
                                 </div>
                             </div>
                             <div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Thu tiền</label>
-                                    <select name="" class="form-control">
+                                    <select name="" class="form-control" onchange="sort_data_takeMoney(this.value)">
                                         <option value="">-Tất cả-</option>
-                                        <option value="1" selected="">Chưa thu tiền</option>
-                                        <option value="2" selected="">Đã thu tiền</option>
+                                        <option value="0" selected="">Chưa thu tiền</option>
+                                        <option value="1" selected="">Đã thu tiền</option>
                                     </select>
                                 </div>
                             </div>
@@ -972,10 +1068,10 @@
                             <div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Tiền nợ</label>
-                                    <select name="" class="form-control">
+                                    <select name="" class="form-control" onchange="sort_data_debtMoney(this.value)">
                                         <option value="">-Tất cả-</option>
+                                        <option value="0" selected="">Không nợ</option>
                                         <option value="1" selected="">Đang có nợ</option>
-                                        <option value="2" selected="">Không nợ</option>
                                     </select>
                                 </div>
                             </div>
@@ -1291,7 +1387,8 @@
                             'success'
                         );
                     $('.btn-save-room-edit').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1342,7 +1439,7 @@
                             'success'
                         );
                     $('.btn-save-room').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1524,20 +1621,27 @@
         let Status = -1;
         let RoomType = -1;
         let BranchId = -1;
+        //
+        let Electric = -1;
+        let TakeMoney = -1;
+        let DebtMoney = -1;
+        //
         $(document).ready(function () {
-            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
         });
-        function load_Room(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType, _BranchId) {
+    function load_Room(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType, _BranchId, _Electric, _TakeMoney, _DebtMoney) {
+        let rooms = [];
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: '@Model.Domain' + 'api/Room?PageIndex=' + _PageIndex + '&PageSize=' + _PageSize + '&status=' + _Status + '&roomtypeid=' + _RoomType + '&SearchContent=' + _SearchContent + '&OrderBy=' + _OrderBy + '&BranchId=' + _BranchId+'&TenantId=' + '@Model.Users.Id',
+                url: '@Model.Domain' + 'api/Room?PageIndex=' + _PageIndex + '&Electric=' + _Electric + '&TakeMoney=' + _TakeMoney + '&DebtMoney=' + _DebtMoney+ '&PageSize=' + _PageSize + '&status=' + _Status + '&roomtypeid=' + _RoomType + '&SearchContent=' + _SearchContent + '&OrderBy=' + _OrderBy + '&BranchId=' + _BranchId+'&TenantId=' + '@Model.Users.Id',
                 headers: {
                     'Authorization': 'Bearer ' + '@Model.Token',
                     'Content-Type': 'application/json'
                 },
                 success: function (data, status, xhr) {
                     let list = data.Data.Items;
+                    rooms = list;
                     let html = '';
                     // Create our number formatter.
                     var formatter = new Intl.NumberFormat('en-US', {
@@ -1551,6 +1655,7 @@
 
                     for (let i = 0; i < list.length; i++) {
                         let item = list[i];
+                        console.log(item);
                         // xử lý dữ liệu và trang thái phòng
                         let status = "";
                         let CssClass=""
@@ -1567,78 +1672,102 @@
                             CssClass="badge badge-danger wd-100 pd-5 tx-12";
                             status = "Sắp dọn ra";
                         }
-                        //
+                        // nếu chưa có ngày dọn vào => phòng trống
+                        let date_into_room = item.DateInToRoom;
+                        if (date_into_room == null) {
+                            date_into_room = 'chưa có ngày dọn vào';
+                        }
+                        // nếu không có người đại diện
+                        let user_name = item.FullName;
+                        let user_phone = item.Phone;
+                        let user_debt = item.DebtMoney;
+                        if (user_name == null) {
+                            user_name = 'Chưa có người đại diện';
+                            user_phone = 'chưa có số điện thoại';
+                            user_debt = 0;
+                        }
+                        //#region nội dung html
                         html += `<tr>
                                         <td class="checkbox-col">
                                             <a href="javascript:;" class="toggle-collapse"><i class="fa fa-angle-down"></i></a>
                                         </td>
                                         <td data-column="col-house">
-                                            <a href="./RoomDetail/`+ item.Id +`">
-                                                `+ item.BranchName +`
+                                            <a href="./RoomDetail/`+ item.Id + `">
+                                                `+ item.BranchName + `
                                             </a>
                                         </td>
                                         <td data-column="col-room">
-                                            <a href="./RoomDetail/`+ item.Id +`">`+ item.Name +`</a>
+                                            <a href="./RoomDetail/`+ item.Id + `">` + item.Name + `</a>
                                         </td>
                                         <td data-column="col-money">
-                                            <p class="mg-b-0 tx-medium">`+ formatter.format(item.Price) +`/Tháng</p>
+                                            <p class="mg-b-0 tx-medium">`+ formatter.format(item.Price) + `/Tháng</p>
                                         </td>
                                         <td data-column="col-type">
                                             <div >
-                                                <label ><span>`+ item.RoomTypeName+`</span></label>
+                                                <label ><span>`+ item.RoomTypeName + `</span></label>
                                             </div>
                                         </td>
                                         <td data-column="col-status">
-                                            <span class="`+ CssClass +`" name="status">
-                                                `+ status +`
+                                            <span class="`+ CssClass + `" name="status">
+                                                `+ status + `
                                             </span>
-                                            <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>
+                                            <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: `+ date_into_room + `</p>
                                         </td>
-                                        <td data-column="col-electric">---</td>
-                                        <td data-column="col-people">---</td>
+                                        <td data-column="col-take-money" >
+                                            <span id="room-receipt-status-`+ item.Id +`">
+                                               ---
+                                            </span>
+                                            <p class="mg-b-0 mg-t-5 tx-12" id="room-receipt-date-`+ item.Id +`">Ngày thu: ---</p>
+                                        </td>
+                                        <td data-column="col-electric" >
+                                            <span id="electric-water-status-`+ item.Id +`">
+                                               ---
+                                            </span>
+                                            <p class="mg-b-0 mg-t-5 tx-12" id="electric-water-date-`+ item.Id +`">Ngày ghi: ---</p>
+                                        </td>
                                         <td data-column="col-deposit">
-                                            <span class="tx-danger tx-medium">12.000.000</span>
+                                            <span class="tx-danger tx-medium">`+ format_money(user_debt) + `</span>
                                         </td>
                                         <td class="action-col">
                                             <div class="dropdown__wrap">
                                                 <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                 <ul class="drop-menu">
-                                                    <li class="drop-menu-item"><a href="./RoomDetail/`+item.Id+`" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item"><a href="./RoomDetail/`+ item.Id + `" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-electronicNote" data-toggle="modal" class="item-link" onclick="electricRecord(`+ item.Id +`)">
+                                                        <a href="#js-electronicNote" data-toggle="modal" class="item-link" onclick="electricRecord(`+ item.Id + `)">
                                                             <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
                                                             điện
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="DetailImage(`+ item.Id +`)">
+                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="DetailImage(`+ item.Id + `)">
                                                             <span class="icon"><i class="fas fa-image" aria-hidden="true" ></i></span>Hình ảnh
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="EditRoom(`+ item.Id +`)">
+                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="EditRoom(`+ item.Id + `)">
                                                             <span class="icon"><i class="fas fa-edit" aria-hidden="true"></i></span>Chỉnh sửa
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id +`)">
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="CalMoney(`+ item.Id + `)">
                                                             <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Tính tiền
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-payMoney" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id +`)">
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id + `)">
                                                             <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Thu
                                                             tiền
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="#js-goOut" data-toggle="modal" class="item-link">
-                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true" onclick="moveOut(`+ item.Id +`)"></i></span>Dọn
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="goOut(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true" onclick="moveOut(`+ item.Id + `)"></i></span>Dọn
                                                             ra
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="/Room/AddCustomer/`+item.Id+`" class="item-link">
+                                                        <a href="/Room/AddCustomer/`+ item.Id + `" class="item-link">
                                                             <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
                                                             vào
                                                         </a>
@@ -1654,11 +1783,11 @@
                                                 <div class="row flex-wrap-1 mg-t-15">
                                                     <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
                                                         <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin phòng">
-                                                            <a href="#js-edit-cus" onclick="EditRoom(`+ item.Id +`)" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <a href="#js-edit-cus" onclick="EditRoom(`+ item.Id + `)" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                             <div class="info-list">
                                                                 <dl class="row-info">
                                                                     <dd class="">Tên phòng:</dd>
-                                                                    <dt class="">`+ item.Name +`</dt>
+                                                                    <dt class="">`+ item.Name + `</dt>
                                                                 </dl>
                                                                 <dl class="row-info hide-on-print">
                                                                     <dd class="">Trạng thái:</dd>
@@ -1672,60 +1801,60 @@
 
                                                                 <dl class="row-info">
                                                                     <dd class="">Người đại diện:</dd>
-                                                                    <dt class="">`+item.FullName+`</dt>
+                                                                    <dt class="">`+ user_name + `</dt>
                                                                 </dl>
                                                                 <dl class="row-info">
                                                                     <dd class="">Điện thoại:</dd>
-                                                                    <dt class="">`+ item.Phone +`</dt>
+                                                                    <dt class="">`+ user_phone + `</dt>
                                                                 </dl>
                                                                 <dl class="row-info">
                                                                     <dd class="">Ngày dọn vào:</dd>
-                                                                    <dt class="">20/11/2020</dt>
+                                                                    <dt class="">`+ date_into_room + `</dt>
                                                                 </dl>
                                                                 <dl class="row-info mg-b-0">
                                                                     <dd class="">Tiền nợ:</dd>
-                                                                    <dt class=""><span class="tx-danger">3.500.000</span></dt>
+                                                                    <dt class=""><span class="tx-danger">`+ format_money(user_debt) + `</span></dt>
                                                                 </dl>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-12 col-md-8 ">
                                                         <div class="legend-box pd-25  " data-label="Phí và dịch vụ">
-                                                            <a href="#js-edit-service" onclick="EditServiceRoom(`+item.Id+`)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+                                                            <a href="#js-edit-service" onclick="EditServiceRoom(`+ item.Id + `)" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <div class="info-list">
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá phòng:</dd>
-                                                                            <dt class="">`+ format_money(item.Price) +`</dt>
+                                                                            <dt class="">`+ format_money(item.Price) + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá điện / KW:</dd>
-                                                                            <dt class="">`+ format_money(item.ElectricPrice) +`</dt>
+                                                                            <dt class="">`+ format_money(item.ElectricPrice) + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Giá nước:</dd>
-                                                                            <dt class="">`+ format_money(item.WaterPrice) +`</dt>
+                                                                            <dt class="">`+ format_money(item.WaterPrice) + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
-                                                                            <dd class="">Điện tháng trước:</dd>
+                                                                            <dd class="">Điện đã ghi mới nhất:</dd>
                                                                             <dt class="">
-                                                                                <span class="mg-r-10" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">500.000</span>
-                                                                                <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span>
+                                                                                <span id="electric-`+ item.Id +`" class="mg-r-10" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng "></span>
+                                                                                <span class="tx-normal"><a id="electric-image-`+ item.Id +`" href="#" data-toggle="modal">Ảnh</a></span>
                                                                             </dt>
                                                                         </dl>
                                                                         <dl class="row-info">
-                                                                            <dd class="">Nước tháng trước:</dd>
+                                                                            <dd class="">Nước đã ghi mới nhất:</dd>
                                                                             <dt class="">
-                                                                                <span tabindex="0" class="mg-r-10" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 m<sup>3</sup></strong>" data-original-title="Số nước tháng 3">500.000</span>
-                                                                                <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span>
+                                                                                <span id="water-`+ item.Id +`" tabindex="0" class="mg-r-10" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 m<sup>3</sup></strong>" data-original-title="Số nước tháng "></span>
+                                                                                <span class="tx-normal"><a id="water-image-`+ item.Id +`" href="#" data-toggle="modal">Ảnh</a></span>
                                                                             </dt>
                                                                         </dl>
 
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <div class="info-list-`+ item.Id +`">
+                                                                    <div class="info-list-`+ item.Id + `">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1735,77 +1864,65 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="table-responsive">
-                                                    <table class="table  valign-center tx-nowrap table-striped tx-center">
-                                                        <caption class="tx-left-f mg-b-0-f">Lịch sử thanh toán</caption>
-                                                        <thead class="valign-middle">
-                                                            <tr>
-                                                                <th>Tháng</th>
-                                                                <th>Tiền nhà</th>
-                                                                <th><span class="">Điện<span></span></span></th>
-                                                                <th><span class="">Nước</span></th>
-                                                                <th><span class="">Dịch vụ</span></th>
-                                                                <th><span class="">Tổng</span></th>
-                                                                <th><span class="">Thực nhận</span></th>
-                                                                <th><span class="">Còn nợ</span></th>
 
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Tháng 06/2020</td>
-                                                                <td>3.000.000</td>
-                                                                <td>500.000</td>
-                                                                <td>226.00</td>
-                                                                <td>300.000</td>
-                                                                <td>4.126.000</td>
-                                                                <td>3.500.000</td>
-                                                                <td><span class="tx-danger">620.000</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Tháng 06/2020</td>
-                                                                <td>3.000.000</td>
-                                                                <td>500.000</td>
-                                                                <td>226.00</td>
-                                                                <td>300.000</td>
-                                                                <td>4.126.000</td>
-                                                                <td>3.500.000</td>
-                                                                <td><span class="tx-danger">620.000</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Tháng 06/2020</td>
-                                                                <td>3.000.000</td>
-                                                                <td>500.000</td>
-                                                                <td>226.00</td>
-                                                                <td>300.000</td>
-                                                                <td>4.126.000</td>
-                                                                <td>3.500.000</td>
-                                                                <td><span class="tx-danger">620.000</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Tháng 06/2020</td>
-                                                                <td>3.000.000</td>
-                                                                <td>500.000</td>
-                                                                <td>226.00</td>
-                                                                <td>300.000</td>
-                                                                <td>4.126.000</td>
-                                                                <td>3.500.000</td>
-                                                                <td><span class="tx-danger">620.000</span></td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
                                             </div>
                                         </td>
                                     </tr>`;
-
+                        //#endregion
                     }
                     $('#tbody-roomlist').hide().html(html).show('slow');
+                    // load thông tin Điện nước
+                    for (let i = 0; i < rooms.length; i++) {
+                        let room=rooms[i]
+                        let api_load_Electric_water_bill_roomreceipt = 'api/ElectricWaterBill?RoomId=' + room.Id + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +@Model.Users.Id;
+                        load_data_with_jquery(api_load_Electric_water_bill_roomreceipt).then(function (e) {
+                            let Electric_water_bill = e.Data.Items;
+                            console.log(Electric_water_bill);
+                                if (Electric_water_bill.length <= 0) {
+                                    console.log("không có hóa đơn điện nước");
+                                }
+                                else {
+                                    console.log(new Date(Electric_water_bill[0].WriteDate).getMonth()+1);
+                                    console.log(@DateTime.Now.Month);
+                                    if ((new Date(Electric_water_bill[0].WriteDate).getMonth() + 1) ==@DateTime.Now.Month) {
+                                        $('#electric-water-status-' + room.Id).html('đã ghi');
+                                        $('#electric-water-status-' + room.Id).addClass("badge badge-success wd-100 pd-5 tx-12");
+                                        $('#electric-water-date-' + room.Id).html('Ngày ghi: ' +format_date(Electric_water_bill[0].WriteDate));
+                                    }
+                                    else {
+                                        $('#electric-water-status-' + room.Id).html('chưa ghi');
+                                        $('#electric-water-status-' + room.Id).addClass("badge badge-danger wd-100 pd-5 tx-12");
+                                    }
+                                    $('#electric-' + room.Id).html(format_money(Electric_water_bill[0].ElectricBill));
+                                    $('#electric-image-' + room.Id).attr("href", Electric_water_bill[0].ElectricImage);
+                                    $('#water-' + room.Id).html(format_money(Electric_water_bill[0].WaterBill));
+                                    $('#water-image-' + room.Id).attr("href", Electric_water_bill[0].WaterImage);
+                                }
+                        })
+                        // load thông tin thu tiền
+                        let api_get_roomreceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId=' + room.Id + '&month=' + @DateTime.Now.Month + '&year=' + @DateTime.Now.Year;
+                        load_data_with_jquery(api_get_roomreceipt).then(function (e) {
+                            console.log('aaa'+e.Data);
+                            let roomreceipts = e.Data;
+                            if (roomreceipts.length > 0) {
+                                // status // thu tien => status>0
+                                for (let i = 0; i < roomreceipts.length; i++) {
+                                    let roomreceipt = roomreceipts[i];
+                                    if (roomreceipt.Status > 0 && roomreceipt.UserId == room.UserInRoomRepresentative.toString()) {
+                                        $('#room-receipt-status-' + room.Id).html('đã thu');
+                                        $('#room-receipt-status-' + room.Id).addClass("badge badge-success wd-100 pd-5 tx-12");
+                                        $('#room-receipt-date-' + room.Id).html('Ngày thu: ' + format_date(roomreceipt.Date));
+                                    } else {
+                                        $('#room-receipt-status-' + room.Id).html('chưa thu');
+                                        $('#room-receipt-status-' + room.Id).addClass("badge badge-danger wd-100 pd-5 tx-12");
+
+                                    }
+                                }
+                            }
+                        })
+                    }
+
+
                     TotalItem = data.Data.TotalItem;
                     TotalPage = data.Data.TotalPage;
                     load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
@@ -1842,35 +1959,48 @@
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
     });
 
     //Enter tìm kiếm
     $('input[name=search]').keyup(function (event) {
         if (event.keyCode === 13) {
             SearchContent = $('input[name=search]').val();
-            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+            load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
         }
     });
     //Sắp xếp
     function sort_data_name(val) {
         OrderBy = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
-
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
     }
     function sort_data_status(val) {
         Status = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+    }
+    function sort_data_electric(val) {
+        Electric = val;
+        console.log(Electric);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+
+    } function sort_data_takeMoney(val) {
+        TakeMoney = val;
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+
+    } function sort_data_debtMoney(val) {
+        DebtMoney = val;
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
 
     }
     function sort_data_room_type(val) {
         RoomType = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+
     }
     function sort_data_Branch(val) {
         console.log(val);
         BranchId = val;
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
     }
     //load phân trang
     $(function () {
@@ -1879,8 +2009,8 @@
     //load khi bấm chuyển trang
     function load_to_page(index_click) {
         PageIndex = index_click;
+        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
         //load lại data
-        load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId);
     }
 </script>
 <!--by baonguyen-->
@@ -2121,8 +2251,8 @@
                 for (var j = 0; j < ListRoomUtilies.length; j++) {
                     if (ListUtiliesConfig[i].Id == ListRoomUtilies[j].UtilitiesId) {
                         checkBox.checked = true;
-                        ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
                         input.value = format_money(ListRoomUtilies[j].Price);
+                        ListUtiliti_service.push(ListUtiliesConfig[i].Id + ':' + input.value.replaceAll(',', ''));
                         input.readOnly = true;
                         tmp = true;
                         break;
@@ -2199,10 +2329,10 @@
         opt.innerHTML ='Tháng '+ i;
         ddl_month.appendChild(opt);
     }
-    function takeMoney(itemId) {
+    function CalMoney(itemId) {
         $('#room-id-checkout-month').val(itemId);
-        $('#ddl-month').val(new Date().getMonth()).change();
-        $('#ddl-year').val(new Date().getFullYear()).change();
+        $('#ddl-month').val(@DateTime.Now.Month).change();
+        $('#ddl-year').val(@DateTime.Now.Year).change();
         // sau khi chọn ngày tháng năm kiểm tra
         // load phí dịch vụ của phòng
         checkout_room_ultilities(itemId);
@@ -2237,7 +2367,6 @@
         load_data_with_jquery(api_get_electricwaterbillformonth).then(function (e) {
             //danh sách tiền điện theo tháng
             // ở đây sẽ kiểm tra ngày vào và ra trọ của khách với ngày ghi điện
-            // chưa có chức năng dọn vào nên để đó chưa làm :)))
             console.log(e.Data);
             let items = e.Data;
             let html = '';
@@ -2299,8 +2428,10 @@
             console.log(e.Data);
             let item = e.Data;
             $('#room-price-checkout').html(format_money(item.Price));
+            $('#user-id').val(item.UserInRoomRepresentative);
         })
     }
+
     $('#price-plus').on('change', function () {
         let total_money = $('#total-money-checkout').html().replaceAll(",", "");
         let price_sub = $('#price-subtract').val().replaceAll(",", "");
@@ -2329,6 +2460,7 @@
         let plus_bill = $('#price-plus').val().replaceAll(",", "");
         let sub_bill = $('#price-subtract').val().replaceAll(",", "");
         let note_checkOut = $('#note-checkout').val();
+        let userId = $('#user-id').val();
         if (ckstring(month) || ckstring(year) || ckstring(plus_bill) || ckstring(sub_bill) || ckstring(roomId)) {
             Swal.fire(
                 'Cảnh báo',
@@ -2340,7 +2472,7 @@
             let data = {};
             // Năm tháng mà người dùng muốn thanh toán
             let date = '1/' + month + '/' + year; // dd/mm/yyyy
-            
+
 
             data["id"] = 0;
             data["roomId"] = roomId;
@@ -2351,15 +2483,282 @@
             data["status"] = 0; // chờ thanh toán
             data["deleted"] = false;
             data["active"] = true;
-
+            data["userId"] = userId;
             let api_Create_roomReceipt = 'api/RoomReceipt';
             create_data(data, api_Create_roomReceipt).then(function (e) {
                 console.log(e);
             })
         }
-        
+
     })
 
+    //#endregion
+
+
+    //#region thu tiền
+    // chọn năm, tự động là năm hiện tại, lâu nhất là 5 năm
+    let get_current_year_take_money = new Date().getFullYear();
+    let ddl_year_take_money = document.getElementById('ddl-year-take-money');
+    for (let i = 0; i < 100; i++) {
+        var opt = document.createElement('option');
+        opt.value = get_current_year_take_money;
+        opt.innerHTML = 'Năm ' + get_current_year_take_money;
+        get_current_year_take_money++;
+        ddl_year_take_money.appendChild(opt);
+    }
+    // chọn tháng
+    let ddl_month_take_money = document.getElementById('ddl-month-take-money');
+    for (let i = 1; i <= 12; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = 'Tháng ' + i;
+        ddl_month_take_money.appendChild(opt);
+    }
+
+    function takeMoney(RoomIDs,goOutRoom) {
+        console.log(RoomIDs);
+        console.log(new Date());
+        $('#ddl-month-take-money').val(@DateTime.Now.Month);
+        $('#ddl-year-take-money').val(@DateTime.Now.Year);
+        $('#go-out-room').val(false);
+        // nếu goOutRoom == true thì đang dọn ra
+        if (goOutRoom == true) {
+            $('#go-out-room').val(true);
+        }
+        $('#room-id-checkout-month-take-money').val(RoomIDs);
+
+        // danh sách người đại diện của phòng
+        let ddl_user = document.getElementById('ddl-user-take-money');
+        // xóa hết input cũ
+        var length = ddl_user.options.length;
+        for (i = length - 1; i >= 0; i--) {
+            ddl_user.options[i] = null;
+        }
+        // sau khi chọn ngày tháng năm kiểm tra
+        // load phí hóa đơn tiển phòng tháng đã chọn nếu người dùng chưa tính tiền thì thông báo chưa tính
+        let month = $('#ddl-month-take-money').val();
+        let year = $('#ddl-year-take-money').val();
+        Take_money_room(RoomIDs, month, year);
+        $('#js-takeMoney').modal('show');
+    }
+    $('#ddl-month-take-money').on('change', function (e) {
+        let RoomID=$('#room-id-checkout-month-take-money').val();
+        let month = $('#ddl-month-take-money').val();
+        let year = $('#ddl-year-take-money').val();
+        Take_money_room(RoomID, month, year);
+    })
+    $('.btn-money-take').on('click', function () {
+        let roomReceiptId = $('#roomreceipt-take-money').val();
+        let UserId = $('#ddl-user-take-money').val();
+        let paymentMethod = $('#dll-payment-method').val();
+        let money_take = $('#money-take').val();
+        let note_money_take = $('#note-money-take').val();
+        console.log(roomReceiptId);
+        console.log(paymentMethod);
+        console.log(money_take);
+        console.log(note_money_take);
+        if (roomReceiptId == 0 || ckstring(paymentMethod) || ckstring(money_take) || ckstring(UserId)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng điền đầy đủ thông tin',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = roomReceiptId;
+            data["userId"] = UserId;
+            data["paymenMethod"]=paymentMethod;
+            data["moneyRecive"]=money_take;
+            data["noteRecive"] = note_money_take;
+            let api_update_room_receipt = 'api/RoomReceipt';
+            update_data(data, api_update_room_receipt).then(function (e) {
+                console.log(e);
+                let goOut = $('#go-out-room').val();
+                // nếu thu tiền thành công mở modal dọn ra
+                if (goOut == true) {
+                    $('#js-goOut').modal('show');
+                }
+            })
+        }
+    })
+    function Take_money_room(RoomID, month, year) {
+        console.log(RoomID)
+        let api_get_roomreceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId=' + RoomID + '&month=' + month + '&year=' + year;
+        load_data_with_jquery(api_get_roomreceipt).then(function ( e) {
+            console.log(e.Data);
+            let roomreceipts = e.Data;
+            if (roomreceipts.length > 0) {
+                // danh sách người đại diện của phòng
+                let ddl_user = document.getElementById('ddl-user-take-money');
+                // xóa hết input cũ
+                var length = ddl_user.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    ddl_user.options[i] = null;
+                }
+                // option moi
+                for (let i = 0; i < roomreceipts.length; i++) {
+                    let roomReceipt = roomreceipts[i];
+                    var opt = document.createElement('option');
+                    opt.value = roomReceipt.UserId;
+                    opt.innerHTML = roomReceipt.FullName;
+                    ddl_user.appendChild(opt);
+
+                }
+
+            }
+            else {
+                init_room_receipt_blank(false);
+                // danh sách người đại diện của phòng
+                let ddl_user = document.getElementById('ddl-user-take-money');
+                // xóa hết input cũ
+                var length = ddl_user.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    ddl_user.options[i] = null;
+                }
+                Swal.fire(
+                    'Cảnh báo',
+                    'Tháng bạn chọn chưa được tính tiền, vui lòng tính tiền!',
+                    'warning'
+                )
+            }
+            return e;
+        }).then(function (e) {
+            init_room_receipt(e.Data);
+            $('#ddl-user-take-money').on('change', function () {
+                init_room_receipt(e.Data);
+            })
+            return e;
+        }).catch(e => {
+            console.log(e);
+        });
+
+    }
+    async function init_room_receipt(roomreceipts) {
+        let userid = $('#ddl-user-take-money').val();
+        for (let i = 0; i < roomreceipts.length; i++) {
+            let roomReceipt = roomreceipts[i];
+            if (roomReceipt.UserId == userid && roomReceipt.Status==0) {
+                // đổ dữ liệu ra modal
+                // ID roomReceipt
+                $('#roomreceipt-take-money').val(roomReceipt.Id);
+
+                // tiền điện
+                $('#electric-bill-with-month-take-money').html(format_money(roomReceipt.ElectricBill));
+
+                // tiền nước
+                $('#water-bill-with-month-take-money').html(format_money(roomReceipt.WaterBill));
+
+                // tiền phí dịch vụ
+                $('#room-utilities-bill-take-money').html(format_money(roomReceipt.RoomUtilitieBill));
+
+                // tiền phòng
+                $('#room-price-checkout-take-money').html(format_money(roomReceipt.RoomBill));
+
+                // tiền phát sinh
+                $('#plus-price-checkout-take-money').html(format_money(roomReceipt.PlusBill));
+
+                // tiền được giảm
+                $('#sub-price-checkout-take-money').html(format_money(roomReceipt.SubBill));
+
+                // tổng thu
+                $('#total-money-take-money').html(format_money(roomReceipt.FinalBill));
+
+                // tiền nợ của user
+                $('#electric-bill-with-month-take-money').html(format_money(roomReceipt.ElectricBill));
+
+                // disable nut
+                $('.btn-money-take').prop('disabled', false);
+
+                $('.btn-go-out-intakemoney').hide();
+            }
+            else {
+                Swal.fire(
+                    'Thông báo',
+                    'Tháng bạn chọn Đã thu tiền!',
+                    'warning'
+                )
+                init_room_receipt_blank(true);
+            }
+        }
+    }
+    async function init_room_receipt_blank(status) {
+        let goOut = $('#go-out-room').val();
+        console.log(goOut);
+        console.log(status);
+        if (goOut == 'true' && status==true) {
+            $('.btn-go-out-intakemoney').show();
+        }
+        else {
+            $('.btn-go-out-intakemoney').hide();
+        }
+        // đổ dữ liệu ra modal
+        // ID roomReceipt
+        $('#roomreceipt-take-money').val(0);
+
+        // tiền điện
+        $('#electric-bill-with-month-take-money').html(0);
+
+        // tiền nước
+        $('#water-bill-with-month-take-money').html(0);
+
+        // tiền phí dịch vụ
+        $('#room-utilities-bill-take-money').html(0);
+
+        // tiền phòng
+        $('#room-price-checkout-take-money').html(0);
+
+        // tiền phát sinh
+        $('#plus-price-checkout-take-money').html(0);
+
+        // tiền được giảm
+        $('#sub-price-checkout-take-money').html(0);
+
+        // tổng thu
+        $('#total-money-take-money').html(0);
+
+        // tiền nợ của user
+        $('#electric-bill-with-month-take-money').html(0);
+
+        // disable nut
+        $('.btn-money-take').prop('disabled', true);
+    }
+    //#endregion
+
+    //#region chức năng dọn ra
+    function goOut(roomid) {
+        $('#room-go-out-id').val(roomid);
+        // Thu tiền -> nếu chưa tính tiền -> yêu cầu tính tiền -> nêu chưa ghi điện(hợp đồng không bao điện nước)-> yêu cầu ghi điện
+        takeMoney(roomid,true);
+    }
+    $('.btn-go-out-intakemoney').on('click', function () {
+        $('#js-goOut').modal('show');
+    })
+    $('.btn-go-out').on('click', function () {
+        // update room va userInRoom
+        let roomId = $('#room-go-out-id').val();
+        let date_goOut = $('#date-go-out').val();
+        console.log(roomId);
+        console.log(date_goOut);
+        console.log(date_goOut.split("/").reverse().join("-"));
+        if (ckstring(roomId) || ckstring(date_goOut)) {
+            Swal.fire(
+                'Thông báo',
+                'Bạn chưa nhập đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            let api_go_out_room = 'api/Room/GoOutRoom?roomId=' + roomId + '&dateTime=' + date_goOut.split("/").reverse().join("-");
+            create_data(data, api_go_out_room).then(function (e) {
+                console.log(e);
+                $('#js-goOut').modal('hide');
+                location.reload(true);
+            });
+        }
+
+    })
     //#endregion
 </script>
 <!---->

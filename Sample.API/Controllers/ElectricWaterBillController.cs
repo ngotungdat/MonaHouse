@@ -32,6 +32,7 @@ namespace Sample.API.Controllers
         protected IFloorService floorService;
         protected IUserService userService;
         protected IElectricWaterBillService ElectricWaterBillService;
+        protected IRoomService RoomService;
         public ElectricWaterBillController(IServiceProvider serviceProvider, ILogger<BaseController<ElectricWaterBill, ElectricWaterBillModel, ElectricityWaterBillRequest, ElectricityWaterBillSearch>> logger
             , IConfiguration configuration
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
@@ -40,6 +41,7 @@ namespace Sample.API.Controllers
             this.floorService = serviceProvider.GetRequiredService<IFloorService>();
             this.userService = serviceProvider.GetRequiredService<IUserService>();
             this.ElectricWaterBillService = serviceProvider.GetRequiredService<IElectricWaterBillService>();
+            this.RoomService = serviceProvider.GetRequiredService<IRoomService>();
         }
         [HttpGet]
         [Description("Lấy bản ghi điện nước theo tháng")]
@@ -52,8 +54,8 @@ namespace Sample.API.Controllers
             if (ModelState.IsValid)
             {
                 var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
-
-                IList<ElectricWaterBill> ElectricWaterBills = await ElectricWaterBillService.GetElectricWaterBillWhenCheckOutWithMonth(request);
+                Room room = RoomService.GetById(request.RoomId);
+                IList<ElectricWaterBill> ElectricWaterBills = await ElectricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) > 0 && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
                 IList<ElectricWaterBillModel> ElectricWaterBillModels = (IList<ElectricWaterBillModel>)mapper.Map<IList<ElectricWaterBillModel>>(ElectricWaterBills);
 
                 appDomainResult = new AppDomainResult

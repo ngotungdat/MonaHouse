@@ -1,0 +1,184 @@
+﻿@model CoreModel
+<style>
+    /*input.form-control:disabled {
+        background: none;
+    }*/
+
+    .room .room-header a.item-link {
+        color: #46CED0;
+    }
+
+    .room-header .dropdown__wrap {
+        right: 15px;
+        position: absolute;
+    }
+
+    .room .room-info {
+        padding-top: 30px;
+    }
+
+    .result-goout .tx-row .lb {
+        flex: 0 0 250px;
+    }
+
+    .room .lb {
+        margin-bottom: 2px;
+    }
+
+    .ls-room {
+        text-align: left;
+    }
+
+    .form-control {
+        height: initial;
+    }
+
+    /*.input-group-text {
+        padding: initial;
+    }*/
+    /* BaoNguyen CSS*/
+    .col-sm-12 {
+        padding-bottom: 15px;
+    }
+
+    .col-sm-6 {
+        margin-bottom: 20px;
+    }
+</style>
+<div class="fixed-filter sticky-top">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-flex align-items-center justify-content-between flex-wrap">
+            <h4 class="mg-b-15 tx-spacing--1">Danh sách khách hàng</h4>
+            
+        </div>
+    </div>
+</div>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row row-xs">
+        <div class="col">
+            <div class="table__filter__wrap bd-t pd-t-15">
+                <div class="table__filter-header mg-t-0-f">
+                    <div class="table__header-left ">
+                        <div class="search__box control mg-md-r-5">
+                            <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
+                            <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="table__header-right">
+                        <div class="header__right-action">
+                            
+
+                            <div class="select-sort">
+                                <span>Sắp xếp: </span>
+                                <select name="" class="form-control">
+                                    <option value="">Tên người dùng A-Z ↓</option>
+                                    <option value="">Tên người dùng Z-A ↑</option>
+
+                                    <option value="">Tiền nợ ↓</option>
+                                    <option value="">Tiền nợ ↑</option>
+                                </select>
+                            </div>
+
+                            <div class="select-sort">
+                                <span>Loại gói: </span>
+                                <select name="" class="form-control">
+                                    <option value="">Gói dừng thử</option>
+                                    <option value="">Gói cá nhân</option>
+                                    <option value="">Gói cao cấp</option>
+                                    <option value="">Gói chuyên nghiệp</option>
+                                    <option value="">Gói lập trình riêng</option>
+                                </select>
+                            </div>
+                            <div class="select-sort">
+                                <span>Trạng thái: </span>
+                                <select name="" class="form-control">
+                                    <option value="">Đang đợi duyệt</option>
+                                    <option value="">Đã Duyệt</option>
+                                    <option value="">Bị Hủy Duyệt</option>
+                                </select>
+                            </div>
+                            <div class="mg-b-15">
+                                <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-form">
+                    <div class="filter__form__wrap">
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Trạng thái </label>
+                                <select name="" class="form-control">
+                                    <option value="">Gói dừng thử</option>
+                                    <option value="">Gói cá nhân</option>
+                                    <option value="">Gói cao cấp</option>
+                                    <option value="">Gói chuyên nghiệp</option>
+                                    <option value="">Gói lập trình riêng</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Nhà / dãy trọ</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">319 CMT7, Trương Định</option>
+                                    <option value="1">64 Út Tịch</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Loại phòng</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Ngắn hạn</option>
+                                    <option value="2" selected="">Dài hạn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Loại gói</label>
+                                <select name="" class="form-control">
+                                    <option value="">-Tất cả-</option>
+                                    <option value="1" selected="">Đang có nợ</option>
+                                    <option value="2" selected="">Không nợ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter__form-submit">
+                        <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
+                    </div>
+                </div>
+                <div class="table__filter-wrap">
+
+                    <div class="table-responsive table-userlist">
+                    </div>
+                    @await Html.PartialAsync("_PaginationPartial")
+                </div>
+
+            </div>
+
+        </div>
+    </div><!-- row -->
+</div><!-- container -->
+
+<script>
+    $(function () {
+        load_data(1, 20, 0);
+    });
+    function load_data(pageindex, pagesize, orderby) {
+        $.get('/PackageOfUser/PackageOfUserPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + "TenantId=" +@Model.Users.Id, function (data) {
+            $('.table-userlist').html(data);
+        });
+    }
+</script>

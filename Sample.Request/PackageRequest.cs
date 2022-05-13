@@ -45,5 +45,10 @@ namespace Sample.Request
         /// </summary>
         [Required(ErrorMessage = "Vui lòng chọn loại phần mềm!")]
         public int PackageType { get; set; }
+
+        /// <summary>
+        /// Thời gian sử dụng của gói
+        [Required(ErrorMessage = "Vui lòng nhập thời gian sử dụng gói!")]
+        public int UserdTime { get; set; }
     }
 }

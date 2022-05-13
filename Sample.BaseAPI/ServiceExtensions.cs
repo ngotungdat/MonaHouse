@@ -96,9 +96,10 @@ namespace Sample.BaseAPI
             services.AddScoped<IPaymentMethodService, PaymentmethodService>();
             services.AddScoped<IRoomTypeService, RoomTypeService>();
             services.AddScoped<IUserInRoomService, UserInRoomService>();
-            services.AddScoped<IElectricWaterBillService, ElectricWaterBillService>();
+            services.AddTransient<IElectricWaterBillService, ElectricWaterBillService>();
             services.AddScoped<IRoomReceiptService, RoomReceiptService>();
             services.AddScoped<IRoomContractRepresentativeService, RoomContractRepresentativeService>();
+            services.AddScoped<IPackageOfUserService, PackageOfUserService>();
 
             #endregion
 

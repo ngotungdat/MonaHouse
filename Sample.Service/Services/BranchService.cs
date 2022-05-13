@@ -60,32 +60,41 @@ namespace Sample.Service.Services
 
         public override async Task<bool> UpdateAsync(Branch item)
         {
-            using (var dbContextTransaction = coreDbContext.Database.BeginTransaction())
+
+            try
             {
-                try
+      
+                var existItem = await this.GetByIdAsync(item.Id);
+                using (var dbContextTransaction = coreDbContext.Database.BeginTransaction())
                 {
-                    var existItem = await this.Queryable.Where(e => e.Id == item.Id).FirstOrDefaultAsync();
-                    if (existItem != null)
+                    try
                     {
-                        this.unitOfWork.Repository<Branch>().Update(item);
-                        await this.unitOfWork.SaveAsync();
-                        //foreach (BranchImage jtem in item.BranchImages)
-                        //{
-                        //    jtem.BranchId = item.Id;
-                        //    jtem.CreatedBy = item.CreatedBy;
-                        //    await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
-                        //}
-                        //await unitOfWork.SaveAsync();
-                        await dbContextTransaction.CommitAsync();
-                        return true;
+                        //existItem =  this.GetById(item.Id);
+                        if (existItem != null)
+                        {
+                            this.unitOfWork.Repository<Branch>().Update(item);
+                            await this.unitOfWork.SaveAsync();
+                            //foreach (BranchImage jtem in item.BranchImages)
+                            //{
+                            //    jtem.BranchId = item.Id;
+                            //    jtem.CreatedBy = item.CreatedBy;
+                            //    await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
+                            //}
+                            //await unitOfWork.SaveAsync();
+                            await dbContextTransaction.CommitAsync();
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
+                    catch (Exception ex)
+                    {
+                        await dbContextTransaction.RollbackAsync();
+                        throw new Exception(ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw new Exception(ex.Message);
-                }
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
             }
         }
     }

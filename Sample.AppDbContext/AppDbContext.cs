@@ -70,6 +70,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<UserNote>(x => x.ToTable("UserNotes"));
             modelBuilder.Entity<RoomReceipt>(x => x.ToTable("RoomReceipts"));
             modelBuilder.Entity<RoomContractRepresentative>(x => x.ToTable("RoomContractRepresentatives"));
+            modelBuilder.Entity<PackageOfUser>(x => x.ToTable("PackageOfUsers"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -126,6 +127,7 @@ namespace Sample.AppDbContext
         public DbSet<UserNote> UserNotes { get; set; }
         public DbSet<RoomReceipt> RoomReceipts { get; set; }
         public DbSet<RoomContractRepresentative> RoomContractRepresentatives { get; set; }
+        public DbSet<PackageOfUser> PackageOfUsers { get; set; }
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

@@ -1,0 +1,117 @@
+﻿@using Sample.Models;
+@{
+    Layout = "";
+}
+<table class="table border">
+    <thead class="thead-primary">
+        <tr class="tr-header-table">
+            <th class="checkbox-col">
+            </th>
+            <th class="sort-label" data-column="col-house">Họ và tên</th>
+            <th class="sort-label" data-column="col-room">Số điện thoại</th>
+            <th class="sort-label" data-column="col-people">Email</th>
+            <th class="sort-label" data-column="col-people">Gói Đăng kí</th>
+            <th class="sort-label" data-column="col-status">Trạng thái</th>
+            <th class="sort-label" data-column="col-electric">Ngày Đăng kí</th>
+            <th class="sort-label" data-column="col-deposit">Duyệt Đăng kí</th>
+            <th class="sort-label" data-column="col-deposit" style="text-align:center">Thao tác</th>
+            <th class="action-col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PackageOfUserModel item in Model)
+            {
+                <tr>
+                    <td class="checkbox-col">
+                        <a href="javascript:;" class="toggle-collapse" data-id="@item.Id" data-type="close" data-iscontent="false"><i class="fas fa-caret-down"></i></a>
+                    </td>
+                    <td data-column="col-name">
+                        <a href="javascript:;">
+                            @item.FullName
+                        </a>
+                    </td>
+                    <td data-column="col-phone">
+                        <a href="room-detail.php">@item.Phone</a>
+                    </td>
+                    <td data-column="col-email">@item.Email</td>
+                    <td data-column="col-deposit">
+                        <span class="tx-danger tx-medium">@item.Title</span>
+                    </td>
+
+                    <td data-column="col-package">
+                        <span class="badge badge-warning wd-100 pd-5 tx-12">
+                            @item.Status
+                        </span>
+                        <p class="mg-b-0 mg-t-5 tx-12">Đăng kí vào: @item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
+                    </td>
+                    <td data-column="col-electric">@item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="action-col">
+                        <div class="custom-control custom-switch type-rent-switch">
+                            <input type="checkbox" class="custom-control-input" checked="true">
+                            <label class="custom-control-label"><span class="text-pausedo"></span></label>
+                        </div>
+                    </td>
+                    <td class="action-col">
+                        <div class="custom-control custom-switch type-rent-switch">
+                            <button type="button" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Duyệt đăng kí</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="collapse-row">
+                    <td colspan="10" class="detailsDiv-@item.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<script>
+    //load trang chi tiết, có gắn cờ để biết khỏi load lại
+    $(document).on('click', '.toggle-collapse', function (event) {
+        const id = $(this).attr('data-id');
+        const toggle = $(this).attr('data-type');
+        if (toggle == 'close') {
+            $(this).attr('data-type', 'open');
+            const iscontent = $(this).attr('data-iscontent');
+            if (iscontent == 'false') {
+                get_detail(id);
+                $(this).attr('data-iscontent', 'true');
+            }
+        }
+        else if (toggle == 'open') {
+            $(this).attr('data-type', 'close');
+        }
+    });
+
+    function get_detail(id) {
+        $.get('/PackageOfUser/PackageOfUserDetailPartial?PackageOfUserId=' + id, function (data) {
+            $('.detailsDiv-' + id).html(data);
+        });
+    }
+
+    let page_index = @ViewData["pageindex"];
+    let page_size = @ViewData["pagesize"];
+    let total_page = @ViewData["totalpage"];
+    let total_item = @ViewData["totalitem"];
+    //load phân trang
+    $(function () {
+        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+    });
+    //load khi bấm chuyển trang
+    function load_to_page(page_clicked) {
+        page_index = page_clicked;
+        //load lại data
+        load_data(page_index, page_size, 0);
+        //load lại phân trang
+        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+    }
+
+</script>
+
+
+
+
+

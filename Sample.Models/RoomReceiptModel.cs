@@ -9,7 +9,7 @@ namespace Sample.Models
 {
     public class RoomReceiptModel : AppDomainModel
     {
-        public int RoomId { get; set; }
+        public int? RoomId { get; set; }
         public string UserId { get; set; }
         public DateTime? Date { get; set; }
         public double? ElectricBill { get; set; }
@@ -22,5 +22,14 @@ namespace Sample.Models
         public double? FinalBill { get; set; }
         public int? Status { get; set; }
         public string Note { get; set; }
+
+        public int? PaymenMethod { get; set; }
+        public double? MoneyRecive { get; set; }
+        public double? MoneyDebtRoomReceipt { get; set; }
+        public string NoteRecive { get; set; }
+        // not mapping
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public double DebtMoney { get; set; }
     }
 }

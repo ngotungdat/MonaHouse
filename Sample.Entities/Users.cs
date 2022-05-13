@@ -87,6 +87,11 @@ namespace Sample.Entities
         /// Ảnh đại diện
         /// </summary>
         public string Avatar { get; set; }
+        /// <summary>
+        /// Tiền nợ
+        /// </summary>
+        public double? DebtMoney { get; set; }
+
 
         /// <summary>
         /// Giới tính

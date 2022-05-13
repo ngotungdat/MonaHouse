@@ -1,0 +1,83 @@
+﻿@model CoreModel
+<table class="table table-hover table-striped  border">
+    <thead class="">
+        <tr class="tr-header-table">
+            <th>Tháng</th>
+            <th>Tiền nhà</th>
+            <th><span class="">Tiền điện<span></span></span></th>
+            <th><span class="">Tiền nước</span></th>
+            <th><span class="">Dịch vụ</span></th>
+            <th><span class="">Tổng tiền</span></th>
+            <th><span class="">Phát sinh</span></th>
+            <th><span class="">Được giảm</span></th>
+            <th><span class="">Thực nhận</span></th>
+            <th><span class="">Còn lại</span></th>
+            <th><span class="">Hình thức</span></th>
+            <th><span class="">Thao tác</span></th>
+
+        </tr>
+    </thead>
+    <tbody id="tbody-history-roomreceipt">
+    </tbody>
+</table>
+@await Html.PartialAsync("_PaginationPartial")
+@await Html.PartialAsync("PartialView/_BaseScriptPartial", Model)
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var roomId = pathArray[3];
+    let pageindex = 1;
+    let pagesize = 20;
+    let orderby = 0;
+    let SearchContent = '';
+    let total_item_roomReceipt = 0;
+    let total_page_roomReceipt = 0;
+    function loadcore() {
+        let api_load_room_receipt = 'api/RoomReceipt?PageIndex=' + pageindex + '&PageSize=' + pagesize + '&OrderBy=' + orderby + '&RoomId=' + roomId + '&TenantId=@Model.Users.Id'
+        load_data_with_jquery(api_load_room_receipt).then(function (e) {
+            console.log(e.Data);
+            roomreceipts = e.Data.Items;
+            let html = '';
+            for (let i = 0; i < roomreceipts.length; i++) {
+                let roomreceipt = roomreceipts[i];
+                var date = new Date(roomreceipt.Date);
+                let payment_method = roomreceipt.PaymenMethod;
+                if (payment_method == 0) {
+                    // thanh toán tiền mặt
+                    payment_method = "Tiền mặt";
+                }
+                if (payment_method == 1) {
+                    // chuyển tiền
+                    payment_method = "Chuyển khoản";
+                }
+                html += `<tr>
+            <td>Tháng `+ date.getMonth() + '/' + date.getFullYear() + `</td>
+            <td>`+ format_money(roomreceipt.RoomBill) + `</td>
+            <td>`+ format_money(roomreceipt.ElectricBill) + `</td>
+            <td>`+ format_money(roomreceipt.WaterBill) + `</td>
+            <td>`+ format_money(roomreceipt.RoomUtilitieBill) + `</td>
+            <td>`+ format_money(roomreceipt.TotalBill) + `</td>
+            <td>`+ format_money(roomreceipt.PlusBill) + `</td>
+            <td>`+ format_money(roomreceipt.SubBill) + `</td>
+            <td>`+ format_money(roomreceipt.MoneyRecive) + `</td>
+            <td>`+ format_money(roomreceipt.MoneyDebtRoomReceipt) + `</td>
+            <td>`+ payment_method + `</td>
+            <td><a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a></td>
+            </tr>`;
+            }
+            $('#tbody-history-roomreceipt').html(html);
+            total_item_roomReceipt = e.Data.TotalItem;
+            total_page_roomReceipt = e.Data.TotalPage;
+            load_pagination(pagination(pageindex, total_page_roomReceipt), pageindex, total_page_roomReceipt, total_item_roomReceipt);
+        })
+    }
+    $(document).ready(function () {
+        loadcore();
+    })
+    function load_to_page(index_click) {
+        pageindex = index_click;
+        console.log(pageindex);
+        //load lại data
+        loadcore();
+    }
+    
+</script>

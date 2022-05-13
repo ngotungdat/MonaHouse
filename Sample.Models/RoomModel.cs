@@ -46,6 +46,18 @@ namespace Sample.Models
         /// người đại diện phòng
         /// </summary>
         public int? UserInRoomRepresentative { get; set; }
+        /// <summary>
+        /// Ngày dọn vào
+        /// </summary>
+        public DateTime? DateInToRoom { get; set; }
+        /// <summary>
+        /// Ngày dọn  ra
+        /// </summary>
+        public DateTime? DateGetOutRoom { get; set; }
+        /// <summary>
+        /// Gói Điện nước
+        /// </summary>
+        public int? ElectricWaterPackage { get; set; }
 
         // NOT MAPPING
         public string FullName { get; set; }
@@ -63,6 +75,8 @@ namespace Sample.Models
         /// Giá nước
         /// </summary>
         public double? WaterPrice { get; set; }
+
+        public double? DebtMoney { get; set; }
 
     }
 }

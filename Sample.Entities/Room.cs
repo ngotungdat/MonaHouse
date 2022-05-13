@@ -62,6 +62,18 @@ namespace Sample.Entities
         /// người đại diện phòng
         /// </summary>
         public int? UserInRoomRepresentative { get; set; }
+        /// <summary>
+        /// Ngày dọn vào
+        /// </summary>
+        public DateTime? DateInToRoom { get; set; }
+        /// <summary>
+        /// Ngày dọn  ra
+        /// </summary>
+        public DateTime? DateGetOutRoom { get; set; }
+        /// <summary>
+        /// Gói Điện nước
+        /// </summary>
+        public int? ElectricWaterPackage { get; set; }
 
         [NotMapped]
         public string FullName { get; set; }
@@ -73,5 +85,7 @@ namespace Sample.Entities
         public string BranchName { get; set; }
         [NotMapped]
         public string FloorName { get; set; }
+        [NotMapped]
+        public double? DebtMoney { get; set; }
     }
 }

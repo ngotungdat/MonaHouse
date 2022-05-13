@@ -12,5 +12,12 @@ namespace Sample.Entities.Search
         public int? status { get; set; }
         public int? roomtypeid { get; set; }
         public int? BranchId { get; set; }
+        public int? Electric { get; set; }
+        public int? TakeMoney { get; set; }
+        public int? DebtMoney { get; set; }
+        public DateTime? FromDateIntoRoom { get; set; }
+        public DateTime? ToDateIntoRoom { get; set; }
+        public DateTime? FromDateOutRoom { get; set; }
+        public DateTime? ToDateOutRoom { get; set; }
     }
 }

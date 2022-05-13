@@ -79,5 +79,27 @@ namespace Sample.API.Controllers
 
             return appDomainResult;
         }
+
+        [HttpPost]
+        [Route("GoOutRoom")]
+        [AppAuthorize(new string[] { CoreContants.Update })]
+        public async Task<AppDomainResult> GoOutRoom([FromQuery] int roomId, DateTime dateTime)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            bool success = false;
+            if (ModelState.IsValid)
+            {
+                success = await roomService.GetOutRoom(roomId, dateTime);
+                if (success)
+                    appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                else
+                    throw new Exception("Lỗi trong quá trình xử lý");
+                appDomainResult.Success = success;
+            }
+            else
+                throw new AppException("Item không tồn tại");
+
+            return appDomainResult;
+        }
     }
 }

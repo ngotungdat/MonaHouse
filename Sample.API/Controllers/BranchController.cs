@@ -102,7 +102,7 @@ namespace Sample.API.Controllers
                     var messageUserCheck = await this.domainService.GetExistItemMessage(item);
                     if (!string.IsNullOrEmpty(messageUserCheck))
                         throw new AppException(messageUserCheck);
-                    success = await this.domainService.UpdateAsync(item);
+                    success = await this.branchService.UpdateAsync(item);
                     if (success)
                         appDomainResult.ResultCode = (int)HttpStatusCode.OK;
                     else

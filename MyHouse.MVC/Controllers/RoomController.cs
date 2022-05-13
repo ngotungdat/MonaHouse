@@ -54,9 +54,15 @@ namespace MyHouse.MVC.Controllers
             ViewBag.Id = id;
 
             return View(coreModel);
-
         }
-
+        public async Task<IActionResult> HistoryRoomReceiptPartial()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            
+            return PartialView(coreModel);
+        }
     }
 }
 

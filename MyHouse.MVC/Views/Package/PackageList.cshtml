@@ -115,6 +115,62 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- modal register package-->
+<div class="modal fade modal-nopadding-right" id="modal-register-package" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i data-feather="home" class="wd-60 ht-60"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <input type="hidden" name="hdfId" value="0" />
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Gói phần mềm</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">Đăng kí gói phần mềm vào danh sách</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="form-group">
+                    <div class="row">
+                        <input type="hidden" id="package-id" />
+                        <input type="hidden" id="user-id" />
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên gói phần mềm <span class="text-danger">(*)</span></label>
+                            <input type="text" name="" required class="form-control" value="Gói dùng thử" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row mg-t-10">
+                        <div class="col-sm-12">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phương thức thanh toán <span class="text-danger">(*)</span></label>
+                            <select name="" class="form-control">
+                                <option selected value="">Tiền mặt</option>
+                                <option value="">Chuyển khoản</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ghi chú <span class="text-danger">(*)</span></label>
+                    <textarea rows="2" name="" class="form-control" placeholder="..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Liên hệ <span class="text-danger">(*)</span></label>
+                    <textarea rows="2" name="" id="" class="form-control" placeholder="..."></textarea>
+                </div>
+
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-register-package-save">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script src="~/house/lib/tinymce/tinymce.min.js"></script>
 <script>
 
@@ -238,7 +294,7 @@
                             btn_edit = `<a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>`;
                         }
                         else if (@users.RoleNumber == 3) {
-                            btn_action = `<button type="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                            btn_action = `<button type="button" class="btn btn-success btn-register-package" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
                         }
                         html += ` <div class="house-wrap col-md-4">
                             <div class="house-item border">
@@ -307,6 +363,54 @@
         $('#switch-active').val(true);
         tinyMCE.activeEditor.setContent('');
         $('#modal-add-package').modal('show');
+    });
+
+    $(document).on('click', '.btn-register-package', function (event) {
+        $('#package-id').val($(this).attr('data-id'));
+        $('#user-id').val($(this).attr('data-userid'));
+        $('#modal-register-package').modal('show');
+    });
+
+    $(document).on('click', '.btn-register-package-save', function (event) {
+        //$('#package-id').val($(this).attr('data-id'));
+        //$('#user-id').val($(this).attr('data-userid'));
+        let package_id = $('#package-id').val();
+        let user_id = $('#user-id').val();
+        console.log(package_id);
+        console.log(user_id);
+        if (ckstring(package_id) || ckstring(user_id)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Thiếu thông tin!',
+                'warning'
+            )
+        }
+        else {
+            Swal.fire({
+                title: 'Xác nhận đăng kí hợp đồng?',
+                text: "Bạn sẽ nhận lại phản hồi nhanh nhất!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý!'
+            }).then((result) => {
+                if (result.value == true) {
+                    console.log('Đăng kí gói cho thuê');
+                    let data = {};
+                    data["id"] = 0;
+                    data["packageId"] = package_id;
+                    data["userId"] = user_id;
+                    data["status"] = user_id;
+                    data["active"] = true;
+                    data["deleted"] = false;
+                    let api_create_packageOfUser = 'api/PackageOfUser';
+                    create_data(data, api_create_packageOfUser).then(function (e) {
+                        console.log(e);
+                    });
+                }
+            })
+        }
     });
 
     $(document).on('click', '.btn-detail-package', function (event) {

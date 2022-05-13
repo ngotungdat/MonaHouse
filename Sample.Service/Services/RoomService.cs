@@ -24,18 +24,20 @@ namespace Sample.Service.Services
     {
         protected IAppDbContext coreDbContext;
         protected IUserService userService;
+        protected IUserInRoomService userInRoomService;
         protected IRoomImageService roomImageService;
         protected IElectricWaterBillService electricWaterBillService;
         protected IRoomUtilitiService roomUtilitiService;
-        protected IRoomService roomService;
         public RoomService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext
             ,IUserService UserService
-            ,IRoomImageService RoomImageService
+            ,IUserInRoomService UserInRoomService
+            , IRoomImageService RoomImageService
             ,IElectricWaterBillService ElectricWaterBillService
             ,IRoomUtilitiService RoomUtilitiService
             ) : base(unitOfWork, mapper)
         {
             this.userService = UserService;
+            this.userInRoomService = UserInRoomService;
             this.roomImageService = RoomImageService;
             this.electricWaterBillService = ElectricWaterBillService;
             this.roomUtilitiService = RoomUtilitiService;
@@ -108,9 +110,11 @@ namespace Sample.Service.Services
 
         public async Task<double> CheckOutRoomWithMonth(CheckOutRoomRequest request)
         {
-            // lấy ra danh sách ghi điện theo tháng và năm
-            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
+            // lấy thông tin phòng
+            Room room = this.GetById(request.RoomId);
             // kiểm tra ngày dọn vào của người đại diện trong phòng để tính toán điện nước
+            // lấy ra danh sách ghi điện theo tháng và năm
+            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) >0 && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
             // chưa có chức năng dọn vào !!!!!!!!!!!!!!!
 
             // tiền điện nước tháng đó
@@ -149,6 +153,26 @@ namespace Sample.Service.Services
             double total_money_bill = 0;
             total_money_bill = (double)(room_price_bill+ electric_bill + water_bill + room_utilitie_bill );
             return total_money_bill;
+        }
+
+        public async Task<bool> GetOutRoom(int roomId, DateTime dateTime)
+        {
+            //update thông tin phòng
+            Room room = this.GetById(roomId);
+            
+            //update thông tin UserInroom
+            var userInRooms = await userInRoomService.GetAsync(p=> p.UsersId==room.UserInRoomRepresentative&& p.RoomId==roomId);
+            // room
+            room.Status = 0; // phòng trống
+            room.UserInRoomRepresentative = -1; // không có người đại diện
+            room.DateInToRoom = null;
+            room.DateGetOutRoom = dateTime; 
+            //user
+            userInRooms[0].Status = 0; //0: don di; 1:dang o
+            var result = false;
+            result = await this.UpdateAsync(room);
+            result = await userInRoomService.UpdateAsync(userInRooms[0]);
+            return result;
         }
 
         protected override string GetStoreProcName()

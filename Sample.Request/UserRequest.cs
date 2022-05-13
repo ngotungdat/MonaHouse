@@ -133,6 +133,11 @@ namespace Sample.Request
         public List<int> UserGroupIds { get; set; }
 
         /// <summary>
+        /// Tiền nợ
+        /// </summary>
+        public double? DebtMoney { get; set; }
+
+        /// <summary>
         /// Danh mục quyền ứng với chức năng người dùng
         /// </summary>
         //public IList<PermitObjectPermissionRequest> PermitObjectPermissions { get; set; }

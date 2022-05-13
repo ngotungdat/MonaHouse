@@ -161,6 +161,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<RoomContractRepresentativeModel, RoomContractRepresentative>().ReverseMap();
             CreateMap<RoomContractRepresentativeRequest, RoomContractRepresentative>().ReverseMap();
             CreateMap<PagedList<RoomContractRepresentativeModel>, PagedList<RoomContractRepresentative>>().ReverseMap();
+
+            CreateMap<PackageOfUserModel, PackageOfUser>().ReverseMap();
+            CreateMap<PackageOfUserRequest, PackageOfUser>().ReverseMap();
+            CreateMap<PagedList<PackageOfUserModel>, PagedList<PackageOfUser>>().ReverseMap();
         }
     }
     

@@ -299,14 +299,12 @@ namespace Sample.AppDbContext.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RecordDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("RentalForm")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("RoomAmount")
@@ -319,7 +317,6 @@ namespace Sample.AppDbContext.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Type")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Updated")
@@ -1551,9 +1548,56 @@ namespace Sample.AppDbContext.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("UserdTime")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Package");
+                });
+
+            modelBuilder.Entity("Sample.Entities.PackageOfUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PackageOfUsers");
                 });
 
             modelBuilder.Entity("Sample.Entities.PaymentMethod", b =>
@@ -1642,6 +1686,12 @@ namespace Sample.AppDbContext.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime?>("DateGetOutRoom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateInToRoom")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
@@ -1650,6 +1700,9 @@ namespace Sample.AppDbContext.Migrations
 
                     b.Property<double?>("ElectricPrice")
                         .HasColumnType("float");
+
+                    b.Property<int?>("ElectricWaterPackage")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("EmptyRoomDate")
                         .HasColumnType("datetime2");
@@ -1832,8 +1885,20 @@ namespace Sample.AppDbContext.Migrations
                     b.Property<double?>("FinalBill")
                         .HasColumnType("float");
 
+                    b.Property<double?>("MoneyDebtRoomReceipt")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MoneyRecive")
+                        .HasColumnType("float");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoteRecive")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PaymenMethod")
+                        .HasColumnType("int");
 
                     b.Property<double?>("PlusBill")
                         .HasColumnType("float");
@@ -1841,7 +1906,7 @@ namespace Sample.AppDbContext.Migrations
                     b.Property<double?>("RoomBill")
                         .HasColumnType("float");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<double?>("RoomUtilitieBill")
@@ -2139,6 +2204,9 @@ namespace Sample.AppDbContext.Migrations
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<double?>("DebtMoney")
+                        .HasColumnType("float");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
