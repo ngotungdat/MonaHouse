@@ -432,7 +432,7 @@
             )
         }
         else {
-            $(this).prop('disabled', true);
+            $('.btn-save-user-in-group').prop('disabled', true);
             let data = {};
             data["id"] = id;
             data["userName"] = username;
@@ -496,6 +496,7 @@
                     );
                 }
                 $('.btn-save-user-in-group').prop('disabled', false);
+                location.reload("true");
             },
             error: function (xhr, status, error) {
                 Swal.fire(

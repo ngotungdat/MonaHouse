@@ -80,7 +80,7 @@
     </div>
 
 
-    <div class="">
+    @*<div class="">
         <a href="javascript:;" class=" btn btn-sm btn-info btn-add-noteuser" style="border: none" data-userid-add="@packageOfUser.Id" data-toggle="modal"> Thêm ghi chú</a>
         <div class="mg-t-10">
             <table class="table table-hover table-striped  border">
@@ -96,7 +96,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>*@
 
 </div>
 
@@ -344,7 +344,7 @@
     //tự gọi lấy data khi có view khác gọi đến
     $(function () {
         load_packageOfUser('@Model.Domain' + 'api/PackageOfUser?PackageId=' +@packageOfUser.Id+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + @Model.Users.Id);
-        load_user_note('@Model.Domain' + 'api/UserNote?UserID='+'@packageOfUser.UserId'+'&PageIndex=1&PageSize=20&OrderBy=0');
+        //load_user_note('@Model.Domain' + 'api/UserNote?UserID='+'@packageOfUser.UserId'+'&PageIndex=1&PageSize=20&OrderBy=0');
     });
     //Load dữ liệu chi tiết user theo api
     function load_packageOfUser(api) {
@@ -365,12 +365,12 @@
                 $('.user-dateofbirth-' + packageOfUser.Id).html(moment(packageOfUser.DateOfBirth).format("DD-MM-YYYY"));
                 $('.user-username-' + packageOfUser.Id).html(packageOfUser.FullName);
                 $('.user-address-' + packageOfUser.Id).html(packageOfUser.Address);
-                $('.title-package-' + packageOfUser.Id).html(packageOfUser.Title);
-                $('.package-price-' + packageOfUser.Id).html(format_money(packageOfUser.Price) + '/ Tháng');
-                $('.room-limited-' + packageOfUser.Id).html(packageOfUser.LimitedRoom);
-                $('.used-time-' + packageOfUser.Id).html(packageOfUser.UserdTime + ' Tháng');
-                $('.title-desc-' + packageOfUser.Id).html(packageOfUser.TitleDescription);
-                $('.desc-' + packageOfUser.Id).html(packageOfUser.Description);
+                $('.title-package-' + packageOfUser.Id).html(packageOfUser.PackageName);
+                $('.package-price-' + packageOfUser.Id).html(format_money(packageOfUser.PackagePrice) + '/ Tháng');
+                $('.room-limited-' + packageOfUser.Id).html(packageOfUser.RoomLimited);
+                $('.used-time-' + packageOfUser.Id).html(packageOfUser.UsedDate + ' Ngày');
+                $('.title-desc-' + packageOfUser.Id).html(packageOfUser.PackageDescription);
+                $('.desc-' + packageOfUser.Id).html(packageOfUser.PackageMoreInfo);
 
             },
             error: function (xhr, status, error) {
@@ -378,41 +378,7 @@
             }
         });
     }
-    function load_user_note(api) {
-        console.log(api);
-        $.ajax({
-            type: 'GET',
-            dataType: "json",
-            url: api,
-            headers: {
-                'Authorization': 'Bearer ' + '@Model.Token',
-                'Content-Type': 'application/json'
-            },
-            success: function (data, status, xhr) {
-                console.log(data);
-
-                let userNotes = data.Data.Items;
-                let userID = 0;
-                let html = '';
-                for (let i = 0; i < userNotes.length; i++) {
-                    let item = userNotes[i]
-                    userID = item.UserID;
-                    html += `<tr>
-                    <td>`+ item.Content+`</td>
-                    <td>`+ moment(item.Created).format("DD-MM-YYYY")+`</td>
-                    <td>`+ item.CreatedBy+`</td>
-                    <td>
-                        <a href="javascript:;" data-content="`+ item.Content + `" data-userid="` + item.UserID + `" data-id="` + item.Id + `" class=" btn-edit-content-note" data-toggle="modal"><i class="fas fa-edit"></i></a>
-                    </td>
-                </tr>`;
-                }
-                $('.user-notes-' + userID).html(html);
-            },
-            error: function (xhr, status, error) {
-                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-            }
-        });
-    }
+    
     //
     // chinh sua khach hang
     $(document).on('click', '.btn-edit-user-in-group', function () {

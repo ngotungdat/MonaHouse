@@ -8,6 +8,6 @@ namespace Sample.Entities.Search
 {
     public class RoomUtilitiSearch: DomainEntities.BaseSearch
     {
-        public int RoomId { get; set; }
+        public int? RoomId { get; set; }
     }
 }

@@ -44,23 +44,23 @@
                     </dl>
                     <dl class="row-info hide-on-print">
                         <dd class="">Trạng thái:</dd>
-                        <dt class="room-status">
-                            
+                        <dt class="">
+                            <span class="room-status "> trống</span>
                         </dt>
                     </dl>
 
 
                     <dl class="row-info">
                         <dd class="">Người đại diện:</dd>
-                        <dt class="room-userinroom-representative-name"></dt>
+                        <dt class="room-userinroom-representative-name"> trống</dt>
                     </dl>
                     <dl class="row-info">
                         <dd class="">Điện thoại:</dd>
-                        <dt class="room-userinroom-representative-phone"></dt>
+                        <dt class="room-userinroom-representative-phone"> trống</dt>
                     </dl>
                     <dl class="row-info">
                         <dd class="">Ngày dọn vào:</dd>
-                        <dt class="room-dateinroom"></dt>
+                        <dt class="room-dateinroom"> trống</dt>
                     </dl>
                     <dl class="row-info mg-b-0">
                         <dd class="">Tiền nợ:</dd>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="info-list">
-                            <div id="RoomUtilities-details"></div>
+                            <div id="RoomUtilities-details"> trống</div>
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,11 @@
 
 
         </div>
-        <div class="col-12 mg-t-15">
-            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Xuất bill tháng này</a>
+        <div class="col-6 mg-t-15">
+            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
+        </div>
+        <div class="col-6 mg-t-15">
+            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"> Xuất bill tháng này</a>
         </div>
     </div>
     <!-- End thông tin phòng-->
@@ -132,10 +135,10 @@
                         <h5 class="mg-b-0">Thông tin khách thuê</h5>
                         <div class="right-action">
                             <button id="add-userinroom" class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5" data-target="#js-add-rentor" data-toggle="modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Thêm
+                                Thêm
                                 khách
                             </button>
-                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"> Xuất Excel</button>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -145,7 +148,7 @@
                                     <th>STT</th>
                                     <th>Họ tên</th>
                                     <th>SĐT</th>
-                                    <th>Số CMND</th>
+                                    <th>Người tạo</th>
                                     <th>Ngày cấp</th>
                                     <th>Nơi cấp</th>
                                     <th>Tình trạng</th>
@@ -158,7 +161,7 @@
                         @await Html.PartialAsync("_PaginationPartial")
                     </div>
 
-                    <div class="upload-box mg-t-15 ">
+                    @*<div class="upload-box mg-t-15 ">
                         <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
                             <h5 class="mg-b-0">Ảnh giấy tờ</h5>
                             <div class="right-action">
@@ -182,7 +185,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="tab-pane fade" id="js-history" role="tabpanel" aria-labelledby="history-tab">
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
@@ -371,12 +374,32 @@
         console.log(e.Data);
         let item = e.Data;
         $('.room-name').html(item.Name);
-        $('.room-status').html(item.Status);
+        // xử lý dữ liệu và trang thái phòng
+        let status = "";
+        let CssClass = ""
+        if (item.Status == 0) {
+            CssClass = "badge badge-light wd-100 pd-5 tx-12";
+            status = "Phòng trống";
+        } if (item.Status == 1) {
+            CssClass = "badge badge-warning wd-100 pd-5 tx-12";
+            status = "Sắp chuyển vào";
+        } if (item.Status == 2) {
+            CssClass = "badge badge-primary wd-100 pd-5 tx-12";
+            status = "Đang thuê";
+        } if (item.Status == 3) {
+            CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+            status = "Sắp dọn ra";
+        }
+        $('.room-status').html(status);
+        $('.room-status').addClass(CssClass);
         // chỉnh sửa định dạng ngày
-        var date = new Date(item.DateInToRoom);
-        let dateInToRoom = 'Ngày ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
-        //
-        $('.room-dateinroom').html(dateInToRoom);
+        if (item.DateInToRoom!=null) {
+            var date = new Date(item.DateInToRoom);
+            let dateInToRoom = 'Ngày ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+            //
+            $('.room-dateinroom').html(dateInToRoom);
+        }
+        
         $('.room-price').html(format_money(item.Price));
         $('.room-electric-price').html(format_money(item.ElectricPrice));
         $('.room-water-price').html(format_money(item.WaterPrice));
@@ -429,8 +452,8 @@
                                     </td>
 
                                     <td>`+ item.Phone + `</td>
-                                    <td>`+ item.CMT + `</td>
-                                    <td>14/07/2022</td>
+                                    <td>`+ item.CreatedBy + `</td>
+                                    <td>`+ format_date(item.Created) +`</td>
                                     <td>DAKLAK</td>
                                     <td>`+ status + `</td>
                                     <td>

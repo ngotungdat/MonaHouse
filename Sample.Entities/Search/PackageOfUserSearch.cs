@@ -10,5 +10,7 @@ namespace Sample.Entities.Search
     public class PackageOfUserSearch : DomainEntities.BaseSearch
     {
         public int? PackageId { get; set; }
+        public int? UserId { get; set; }
+        public int? Status { get; set; }
     }
 }

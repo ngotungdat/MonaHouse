@@ -29,24 +29,24 @@
         text-overflow: ellipsis;
         width: 70px;
     }
+
     .center {
         display: block;
         margin-right: 222px;
         width: 50%;
-        max-width:auto;
-        height:140px;
+        max-width: auto;
+        height: 140px;
     }
+
     .changeImage {
-max-width: 200px;
+        max-width: 200px;
+        height: auto;
+        margin-left: 200px
+    }
 
-height: auto;
-margin-left:200px
-
-
-}
     .flex-container {
         display: flex;
-        font-weight:700;
+        font-weight: 700;
         font-size: 17px;
     }
 </style>
@@ -355,6 +355,7 @@ margin-left:200px
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 <!-- bat loi form-->
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
     $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
         if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {
@@ -412,27 +413,21 @@ margin-left:200px
                     let DateCreated = ((datecr.getDate() > 9) ? datecr.getDate() : ('0' + datecr.getDate())) + '/' + ((datecr.getMonth() > 8) ? (datecr.getMonth() + 1) : ('0' + (datecr.getMonth() + 1))) + '/' + datecr.getFullYear();
 
                     if (item.Status == 0) {
-                        CssClass = "badge badge-light wd-100 pd-5 tx-12";
-                        status = "Đã vào ";
+                        CssClass = "badge badge-success wd-100 pd-5 tx-12";
+                        status = "Đã kích hoạt ";
                     } if (item.Status == 1) {
-                        CssClass = "badge badge-warning wd-100 pd-5 tx-12";
-                        status = "Sắp chuyển vào";
-                    } if (item.Status == 2) {
-                        CssClass = "badge badge-primary wd-100 pd-5 tx-12";
-                        status = "Đang thuê";
-                    } if (item.Status == 3) {
                         CssClass = "badge badge-danger wd-100 pd-5 tx-12";
-                        status = "Sắp dọn ra";
+                        status = "đã khóa";
                     }
                     html += '<tr>';
                     html +=`<td class="checkbox-col">
-                                            <a href="javascript:;" class="toggle-collapse"><i class="fa fa-angle-down"></i></a>
+                                            <a href="javascript:;" class="toggle-collapse"  onClick="loadImageDetail(`+ item.UserId+`)" ><i class="fa fa-angle-down"></i></a>
                                         </td>`
                     html += '<td  data-column="col-name">' + item.UserName + '</td>';
                     html += '<td>' + item.FullName + ' </td>';
                     html += '<td>' + item.Phone + ' </td>';
                     html += '<td>' + item.Email + ' </td>';
-                   
+
                     html += '<td>' + DateCreated + ' </td>';
                     html += ` <td data - column="col-status" >
                         <span class="`+ CssClass +`" name="status">
@@ -443,34 +438,32 @@ margin-left:200px
                     html += '<td>' + item.UserGroupName + '</td>';
                     html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
                         + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
-                    html += `<tr>
-                        < td class="checkbox-col" >
-
+                    html += '</tr>';
+                    html += `
                                     <tr class="collapse-row">
                                         <td colspan="12">
                                             <div class="table-content">
                                                 <div class="row flex-wrap-1 mg-t-15">
                                                     <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
                                                         <div class="room-infor legend-box pd-25  rounded " data-label="Thông Khách Hàng">
-                                                            <a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
                                                             <div class="info-list" style="  text-align: center line-height: 300px;">
                                                                <dl class="row-info hide-on-print"class="center">
                                                                     <dd class="center"></dd>
                                                                     <dt class="">
 
-                                                                        <center><img src="@user.Avatar" alt="avatar" class="center"></center>
+                                                                        <center><img src="`+ item.Avatar + `" alt="avatar" class="center"></center>
 
                                                                     </dt>
                                                                 </dl>
                                                                 <dl class="row-info">
                                                                     <dd class="">Tên Khách Hàng:</dd>
-                                                                    <dt class="">@user.FullName</dt>
+                                                                    <dt class="">`+ item.FullName + `</dt>
                                                                 </dl>
                                                                 <dl class="row-info hide-on-print">
                                                                     <dd class="">Loại Tài khoản :</dd>
                                                                     <dt class="">
-                                                                        <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
-                                                                            Gold
+                                                                        <span tabindex="0" class="`+ CssClass + `" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                                                            `+ status + `
                                                                         </span>
                                                                     </dt>
                                                                 </dl>
@@ -486,19 +479,19 @@ margin-left:200px
                                                                     <div class="info-list">
                                                                         <dl class="row-info">
                                                                             <dd class="">Tên Đầy Đủ:</dd>
-                                                                            <dt class="">@user.FullName</dt>
+                                                                            <dt class="">`+ item.FullName + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Số Điện Thoại:</dd>
-                                                                            <dt class="">@user.Phone</dt>
+                                                                            <dt class="">`+ item.Phone + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Email:</dd>
-                                                                            <dt class="">@user.Email</dt>
+                                                                            <dt class="">`+ item.Email + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Địa Chỉ:</dd>
-                                                                            <dt class="">@user.Address</dt>
+                                                                            <dt class="">`+ item.Address + `</dt>
                                                                         </dl>
 
 
@@ -508,21 +501,21 @@ margin-left:200px
                                                                     <div class="info-list">
                                                                        <dl class="row-info">
                                                                             <dd class="">Ngày Sinh:</dd>
-                                                                            <dt class="">@user.DateOfBirth</dt>
+                                                                            <dt class="">`+ format_date(item.DateOfBirth) + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Số CMND/CCCD:</dd>
-                                                                            <dt class="">@user.CitizenIdentification</dt>
+                                                                            <dt class="">`+ item.CitizenIdentification + `</dt>
                                                                         </dl>
                                                                         <dl class="row-info">
                                                                             <dd class="">Ngày Tạo:</dd>
-                                                                            <dt class="">@user.Created</dt>
+                                                                            <dt class="">`+ format_date(item.UserCreated) + `</dt>
                                                                         </dl>
 
                                                                         <dl class="row-info">
                                                                             <dd class="">Thuộc Nhóm:</dd>
                                                                             <dt class="">
-                                                                                <span class="tx-second">Thuê</span>
+                                                                                <span class="tx-second">Chủ trọ</span>
                                                                             </dt>
                                                                         </dl>
 
@@ -534,23 +527,21 @@ margin-left:200px
 
 
                                                     </div>
-                                                            <div class="flex-container">
-                                                                  <div class="col-md-4 form-group">
-                                                                      <label><p>CMND Mặt trước</p></label>
-                                                                        <img src="@user.Avatar" alt="avatar" class="changeImage">
-                                                                   </div>
-                                                                 <div class="col-md-4 form-group">
-                                                                        <label><p>CMND Mặt Sau</p></label>
-                                                                        <img src="@user.Avatar" alt="avatar" class="changeImage">
-                                                                   </div>
-                                                             </div>
+                                                </div>
+                                                    <div class="row flex-wrap-1 mg-t-15">
+                                                    <div class="col-sm-12 col-md-12 mg-b-30 mg-md-b-0">
+                                                        <div class="room-infor legend-box pd-25  rounded " data-label="Hình ảnh cá nhân">
+                                                            <div id="user-images" class="info-list" style="  text-align: center line-height: 150px;">
+                                                                
+                                                                </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                               </div>
-
                                         </td>
                                     </tr>
-
-                    html += '</tr>'`;
+                                `;
 
                 }
                 $('#tbody-user-in-group').hide().html(html).show('slow');
@@ -564,6 +555,21 @@ margin-left:200px
         });
 
         $('[data-toggle="tooltip"]').tooltip()
+    }
+    //
+    function loadImageDetail(userid) {
+        console.log(userid);
+        let api_Get_UserImage = 'api/UserImage/GetUserImagesByUserID?userId=' + userid;
+        load_data_with_jquery(api_Get_UserImage).then(function (e) {
+            console.log(e);
+            let UserImages = e.Data;
+            html = '';
+            for (let i = 0; i < UserImages.length; i++) {
+                let UserImage = UserImages[i]; 
+                html += '<img src="' + UserImage.Link +'" style=" margin-left: 20px; margin-right: 20px;" width="100" height="100" src="#" alt="image" class="img ">';
+            }
+            $('#user-images').html(html);
+        })
     }
     //nút tìm kiếm
     $('#btn-search').on('click', function () {

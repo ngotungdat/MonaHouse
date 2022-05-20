@@ -24,5 +24,11 @@ namespace MyHouse.MVC.Models
         /// Người dùng hiện tại
         /// </summary>
         public Users Users { get; set; }
+
+        /// <summary>
+        /// Check gói đã hết hạn chưa
+        /// </summary>
+        public bool Expire { get; set; }
+
     }
 }

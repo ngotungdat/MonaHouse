@@ -28,6 +28,56 @@ namespace Sample.Entities
         [Required]
         public int Status { get; set; }
 
+        /// <summary>
+        /// ngày admin duyệt gói
+        /// </summary>
+        public DateTime? AcceptDate { get; set; }
+
+        /// <summary>
+        /// ngày hết hạn gói theo ngày được duyệt
+        /// </summary>
+        public DateTime? ExpireDate { get; set; }
+
+        /// <summary>
+        /// phương thức thanh toán
+        /// </summary>
+        public int? PaymentMethod { get; set; }
+
+        /// <summary>
+        /// ghi chú
+        /// </summary>
+        public string note { get; set; }
+
+        /// <summary>
+        /// số phòng giới hạn
+        /// </summary>
+        public int? RoomLimited { get; set; }
+
+        /// <summary>
+        /// tên gói
+        /// </summary>
+        public string PackageName { get; set; }
+
+        /// <summary>
+        /// giá gói
+        /// </summary>
+        public double? PackagePrice { get; set; }
+
+        /// <summary>
+        /// Mô tả gói
+        /// </summary>
+        public string PackageDescription { get; set; }
+
+        /// <summary>
+        /// thông tin thêm
+        /// </summary>
+        public string PackageMoreInfo { get; set; }
+
+        /// <summary>
+        /// Ngày giới hạn
+        /// </summary>
+        public int? UsedDate { get; set; }
+
         // not mapping
         [NotMapped]
         public string Avatar { get; set; }

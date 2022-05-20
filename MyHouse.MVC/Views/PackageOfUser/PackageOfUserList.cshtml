@@ -171,13 +171,18 @@
         </div>
     </div><!-- row -->
 </div><!-- container -->
-
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
     $(function () {
-        load_data(1, 20, 0);
+        load_data_package_user(1, 20, 0);
     });
-    function load_data(pageindex, pagesize, orderby) {
-        $.get('/PackageOfUser/PackageOfUserPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + "TenantId=" +@Model.Users.Id, function (data) {
+    function load_data_package_user(pageindex, pagesize, orderby) {
+        var url_string = window.location.href; //
+        var url = new URL(url_string);
+        var UserId = url.searchParams.get("UserId");
+        console.log(UserId);
+        console.log(@Model.Users.TenantId);
+        $.get('/PackageOfUser/PackageOfUserPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + "&TenantId=" +@Model.Users.TenantId + "&UserId=" + UserId, function (data) {
             $('.table-userlist').html(data);
         });
     }

@@ -28,12 +28,16 @@ namespace Sample.Service.Services
         protected IRoomImageService roomImageService;
         protected IElectricWaterBillService electricWaterBillService;
         protected IRoomUtilitiService roomUtilitiService;
+        protected IPackageOfUserService packageOfUserService;
+        protected IPackageService packageService;
         public RoomService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext
             ,IUserService UserService
             ,IUserInRoomService UserInRoomService
             , IRoomImageService RoomImageService
             ,IElectricWaterBillService ElectricWaterBillService
             ,IRoomUtilitiService RoomUtilitiService
+            ,IPackageOfUserService PackageOfUserService
+            , IPackageService PackageService
             ) : base(unitOfWork, mapper)
         {
             this.userService = UserService;
@@ -41,67 +45,92 @@ namespace Sample.Service.Services
             this.roomImageService = RoomImageService;
             this.electricWaterBillService = ElectricWaterBillService;
             this.roomUtilitiService = RoomUtilitiService;
+            this.packageOfUserService = PackageOfUserService;
+            this.packageService = PackageService;
             this.coreDbContext = coreDbContext;
         }
 
         public async Task<bool> AddNewRoomWithImage(RoomWithImgRequest itemModel)
         {
             bool returnResult = false;
+            // kiem tra goi su dung
             var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
-            // phòng mới
-            Room room = new Room();
-            room.Id = itemModel.Id;
-            room.Name = itemModel.Name;
-            room.Price = itemModel.Price;
-            room.Status = itemModel.Status;
-            room.TenantId = user.TenantId;
-            room.CreatedBy = user.UserName;
-            room.Created = DateTime.Now;
-            room.Acreage = itemModel.Acreage;
-            room.BedAmount = itemModel.BedAmount;
-            room.BranchFloor = itemModel.BranchFloor;
-            room.BranchId = itemModel.BranchId;
-            room.Deposit = itemModel.Deposit;
-            room.Deleted = itemModel.Deleted;
-            room.Active = itemModel.Active;
-            room.RoomTypeId = itemModel.RoomTypeId;
-            room.FloorId = itemModel.FloorId;
-            //giá diện nước mặc định 
-            room.ElectricPrice = 3000; // 3000 / kw điện
-            room.WaterPrice = 8000; // 8000/ m3 nước
-            //
-            //var result = await this.CreateAsync(room);
-            await this.unitOfWork.Repository<Room>().CreateAsync(room);
-            await this.unitOfWork.SaveAsync();
-            if (room!=null)
+            if (user != null)
             {
-                returnResult = true;
-                // hình ảnh phòng mới
-                var ListLinkImage = itemModel.Images.Split(";");
-                List<RoomImage> LsRoomImage = new List<RoomImage>();
-                if (ListLinkImage.Length > 0)
+                // đếm số lượng phòng hiện tại
+                List<Room> Rooms = (List<Room>)await this.GetAsync(R => R.TenantId == user.Id);
+                // số lượng phòng cho phép của gói user đang sử dụng
+                var packageOfUser = await packageOfUserService.GetAsync(POU => POU.UserId == user.Id && POU.Status == 1); // status =1 : user dng su dung hop dong nay.
+                // vi tren la iList nhung theo logic moi user chi co' 1 goi' dang su dung nen danh sach luon tra ve mot doi tuong packageOfUser
+                var package = packageService.GetById(packageOfUser[0].PackageId);
+                // so sanh so luong phong hien tai va so luong phong cho phep
+                // nếu số lượng phòng hiện tại < sô lượng phòng cho phép => ok
+                if(Rooms.Count< packageOfUser[0].RoomLimited)
                 {
-                    foreach (var d in ListLinkImage)
+                    // phòng mới
+                    Room room = new Room();
+                    room.Id = itemModel.Id;
+                    room.Name = itemModel.Name;
+                    room.Price = itemModel.Price;
+                    room.Status = itemModel.Status;
+                    room.TenantId = user.TenantId;
+                    room.CreatedBy = user.UserName;
+                    room.Created = DateTime.Now;
+                    room.Acreage = itemModel.Acreage;
+                    room.BedAmount = itemModel.BedAmount;
+                    room.BranchFloor = itemModel.BranchFloor;
+                    room.BranchId = itemModel.BranchId;
+                    room.Deposit = itemModel.Deposit;
+                    room.Deleted = itemModel.Deleted;
+                    room.Active = itemModel.Active;
+                    room.RoomTypeId = itemModel.RoomTypeId;
+                    room.FloorId = itemModel.FloorId;
+                    //giá diện nước mặc định 
+                    room.ElectricPrice = 3000; // 3000 / kw điện
+                    room.WaterPrice = 8000; // 8000/ m3 nước
+                                            //
+                                            //var result = await this.CreateAsync(room);
+                    await this.unitOfWork.Repository<Room>().CreateAsync(room);
+                    await this.unitOfWork.SaveAsync();
+                    if (room != null)
                     {
-                        RoomImage roomImage = new RoomImage();
-                        roomImage.RoomId = room.Id;
-                        roomImage.Link = d;
-                        LsRoomImage.Add(roomImage);
+                        returnResult = true;
+                        // hình ảnh phòng mới
+                        var ListLinkImage = itemModel.Images.Split(";");
+                        List<RoomImage> LsRoomImage = new List<RoomImage>();
+                        if (ListLinkImage.Length > 0)
+                        {
+                            foreach (var d in ListLinkImage)
+                            {
+                                RoomImage roomImage = new RoomImage();
+                                roomImage.RoomId = room.Id;
+                                roomImage.Link = d;
+                                LsRoomImage.Add(roomImage);
+                            }
+                        }
+                        var rs = await roomImageService.CreateAsync(LsRoomImage);
+                        if (rs)
+                        {
+                            returnResult = true;
+                        }
+                        else
+                        {
+                            returnResult = false;
+                        }
                     }
-                }
-                var rs = await roomImageService.CreateAsync(LsRoomImage);
-                if (rs)
-                {
-                    returnResult = true;
+                    else
+                    {
+                        returnResult = false;
+                    }
                 }
                 else
                 {
-                    returnResult = false;
+                    throw new Exception("Số phòng theo gói đã hết!");
                 }
             }
             else
             {
-                returnResult = false;
+                throw new Exception("lỗi trong quá trình xử lý");
             }
 
             
@@ -112,6 +141,9 @@ namespace Sample.Service.Services
         {
             // lấy thông tin phòng
             Room room = this.GetById(request.RoomId);
+            if (room.DateInToRoom == null) {
+                throw new Exception("Phòng trống không thể tính toán");
+            }
             // kiểm tra ngày dọn vào của người đại diện trong phòng để tính toán điện nước
             // lấy ra danh sách ghi điện theo tháng và năm
             IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) >0 && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);

@@ -1563,6 +1563,9 @@ namespace Sample.AppDbContext.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("AcceptDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
@@ -1576,7 +1579,28 @@ namespace Sample.AppDbContext.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PackageDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PackageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PackageMoreInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PackageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("PackagePrice")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomLimited")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -1592,8 +1616,14 @@ namespace Sample.AppDbContext.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("UsedDate")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1763,40 +1793,43 @@ namespace Sample.AppDbContext.Migrations
                     b.Property<DateTime?>("DateIntoRoom")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DebtMoney")
+                    b.Property<double?>("DebtMoney")
                         .HasColumnType("float");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Deposit")
+                    b.Property<int?>("Deposit")
                         .HasColumnType("int");
 
                     b.Property<string>("HomeTown")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumCusInRoom")
+                    b.Property<int?>("NumCusInRoom")
                         .HasColumnType("int");
 
-                    b.Property<int>("PaymentMethod")
+                    b.Property<int?>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<int>("Prepay")
+                    b.Property<int?>("Prepay")
                         .HasColumnType("int");
 
                     b.Property<string>("Relationship")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TakeMoney")
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("TakeMoney")
                         .HasColumnType("float");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TotalMoney")
+                    b.Property<double?>("TotalMoney")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("Updated")
@@ -1806,8 +1839,11 @@ namespace Sample.AppDbContext.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<double?>("UserMoney")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -2067,6 +2103,48 @@ namespace Sample.AppDbContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SampleConfig");
+                });
+
+            modelBuilder.Entity("Sample.Entities.UserImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UserId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserImages");
                 });
 
             modelBuilder.Entity("Sample.Entities.UserInRoom", b =>

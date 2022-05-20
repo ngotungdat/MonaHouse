@@ -165,6 +165,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<PackageOfUserModel, PackageOfUser>().ReverseMap();
             CreateMap<PackageOfUserRequest, PackageOfUser>().ReverseMap();
             CreateMap<PagedList<PackageOfUserModel>, PagedList<PackageOfUser>>().ReverseMap();
+
+            CreateMap<UserImageModel, UserImage>().ReverseMap();
+            CreateMap<UserImageRequest, UserImage>().ReverseMap();
+            CreateMap<PagedList<UserImageModel>, PagedList<UserImage>>().ReverseMap();
         }
     }
     

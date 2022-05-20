@@ -32,6 +32,7 @@ namespace Sample.Models.Auth
         public DateTime? DateOfBirth { get; set; }
         public DateTime? UserCreated { get; set; }
         public int? Status { get; set; }
+        public string Avatar { get; set; }
         #region Extension Properties
 
         /// <summary>

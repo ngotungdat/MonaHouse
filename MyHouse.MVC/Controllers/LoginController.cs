@@ -50,7 +50,10 @@ namespace MyHouse.MVC.Controllers
             if (response.Data.Success)
             {
                 string token = response.Data.Data.ToString();
+
+                string expire = response.Data.Expire.ToString();
                 HttpContext.Session.SetString("token", token);
+                HttpContext.Session.SetString("expire", expire);
                 return RedirectToAction("Dashboard", "Home");
             }
             ModelState.AddModelError("", response.Data.ResultMessage);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MyHouse.MVC.Models;
 using Newtonsoft.Json;
@@ -27,6 +28,27 @@ namespace MyHouse.MVC.Controllers
         public async Task<IActionResult> RoomDetail()
         {
             CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
+        public async Task<IActionResult> RoomDetailForRenter()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            //
+            string domain = GetCurrentDomain();
+            string token = HttpContext.Session.GetString("token");
+            RestClient client = new RestClient(domain + "api/userinroom?UserId="+coreModel.Users.Id+"&PageIndex=1&PageSize=20&OrderBy=0&TenantId="+coreModel.Users.TenantId);
+            client.Timeout = -1;
+            RestRequest request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            IRestResponse response = await client.ExecuteAsync(request);
+            var obj = JObject.Parse(response.Content);
+            var data = obj["Data"];
+            var items = data["Items"];
+            List<UserInRoomModel> model = JsonConvert.DeserializeObject<List<UserInRoomModel>>(items.ToString());
+            coreModel.MyProperty = model[0].RoomId;
+            //
             if (coreModel == null)
                 return RedirectToAction("Login", "Login");
             return View(coreModel);

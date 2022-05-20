@@ -55,6 +55,10 @@ namespace Sample.API.Controllers
             {
                 var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
                 Room room = RoomService.GetById(request.RoomId);
+                if (room.DateInToRoom == null)
+                {
+                    throw new AppException("Phòng trống không thể tính tiền");
+                }
                 IList<ElectricWaterBill> ElectricWaterBills = await ElectricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) > 0 && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
                 IList<ElectricWaterBillModel> ElectricWaterBillModels = (IList<ElectricWaterBillModel>)mapper.Map<IList<ElectricWaterBillModel>>(ElectricWaterBills);
 

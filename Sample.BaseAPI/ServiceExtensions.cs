@@ -100,6 +100,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IRoomReceiptService, RoomReceiptService>();
             services.AddScoped<IRoomContractRepresentativeService, RoomContractRepresentativeService>();
             services.AddScoped<IPackageOfUserService, PackageOfUserService>();
+            services.AddScoped<IUserImageService, UserImageService>();
 
             #endregion
 

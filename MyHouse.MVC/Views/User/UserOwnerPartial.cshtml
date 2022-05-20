@@ -11,8 +11,8 @@
             <th class="sort-label" data-column="col-room">Số điện thoại</th>
             <th class="sort-label" data-column="col-people">Email</th>
             <th class="sort-label" data-column="col-status">Trạng thái</th>
-            <th class="sort-label" data-column="col-electric">Ngày tạo</th>
-            <th class="sort-label" data-column="col-deposit">Tiền nợ</th>
+            <th class="sort-label" data-column="col-electric">Ngày đăng ký</th>
+            @*<th class="sort-label" data-column="col-deposit">Gói đang sử dụng</th>*@
             <th class="action-col"></th>
         </tr>
     </thead>
@@ -34,33 +34,35 @@
                     </td>
                     <td data-column="col-people">@item.Email</td>
                     <td data-column="col-status">
-                        <span class="badge badge-warning wd-100 pd-5 tx-12">
-                            Cần tư vấn
-                        </span>
-                        <p class="mg-b-0 mg-t-5 tx-12">Thuê vào: 20/04/2020</p>
+                        @{
+                            if (item.Status == 0)
+                            {
+                                <span class="badge badge-success wd-100 pd-5 tx-12">
+                                    đã kích hoạt
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger wd-100 pd-5 tx-12">
+                                    đã khóa
+                                </span>
+                            }
+
+                        }
+
+                    <p class="mg-b-0 mg-t-5 tx-12">Thuê vào: @item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
                     </td>
-                    <td data-column="col-electric">20/04/2020</td>
-                    <td data-column="col-deposit">
-                        <span class="tx-danger tx-medium">12.000.000</span>
-                    </td>
+                    <td data-column="col-electric">@item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    @*<td data-column="col-deposit">
+                        <span class="tx-danger tx-medium">Gói cá nhân</span>
+                    </td>*@
                     <td class="action-col">
                         <div class="dropdown__wrap">
                             <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                             <ul class="drop-menu">
-                                <li class="drop-menu-item"><a href="room-detail.php" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
-                                <li class="drop-menu-item">
-                                    <a href="#js-electronicNote" data-toggle="modal" class="item-link">
-                                        <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
-                                        điện
-                                    </a>
-                                </li>
-                                <li class="drop-menu-item">
-                                    <a href="#js-payMoney" data-toggle="modal" class="item-link">
-                                        <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true"></i></span>Thu
-                                        tiền
-                                    </a>
-                                </li>
-                                <li class="drop-menu-item">
+                                <li class="drop-menu-item"><a href="@Url.Action("PackageOfUserList","PackageOfUser", new {UserId=item.Id })" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Lịch sử gói</a></li>
+                                
+                                @*<li class="drop-menu-item">
                                     <a href="#js-goOut" data-toggle="modal" class="item-link">
                                         <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>Dọn
                                         ra
@@ -71,7 +73,7 @@
                                         <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
                                         vào
                                     </a>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </td>

@@ -12,7 +12,7 @@
                 <div class="info-list">
                     <img src="~/house/images/favicon.ico" />
                     <dl class="row-info hide-on-print mg-t-10">
-                        <dd class="">Tài khoản</dd>
+                        <dd class="">Tài khoản:</dd>
                         <dt class="">
                             <span tabindex="0" class="badge badge-success valign-middle user-status-@user.Id" role="button">
 
@@ -20,76 +20,61 @@
                         </dt>
                     </dl>
                     <dl class="row-info">
-                        <dd class="">Ngày sinh</dd>
+                        <dd class="">Ngày sinh:</dd>
                         <dt class="user-dateofbirth-@user.Id"></dt>
                     </dl>
                     <dl class="row-info">
-                        <dd class="">Tên đăng nhập</dd>
-                        <dt class="user-username-@user.Id"></dt>
+                        <dd class="">Tên đăng nhập:</dd>
+                        <dt><span class="user-username-@user.Id"></span></dt>
                     </dl>
-                    <dl class="row-info mg-b-0">
-                        <dt class=""><span class="tx-danger user-address-@user.Id"> 319 c16, Lý Thường Kiệt, phường 15, Quận 11, tp. HCM</span></dt>
+                    <dl class="row-info">
+                        <dd class="">Địa chỉ:</dd>
+                        <dt class=""><span class="tx-danger user-address-@user.Id"></span></dt>
                     </dl>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-8 ">
-            <div class="legend-box pd-25  " data-label="Dịch vụ đang sử dụng">
-                <a href="#js-edit-service" data-toggle="modal" class="edit-service-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
+            <div class="legend-box pd-25  " data-label="Gói dịch vụ đang sử dụng">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="info-list">
                             <dl class="row-info">
                                 <dd class="">Gói phần mềm:</dd>
-                                <dt class="">Dùng thử</dt>
+                                <dt class="package-title-@user.Id">Trống</dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Giá tiền</dd>
-                                <dt class="">Miễn phí 30 ngày</dt>
+                                <dd class="">Tối đa:</dd>
+                                <dt class="tx-danger package-roomlimited-@user.Id ">Trống</dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Giá nước:</dd>
-                                <dt class="">0886706289</dt>
+                                <dd class="">Mô tả:</dd>
+                                <dt class="package-desc-@user.Id">Trống</dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Điện tháng trước:</dd>
-                                <dt class="">
-                                    <span class="mg-r-10" tabindex="0" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 kW</strong>" data-original-title="Số điện tháng 3">500.000</span>
-                                    <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span>
-                                </dt>
+                                <dd class="">Tiện ích:</dd>
+                                <dt class="package-more-desc-@user.Id">Trống</dt>
                             </dl>
-                            <dl class="row-info">
-                                <dd class="">Nước tháng trước:</dd>
-                                <dt class="">
-                                    <span tabindex="0" class="mg-r-10" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="<strong>32323244</strong> <br/> Đã dùng: <strong>150 m<sup>3</sup></strong>" data-original-title="Số nước tháng 3">500.000</span>
-                                    <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span>
-                                </dt>
-                            </dl>
-
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="info-list">
                             <dl class="row-info">
-                                <dd class="">Mạng:</dd>
-                                <dt class="">200.000</dt>
+                                <dd class="">Ngày đăng ký:</dd>
+                                <dt class="package-created-@user.Id">Trống</dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Rác:</dd>
-                                <dt class="">50.000</dt>
+                                <dd class="">Ngày Duyệt:</dd>
+                                <dt class="package-accept-@user.Id">Trống</dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Giữ xe:</dd>
-                                <dt class="">150.000</dt>
+                                <dd class="">Ngày hết hạn:</dd>
+                                <dt class="package-expire-@user.Id">Trống</dt>
                             </dl>
-
                             <dl class="row-info">
-                                <dd class="">Cáp TV:</dd>
-                                <dt class="">
-                                    <span class="tx-second">100.000</span>
-                                </dt>
+                                <dd class="">Ghi chú:</dd>
+                                <dt class="package-note-@user.Id">Trống</dt>
                             </dl>
-
                         </div>
                     </div>
                 </div>
@@ -365,7 +350,8 @@
     //tự gọi lấy data khi có view khác gọi đến
     $(function () {
         load_user_detail('@Model.Domain' + 'api/user/' + @user.Id);
-        load_user_note('@Model.Domain' + 'api/UserNote?UserID='+'@user.Id'+'&PageIndex=1&PageSize=20&OrderBy=0');
+        load_user_note('@Model.Domain' + 'api/UserNote?UserID=' + '@user.Id' + '&PageIndex=1&PageSize=20&OrderBy=0');
+        load_PackageOfUser('@Model.Domain' + 'api/PackageOfUser?UserId=' +@user.Id+'&Status=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId');
     });
     //Load dữ liệu chi tiết user theo api
     function load_user_detail(api) {
@@ -383,6 +369,35 @@
                 $('.user-dateofbirth-' + user.Id).html(moment(user.DateOfBirth).format("DD-MM-YYYY"));
                 $('.user-username-' + user.Id).html(user.UserName);
                 $('.user-address-' + user.Id).html(user.Address);
+            },
+            error: function (xhr, status, error) {
+                console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }//Load dữ liệu chi tiết packOfuser mà user đang sử dụng theo api
+    function load_PackageOfUser(api) {
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: api,
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status, xhr) {
+                let packageOfUsers = data.Data.Items;
+                if (packageOfUsers.length > 0) {
+                    let packageOfUser = packageOfUsers[0];
+                    $('.package-title-@user.Id').html(packageOfUser.PackageName);
+                    $('.package-roomlimited-@user.Id').html(packageOfUser.RoomLimited);
+                    $('.package-desc-@user.Id').html(packageOfUser.PackageDescription);
+                    $('.package-more-desc-@user.Id').html(packageOfUser.PackageMoreInfo);
+                    $('.package-created-@user.Id').html(format_date(packageOfUser.Created));
+                    $('.package-accept-@user.Id').html(format_date(packageOfUser.AcceptDate));
+                    $('.package-expire-@user.Id').html(format_date(packageOfUser.ExpireDate));
+                    $('.package-note-@user.Id').html(packageOfUser.note);
+                }
+
             },
             error: function (xhr, status, error) {
                 console.log("Result load data: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

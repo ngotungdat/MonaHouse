@@ -40,6 +40,9 @@ namespace Sample.Entities.Auth
         public DateTime? UserCreated { get; set; }
         [NotMapped]
         public int? Status { get; set; }
+
+        [NotMapped]
+        public string Avatar { get; set; }
         #region Extension Properties
 
         /// <summary>

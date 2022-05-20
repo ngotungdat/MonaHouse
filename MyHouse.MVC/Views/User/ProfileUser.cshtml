@@ -40,8 +40,9 @@
                     <div class="user-action-profile">
                         <ul>
                             <li class="active"><a href="#">Thay đổi thông tin</a></li>
-                            <li><a href="@@Url.Action(" Option", "Account" , new { area="" })">Cấu hình phòng</a></li>
-                            <li><a href="@@Url.Action(" Price", "PriceTable" , new { area="" })">Gia hạn và nâng cấp gói</a></li>
+                            <li><a href="@Url.Action("RoomList", "Room" , new { area="" })">Cấu hình phòng</a></li>
+                            <li><a href="@Url.Action("PackageList", "Package" , new { area="" })">Gia hạn và nâng cấp gói</a></li>
+                            <li><a href="javascript:;" onclick="DetailImage(@Model.Users.Id)">Hình ảnh thông tin cá nhân</a></li>
                         </ul>
                     </div>
                 </div>
@@ -75,16 +76,16 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Ngày sinh</label>
-                            <input type="text" name="txt-birthday" id="txt-birthday"  class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
+                            <input type="text" name="txt-birthday" id="txt-birthday" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
                         </div>
-                        
+
                         <div class="col-md-12 form-group">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh</label>
                             <div style="clear:left;"></div>
                             <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
                                 <i data-feather="camera" class="mg-r-5"></i> Ảnh đại diện
                             </a>
-                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" />
+                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this,'input-img','room-img');" />
                             <div style="clear:left;"></div>
                             <div class="preview-image" id="room-img"></div>
                         </div>
@@ -105,7 +106,7 @@
                         </div> <div class="col-md-4 form-group">
                             <label>Nhập lại Mật khẩu mới</label>
                             <input type="password" name="txt-passconfirm" id="txt-passconfirm" class="form-control" autocomplete="new-password" />
-                             <span id="message"></span>
+                            <span id="message"></span>
                         </div> <div class="col-md-4 form-group">
                             <label>Mật khẩu cũ</label>
                             <input type="password" name="txt-passold" id="txt-passold" class="form-control" autocomplete="new-password" />
@@ -119,7 +120,228 @@
         </div>
     </div>
 </div><!-- container -->
+<!--modal Image-->
+<div class="modal fade modal-nopadding-right" id="modal-room-image" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-image"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Hình ảnh phòng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">hình ảnh chi tiết</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="row">
+                    <input type="hidden" id="hdfId-update-room-image" value="0" />
+                    <div class="col-sm-12">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                        <div style="clear:left;"></div>
+                        <a href="javascript:;" class="btn btn-outline-primary btn-uploads-edit btn-block">
+                            <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                        </a>
+                        <input id="input-img-edit" type='file' name="electricimg" class="hidden upload-image-temps-edit remove-items" onchange="readURL(this,'input-img-edit','image-byroomidEdit');" multiple />
+                        <div style="clear:left;"></div>
+                        <div class="preview-image" id="image-byroomid"></div>
+                        <div class="preview-image" id="image-byroomidEdit"></div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-image-edit">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
 <script>
+    // #region cập nhật hình ảnh User
+    let listImageToDelete = [];
+    let listImage = [];
+    $('.btn-uploads-edit').on('click', function () {
+        $('.upload-image-temps-edit').click();
+    });
+    // xóa img
+    function deleteImage(index) {
+
+        //list.remove(index);
+        listImage.splice(index, 1);
+    }
+        //
+    function DetailImage(userId) {
+        listImageToDelete = [];
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/UserImage/GetUserImagesByUserID?userId=' + userId,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    $('#hdfId-update-room-image').val(userId);
+                    let list = data.Data;
+                    let html = '';
+                    for (let i = 0; i < list.length; i++) {
+                        let item = list[i];
+                        let image = {};
+                        image["id"] = item.Id;
+                        image["link"] = item.Link;
+                        html += `<div class="image-wrap">
+                            <div class="image-box lightgallery">
+                                <a href="`+ item.Link + `" class=""> <img style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="` + item.Link +`" alt="image" class="img "></a>
+                            </div>
+                            <a href="javascript:;" class="delete-image" onClick="addImageIntoDelete(`+ item.Id +`)" ><i class="fas fa-times"></i></a>
+                        </div>`;
+                    }
+                    let a = $('#image-byroomid').html(html);
+                    $('#modal-room-image').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
+
+    function addImageIntoDelete(data) {
+        listImageToDelete.push(data);
+        console.log(listImageToDelete);
+    }
+
+    //on click
+    $('.btn-save-image-edit').on('click', function () {
+        let StringAddImageLinks = '';
+        let StringdeleteImageId = '';
+        // lay du lieu anh moi' load
+        console.log('them moi anh'+listImage);
+        // lay' danh sach anh muon' xoa'
+        console.log('xoa anh'+listImageToDelete);
+        // upload anh moi' va luu roomImage
+        if (listImage.length > 0) {
+            let ImageNames = upload_img(listImage);
+                for (let i = 0; i < ImageNames.length; i++) {
+                    ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                }
+            StringAddImageLinks = ImageNames.join(';');
+        }
+        // danh sach anh bi xoa' chuyen doi sang Chuoi String
+        if (listImageToDelete.length > 0) {
+            StringdeleteImageId = listImageToDelete.join(';');
+        }
+        if (ckstring(StringAddImageLinks) && ckstring(StringdeleteImageId)) {
+            Swal.fire(
+                'Cảnh báo',
+                'hình ảnh không thay đổi!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data['userId'] = $('#hdfId-update-room-image').val();
+            data['stringAddImageLinks'] = StringAddImageLinks;
+            data['stringdeleteImageId'] = StringdeleteImageId;
+            console.log(data.roomId, data.StringAddImageLinks, data.StringdeleteImageId);
+            update_image_room(data);
+        }
+    });
+    // function updata anh
+    function update_image_room(data) {
+        $('.btn-save-image-edit').prop('disabled', true);
+        let type_request = 'POST';
+            $.ajax({
+                url: '@Model.Domain' + 'api/UserImage/UpdateUserImage',
+                data: JSON.stringify(data),
+                type: type_request,
+                dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                contentType: "application/json",
+                success: function (data) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Cập nhật dữ liệu thành công!',
+                            'success'
+                        );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Rất tiếc đã xảy ra lỗi!',
+                        'error'
+                    );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+    }
+    // lấy thông tin và hiển thị hình ảnh
+    function readURL(input, inputId, loadId) {
+        console.log(inputId, loadId);
+        console.log(input, input.files);
+        if (input.files && input.files[0]) {
+            let flag = false;
+            for (let i = 0; i < input.files.length; i++) {
+                if (input.files[i].size > 2000000) {
+                    console.log('file lon hon 10mb');
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == true) {
+                alert("File ảnh không được quá 2MB");
+            } else {
+                let html = '';
+                let tmp_function = 'deleteAvatar';
+                if (inputId == 'input-img-edit') {
+                    listImage = [];
+                    tmp_function = 'deleteImage';
+                }
+                for (let i = 0; i < input.files.length; i++) {
+                    //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
+                    html += `<div class="image-wrap">
+                            <div class="image-box lightgallery">
+                                <a id="room-img-href-` + i + `-` + inputId + `" href="#" class=""> <img id="room-img-` + i + `-` + inputId + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
+                            </div>
+                            <a id="img-` + i + `" onClick="` + tmp_function + `(` + i + `)" href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                        </div>`;
+                }
+                $('#' + loadId).hide().html(html).show('slow');
+                for (let i = 0; i < input.files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#' + 'room-img-' + i + `-` + inputId)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                        $('#' + 'room-img-href-' + i + `-` + inputId)
+                            .attr('href', e.target.result)
+                    };
+                    reader.readAsDataURL(input.files[i]);
+                }
+                if (inputId == 'input-img-edit') {
+                    let value = document.getElementById(inputId).files;
+                    for (let i of value) {
+                        listImage.push(i);
+                    }
+                }
+            }
+        }
+
+    }
+    //#endregion
+
     // bat loi form
     $('#txt-pass, #txt-passconfirm').on('keyup', function () {
         if ($('#txt-pass').val() == $('#txt-passconfirm').val()) {
@@ -132,38 +354,7 @@
     $('.btn-uploads').on('click', function () {
         $('.upload-image-temps').click();
     });
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            //listImage = [];
-            let html = '';
-            for (let i = 0; i < input.files.length; i++) {
-                //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
-                html += `<div class="image-wrap">
-                            <div class="image-box lightgallery">
-                                <a id="room-img-href-` + i + `" href="#" class=""> <img id="room-img-` + i + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
-                            </div>
-                            <a id="img-` + i + `"  href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                        </div>`;
-            }
-            $('#room-img').hide().html(html).show('slow');
-            for (let i = 0; i < input.files.length; i++) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#' + 'room-img-' + i)
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
-                    $('#' + 'room-img-href-' + i)
-                        .attr('href', e.target.result)
-                };
-                reader.readAsDataURL(input.files[i]);
-            }
-            let value = document.getElementById("input-img").files;
-            //for (let i of value) {
-            //    listImage.push(i);
-            //}
-        }
-    }
+    
     function upload_img(files) {
             let rs = [];
             var formData = new FormData();
@@ -196,7 +387,7 @@
     //xu ly ngay thang nam
     $(document).ready(function () {
         var date = new Date('@user.DateOfBirth');
-        let dob = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
         $('#txt-birthday').val(dob);
     })
 

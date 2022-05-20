@@ -27,12 +27,12 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
-        public async Task<IActionResult> PackageOfUserPartial(int PageIndex, int PageSize, int OrderBy, int TenantId)
+        public async Task<IActionResult> PackageOfUserPartial(int PageIndex, int PageSize, int OrderBy, int TenantId, int UserId=-1)
         {
             string domain = GetCurrentDomain();
             CoreModel coreModel = await GetCurrentSessionAsync();
             string token = HttpContext.Session.GetString("token");
-            RestClient client = new RestClient(domain + "api/PackageOfUser?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&TenantId=" + coreModel.Users.Id );
+            RestClient client = new RestClient(domain + "api/PackageOfUser?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&TenantId=" + TenantId + "&UserId=" + UserId);
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);
@@ -45,7 +45,8 @@ namespace MyHouse.MVC.Controllers
             ViewData["totalpage"] = data["TotalPage"];
             ViewData["totalitem"] = data["TotalItem"];
             List<PackageOfUserModel> model = JsonConvert.DeserializeObject<List<PackageOfUserModel>>(items.ToString());
-            return PartialView(model);
+            coreModel.MyProperty = model;
+            return PartialView(coreModel);
         }
         public async Task<IActionResult> PackageOfUserDetailPartial(int PackageOfUserId)
         {

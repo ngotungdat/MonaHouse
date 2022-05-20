@@ -59,9 +59,13 @@
             <div class="modal-body pd-sm-t-30 pd-sm-x-30">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên gói phần mềm <span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-title" required class="form-control" placeholder="Ví dụ: Gói dùng thử">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Thời gian sử dụng(ngày) <span class="text-danger">(*)</span></label>
+                            <input type="number" name="txt-used-time" required class="form-control">
                         </div>
                     </div>
                     <div class="row mg-t-10">
@@ -135,32 +139,30 @@
             <div class="modal-body pd-sm-t-30 pd-sm-x-30">
                 <div class="form-group">
                     <div class="row">
+                        <input type="hidden" id="packageofuser-id" value="0" />
                         <input type="hidden" id="package-id" />
                         <input type="hidden" id="user-id" />
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên gói phần mềm <span class="text-danger">(*)</span></label>
-                            <input type="text" name="" required class="form-control" value="Gói dùng thử" readonly>
+                            <input type="text" id="name-package" required class="form-control" readonly>
                         </div>
                     </div>
 
                     <div class="row mg-t-10">
                         <div class="col-sm-12">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Phương thức thanh toán <span class="text-danger">(*)</span></label>
-                            <select name="" class="form-control">
-                                <option selected value="">Tiền mặt</option>
-                                <option value="">Chuyển khoản</option>
+                            <select id="payment-method" class="form-control">
+                                <option selected value="0">Chuyển khoản</option>
+                                <option  value="1">Tiền mặt</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ghi chú <span class="text-danger">(*)</span></label>
-                    <textarea rows="2" name="" class="form-control" placeholder="..."></textarea>
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ghi chú <span class="text-danger">(bạn nên ghi chú)</span></label>
+                    <textarea rows="2" id="note-packageOfUser" class="form-control" placeholder="..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Liên hệ <span class="text-danger">(*)</span></label>
-                    <textarea rows="2" name="" id="" class="form-control" placeholder="..."></textarea>
-                </div>
+               
 
             </div><!-- modal-body -->
             <div class="modal-footer pd-x-20 pd-y-15">
@@ -254,12 +256,25 @@
     let domain = '@Model.Domain';
     domain += 'api/Package';
 
+
+
     //Tạo hoặc làm mới api
     function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
         return domain + '?PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
     }
+    let packageId = -1;
+    let packOfUserId = -1;
     $(document).ready(function () {
-        load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        // kiem tra package of user
+        let api_get_packageofuser = 'api/PackageOfUser?UserId=@Model.Users.Id&Status=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+        load_data_with_jquery(api_get_packageofuser).then(function (e) {
+            if (e.Data.Items.length > 0) {
+                packageId = e.Data.Items[0].PackageId;
+                packOfUserId = e.Data.Items[0].Id;
+            }
+        }).then(function (e) {
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        })
     });
     //Load dữ liệu theo api
     function load_data(api) {
@@ -286,15 +301,23 @@
                     let html = ``;
                     for (let i = 0; i < list.length; i++) {
                         let item = list[i];
+                        console.log(item.UserdTime);
                         let btn_delete = ``;
                         let btn_edit = ``;
                         let btn_action = ``;
                         if (@users.RoleNumber == 1) {
                             btn_delete = `<a href="javascript:;" class="edit-house update-house btn-delete-package text-danger" data-id="${item.Id}"><i class="far fa-trash-alt"></i></a>`;
-                            btn_edit = `<a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>`;
+                            btn_edit = `<a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-usedtime="${item.UserdTime}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>`;
                         }
                         else if (@users.RoleNumber == 3) {
-                            btn_action = `<button type="button" class="btn btn-success btn-register-package" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                            console.log(item.Id);
+                            console.log(packageId);
+                            if (item.Id == packageId) {
+                                btn_action = `<button type="button" class="btn btn-danger btn-register-package" data-pou-id="${packOfUserId}" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Gia hạn gói</button>`;
+                            }
+                            else {
+                                btn_action = `<button type="button" class="btn btn-success btn-register-package" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                            }
                         }
                         html += ` <div class="house-wrap col-md-4">
                             <div class="house-item border">
@@ -354,6 +377,7 @@
 
     $('.btn-add-package').on('click', function (event) {
         $('input[name=txt-title]').val('');
+        $('input[name=txt-used-time]').val(0);
         $('textarea[name=txt-title-description]').val('');
         $('input[name=txt-limitedRoom]').val('');
         $('input[name=txt-price]').val('');
@@ -366,26 +390,34 @@
     });
 
     $(document).on('click', '.btn-register-package', function (event) {
+        $('#packageofuser-id').val($(this).attr('data-pou-id'));
         $('#package-id').val($(this).attr('data-id'));
         $('#user-id').val($(this).attr('data-userid'));
+        $('#name-package').val($(this).attr('data-name'));
         $('#modal-register-package').modal('show');
     });
 
     $(document).on('click', '.btn-register-package-save', function (event) {
         //$('#package-id').val($(this).attr('data-id'));
         //$('#user-id').val($(this).attr('data-userid'));
+        let packageofuser_id = $('#packageofuser-id').val();
         let package_id = $('#package-id').val();
         let user_id = $('#user-id').val();
+        let payment_method = $('#payment-method').val();
+        let note = $('#note-packageOfUser').val();
         console.log(package_id);
         console.log(user_id);
-        if (ckstring(package_id) || ckstring(user_id)) {
+        console.log(payment_method);
+        console.log(packageofuser_id);
+        console.log(note);
+        if (ckstring(package_id) || ckstring(user_id) || ckstring(payment_method)) {
             Swal.fire(
                 'Cảnh báo',
                 'Thiếu thông tin!',
                 'warning'
             )
         }
-        else {
+        else if (packageofuser_id ==0) {
             Swal.fire({
                 title: 'Xác nhận đăng kí hợp đồng?',
                 text: "Bạn sẽ nhận lại phản hồi nhanh nhất!",
@@ -401,7 +433,38 @@
                     data["id"] = 0;
                     data["packageId"] = package_id;
                     data["userId"] = user_id;
-                    data["status"] = user_id;
+                    data["status"] = 0; // 0: cho duoc duyet
+                    data["paymentMethod"] = payment_method;
+                    data["note"] = note;
+                    data["active"] = true;
+                    data["deleted"] = false;
+                    let api_create_packageOfUser = 'api/PackageOfUser';
+                    create_data(data, api_create_packageOfUser).then(function (e) {
+                        console.log(e);
+                    });
+                }
+            })
+        }
+        else if (packageofuser_id != 0) {
+            console.log("aaaa");
+            Swal.fire({
+                title: 'Xác nhận gia hạn hợp đồng?',
+                text: "Bạn sẽ nhận lại phản hồi nhanh nhất!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý!'
+            }).then((result) => {
+                if (result.value == true) {
+                    console.log('Gia hạn gói cho thuê');
+                    let data = {};
+                    data["id"] = 0;
+                    data["packageId"] = package_id;
+                    data["userId"] = user_id;
+                    data["status"] = 3; // 0: cho duoc gia han
+                    data["paymentMethod"] = payment_method;
+                    data["note"] = note;
                     data["active"] = true;
                     data["deleted"] = false;
                     let api_create_packageOfUser = 'api/PackageOfUser';
@@ -416,6 +479,7 @@
     $(document).on('click', '.btn-detail-package', function (event) {
         $('input[name=hdfId]').val($(this).attr('data-id'));
         $('input[name=txt-title]').val($(this).attr('data-title'));
+        $('input[name=txt-used-time]').val($(this).attr('data-usedtime'));
         $('textarea[name=txt-title-description]').val($(this).attr('data-titleDescription'));
         $('input[name=txt-limitedRoom]').val($(this).attr('data-limitedRoom'));
         $('input[name=txt-price]').val(format_money($(this).attr('data-price')));
@@ -459,6 +523,7 @@
     $('.btn-save-package').click(function () {
         const id = $('input[name=hdfId]').val();
         const title = $('input[name=txt-title]').val();
+        const usedTime = $('input[name=txt-used-time]').val();
         const titleDescription = $('textarea[name=txt-title-description]').val();
         const limitedRoom = $('input[name=txt-limitedRoom]').val().replaceAll(',', '');
         const price = $('input[name=txt-price]').val().replaceAll(',', '');
@@ -468,7 +533,7 @@
         //tinymce.editors[0].contentDocument.activeElement.innerHTML;
         const type_of_rental = $('select[name=dll-type-of-rental]').val();
         const package_type = $('select[name=dll-package-type]').val();
-        if (ckstring(title) || ckstring(titleDescription) || ckstring(limitedRoom) || ckstring(price) || ckstring(description) || ckstring(type_of_rental) || ckstring(package_type)) {
+        if (ckstring(title) || ckstring(usedTime) || ckstring(titleDescription) || ckstring(limitedRoom) || ckstring(price) || ckstring(description) || ckstring(type_of_rental) || ckstring(package_type)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -477,14 +542,15 @@
         }
         else {
             $(this).prop('disabled', true);
-            insert_or_update(id, title, titleDescription, description, limitedRoom, price, active, type_of_rental, package_type)
+            insert_or_update(id, title, usedTime, titleDescription, description, limitedRoom, price, active, type_of_rental, package_type)
         }
     });
 
-    function insert_or_update(Id, Title, TitleDescription, Description, LimitedRoom, Price, active, type_of_rental, package_type) {
+    function insert_or_update(Id, Title, usedTime, TitleDescription, Description, LimitedRoom, Price, active, type_of_rental, package_type) {
         let data = {};
         data["id"] = Id;
         data["title"] = Title; //I just wanted to show you how you can add values to a json object
+        data["userdTime"] = usedTime;
         data["titleDescription"] = TitleDescription;
         data["limitedRoom"] = LimitedRoom;
         data["price"] = Price;

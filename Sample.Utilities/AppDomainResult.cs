@@ -17,6 +17,7 @@ namespace Sample.Utilities
         public int ResultCode { get; set; }
         //public IList<string> Messages { get; set; }
         public string ResultMessage { get; set; }
+        public bool Expire { get; set; }
 
         public override string ToString()
         {

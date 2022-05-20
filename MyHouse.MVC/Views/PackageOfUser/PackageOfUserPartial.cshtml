@@ -1,4 +1,5 @@
 ﻿@using Sample.Models;
+@model CoreModel;
 @{
     Layout = "";
 }
@@ -12,16 +13,41 @@
             <th class="sort-label" data-column="col-people">Email</th>
             <th class="sort-label" data-column="col-people">Gói Đăng kí</th>
             <th class="sort-label" data-column="col-status">Trạng thái</th>
-            <th class="sort-label" data-column="col-electric">Ngày Đăng kí</th>
-            <th class="sort-label" data-column="col-deposit">Duyệt Đăng kí</th>
-            <th class="sort-label" data-column="col-deposit" style="text-align:center">Thao tác</th>
-            <th class="action-col"></th>
+            <th class="sort-label" data-column="col-electric">Ngày Duyệt</th>
+            <th class="sort-label" data-column="col-deposit">Ngày hết hạn</th>
+            @{
+                if (Model.Users.RoleNumber == 1|| Model.Users.RoleNumber == 2)
+                {
+                    <th class="sort-label" data-column="col-deposit" style="text-align:center">Thao tác</th>
+                }
+            }
+
+            
         </tr>
     </thead>
     <tbody>
         @{
-            foreach (PackageOfUserModel item in Model)
+            List<PackageOfUserModel> packageOfUserModels =(List<PackageOfUserModel>) Model.MyProperty;
+            foreach (PackageOfUserModel item in packageOfUserModels)
             {
+                string acceptDate = "";
+                string expireDate = "";
+                Console.WriteLine(item.AcceptDate);
+                if (item.AcceptDate == null) {
+                    acceptDate = "Chưa duyệt";
+                }
+                else
+                {
+                    acceptDate = item.AcceptDate.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                }
+                if (item.ExpireDate == null)
+                {
+                    expireDate = "Chưa duyệt";
+                }
+                else
+                {
+                    expireDate = item.ExpireDate.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                }
                 <tr>
                     <td class="checkbox-col">
                         <a href="javascript:;" class="toggle-collapse" data-id="@item.Id" data-type="close" data-iscontent="false"><i class="fas fa-caret-down"></i></a>
@@ -36,27 +62,79 @@
                     </td>
                     <td data-column="col-email">@item.Email</td>
                     <td data-column="col-deposit">
-                        <span class="tx-danger tx-medium">@item.Title</span>
+                        <span class="tx-danger tx-medium">@item.PackageName</span>
                     </td>
 
                     <td data-column="col-package">
-                        <span class="badge badge-warning wd-100 pd-5 tx-12">
-                            @item.Status
-                        </span>
+
+                        @{
+                            if (item.Status == 0)
+                            {
+                                <span class="badge badge-warning wd-100 pd-5 tx-12">Đợi duyệt</span>
+
+                            }
+                            if (item.Status == 1)
+                            {
+                                <span class="badge badge-success wd-100 pd-5 tx-12">Đã duyệt</span>
+                            }
+                            if (item.Status == 2)
+                            {
+                                <span class="badge badge-danger wd-100 pd-5 tx-12">Không duyệt</span>
+                            }
+                            if (item.Status == 3)
+                            {
+                                <span class="badge badge-warning wd-100 pd-5 tx-12">Đợi gia hạn</span>
+
+                            }
+                            if (item.Status == 4)
+                            {
+                                <span class="badge badge-success wd-100 pd-5 tx-12">Đã gia hạn</span>
+
+                            }
+                        }
                         <p class="mg-b-0 mg-t-5 tx-12">Đăng kí vào: @item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
                     </td>
-                    <td data-column="col-electric">@item.Created.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td class="action-col">
-                        <div class="custom-control custom-switch type-rent-switch">
-                            <input type="checkbox" class="custom-control-input" checked="true">
-                            <label class="custom-control-label"><span class="text-pausedo"></span></label>
-                        </div>
+                    <td data-column="col-electric">
+                        @acceptDate
                     </td>
                     <td class="action-col">
-                        <div class="custom-control custom-switch type-rent-switch">
-                            <button type="button" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Duyệt đăng kí</button>
-                        </div>
+                        @expireDate
                     </td>
+                    @{
+                        if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
+                        {
+                                        <td class="action-col text-table-center">
+                                            @{
+                                                if (item.Status == 0)
+                                                {
+                                                    <a href="javascript:;" class="btn-accept " data-toogle="tooltip" title="Duyệt gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
+
+                                                    <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                                }
+                                                if (item.Status == 1)
+                                                {
+                                                    <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                                }
+                                                if (item.Status == 2)
+                                                {
+                                                    <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã hủy" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
+                                                }
+                                                if (item.Status == 3)
+                                                {
+                                                    <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
+
+                                                    <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="Hủy gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                                }
+                                                if (item.Status == 4)
+                                                {
+                                                    <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã gia hạn" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
+                                                }
+                                            }
+
+                                        </td>
+                        }
+                    }
+                    
                 </tr>
                 <tr class="collapse-row">
                     <td colspan="10" class="detailsDiv-@item.Id">
@@ -66,6 +144,7 @@
         }
     </tbody>
 </table>
+
 
 
 <script>
@@ -104,11 +183,103 @@
     function load_to_page(page_clicked) {
         page_index = page_clicked;
         //load lại data
-        load_data(page_index, page_size, 0);
+        load_data_package_user(page_index, page_size, 0);
         //load lại phân trang
         load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
     }
+    //#region duyệt gia hạn hợp đồng
+    $(document).on('click', '.btn-extend', function () {
+        let id = $(this).attr('data-id');
+        let userId = $(this).attr('data-user-id');
+        let packageId = $(this).attr('data-package-id');
+        let status = $(this).attr('data-status');
+        console.log(id);
+        console.log(userId);
+        console.log(packageId);
+        console.log(status);
+        // update duyet dang ky
+        //e.preventDefault();
+        Swal.fire({
+            title: 'Duyệt/hủy đăng ký ?',
+            text: "Vui lòng đồng ý để tiếp tục!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Accept!'
+        }).then(function (isConfirm) {
+            if (isConfirm.value==true) {
+                console.log(isConfirm);
+                // call api
+                let api_update_packageOfUser = 'api/PackageOfUser/ExtendPackage';
+                let data = {};
+                data["id"] = id;
+                data["status"] = status;// 1: duoc duyet, 2: khong duyet
+                data["active"] = 1;
+                data["deleted"] = 0;
+                data["packageId"] = packageId;
+                data["userId"] = userId;
+                //data["packageType"] = null;
+                //data["typeOfRental"] = null;
+                //data["userdTime"] = null;
+                update_data(data, api_update_packageOfUser).then(function (e) {
+                    load_data_package_user(page_index, page_size, 0);
+                });
+                
+            } else {
+                console.log('cancel');
 
+            }
+        })
+    });
+    //#endregion
+
+    //#region duyệt đăng ký
+    $(document).on('click', '.btn-accept', function () {
+        let id = $(this).attr('data-id');
+        let userId = $(this).attr('data-user-id');
+        let packageId = $(this).attr('data-package-id');
+        let status = $(this).attr('data-status');
+        console.log(id);
+        console.log(userId);
+        console.log(packageId);
+        console.log(status);
+        // update duyet dang ky
+        //e.preventDefault();
+        Swal.fire({
+            title: 'Duyệt/hủy đăng ký ?',
+            text: "Vui lòng đồng ý để tiếp tục!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Accept!'
+        }).then(function (isConfirm) {
+            if (isConfirm.value == true) {
+                console.log(isConfirm);
+                // call api
+                let api_update_packageOfUser = 'api/PackageOfUser/AcceptPackage';
+                let data = {};
+                data["id"] = id;
+                data["status"] = status;// 1: duoc duyet, 2: khong duyet
+                data["active"] = 1;
+                data["deleted"] = 0;
+                data["packageId"] = packageId;
+                data["userId"] = userId;
+                //data["packageType"] = null;
+                //data["typeOfRental"] = null;
+                //data["userdTime"] = null;
+                update_data(data, api_update_packageOfUser).then(function (e) {
+                    load_data_package_user(page_index, page_size, 0);
+                });
+
+            } else {
+                console.log('cancel');
+
+            }
+        })
+    });
+    //#endregion
 </script>
 
 

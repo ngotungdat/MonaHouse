@@ -30,23 +30,32 @@ namespace MyHouse.MVC.Controllers
         /// <returns></returns>
         public async Task<CoreModel> GetCurrentSessionAsync()
         {
-            string domain = GetCurrentDomain();
-            string token = HttpContext.Session.GetString("token");
-            if (string.IsNullOrEmpty(domain) || string.IsNullOrEmpty(token))
+            try {
+                string domain = GetCurrentDomain();
+                string token = HttpContext.Session.GetString("token");
+                if (string.IsNullOrEmpty(domain) || string.IsNullOrEmpty(token))
+                    return null;
+                RestClient client = new RestClient(domain + "api/user/getcurrentuser");
+                client.Timeout = -1;
+                RestRequest request = new RestRequest(Method.GET);
+                request.AddHeader("Authorization", "Bearer " + token);
+                IRestResponse response = await client.ExecuteAsync(request);
+                var obj = JObject.Parse(response.Content);
+                Users users = JsonConvert.DeserializeObject<Users>(obj["Data"].ToString());
+                bool Expire = bool.Parse(HttpContext.Session.GetString("expire"));
+                return new CoreModel()
+                {
+                    Expire = Expire,
+                    Domain = domain,
+                    Token = token,
+                    Users = users
+                };
+
+            }
+            catch (Exception e) {
+
                 return null;
-            RestClient client = new RestClient(domain + "api/user/getcurrentuser");
-            client.Timeout = -1;
-            RestRequest request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", "Bearer " + token);
-            IRestResponse response = await client.ExecuteAsync(request);
-            var obj = JObject.Parse(response.Content);
-            Users users = JsonConvert.DeserializeObject<Users>(obj["Data"].ToString());
-            return new CoreModel()
-            {
-                Domain = domain,
-                Token = token,
-                Users = users
-            };
+            }
         }
         /// <summary>
         /// Lấy tên miền api

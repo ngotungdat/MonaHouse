@@ -13,7 +13,7 @@
             <th><span class="">Thực nhận</span></th>
             <th><span class="">Còn lại</span></th>
             <th><span class="">Hình thức</span></th>
-            <th><span class="">Thao tác</span></th>
+            <th><span class="">Trạng thái</span></th>
 
         </tr>
     </thead>
@@ -49,6 +49,10 @@
                     // chuyển tiền
                     payment_method = "Chuyển khoản";
                 }
+                let status = '';
+                if (roomreceipt.Status == 1) { status = '<span class="room-status badge badge-primary wd-100 pd-5 tx-12">Thiếu nợ</span>'; }
+                if (roomreceipt.Status == 2) { status = '<span class="room-status badge badge-success wd-100 pd-5 tx-12">Đã thu</span>'; }
+                if (roomreceipt.Status == 0) { status = '<span class="room-status badge badge-danger wd-100 pd-5 tx-12">Chưa thu</span>'; }
                 html += `<tr>
             <td>Tháng `+ date.getMonth() + '/' + date.getFullYear() + `</td>
             <td>`+ format_money(roomreceipt.RoomBill) + `</td>
@@ -61,7 +65,8 @@
             <td>`+ format_money(roomreceipt.MoneyRecive) + `</td>
             <td>`+ format_money(roomreceipt.MoneyDebtRoomReceipt) + `</td>
             <td>`+ payment_method + `</td>
-            <td><a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a></td>
+            <td>`+ status + `</td>
+            @*<td><a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a></td>*@
             </tr>`;
             }
             $('#tbody-history-roomreceipt').html(html);

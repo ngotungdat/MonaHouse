@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IPackageOfUserService: IDomainService<PackageOfUser, PackageOfUserSearch>
+    public interface IPackageOfUserService : IDomainService<PackageOfUser, PackageOfUserSearch>
     {
+        Task<bool> AppceptPackage(PackageOfUser item);
+        Task<bool> ExtendPackage(PackageOfUser item);
     }
 }

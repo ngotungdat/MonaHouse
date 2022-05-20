@@ -345,7 +345,7 @@
                                 Thực nhận của
                                 khách
                             </label>
-                            <input data-type="currency" id="money-take" class="form-control" placeholder="0">
+                            <input data-type="currency" id="money-take" class="form-control" placeholder="0"  disabled="">
                         </div>
                     </div>
 
@@ -468,7 +468,7 @@
                 data["electricImage"] = '@Model.Domain' + ImageNames[0];
                 //  giá tiền điện và nước (đổi từ kiểu string -> number)
                 let eletric_price_edit = price_electric.replaceAll(",", "");
-                let water_price_edit = price_electric.replaceAll(",", "");
+                let water_price_edit = price_water.replaceAll(",", "");
                 let electricBill = (new_electric - old_electric) * eletric_price_edit;
                 let waterBill = (new_water - old_water) * water_price_edit;
                 data["electricBill"] = electricBill;
@@ -561,7 +561,7 @@
                 console.log(e.Data.Id);
                 // them moi hop dong( ngày dọn vào phòng, tiền cọc, tiền trả trước, phwuogn thức thanh toán, tổng tiền, tổng tiền nhận đươc, tiền khách hàng nợ
             //  roomid, userid )
-                let date_into_room = $('#date-into-room').val();
+                let date_into_room = $('#date-into-room').val().split("/").reverse().join("-");
                 let deposit = $('#deposit').val();
                 let first_pay = $('#first-pay').val();
                 let payment_method = $('#payment-method').val();
@@ -571,6 +571,8 @@
                 let money_take = $('#money-take').val().replaceAll(",", "");
                 let roomId = RoomID;
                 let userId = e.Data.Id;
+                let room_price = $('#txt-room-price').val().replaceAll(",", "");
+                console.log(room_price);
                 console.log(date_into_room);
                 console.log(deposit);
                 console.log(first_pay);
@@ -597,7 +599,9 @@
                     data["relationship"] = relationship;
                     data["paymentMethod"] = payment_method;
                     data["takeMoney"] = money_take;
+                    data["userMoney"] = parseFloat(parseFloat(money_take) - (parseFloat(room_price)*parseFloat(deposit)) );
                     data["deleted"] = false;
+                    data["status"] = 0; //status =0 hợp đồng đang sử dụng
                     data["active"] = true;
                     let api_create_user = 'api/RoomContractRepresentative';
                     create_data(data, api_create_user).then(function (e) {
@@ -1001,6 +1005,7 @@
         console.log(first_pay);
         let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
         $('#total-money').val(format_money(total_money));
+        $('#money-take').val(format_money(total_money))
     }
     $('#deposit').on('change', function () {
         let room_price = $('#txt-room-price').val().replaceAll(",", "");
@@ -1011,6 +1016,8 @@
         console.log(first_pay);
         let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
         $('#total-money').val(format_money(total_money));
+        $('#money-take').val(format_money(total_money))
+
     })
     $('#first-pay').on('change', function () {
         let room_price = $('#txt-room-price').val().replaceAll(",", "");
@@ -1021,6 +1028,8 @@
         console.log(first_pay);
         let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
         $('#total-money').val(format_money(total_money));
+        $('#money-take').val(format_money(total_money))
+
     })
     //#endregion
 

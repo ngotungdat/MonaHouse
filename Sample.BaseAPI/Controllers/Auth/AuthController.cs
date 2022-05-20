@@ -41,6 +41,8 @@ namespace Sample.BaseAPI.Controllers.Auth
         private readonly IOTPHistoryService oTPHistoryService;
         private readonly ISMSEmailTemplateService sMSEmailTemplateService;
         private readonly ITokenManagerService tokenManagerService;
+        private readonly IPackageOfUserService packageOfUserService;
+        private readonly IPackageService packageService;
         public AuthController(IServiceProvider serviceProvider
             , IConfiguration configuration
             , IMapper mapper, ILogger<AuthController> logger
@@ -49,7 +51,8 @@ namespace Sample.BaseAPI.Controllers.Auth
             this.logger = logger;
             this.configuration = configuration;
             this.mapper = mapper;
-
+            packageOfUserService = serviceProvider.GetRequiredService<IPackageOfUserService>();
+            packageService = serviceProvider.GetRequiredService<IPackageService>();
             userService = serviceProvider.GetRequiredService<IUserService>();
             tokenManagerService = serviceProvider.GetRequiredService<ITokenManagerService>();
             emailConfigurationService = serviceProvider.GetRequiredService<IEmailConfigurationService>();
@@ -85,8 +88,34 @@ namespace Sample.BaseAPI.Controllers.Auth
                         var token = await GenerateJwtToken(userModel);
                         // Lưu giá trị token
                         await this.userService.UpdateUserToken(userModel.Id, token, true);
+                        //kiểm tra role đăng nhập nếu là khách hàng, nhân viên và chủ trọ mới thêm cờ
+                        bool expire = false;
+                        if (userModel.RoleNumber >1)
+                        {
+                            // kiểm tra ngày hết hạn hợp đồng
+                            // status=1 => gói user Đang sử dụng
+                            List<PackageOfUser> packageOfUsers = (List<PackageOfUser>)await packageOfUserService.GetAsync(POU => POU.UserId == userInfos[0].TenantId && POU.Status == 1);
+                            if (packageOfUsers.Count > 0)
+                            {
+                                // nếu gói hết hạn
+                                // ngày hiện tại lớn hơn ngày được duyệt + thời gian cho phép của gói cước
+                                if (DateTime.Now > packageOfUsers[0].ExpireDate)
+                                {
+                                    expire = true;
+                                }
+                                else
+                                {
+                                    expire = false;
+                                }
+                            }
+                            else
+                            {
+                                expire = true;
+                            }
+                        }
                         appDomainResult = new AppDomainResult()
                         {
+                            Expire = expire,
                             Success = true,
                             Data = token,
                             ResultCode = (int)HttpStatusCode.OK
