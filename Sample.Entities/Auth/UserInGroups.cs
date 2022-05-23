@@ -35,6 +35,9 @@ namespace Sample.Entities.Auth
         [NotMapped]
         public string Address { get; set; }
         [NotMapped]
+        public double? DebtMoney { get; set; }
+
+        [NotMapped]
         public DateTime? DateOfBirth { get; set; }
         [NotMapped]
         public DateTime? UserCreated { get; set; }

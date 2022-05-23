@@ -72,6 +72,7 @@ namespace Sample.AppDbContext
             modelBuilder.Entity<RoomContractRepresentative>(x => x.ToTable("RoomContractRepresentatives"));
             modelBuilder.Entity<PackageOfUser>(x => x.ToTable("PackageOfUsers"));
             modelBuilder.Entity<UserImage>(x => x.ToTable("UserImages"));
+            modelBuilder.Entity<DebtCollection>(x => x.ToTable("DebtCollections"));
 
             #region Configuration
             modelBuilder.Entity<EmailConfigurations>(x => x.ToTable("EmailConfigurations"));
@@ -130,6 +131,7 @@ namespace Sample.AppDbContext
         public DbSet<RoomContractRepresentative> RoomContractRepresentatives { get; set; }
         public DbSet<PackageOfUser> PackageOfUsers { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
+        public DbSet<DebtCollection> DebtCollections { get; set; }
 
         #region Configuration
         public DbSet<EmailConfigurations> EmailConfigurations { get; set; }

@@ -94,12 +94,10 @@
                                     <th class="sort-label" data-column="col-name">Tên đầy đủ</th>
                                     <th class="sort-label" data-column="col-electronic">Số điện thoại</th>
                                     <th class="sort-label" data-column="col-electronic">Email</th>
-                                    @*<th class="sort-label" data-column="col-electronic">Địa chỉ</th>*@
-                                    @*<th class="sort-label" data-column="col-electronic">Ngày sinh</th>*@
-                                    @*<th class="sort-label" data-column="col-electronic">Số CCCD/CMND</th>*@
                                     <th class="sort-label" data-column="col-electronic">Ngày tạo</th>
                                     <th class="sort-label" data-column="col-electronic">Trạng thái</th>
                                     <th class="sort-label " data-column="col-service">Thuộc nhóm</th>
+                                    <th class="sort-label " data-column="col-service">Tiền nợ</th>
                                     <th class="sort-label text-table-center" data-column="col-service">Thao tác</th>
                                 </tr>
                             </thead>
@@ -353,7 +351,72 @@
             </div>
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
-</div><!-- modal -->
+</div>
+<!-- modal -->
+<!-- modal Thu Tiền nợ-->
+<div class="modal fade show" id="js-take-debt" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Thu tiền nợ</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class=" room-info">
+                    <div class="row">
+                        <input type="hidden" id="debt-user-id" value="0" />
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-sm form-group">
+                                <div class="col">
+                                    <span class="lb text-danger">Tiển nợ:</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm form-group">
+                                <div class="col tx-right">
+                                    <span class="value tx-color-01 tx-medium text-danger" id="debt-money"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Nhập số tiền</label>
+                                <input type="text" data-type="currency" class="form-control" id="debt-take">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ghi chú</label>
+                                <textarea rows="2" id="debt-coll-note" class="form-control" placeholder="..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-debt-take">Thu nợ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
 <!-- bat loi form-->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
@@ -419,6 +482,13 @@
                         CssClass = "badge badge-danger wd-100 pd-5 tx-12";
                         status = "đã khóa";
                     }
+
+                    // check role 
+                    let role = '';
+                    if (item.roleNumber = 2) { role = ' CSKH'; }
+                    if (item.roleNumber = 3) { role = ' Chủ Trọ'; }
+                    if (item.roleNumber = 4) { role = ' Nhân viên'; }
+                    if (item.roleNumber = 5) { role = ' Người thuê'; }
                     html += '<tr>';
                     html +=`<td class="checkbox-col">
                                             <a href="javascript:;" class="toggle-collapse"  onClick="loadImageDetail(`+ item.UserId+`)" ><i class="fa fa-angle-down"></i></a>
@@ -433,115 +503,142 @@
                         <span class="`+ CssClass +`" name="status">
                             `+ status +`
                         </span>
-                        <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>
+                        @*<p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>*@
                     </td>`
                     html += '<td>' + item.UserGroupName + '</td>';
-                    html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
-                        + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
+                    html += '<td><span class="tx-danger tx-medium">' + item.DebtMoney + '</span></td>';
+                    html += '<td class="text-table-center">';
+                    html += '<a href="javascript:;" data-id="' + item.UserId + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a>    ';
+                    html += '<a href="javascript:;" data-id="' + item.UserId + '" data-debt="' + item.DebtMoney + '" class="btn-debt-collection"  data-toggle="modal"><i class="fas fa-calculator"></i></a>';
+                    html += '</td>';
+
                     html += '</tr>';
-                    html += `
-                                    <tr class="collapse-row">
-                                        <td colspan="12">
-                                            <div class="table-content">
-                                                <div class="row flex-wrap-1 mg-t-15">
-                                                    <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
-                                                        <div class="room-infor legend-box pd-25  rounded " data-label="Thông Khách Hàng">
-                                                            <div class="info-list" style="  text-align: center line-height: 300px;">
-                                                               <dl class="row-info hide-on-print"class="center">
-                                                                    <dd class="center"></dd>
-                                                                    <dt class="">
+                    html += `<tr class="collapse-row">
+                                <td colspan="12">
+                                    <div class="table-content">
+                                        <div class="row flex-wrap-1 mg-t-15">
+                                            <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+                                                <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin Khách Hàng">
+                                                    <div class="info-list" style="  text-align: center line-height: 300px;">
+                                                        <dl class="row-info hide-on-print" class="center">
+                                                                <center><img  width="50px" height="50px" src="`+ item.Avatar + `" alt="avatar" class="center"></center>
+                                                        </dl>
+                                                        <dl class="row-info">
+                                                            <dd class="">Tên Khách Hàng:</dd>
+                                                            <dt class="">`+ item.FullName + `</dt>
+                                                        </dl>
+                                                        <dl class="row-info hide-on-print">
+                                                            <dd class="">Loại Tài khoản :</dd>
+                                                            <dt class="">
+                                                                <span tabindex="0" class="`+ CssClass + `" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
+                                                                    `+ status + `
+                                                                </span>
+                                                            </dt>
+                                                        </dl>
 
-                                                                        <center><img src="`+ item.Avatar + `" alt="avatar" class="center"></center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-8 ">
+                                                <div class="legend-box pd-25  " data-label="Thông Tin Chung">
 
-                                                                    </dt>
-                                                                </dl>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="info-list">
                                                                 <dl class="row-info">
-                                                                    <dd class="">Tên Khách Hàng:</dd>
+                                                                    <dd class="">Tên Đầy Đủ:</dd>
                                                                     <dt class="">`+ item.FullName + `</dt>
                                                                 </dl>
-                                                                <dl class="row-info hide-on-print">
-                                                                    <dd class="">Loại Tài khoản :</dd>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Số Điện Thoại:</dd>
+                                                                    <dt class="">`+ item.Phone + `</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Email:</dd>
+                                                                    <dt class="">`+ item.Email + `</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Địa Chỉ:</dd>
+                                                                    <dt class="">`+ item.Address + `</dt>
+                                                                </dl>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="info-list">
+                                                                <dl class="row-info">
+                                                                    <dd class="">Ngày Sinh:</dd>
+                                                                    <dt class="">`+ format_date(item.DateOfBirth) + `</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Số CMND/CCCD:</dd>
+                                                                    <dt class="">`+ item.CitizenIdentification + `</dt>
+                                                                </dl>
+                                                                <dl class="row-info">
+                                                                    <dd class="">Ngày Tạo:</dd>
+                                                                    <dt class="">`+ format_date(item.UserCreated) + `</dt>
+                                                                </dl>
+
+                                                                <dl class="row-info">
+                                                                    <dd class="">Thuộc Nhóm:</dd>
                                                                     <dt class="">
-                                                                        <span tabindex="0" class="`+ CssClass + `" role="button" data-toggle="popover" data-trigger="hover" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
-                                                                            `+ status + `
-                                                                        </span>
+                                                                        <span class="tx-second">`+role+`</span>
                                                                     </dt>
                                                                 </dl>
 
-                                                                                                                  </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-8 ">
-                                                        <div class="legend-box pd-25  " data-label="Thông Tin Chung">
-
-                                                            <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <div class="info-list">
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Tên Đầy Đủ:</dd>
-                                                                            <dt class="">`+ item.FullName + `</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Số Điện Thoại:</dd>
-                                                                            <dt class="">`+ item.Phone + `</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Email:</dd>
-                                                                            <dt class="">`+ item.Email + `</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Địa Chỉ:</dd>
-                                                                            <dt class="">`+ item.Address + `</dt>
-                                                                        </dl>
-
-
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="info-list">
-                                                                       <dl class="row-info">
-                                                                            <dd class="">Ngày Sinh:</dd>
-                                                                            <dt class="">`+ format_date(item.DateOfBirth) + `</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Số CMND/CCCD:</dd>
-                                                                            <dt class="">`+ item.CitizenIdentification + `</dt>
-                                                                        </dl>
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Ngày Tạo:</dd>
-                                                                            <dt class="">`+ format_date(item.UserCreated) + `</dt>
-                                                                        </dl>
-
-                                                                        <dl class="row-info">
-                                                                            <dd class="">Thuộc Nhóm:</dd>
-                                                                            <dt class="">
-                                                                                <span class="tx-second">Chủ trọ</span>
-                                                                            </dt>
-                                                                        </dl>
-
-                                                                    </div>
-                                                                </div>
                                                             </div>
-
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                                    <div class="row flex-wrap-1 mg-t-15">
-                                                    <div class="col-sm-12 col-md-12 mg-b-30 mg-md-b-0">
-                                                        <div class="room-infor legend-box pd-25  rounded " data-label="Hình ảnh cá nhân">
-                                                            <div id="user-images" class="info-list" style="  text-align: center line-height: 150px;">
-                                                                
-                                                                </div>
                                                         </div>
                                                     </div>
 
                                                 </div>
-                                              </div>
-                                        </td>
-                                    </tr>
-                                `;
+
+
+                                            </div>
+                                        </div>
+                                        <div class="row flex-wrap-1 mg-t-15">
+                                            <div class="col-sm-12 col-md-12 mg-b-30 mg-md-b-0">
+                                                <div class="room-infor legend-box pd-25  rounded " data-label="Hình ảnh cá nhân">
+                                                    <div id="user-images" class="info-list" style="  text-align: center line-height: 100px;">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row flex-wrap-1 mg-t-15">
+
+                                            <div class="col-sm-12 col-md-12 mg-b-30 mg-md-b-0">
+                                                <div class="legend-box pd-25  " data-label="Lịch sử thu nợ">
+                                                        <table class=" col-md-12 table-hover table-striped  border">
+                                                            <thead class="">
+                                                                <tr class="tr-header-table">
+                                                                    <th>Ngày/Tháng</th>
+                                                                    <th>Tiền Thu</th>
+                                                                    <th><span class="">Còn lại<span></span></span></th>
+                                                                    <th><span class="">Người thu</span></th>
+                                                                    <th><span class="">Trạng thái</span></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody-history-take-debt">
+                                                                <tr>
+                                                                    <td>Tháng 4/2022</td>
+                                                                    <td>2,000,000</td>
+                                                                    <td>36,000</td>
+                                                                    <td>baodeptrai</td>
+                                                                    <td><span class="room-status badge badge-success wd-100 pd-5 tx-12">Đã thu</span></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </td>
+                            </tr>`;
 
                 }
                 $('#tbody-user-in-group').hide().html(html).show('slow');
@@ -565,10 +662,26 @@
             let UserImages = e.Data;
             html = '';
             for (let i = 0; i < UserImages.length; i++) {
-                let UserImage = UserImages[i]; 
-                html += '<img src="' + UserImage.Link +'" style=" margin-left: 20px; margin-right: 20px;" width="100" height="100" src="#" alt="image" class="img ">';
+                let UserImage = UserImages[i];
+                html += '<img src="' + UserImage.Link +'" style=" margin-left: 20px; margin-right: 20px;" width="100px" height="100px" src="#" alt="image" class="img ">';
             }
             $('#user-images').html(html);
+        })
+        let api_Get_htr_debt = 'api/DebtCollection?UserId=178581&PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
+        load_data_with_jquery(api_Get_htr_debt).then(function (e) {
+            let Debts = e.Data.Items;
+            let html = '';
+            for (let i = 0; i < Debts.length; i++) {
+                let debt = Debts[i];
+                html += `<tr>
+                                                                    <td>Ngày `+ format_date(debt.ConllecttionDate) + `</td>
+                                                                    <td>`+ format_money(debt.DebtConllection) +`</td>
+                                                                    <td>`+ format_money(debt.DebtRemaining) + `</td>
+                                                                    <td>`+ debt.CreatedBy +`</td>
+                                                                    <td><span class="room-status badge badge-success wd-100 pd-5 tx-12">Đã thu</span></td>
+                                                                </tr>`;
+            }
+            $('#tbody-history-take-debt').html(html);
         })
     }
     //nút tìm kiếm
@@ -864,4 +977,47 @@
             }
         });
     }
+</script>
+<script>
+    //#region Thu nợ
+    $(document).on('click', '.btn-debt-collection', function () {
+        // lấy UserId, số tiền thu,
+        $('#debt-money').html($(this).attr("data-debt"));
+        $('#debt-user-id').val($(this).attr("data-id"));
+        $('#debt-take').val(0);
+        $('#js-take-debt').modal('show');
+    })
+    $('.btn-debt-take').on('click', function () {
+        // lấy UserId, số tiền thu,
+        let debt = $('#debt-money').html();
+        let user_id = $('#debt-user-id').val();
+        let take_debt = $('#debt-take').val();
+        let note = $('#debt-coll-note').val();
+        console.log(debt);
+        console.log(user_id);
+        console.log(take_debt);
+        console.log(note);
+        if (debt == 0) {
+            Swal.fire(
+                'Cảnh báo',
+                'Khách hàng không có nợ!',
+                'warning'
+            )
+        }
+        if (debt < take_debt || ckstring(take_debt)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Tiền trả bé hơn tiền nợ hoặc tiền trả trống!',
+                'warning'
+            )
+        }
+        if (debt > 0 && debt > take_debt && take_debt > 0) {
+            let data = {};
+            let api_TakeDebt = "api/user/take-debt?UserId=" + user_id + "&debt=" + take_debt + "&note=" + note;
+            update_data(data, api_TakeDebt).then(function (e) {
+                $('#js-take-debt').modal('hide');
+            })
+        }
+    })
+    //#endregion
 </script>

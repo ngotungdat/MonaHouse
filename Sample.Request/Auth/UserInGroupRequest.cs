@@ -37,6 +37,7 @@ namespace Sample.Request.Auth
         public DateTime? UserCreated { get; set; }
         public int? Status { get; set; }
         public string Avatar { get; set; }
+        public double? DebtMoney { get; set; }
         #endregion
         #endregion
     }

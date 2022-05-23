@@ -26,9 +26,14 @@ namespace Sample.Service.Services
     public class UserService : DomainService<Users, UserSearch>, IUserService
     {
         protected IAppDbContext coreDbContext;
-        public UserService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext) : base(unitOfWork, mapper)
+        protected IDebtCollectionService DebtCollectionService;
+        public UserService(IAppUnitOfWork unitOfWork
+            , IMapper mapper
+            , IAppDbContext coreDbContext
+            , IDebtCollectionService debtCollection
+            ) : base(unitOfWork, mapper)
         {
-            this.coreDbContext = coreDbContext;
+            this.DebtCollectionService = debtCollection;
         }
 
         protected override string GetStoreProcName()
@@ -462,6 +467,35 @@ namespace Sample.Service.Services
         public async Task<Users> GetByToken(string token)
         {
             return await this.unitOfWork.Repository<Users>().GetQueryable().Where(e => e.Token == token).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// thu nợ cảu người dùng
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public async Task<bool> TakeDebt(int UserId, double debt, string note) {
+            var user = this.GetById(LoginContext.Instance.CurrentUser.UserId);
+            // tạo mới hóa đơn thu nợ
+            Users users = this.GetById(UserId);
+            DebtCollection debtCollection = new DebtCollection() ;
+            debtCollection.Id = 0;
+            debtCollection.UserId = UserId;
+            debtCollection.ConllecttionDate = DateTime.Now;
+            debtCollection.DebtConllection = debt;
+            debtCollection.DebtRemaining = users.DebtMoney - debt;
+            debtCollection.Active = true;
+            debtCollection.note = note;
+            debtCollection.TenantId = user.TenantId;
+            debtCollection.CreatedBy = user.UserName;
+
+            var rs = await DebtCollectionService.CreateAsync(debtCollection);
+            if (rs== true)
+            {
+                users.DebtMoney = users.DebtMoney - debt;
+            }
+            else { throw new Exception("Lỗi trong quá trình xử lý"); }
+            return await this.UpdateAsync(users);
         }
     }
 }

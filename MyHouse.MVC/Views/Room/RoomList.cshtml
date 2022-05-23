@@ -1120,7 +1120,7 @@
                                         <th class="sort-label" data-column="col-status">Trạng thái</th>
                                         <th class="sort-label" data-column="col-electric">Thu tiền</th>
                                         <th class="sort-label" data-column="col-people">Điện / nước</th>
-                                        <th class="sort-label" data-column="col-deposit">Tiền nợ</th>
+                                        @*<th class="sort-label" data-column="col-deposit">Tiền nợ</th>*@
                                         <th class="action-col"></th>
                                     </tr>
                                 </thead>
@@ -1370,6 +1370,7 @@
         }
         else {
             $(this).prop('disabled', true);
+            $('#modal-room-edit').modal('hide');
             Update(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, roomTypeId, status, DateIntoRoom, DateGetOutRoom);
         }
     });
@@ -1410,7 +1411,7 @@
                             'success'
                         );
                     $('.btn-save-room-edit').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+                    load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
 
                 },
                 error: function (xhr, status, error) {
@@ -1430,7 +1431,7 @@
             let data = {};
             data["id"] = id;
             data["deleted"] = false;
-            data["active"] = false;
+            data["active"] = true;
             data["name"] = name;
             data["branchId"] = branchId;
             data["branchFloor"] = branchFloor;
@@ -1462,7 +1463,7 @@
                             'success'
                         );
                     $('.btn-save-room').prop('disabled', false);
-                    load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+                    load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1901,9 +1902,9 @@
                                             </span>
                                             <p class="mg-b-0 mg-t-5 tx-12" id="electric-water-date-`+ item.Id +`">Ngày ghi: ---</p>
                                         </td>
-                                        <td data-column="col-deposit">
+                                        @*<td data-column="col-deposit">
                                             <span class="tx-danger tx-medium">`+ format_money(user_debt) + `</span>
-                                        </td>
+                                        </td>*@
                                         <td class="action-col">
                                             <div class="dropdown__wrap">
                                                 <a href="#" class="table-action"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
@@ -1987,10 +1988,10 @@
                                                                     <dd class="">Ngày dọn vào:</dd>
                                                                     <dt class="">`+ date_into_room + `</dt>
                                                                 </dl>
-                                                                <dl class="row-info mg-b-0">
+                                                                @*<dl class="row-info mg-b-0">
                                                                     <dd class="">Tiền nợ:</dd>
                                                                     <dt class=""><span class="tx-danger">`+ format_money(user_debt) + `</span></dt>
-                                                                </dl>
+                                                                </dl>*@
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2467,11 +2468,36 @@
         checkout_room();
     });*@
     function checkout_room() {
+
         // lấy thông tin điện nước trả ra tiền điện nước tháng/ năm dó
         let roomId = $('#room-id-checkout-month').val();
         let month = $('#ddl-month').val();
         let year = $('#ddl-year').val();
         console.log(roomId, month, year);
+        // phòng trọ đang ở trạng thái trống và sắp dọn vào thì không tính tiền
+        let api_Get_room = 'api/Room/' + roomId;
+        load_data_with_jquery(api_Get_room).then(function (e) {
+            let room = e.Data;
+            if (room.Status < 2) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Phòng Trống không thể tính tiền',
+                    'warning'
+                )
+                $('.btn-checkout').prop('disabled', true);
+            }
+            else {
+                $('.btn-checkout').prop('disabled', false);
+
+            }
+        });
+        // User đã tính tiền thì không cho tính nữa
+        let api_GetRoomReceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId='+roomId+'&month='+month+'&year='+year;
+        load_data_with_jquery(api_GetRoomReceipt).then(function (e) {
+            let userId = $('#user-id').val();
+            if (userId == e.Data) { }
+        })
+        //
         let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId='+roomId+'&Month='+month+'&Year='+year;
         load_data_with_jquery(api_get_electricwaterbillformonth).then(function (e) {
             //danh sách tiền điện theo tháng
@@ -2582,8 +2608,6 @@
             let data = {};
             // Năm tháng mà người dùng muốn thanh toán
             let date = '1/' + month + '/' + year; // dd/mm/yyyy
-
-
             data["id"] = 0;
             data["roomId"] = roomId;
             data["date"] = date.split("/").reverse().join("-");

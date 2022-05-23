@@ -169,6 +169,10 @@ namespace Sample.Models.AutoMapper
             CreateMap<UserImageModel, UserImage>().ReverseMap();
             CreateMap<UserImageRequest, UserImage>().ReverseMap();
             CreateMap<PagedList<UserImageModel>, PagedList<UserImage>>().ReverseMap();
+
+            CreateMap<DebtCollectionModel, DebtCollection>().ReverseMap();
+            CreateMap<DebtCollectionRequest, DebtCollection>().ReverseMap();
+            CreateMap<PagedList<DebtCollectionModel>, PagedList<DebtCollection>>().ReverseMap();
         }
     }
     

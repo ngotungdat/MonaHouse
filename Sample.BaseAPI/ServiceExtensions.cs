@@ -78,6 +78,7 @@ namespace Sample.BaseAPI
             services.AddScoped<IRoomImageService, RoomImageService>();
             services.AddScoped<IRoomUtilitiService, RoomUtilitiesService>();
             services.AddScoped<IUserNoteService, UserNoteService>();
+            services.AddScoped<IDebtCollectionService, DebtCollectionService>();
 
             #endregion
 

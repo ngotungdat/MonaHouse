@@ -306,5 +306,32 @@ namespace Sample.BaseAPI.Controllers
                 Success = true
             };
         }
+
+        /// <summary>
+        /// Thu tiền nợ của user
+        /// </summary>
+        /// <param name="itemModel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("take-debt")]
+        [AppAuthorize(new string[] { CoreContants.Update })]
+        public async Task<AppDomainResult> TakeDebt(int UserId, double debt, string note)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+            bool success = false;
+            if (ModelState.IsValid)
+            {
+                    success = await userService.TakeDebt( UserId, debt ,note);
+                    if (success)
+                        appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                    else
+                        throw new Exception("Lỗi trong quá trình xử lý");
+                    appDomainResult.Success = success;
+                }
+            else { 
+                    throw new KeyNotFoundException("Item không tồn tại");
+            }
+            return appDomainResult;
+        }
     }
 }

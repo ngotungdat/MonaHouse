@@ -29,6 +29,7 @@ namespace Sample.Models.Auth
         public string Email { get; set; }
         public string CitizenIdentification { get; set; }
         public string Address { get; set; }
+        public double? DebtMoney { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? UserCreated { get; set; }
         public int? Status { get; set; }

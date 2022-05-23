@@ -11,11 +11,13 @@
         margin-left: -15px;
         margin-bottom: 20px;
     }
+
     .btn-primary-edit {
         color: #fff;
         background-color: #1ec8c8;
         border-color: #1ec8c8;
     }
+
     .modal-dialog {
         max-width: 20%;
     }
@@ -26,8 +28,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="#">Danh sách phòng</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Phòng số 01</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("RoomList","Room")">Danh sách phòng</a></li>
+                    <li class="breadcrumb-item active room-name" aria-current="page"></li>
                 </ol>
             </nav>
         </div>
@@ -38,6 +40,7 @@
             <div class="room-infor legend-box pd-25  rounded" data-label="Thông tin phòng">
                 @*<a href="#js-edit-cus" data-toggle="modal" class="edit-cus-info edit-field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>*@
                 <div class="info-list">
+                    <input type="hidden" id="use-repersen" />
                     <dl class="row-info">
                         <dd class="">Tên phòng:</dd>
                         <dt class="room-name"></dt>
@@ -62,10 +65,10 @@
                         <dd class="">Ngày dọn vào:</dd>
                         <dt class="room-dateinroom"> trống</dt>
                     </dl>
-                    <dl class="row-info mg-b-0">
+                    @*<dl class="row-info mg-b-0">
                         <dd class="">Tiền nợ:</dd>
                         <dt class=""><span class="tx-danger room-userinroom-representative-debt">0</span></dt>
-                    </dl>
+                    </dl>*@
                 </div>
             </div>
         </div>
@@ -88,13 +91,13 @@
                                 <dt class="room-water-price"></dt>
                             </dl>
                             @*<dl class="row-info">
-                                <dd class="">Điện tháng trước:</dd>
-                                <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span></dt>
-                            </dl>
-                            <dl class="row-info">
-                                <dd class="">Nước tháng trước:</dd>
-                                <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span></dt>
-                            </dl>*@
+                                    <dd class="">Điện tháng trước:</dd>
+                                    <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-electronicPicture" data-toggle="modal">Ảnh</a></span></dt>
+                                </dl>
+                                <dl class="row-info">
+                                    <dd class="">Nước tháng trước:</dd>
+                                    <dt class=""><span class="mg-r-10">32132442</span> <span class="tx-normal"><a href="#js-waterPicture" data-toggle="modal">Ảnh</a></span></dt>
+                                </dl>*@
 
                         </div>
                     </div>
@@ -108,9 +111,9 @@
 
 
         </div>
-        <div class="col-6 mg-t-15">
-            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
-        </div>
+        @*<div class="col-6 mg-t-15">
+            <a href="javascript:;" id="take-debt" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
+        </div>*@
         <div class="col-6 mg-t-15">
             <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"> Xuất bill tháng này</a>
         </div>
@@ -128,6 +131,7 @@
                 <li class="nav-item">
                     <a class="nav-link" id="transaction-tab" data-toggle="pill" href="#js-transaction" role="tab" aria-controls="js-transaction" aria-selected="false">Lịch sử thanh toán</a>
                 </li>
+                
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="js-cus-info" role="tabpanel" aria-labelledby="cus-info-tab">
@@ -162,30 +166,30 @@
                     </div>
 
                     @*<div class="upload-box mg-t-15 ">
-                        <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
-                            <h5 class="mg-b-0">Ảnh giấy tờ</h5>
-                            <div class="right-action">
-                                <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
-                            </div>
-                        </div>
+                <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
+                    <h5 class="mg-b-0">Ảnh giấy tờ</h5>
+                    <div class="right-action">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
+                    </div>
+                </div>
 
-                        <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
-                        <div class="preview-image">
-                            <div class="image-wrap">
-                                <div class="image-box lightgallery">
-                                    <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
-                                </div>
-                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                            </div>
-                            <div class="image-wrap">
-                                <div class="image-box lightgallery">
-                                    <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
-                                </div>
-                                <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                            </div>
-
+                <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
+                <div class="preview-image">
+                    <div class="image-wrap">
+                        <div class="image-box lightgallery">
+                            <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
                         </div>
-                    </div>*@
+                        <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                    </div>
+                    <div class="image-wrap">
+                        <div class="image-box lightgallery">
+                            <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
+                        </div>
+                        <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                    </div>
+
+                </div>
+            </div>*@
                 </div>
                 <div class="tab-pane fade" id="js-history" role="tabpanel" aria-labelledby="history-tab">
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
@@ -222,7 +226,6 @@
                                 </tr>
                             </thead>
                             <tbody id="elctric-history">
-                                
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
@@ -240,13 +243,14 @@
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
                         <h5>Lịch sử thanh toán</h5>
                         <div class="right-action">
-                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5">Xuất Excel</button>
                         </div>
                     </div>
                     <div class="" id="history-room-receipt">
-                        
+
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -298,7 +302,6 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
-<!---->
 <!--modal edit userinroom-->
 <div class="modal fade show" id="js-edit-rentor" style="padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -331,7 +334,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <input type="hidden" name="user-id" id="user-id"/>
+                            <input type="hidden" name="user-id" id="user-id" />
                             <button type="button" class="col-sm-12 btn btn-primary update-room-representative">Cấp quyền người đại diện</button>
                         </div>
                     </div>
@@ -344,6 +347,55 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div>
+
+<!-- modal Thu Tiền nợ-->
+<div class="modal fade show" id="js-take-debt" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Thu tiền nợ</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class=" room-info">
+                    <div class="row">
+                        <input type="hidden" name="debt-user-id" value="0" />
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="lb">Tiển nợ:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium" id="debt-money"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Nhập số tiền</label>
+                                <input type="text" data-type="currency"  class="form-control" id="debt-take" >
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-debt-take">Thu nợ</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+
+<!-- javascript -->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
     var pathArray = window.location.pathname.split('/');
@@ -399,7 +451,7 @@
             //
             $('.room-dateinroom').html(dateInToRoom);
         }
-        
+        $('#use-repersen').val(item.UserInRoomRepresentative);
         $('.room-price').html(format_money(item.Price));
         $('.room-electric-price').html(format_money(item.ElectricPrice));
         $('.room-water-price').html(format_money(item.WaterPrice));
@@ -411,9 +463,8 @@
             $('.room-userinroom-representative-name').html(user_data.FullName);
             $('.room-userinroom-representative-phone').html(user_data.Phone);
             $('.room-userinroom-representative-debt').html(format_money(user_data.DebtMoney));
+            $('#debt-money').html(format_money(user_data.DebtMoney));
         });
-        //$('.room-name').val(item.Name);
-        //$('.room-name').val(item.Name);
     });
     //#endregion
 
@@ -670,3 +721,4 @@
         });
     }
 </script>
+

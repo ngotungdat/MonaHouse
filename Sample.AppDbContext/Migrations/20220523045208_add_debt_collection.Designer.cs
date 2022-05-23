@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.AppDbContext;
 
 namespace Sample.AppDbContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220523045208_add_debt_collection")]
+    partial class add_debt_collection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1013,11 +1015,11 @@ namespace Sample.AppDbContext.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<double?>("DebtConllection")
-                        .HasColumnType("float");
+                    b.Property<float?>("DebtConllection")
+                        .HasColumnType("real");
 
-                    b.Property<double?>("DebtRemaining")
-                        .HasColumnType("float");
+                    b.Property<float?>("DebtRemaining")
+                        .HasColumnType("real");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -1037,9 +1039,6 @@ namespace Sample.AppDbContext.Migrations
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("note")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

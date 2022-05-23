@@ -19,5 +19,6 @@ namespace Sample.Interface.Services
 
         Task<bool> IsInUserGroup(int userId, string userGroupCode);
         Task<Users> GetByToken(string token);
+        Task<bool> TakeDebt(int UserId, double debt, string note);
     }
 }
