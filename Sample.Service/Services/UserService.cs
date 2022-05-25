@@ -116,9 +116,9 @@ namespace Sample.Service.Services
                     }
 
                     await this.unitOfWork.SaveAsync();
-                    await this.coreDbContext.SaveChangesAsync();
+                    //await this.coreDbContext.SaveChangesAsync();
 
-                    this.coreDbContext.Entry<Users>(item).State = EntityState.Detached;
+                    //this.coreDbContext.Entry<Users>(item).State = EntityState.Detached;
 
                     result = true;
                 }

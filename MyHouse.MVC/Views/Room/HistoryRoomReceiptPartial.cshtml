@@ -32,7 +32,7 @@
     let total_item_roomReceipt = 0;
     let total_page_roomReceipt = 0;
     function loadcore() {
-        let api_load_room_receipt = 'api/RoomReceipt?PageIndex=' + pageindex + '&PageSize=' + pagesize + '&OrderBy=' + orderby + '&RoomId=' + roomId + '&TenantId=@Model.Users.Id'
+        let api_load_room_receipt = 'api/RoomReceipt?PageIndex=' + pageindex + '&PageSize=' + pagesize + '&OrderBy=' + orderby + '&RoomId=' + roomId + '&TenantId=@Model.Users.TenantId'
         load_data_with_jquery(api_load_room_receipt).then(function (e) {
             console.log(e.Data);
             roomreceipts = e.Data.Items;

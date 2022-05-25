@@ -1,64 +1,54 @@
 ﻿@model CoreModel
-<style>
-    /*input.form-control:disabled {
-        background: none;
-    }*/
+    <style>
+            /*input.form-control:disabled {
+            background: none;
+        }*/
 
-    .room .room-header a.item-link {
-        color: #46CED0;
-    }
+            .room .room-header a.item-link {
+                color: #46CED0;
+            }
 
-    .room-header .dropdown__wrap {
-        right: 15px;
-        position: absolute;
-    }
+            .room-header .dropdown__wrap {
+                right: 15px;
+                position: absolute;
+            }
 
-    .room .room-info {
-        padding-top: 30px;
-    }
+            .room .room-info {
+                padding-top: 30px;
+            }
 
-    .result-goout .tx-row .lb {
-        flex: 0 0 250px;
-    }
+            .result-goout .tx-row .lb {
+                flex: 0 0 250px;
+            }
 
-    .room .lb {
-        margin-bottom: 2px;
-    }
+            .room .lb {
+                margin-bottom: 2px;
+            }
 
-    .ls-room {
-        text-align: left;
-    }
+            .ls-room {
+                text-align: left;
+            }
 
-    .form-control {
-        height: initial;
-    }
+            .form-control {
+                height: initial;
+            }
 
-    /*.input-group-text {
-        padding: initial;
-    }*/
-</style>
+            /*.input-group-text {
+            padding: initial;
+        }*/
+            /* BaoNguyen CSS*/
+            .col-sm-12 {
+                padding-bottom: 15px;
+            }
+
+            .col-sm-6 {
+                margin-bottom: 20px;
+            }
+    </style>
 <div class="fixed-filter sticky-top">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
         <div class="d-flex align-items-center justify-content-between flex-wrap">
             <h4 class="mg-b-15 tx-spacing--1">Danh sách nhân viên</h4>
-            <div class="d-flex align-items-center">
-                <div class="d-flex">
-                    <div class="form-group mg-r-15 group-select">
-                        <label class="mg-b-0"><i class="fas fa-home"></i></label>
-                        <select name="" class="form-control">
-                            <option value="">321 CMT8, Lý Thường Kiệt</option>
-                            <option value="" selected="">319 CMT8 , Trương Định</option>
-                        </select>
-                    </div>
-                    <div class="form-group group-select">
-                        <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
-                        <select name="" class="form-control">
-                            <option value="">Tháng 1</option>
-                            <option value="" selected="">Tháng 2</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -76,37 +66,15 @@
                                 <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
                                 <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                             </div>
-                            <div class="select-sort">
-                                <span>Sắp trống: </span>
-                                <select name="" class="form-control">
-                                    <option value="">Tháng sau</option>
-                                    <option value="">2 tháng tới</option>
-                                    <option value="">3 tháng tới</option>
-                                    <option value="">4 tháng tới</option>
-                                    <option value="">5 tháng tới</option>
-                                </select>
-                            </div>
+                            
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control">
-                                    <option value="">Tên trọ A-Z ↓</option>
-                                    <option value="">Tên trọ Z-A ↑</option>
-
-                                    <option value="">Tiền nợ ↓</option>
-                                    <option value="">Tiền nợ ↑</option>
+                                    <option value="">Tên nhân viên A-Z ↓</option>
+                                    <option value="">Tên nhân viên Z-A ↑</option>
                                 </select>
                             </div>
-                            <div class="select-sort">
-                                <span>Trạng thái: </span>
-                                <select name="" class="form-control">
-                                    <option value="">Sắp chuyển vào</option>
-                                    <option value="">Phòng trống</option>
-                                    <option value="">Sắp dọn ra</option>
-                                    <option value="">Chưa có khách dọn vào</option>
-                                    <option value="">Đã thu tiền</option>
-                                    <option value="">Chưa thu tiền</option>
-                                </select>
-                            </div>
+                            
                             <div class="mg-b-15">
                                 <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
                                 <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
@@ -118,30 +86,20 @@
                 </div>
                 <div class="table__filter-form">
                     <div class="filter__form__wrap">
+                        
                         <div class="filter__form-col">
                             <div class="form__group">
-                                <label>Trạng thái phòng</label>
+                                <label>Trạng thái: </label>
                                 <select name="" class="form-control">
                                     <option value="" selected="">-Tất cả-</option>
-                                    <option value="1">Sắp chuyển vào</option>
-                                    <option value="1">Sắp dọn ra</option>
-                                    <option value="1">Đang ở</option>
+                                    <option value="0">Đã kích hoạt</option>
+                                    <option value="1">Đã khóa</option>
                                 </select>
                             </div>
                         </div>
                         <div class="filter__form-col">
                             <div class="form__group">
-                                <label>Điện nước</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Chưa ghi</option>
-                                    <option value="1" selected="">Đã ghi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Phòng sắp trống</label>
+                                <label>Ngày đăng ký</label>
                                 <div class="row from-to-group">
                                     <div class="col-6">
                                         <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
@@ -154,7 +112,7 @@
                         </div>
                         <div class="filter__form-col">
                             <div class="form__group">
-                                <label>Ngày dọn vào</label>
+                                <label>Ngày hết hạn</label>
                                 <div class="row from-to-group">
                                     <div class="col-6">
                                         <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
@@ -164,48 +122,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-
-
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Nhà / dãy trọ</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">319 CMT7, Trương Định</option>
-                                    <option value="1">64 Út Tịch</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Thu tiền</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Chưa thu tiền</option>
-                                    <option value="2" selected="">Đã thu tiền</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Loại phòng</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Ngắn hạn</option>
-                                    <option value="2" selected="">Dài hạn</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter__form-col">
-                            <div class="form__group">
-                                <label>Tiền nợ</label>
-                                <select name="" class="form-control">
-                                    <option value="">-Tất cả-</option>
-                                    <option value="1" selected="">Đang có nợ</option>
-                                    <option value="2" selected="">Không nợ</option>
-                                </select>
                             </div>
                         </div>
                     </div>

@@ -235,6 +235,7 @@ namespace Sample.BaseAPI.Controllers
                         item.DateOfBirth = itemModel.BirthDate;
                         item.UserGroupId= itemModel.UserGroupIds[0];
                         item.CitizenIdentification = itemModel.CitizenIdentification;
+                        item.DebtMoney = 0;
                     }
                     // Kiểm tra item có tồn tại chưa?
                     var messageUserCheck = await this.domainService.GetExistItemMessage(item);

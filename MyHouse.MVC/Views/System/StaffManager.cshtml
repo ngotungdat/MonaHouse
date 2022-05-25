@@ -81,6 +81,14 @@
                                     <option value="1">Tên người dùng Z-A↑</option>
                                 </select>
                             </div>
+                            <div class="select-sort">
+                                <span>trạng thái: </span>
+                                <select name="" class="form-control" onchange="sort_status(this.value)">
+                                    <option value="" selected>Tất cả</option>
+                                    <option value="0">Đã kích hoạt</option>
+                                    <option value="1">Đã Khóa</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -382,13 +390,14 @@
     domain += 'api/user-in-group';
     let total_item = 0;
     let total_page = 0;
+    let status = -1;
     let UserInGroupId = 4; // role khach hang
     //Tạo hoặc làm mới api
-    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?UserGroupId=' + UserInGroupId+'&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy, Status) {
+        return domain + '?UserGroupId=' + UserInGroupId + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&Status=' + Status;
     }
     $(document).ready(function () {
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
     });
     //Load dữ liệu theo api
     function load_data(api) {
@@ -515,7 +524,7 @@
                                                                         <dl class="row-info">
                                                                             <dd class="">Thuộc Nhóm:</dd>
                                                                             <dt class="">
-                                                                                <span class="tx-second">Chủ trọ</span>
+                                                                                <span class="tx-second">Nhân viên</span>
                                                                             </dt>
                                                                         </dl>
 
@@ -574,20 +583,26 @@
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
     });
 
     //Enter tìm kiếm
     $('input[name=search]').keyup(function (event) {
         if (event.keyCode === 13) {
             SearchContent = $('input[name=search]').val();
-            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
         }
     });
     //Sắp xếp
     function sort_data(val) {
         OrderBy = val;
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
+    }
+    //Sắp xếp theo trạng thái
+    function sort_status(val) {
+        status = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
+
     }
     //load phân trang
     $(function () {
@@ -597,7 +612,7 @@
     function load_to_page(index_click) {
         page_index = index_click;
         //load lại data
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, status));
     }
     // them khach hang
     $('.btn-add-user-in-group').on('click', function () {

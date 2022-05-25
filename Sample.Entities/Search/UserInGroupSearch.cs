@@ -16,5 +16,8 @@ namespace Sample.Entities.Search
         ///// Nhóm người dùng
         ///// </summary>
         public int? UserGroupId { get; set; }
+
+        public int? DebtMoney { get; set; }
+        public int? Status { get; set; }
     }
 }

@@ -74,14 +74,79 @@
                                 <input type="text" class="form-control search__box-area input-style" name="search" placeholder="Tìm kiếm...">
                                 <a href="javascript:;" class="search__box-icon" id="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>
                             </div>
+
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
                                 <select name="" class="form-control" onchange="sort_data(this.value)">
-                                    <option value="0">Tên người dùng A-Z↓</option>
-                                    <option value="1">Tên người dùng Z-A↑</option>
+                                    <option value="0">Tên khách hàng A-Z ↓</option>
+                                    <option value="1">Tên khách hàng Z-A ↑</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mg-b-15">
+                                <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="table__filter-form">
+                    <div class="filter__form__wrap">
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Tiền nợ</label>
+                                <select name="" class="form-control" onchange="sort_debt(this.value)">
+                                    <option value="" selected="">-Tất cả-</option>
+                                    <option value="0">Không nợ</option>
+                                    <option value="1">Có nợ</option>
+                                    <option value="2">Tiền nợ ↓</option>
+                                    <option value="3">Tiền nợ ↑</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Trạng thái: </label>
+                                <select name="" class="form-control" onchange="sort_status(this.value)">
+                                    <option value="" selected="">-Tất cả-</option>
+                                    <option value="0">Đã kích hoạt</option>
+                                    <option value="1">Đã khóa</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Ngày đăng ký</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter__form-col">
+                            <div class="form__group">
+                                <label>Ngày hết hạn</label>
+                                <div class="row from-to-group">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>*@
+
+                    </div>
+                    <div class="filter__form-submit">
+                        <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
                     </div>
                 </div>
                 <div class="table__filter-wrap">
@@ -183,7 +248,7 @@
                             <input type="text" name="txt-address" id="txt-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
                         </div>
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger"></span></label>
                             <input type="text" name="txt-cmnd" id="txt-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
                         </div>
                     </div>
@@ -269,7 +334,7 @@
                             <input type="text" name="update-phone" id="update-phone" data-type="number" required class="form-control" placeholder="Ví dụ: 0933110546">
                         </div>
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger"></span></label>
                             <div class="input-icon">
                                 <input id="update-dob" name="update-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/1999" autocomplete="off">
                                 <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
@@ -283,7 +348,7 @@
                             <input type="text" name="update-email" id="update-email" required class="form-control" placeholder="Ví dụ: nguyenvana99@gmail.com">
                         </div>
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giới tính<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giới tính<span class="text-danger"></span></label>
                             <select class="js-example-basic-single form-control select2" name="update-gender" id="update-gender">
                                 <option disabled="true" selected>Giới tính</option>
                                 <option value="0">Giới tính Nữ</option>
@@ -299,16 +364,23 @@
                             </div>
                         </div>*@
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
-                        </div>
-
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger"></span></label>
+                        <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
                     </div>
+                    <div class="col-sm-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
+                        <select class="js-example-basic-single form-control select2" id="user-status">
+                            <option disabled="true" selected>Trạng thái</option>
+                            <option value="0">Đã kích hoạt</option>
+                            <option value="1">Đã khóa</option>
+                        </select>
+                    </div>
+                </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger">(*)</span></label>
+                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger"></span></label>
                             <input type="text" name="update-cmnd" id="update-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
                         </div>
                     </div>
@@ -423,14 +495,16 @@
     $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
         if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {
             $('#message').html('Matching').css('color', 'green');
-        } else
+        } else {
             $('#message').html('Not Matching').css('color', 'red');
+        }
     });
     $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
         if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
             $('#message2').html('Matching').css('color', 'green');
-        } else
+        } else {
             $('#message2').html('Not Matching').css('color', 'red');
+        }
     });
 </script>
 <!---->
@@ -440,6 +514,8 @@
     let page_size = 10;
     let SearchContent = '';
     let OrderBy = 0;
+    let DebtMoney = -1;
+    let Status = -1;
     let token = '@Model.Token';
     let domain = '@Model.Domain';
     domain += 'api/user-in-group';
@@ -447,11 +523,11 @@
     let total_page = 0;
     let UserInGroupId = 5; // role khach hang
     //Tạo hoặc làm mới api
-    function get_api(PageIndex, PageSize, SearchContent, OrderBy) {
-        return domain + '?UserGroupId=' + UserInGroupId+'&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy;
+    function get_api(PageIndex, PageSize, SearchContent, OrderBy, DebtMoney, Status) {
+        return domain + '?UserGroupId=' + UserInGroupId + '&PageIndex=' + PageIndex + '&PageSize=' + PageSize + '&SearchContent=' + SearchContent + '&OrderBy=' + OrderBy + '&DebtMoney=' + DebtMoney + '&Status=' + Status;
     }
     $(document).ready(function () {
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
     });
     //Load dữ liệu theo api
     function load_data(api) {
@@ -480,7 +556,7 @@
                         status = "Đã kích hoạt ";
                     } if (item.Status == 1) {
                         CssClass = "badge badge-danger wd-100 pd-5 tx-12";
-                        status = "đã khóa";
+                        status = "Đã khóa";
                     }
 
                     // check role 
@@ -506,7 +582,7 @@
                         @*<p class="mg-b-0 mg-t-5 tx-12">Dọn vào: 20/04/2020</p>*@
                     </td>`
                     html += '<td>' + item.UserGroupName + '</td>';
-                    html += '<td><span class="tx-danger tx-medium">' + item.DebtMoney + '</span></td>';
+                    html += '<td><span class="tx-danger tx-medium">' + format_money(item.DebtMoney) + '</span></td>';
                     html += '<td class="text-table-center">';
                     html += '<a href="javascript:;" data-id="' + item.UserId + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a>    ';
                     html += '<a href="javascript:;" data-id="' + item.UserId + '" data-debt="' + item.DebtMoney + '" class="btn-debt-collection"  data-toggle="modal"><i class="fas fa-calculator"></i></a>';
@@ -687,20 +763,30 @@
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
     });
 
     //Enter tìm kiếm
     $('input[name=search]').keyup(function (event) {
         if (event.keyCode === 13) {
             SearchContent = $('input[name=search]').val();
-            load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+            load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
         }
     });
     //Sắp xếp
     function sort_data(val) {
         OrderBy = val;
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
+    }
+    // sắp xếp theo nợ
+    function sort_debt(val) {
+        DebtMoney = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
+    }
+    // sắp xếp theo trang thái
+    function sort_status(val) {
+        Status = val;
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
     }
     //load phân trang
     $(function () {
@@ -710,7 +796,7 @@
     function load_to_page(index_click) {
         page_index = index_click;
         //load lại data
-        load_data(get_api(page_index, page_size, SearchContent, OrderBy));
+        load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
     }
     // them khach hang
     $('.btn-add-user-in-group').on('click', function () {
@@ -770,6 +856,7 @@
         $('#update-dob').val(dob.toString());
         $('#update-address').val(user.Address);
         $('#update-gender').val(user.GenderNumber).change();
+        $('#user-status').val(user.Status).change();
         $('#update-cmnd').val(user.CitizenIdentification);
         // xu li doi mat khau rieng
         $('#update-pwdold').val("");
@@ -786,6 +873,7 @@
         const dob = $('#update-dob').val();
         const address = $('#update-address').val();
         const gender = $('#update-gender').val();
+        const status = $('#user-status').val();
         const cmnd = $('#update-cmnd').val();
         // change password
         //const pwdold = $('#update-pwdold').val();
@@ -800,7 +888,7 @@
         console.log(address);
         console.log(gender);
         console.log(cmnd);
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(cmnd) ) {
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(email) @*|| ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(cmnd)*@ ) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -820,7 +908,7 @@
                 data["address"] = address;
                 data["genderNumber"] = gender;
                 data["citizenIdentification"] = cmnd;
-                data["status"] = 0;
+                data["status"] = status;
                 data["isAdmin"] = false;
                 data["deleted"] = false;
                 data["active"] = true;
@@ -856,7 +944,7 @@
             data["address"] = address;
             data["genderNumber"] = gender;
             data["citizenIdentification"] = cmnd;
-            data["status"] = 0;
+            data["status"] = status;
             data["isAdmin"] = false;
             data["deleted"] = false;
             data["active"] = true;
@@ -893,7 +981,7 @@
         console.log(cmnd);
         console.log(pwd);
         console.log(pwdconfirm);
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) || ckstring(cmnd) || ckstring(pwd) || ckstring(pwdconfirm)) {
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) @*|| ckstring(cmnd)*@ || ckstring(pwd) || ckstring(pwdconfirm)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -921,7 +1009,8 @@
             data["isAdmin"] = false;
             data["deleted"] = false;
             data["active"] = true;
-            console.log('add: '+data);
+            console.log( data);
+            console.log(dob.split("/").reverse().join("-"));
             insert_or_update(data);
         }
     });
@@ -964,7 +1053,10 @@
                         'success'
                     );
                 }
+                $('#modal-update-user').modal('hide');
+                $('#modal-user-in-group').modal('hide');
                 $('.btn-save-user-in-group').prop('disabled', false);
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -982,7 +1074,7 @@
     //#region Thu nợ
     $(document).on('click', '.btn-debt-collection', function () {
         // lấy UserId, số tiền thu,
-        $('#debt-money').html($(this).attr("data-debt"));
+        $('#debt-money').html(format_money($(this).attr("data-debt")));
         $('#debt-user-id').val($(this).attr("data-id"));
         $('#debt-take').val(0);
         $('#js-take-debt').modal('show');

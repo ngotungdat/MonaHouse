@@ -72,7 +72,15 @@
     <div class="fixed-filter sticky-top">
         <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
             <div class="d-flex align-items-center justify-content-between flex-wrap">
-                <h4 class="mg-b-15 tx-spacing--1">Danh sách phòng</h4>
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item active" aria-current="page">Quản lý danh sách phòng theo tòa nhà</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-15 tx-spacing--1">Danh sách phòng</h4>
+
+                </div>
                 <div class="d-flex align-items-center">
                     <div class="d-flex">
                         <div class="form-group mg-r-15 group-select" style="background-color:white;">
@@ -84,12 +92,12 @@
                             </select>
                         </div>
                         @*<div class="form-group group-select">
-                            <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
-                            <select name="" class="form-control">
-                                <option value="">Tháng 1</option>
-                                <option value="" selected="">Tháng 2</option>
-                            </select>
-                        </div>*@
+                    <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
+                    <select name="" class="form-control">
+                        <option value="">Tháng 1</option>
+                        <option value="" selected="">Tháng 2</option>
+                    </select>
+                </div>*@
                     </div>
                 </div>
             </div>
@@ -163,7 +171,7 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger">(*)</span></label>
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger"></span></label>
                                 <input type="text" name="txt-BedAmount" data-type="number" required class="form-control" placeholder="Ví dụ: 2 giường">
                             </div>
                             <div class="col-sm-6">
@@ -174,18 +182,20 @@
                                     <option value="1">Sắp chuyển vào</option>
                                     <option value="2">Đang thuê</option>
                                     <option value="3">Sắp dọn ra</option>
+                                    <option value="4">Đang sửa</option>
+                                    <option value="5">Đã Khóa</option>
                                 </select>
                             </div>
                         </div><div class="row">
 
                             <div class="col-sm-6">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger"></span></label>
                                 <input type="text" name="txt-Acreage" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger"></span></label>
                                 <div style="clear:left;"></div>
                                 <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
                                     <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
@@ -315,7 +325,7 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger">(*)</span></label>
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số lượng giường<span class="text-danger"></span></label>
                                 <input type="text" name="txt-BedAmount-edit" data-type="number" required class="form-control" placeholder="Ví dụ: 2 giường">
                             </div>
                             <div class="col-sm-6">
@@ -326,12 +336,14 @@
                                     <option value="1">Sắp chuyển vào</option>
                                     <option value="2">Đang thuê</option>
                                     <option value="3">Sắp dọn ra</option>
+                                    <option value="4">Đang sửa</option>
+                                    <option value="5">Đã Khóa</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger">(*)</span></label>
+                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Diện tích phòng<span class="text-danger"></span></label>
                                 <input type="text" name="txt-Acreage-edit" data-type="currency" required class="form-control" placeholder="Ví dụ: 30 m2">
                             </div>
                         </div>
@@ -339,14 +351,14 @@
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào<span class="text-danger"></span></label>
                                 <div class="input-icon">
-                                    <input id="date-in-room" name="date-in-room" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="00/00/0000" readonly="true" autocomplete="off">
+                                    <input id="date-in-room" name="date-in-room" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="" readonly="true" autocomplete="off">
                                     <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra<span class="text-danger"></span></label>
                                 <div class="input-icon">
-                                    <input id="date-out-room" name="date-out-room" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="00/00/0000" readonly="true" autocomplete="off">
+                                    <input id="date-out-room" name="date-out-room" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="" readonly="true" autocomplete="off">
                                     <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
                                 </div>
                             </div>
@@ -990,7 +1002,7 @@
                                         <option value="">Tiền nợ ↑</option>*@
                                     </select>
                                 </div>
-                                <div class="select-sort">
+                                @*<div class="select-sort">
                                     <span>Trạng thái: </span>
                                     <select name="" class="form-control" onchange="sort_data_status(this.value)">
                                         <option value="" selected="">-Tất cả-</option>
@@ -998,11 +1010,13 @@
                                         <option value="1">Sắp chuyển vào</option>
                                         <option value="2">Đang ở</option>
                                         <option value="3">Sắp dọn ra</option>
+                                        <option value="4">Đang sửa</option>
+                                        <option value="5">Đã Khóa</option>
                                     </select>
-                                </div>
+                                </div>*@
                                 <div class="mg-b-15">
                                     <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
-                                    @*<a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>*@
+                                    <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
                                 </div>
 
 
@@ -1020,6 +1034,8 @@
                                         <option value="1">Sắp chuyển vào</option>
                                         <option value="2">Đang ở</option>
                                         <option value="3">Sắp dọn ra</option>
+                                        <option value="4">Đang sửa</option>
+                                        <option value="5">Đã Khóa</option>
                                     </select>
                                 </div>
                             </div>
@@ -1027,13 +1043,14 @@
                                 <div class="form__group">
                                     <label>Điện nước</label>
                                     <select name="" class="form-control" onchange="sort_data_electric(this.value)">
-                                        <option value="">-Tất cả-</option>
-                                        <option value="0" selected="">Chưa ghi</option>
-                                        <option value="1" selected="">Đã ghi</option>
+                                        <option value="" selected>-Tất cả-</option>
+                                        <option value="0">Chưa ghi</option>
+                                        <option value="1">Đã ghi</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="filter__form-col">
+
+                            @*<div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Phòng sắp trống</label>
                                     <div class="row from-to-group">
@@ -1059,7 +1076,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div>*@
 
 
                             <div class="filter__form-col">
@@ -1089,7 +1106,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="filter__form-col">
+                            @*<div class="filter__form-col">
                                 <div class="form__group">
                                     <label>Tiền nợ</label>
                                     <select name="" class="form-control" onchange="sort_data_debtMoney(this.value)">
@@ -1098,7 +1115,7 @@
                                         <option value="1" selected="">Đang có nợ</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="filter__form-submit">
                             <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
@@ -1299,7 +1316,7 @@
                             'success'
                         );
                     $('.btn-save-image-edit').prop('disabled', false);
-                    location.reload();
+                    load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
                 },
                 error: function (xhr, status, error) {
                     Swal.fire(
@@ -1325,7 +1342,7 @@
             let roomTypeId = $('#ListRoomType').val();
             let status = $('#room-status').val();
             // danh sách img (mảng Link image)
-            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || listImage.length == 0 || ckstring(roomTypeId) || ckstring(status)) {
+            if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) @*|| ckstring(acreage)*@ || ckstring(deposit) @*|| ckstring(bedamount)*@ @*|| listImage.length == 0 *@|| ckstring(roomTypeId) || ckstring(status)) {
                 Swal.fire(
                     'Cảnh báo',
                     'Vui lòng nhập đầy đủ thông tin!',
@@ -1334,10 +1351,13 @@
             }
             else {
                 let ImageNames = upload_img(listImage);
-                for (let i = 0; i < ImageNames.length; i++) {
-                    ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                let StringImageNames = '';
+                if (ImageNames != null) {
+                    for (let i = 0; i < ImageNames.length; i++) {
+                        ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                    }
+                    StringImageNames = ImageNames.join(';');
                 }
-                let StringImageNames = ImageNames.join(';');
                 $(this).prop('disabled', true);
                 Insert(id, name, branchId, branchFloor, price, acreage, deposit, bedamount, StringImageNames, roomTypeId, status);
 
@@ -1361,7 +1381,7 @@
         let DateGetOutRoom = $('#date-out-room').val().split("/").reverse().join("-");;
 
 
-        if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) || ckstring(acreage) || ckstring(deposit) || ckstring(bedamount) || ckstring(roomTypeId) || ckstring(status)) {
+        if (ckstring(name) || ckstring(branchId) || ckstring(branchFloor) || ckstring(price) @*|| ckstring(acreage)*@ || ckstring(deposit) @*|| ckstring(bedamount)*@ || ckstring(roomTypeId) || ckstring(status)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -1379,7 +1399,7 @@
             let data = {};
             data["id"] = id;
             data["deleted"] = false;
-            data["active"] = false;
+            data["active"] = true;
             data["name"] = name;
             data["branchId"] = branchId;
             data["branchFloor"] = branchFloor;
@@ -1668,7 +1688,7 @@
                                     if (rooms[i].Id == Electric_water_bill[j].RoomId) {
                                         _tmp = true;
                                         if ((new Date(Electric_water_bill[j].WriteDate).getMonth() + 1) ==@DateTime.Now.Month && (new Date(Electric_water_bill[j].WriteDate).getFullYear()) ==@DateTime.Now.Year && tmp == false) {
-                                            $('#electric-water-status-' + Electric_water_bill[j].RoomId).html('đã ghi');
+                                            $('#electric-water-status-' + Electric_water_bill[j].RoomId).html('Đã ghi');
                                             $('#electric-water-status-' + Electric_water_bill[j].RoomId).addClass("badge badge-success wd-100 pd-5 tx-12");
                                             $('#electric-water-date-' + Electric_water_bill[j].RoomId).html('Ngày ghi: ' + format_date(Electric_water_bill[0].WriteDate));
                                             tmp = true;
@@ -1725,7 +1745,7 @@
                                 _tmp = true;
                                 if (roomreceipts[j].Status > 0 && roomreceipts[j].UserId == rooms[i].UserInRoomRepresentative.toString() && tmp == false) {
                                     tmp = true;
-                                    $('#room-receipt-status-' + rooms[i].Id).html('đã thu');
+                                    $('#room-receipt-status-' + rooms[i].Id).html('Đã thu');
                                     $('#room-receipt-status-' + rooms[i].Id).addClass("badge badge-success wd-100 pd-5 tx-12");
                                     $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Date));
                                     break;
@@ -1736,7 +1756,7 @@
                             }
                         }
                         if (tmp == false && _tmp == true) {
-                            $('#room-receipt-status-' + rooms[i].Id).html('chưa thu');
+                            $('#room-receipt-status-' + rooms[i].Id).html('Chưa thu');
                             $('#room-receipt-status-' + rooms[i].Id).addClass("badge badge-danger wd-100 pd-5 tx-12");
                         }
                     }
@@ -1845,6 +1865,12 @@
                         } if (item.Status == 3) {
                             CssClass="badge badge-danger wd-100 pd-5 tx-12";
                             status = "Sắp dọn ra";
+                        } if (item.Status == 4) {
+                            CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+                            status = "Đang sửa";
+                        } if (item.Status == 5) {
+                            CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+                            status = "Đã khóa";
                         }
                         // nếu chưa có ngày dọn vào => phòng trống
                         let date_into_room = item.DateInToRoom;
@@ -1944,9 +1970,8 @@
                                                         </a>
                                                     </li>
                                                     <li class="drop-menu-item">
-                                                        <a href="/Room/AddCustomer/`+ item.Id + `" class="item-link">
-                                                            <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn
-                                                            vào
+                                                        <a href="javascript:;" class="item-link" onclick="goInRoom(` + item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn vào
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -2107,7 +2132,7 @@
     }
 </script>
 <!--by baonguyen-->
-<!--Call API Image Room Theo RoomID-->
+<!-- Call API Image Room Theo RoomID -->
 <script>
     // cập nhật hình ảnh phòng
     let listImageToDelete = [];
@@ -2178,8 +2203,14 @@
                     if (item.DateInToRoom != null) {
                         $('#date-in-room').val(format_date(item.DateInToRoom));
                     }
+                    else {
+                        $('#date-in-room').val('');
+                    }
                     if (item.DateGetOutRoom != null) {
                         $('#date-out-room').val(format_date(item.DateGetOutRoom));
+                    }
+                    else {
+                        $('#date-out-room').val('');
                     }
                     $('#modal-room-edit').modal('show');
                     //load_Room(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType);
@@ -2197,6 +2228,9 @@
             load_data_with_jquery(api_Electric_water_bill).then(function (e) {
                 let list = e.Data.Items;
                 console.log(list);
+                // số điện mới
+                $('#electric-new-number').val(0);
+                $('#water-new-number').val(0);
                 // lay ra bill dau tien de lam so moi.
                 if (list.length > 0) {
                     $('#electric-old-number').val(list[0].NewNumberElectric);
@@ -2233,23 +2267,29 @@
             console.log(new_water);
             console.log(img_electric);
             console.log(img_water);
-            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) ) {
+            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water)) {
                 Swal.fire(
                     'Cảnh báo',
                     'Vui lòng nhập đầy đủ thông tin!',
+                    'warning'
+                )
+            } else if (parseFloat(old_electric.replaceAll(',', '')) > parseFloat(new_electric.replaceAll(',', '')) && parseFloat(old_water.replaceAll(',', '')) > parseFloat(new_water.replaceAll(',', ''))) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Vui lòng nhập đúng số điện nước!',
                     'warning'
                 )
             }
             else {
                 let listImage = [];
                 let data = {};
-                if (img_electric != null || img_water!=null) {
+                if (img_electric != null || img_water != null) {
                     listImage.push(img_electric);
                     listImage.push(img_water);
                     let ImageNames = upload_img(listImage);
-                        data["electricImage"] = '@Model.Domain' + ImageNames[0];
+                    data["electricImage"] = '@Model.Domain' + ImageNames[0];
                     if (ImageNames.length > 1) {
-                        data["waterImage"] = '@Model.Domain'+ImageNames[1];
+                        data["waterImage"] = '@Model.Domain' + ImageNames[1];
                     }
                 }
                 //data
@@ -2275,9 +2315,13 @@
                 //api to create bill electricwater
                 let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
                 $(this).prop('disabled', true);
-                create_data(data, api_Create_Electric_water_bill);
-                $('#js-electronicNote').modal('hide');
-                location.reload(true);
+                create_data(data, api_Create_Electric_water_bill).then(function (e) {
+                    console.log(e);
+                    $(this).prop('disabled', false);
+
+                    $('#js-electronicNote').modal('hide');
+                    load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+                });
             }
         })
 
@@ -2307,7 +2351,9 @@
         ElectricAndWaterPrice["electricPrice"] = $('#electric-price').val().replaceAll(',','');
         ElectricAndWaterPrice["waterPrice"] = $('#water-price').val().replaceAll(',', '');;
         let api_update_electic_water_price = 'api/Room';
-        update_data(ElectricAndWaterPrice, api_update_electic_water_price);
+        update_data(ElectricAndWaterPrice, api_update_electic_water_price).then(function (e) {
+            load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+        });
     })
     //call api tien ich
     let api_utilitiConfig = 'api/UtilitiesConfig?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
@@ -2440,13 +2486,13 @@
         ddl_month.appendChild(opt);
     }
     function CalMoney(itemId) {
+        // load phí dịch vụ của phòng
+        checkout_room_ultilities(itemId);
+        checkout_room_price(itemId);
         $('#room-id-checkout-month').val(itemId);
         $('#ddl-month').val(@DateTime.Now.Month).change();
         $('#ddl-year').val(@DateTime.Now.Year).change();
         // sau khi chọn ngày tháng năm kiểm tra
-        // load phí dịch vụ của phòng
-        checkout_room_ultilities(itemId);
-        checkout_room_price(itemId);
         $('#js-payMoney').modal('show');
     }
     $('#ddl-month').on('change', function () {
@@ -2478,7 +2524,7 @@
         let api_Get_room = 'api/Room/' + roomId;
         load_data_with_jquery(api_Get_room).then(function (e) {
             let room = e.Data;
-            if (room.Status < 2) {
+            if (room.Status < 2 || room.Status > 4 ) {
                 Swal.fire(
                     'Cảnh báo',
                     'Phòng Trống không thể tính tiền',
@@ -2495,7 +2541,19 @@
         let api_GetRoomReceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId='+roomId+'&month='+month+'&year='+year;
         load_data_with_jquery(api_GetRoomReceipt).then(function (e) {
             let userId = $('#user-id').val();
-            if (userId == e.Data) { }
+            console.log(userId);
+            console.log(e.Data);
+            if (userId == e.Data[0].UserId) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Phòng đã tính tiền',
+                    'warning'
+                )
+                $('.btn-checkout').prop('disabled', true);
+            }
+            else {
+                $('.btn-checkout').prop('disabled', false);
+            }
         })
         //
         let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId='+roomId+'&Month='+month+'&Year='+year;
@@ -2914,6 +2972,25 @@
         }
 
     })
+    //#endregion
+    //#region
+    function goInRoom(roomId) {
+        let api_Get_room = 'api/Room/' + roomId;
+        load_data_with_jquery(api_Get_room).then(function (e) {
+            let room = e.Data;
+            // phòng trống mới cho dọn vào
+            if (room.Status == 0 ) {
+                window.location.href ='https://'+ window.location.host + "/Room/AddCustomer/199918";
+            }
+            else {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Phòng đang sử dụng không thể dọn vào',
+                    'warning'
+                )
+            }
+        });
+    }
     //#endregion
 </script>
 <!---->

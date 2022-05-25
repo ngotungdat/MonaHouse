@@ -14,7 +14,7 @@
                     <dl class="row-info hide-on-print mg-t-10">
                         <dd class="">Tài khoản:</dd>
                         <dt class="">
-                            <span tabindex="0" class="badge badge-success valign-middle user-status-@user.Id" role="button">
+                            <span tabindex="0" class="user-status-@user.Id" role="button">
 
                             </span>
                         </dt>
@@ -175,13 +175,20 @@
                             </div>
                         </div>*@
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
-                        </div>
-
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
+                        <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
                     </div>
+                    <div class="col-sm-6">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
+                        <select class="js-example-basic-single form-control select2" id="user-status">
+                            <option disabled="true" selected>Trạng thái</option>
+                            <option value="0">Đã kích hoạt</option>
+                            <option value="1">Đã khóa</option>
+                        </select>
+                    </div>
+                </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger">(*)</span></label>
@@ -365,7 +372,14 @@
             },
             success: function (data, status, xhr) {
                 let user = data.Data;
-                $('.user-status-'+user.Id).html(user.StatusName);
+                console.log(user);
+                $('.user-status-' + user.Id).html(user.StatusName);
+                if (user.Status == 0) {
+                    $('.user-status-' + user.Id).addClass('badge badge-success valign-middle');
+                }
+                else if (user.Status == 1) {
+                    $('.user-status-' + user.Id).addClass('badge badge-danger valign-middle');
+                }
                 $('.user-dateofbirth-' + user.Id).html(moment(user.DateOfBirth).format("DD-MM-YYYY"));
                 $('.user-username-' + user.Id).html(user.UserName);
                 $('.user-address-' + user.Id).html(user.Address);
@@ -482,6 +496,7 @@
         $('#update-dob').val(dob.toString());
         $('#update-address').val(user.Address);
         $('#update-gender').val(user.GenderNumber).change();
+        $('#user-status').val(user.Status).change();
         $('#update-cmnd').val(user.CitizenIdentification);
         // xu li doi mat khau rieng
         $('#update-pwdold').val("");
@@ -498,6 +513,7 @@
         const dob = $('#update-dob').val();
         const address = $('#update-address').val();
         const gender = $('#update-gender').val();
+        const status = $('#user-status').val();
         const cmnd = $('#update-cmnd').val();
         // change password
         //const pwdold = $('#update-pwdold').val();
@@ -512,7 +528,7 @@
         console.log(address);
         console.log(gender);
         console.log(cmnd);
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(cmnd) ) {
+        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(status) || ckstring(cmnd) ) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -532,7 +548,7 @@
                 data["address"] = address;
                 data["genderNumber"] = gender;
                 data["citizenIdentification"] = cmnd;
-                data["status"] = 0;
+                data["status"] = status;
                 data["isAdmin"] = false;
                 data["deleted"] = false;
                 data["active"] = true;
@@ -568,7 +584,7 @@
             data["address"] = address;
             data["genderNumber"] = gender;
             data["citizenIdentification"] = cmnd;
-            data["status"] = 0;
+            data["status"] = status;
             data["isAdmin"] = false;
             data["deleted"] = false;
             data["active"] = true;

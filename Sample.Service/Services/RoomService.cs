@@ -98,7 +98,7 @@ namespace Sample.Service.Services
                         // hình ảnh phòng mới
                         var ListLinkImage = itemModel.Images.Split(";");
                         List<RoomImage> LsRoomImage = new List<RoomImage>();
-                        if (ListLinkImage.Length > 0)
+                        if (ListLinkImage.Length > 0 && itemModel.Images!= "")
                         {
                             foreach (var d in ListLinkImage)
                             {

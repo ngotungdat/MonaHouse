@@ -654,8 +654,19 @@
 </script>
 <script>
     $(function () {
-        load_data_roomReceipt();
+        var pathArray = window.location.pathname.split('/');
+        var roomId = pathArray[3];
+        if (roomId > 0) {
+            load_data_roomReceipt();
+        }
+        else {
+            window.location.href = window.location.href + '/@Model.MyProperty';
+        }
+
     });
+
+    $('#transaction-tab').on('click', function () {
+    })
 
     function load_data_roomReceipt() {
         $.get('/Room/HistoryRoomReceiptPartial?id=roomreceipt', function (data) {
