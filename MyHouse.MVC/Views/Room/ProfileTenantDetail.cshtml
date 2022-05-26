@@ -1,8 +1,7 @@
-﻿
-@using Sample.Entities
+﻿@model CoreModel
+@using Sample.Models
 @{
-
-    Users user = Model.Users;
+    UserModel user = (UserModel)Model.MyProperty;
 }
 <style>
     .select2-container .select2-selection--single {
@@ -21,13 +20,13 @@
                     <div class="user-info-profile">
                         <div class="user-avatar">
                             <label for="upload-avatar" class="avatar-upload">
-                                <img src="" alt="avatar" value="" required>
+                                <img src="@user.Avatar" alt="avatar">
                             </label>
                         </div>
                         <div class="user-info">
                             <ul>
                                 <li>
-                                    <p class="txt-name"></p>
+                                    <p class="name">@user.FullName</p>
                                 </li>
                                 <li>
                                     <p class="type"><span class="lb">Loại tài khoản:</span><span class="value">Premium</span></p>
@@ -41,8 +40,9 @@
                     <div class="user-action-profile">
                         <ul>
                             <li class="active"><a href="#">Thay đổi thông tin</a></li>
-                            <li><a href="@@Url.Action(" Option", "Account" , new { area="" })">Cấu hình phòng</a></li>
-                            <li><a href="@@Url.Action(" Price", "PriceTable" , new { area="" })">Gia hạn và nâng cấp gói</a></li>
+                            @*<li><a href="@Url.Action("RoomList", "Room" , new { area="" })">Cấu hình phòng</a></li>
+                            <li><a href="@Url.Action("PackageList", "Package" , new { area="" })">Gia hạn và nâng cấp gói</a></li>*@
+                            <li><a href="javascript:;" onclick="DetailImage(@user.Id)">Hình ảnh thông tin cá nhân</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,33 +52,31 @@
         <div class="col-lg-8 content-board">
             <div class="card">
                 <div class="card-body">
-                  
                     <h4 class="title-page">Thông tin tài khoản</h4>
                     <div class="row">
-                        <input type="hidden" id="hdfId" name="hdfId" value="" />
                         <div class="col-md-4 form-group">
                             <label>Tên tài khoản</label>
-                            <input type="text" class="form-control" name="user-name" id="user-name" required >
+                            <input type="text" class="form-control" value="@user.UserName" disabled>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Tên người dùng</label>
-                            <input type="text" name="txt-fullname" id="txt-fullname" class="form-control txt-fullname" placeholder="Số điện thoại" value="" required>
+                            <input type="text" name="txt-fullname" id="txt-fullname" class="form-control" placeholder="Số điện thoại" value="@user.FullName" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Số điện thoại</label>
-                            <input type="number" name="txt-phone" id="txt-phone" class="form-control txt-phone" placeholder="Số điện thoại" value="" required>
+                            <input type="number" name="txt-phone" id="txt-phone" class="form-control" placeholder="Số điện thoại" value="@user.Phone" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Email</label>
-                            <input type="email" name="txt-email" id="txt-email" class="form-control txt-email" placeholder="Email" value="">
+                            <input type="email" name="txt-email" id="txt-email" class="form-control" placeholder="Email" value="@user.Email">
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Địa chỉ</label>
-                            <input type="text" name="txt-address" id="txt-address" class="form-control txt-address" placeholder="Email" value="">
+                            <input type="text" name="txt-address" id="txt-address" class="form-control" placeholder="Email" value="@user.Address">
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Ngày sinh</label>
-                            <input type="text" name="txt-dob" id="txt-dob" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
+                            <input type="text" name="txt-birthday" id="txt-birthday" class="form-control datetimepicker date-only" placeholder="__/ __/ ____">
                         </div>
 
                         <div class="col-md-12 form-group">
@@ -87,7 +85,7 @@
                             <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
                                 <i data-feather="camera" class="mg-r-5"></i> Ảnh đại diện
                             </a>
-                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" />
+                            <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this,'input-img','room-img');" />
                             <div style="clear:left;"></div>
                             <div class="preview-image" id="room-img"></div>
                         </div>
@@ -97,7 +95,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- change password-->
             <div class="card" style="margin-top:20px;">
                 <div class="card-body">
                     <h4 class="title-page">Cập nhật mật khẩu </h4>
@@ -121,44 +119,228 @@
             </div>
         </div>
     </div>
-</div>
-@await Html.PartialAsync("PartialView/_BaseScriptPartial")
+</div><!-- container -->
+<!--modal Image-->
+<div class="modal fade modal-nopadding-right" id="modal-room-image" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
+        <div class="modal-content">
+            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-image"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase">Hình ảnh phòng</h4>
+                        <p class="tx-13 tx-color-03 mg-b-0">hình ảnh chi tiết</p>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
+                <div class="row">
+                    <input type="hidden" id="hdfId-update-room-image" value="0" />
+                    <div class="col-sm-12">
+                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
+                        <div style="clear:left;"></div>
+                        <a href="javascript:;" class="btn btn-outline-primary btn-uploads-edit btn-block">
+                            <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
+                        </a>
+                        <input id="input-img-edit" type='file' name="electricimg" class="hidden upload-image-temps-edit remove-items" onchange="readURL(this,'input-img-edit','image-byroomidEdit');" multiple />
+                        <div style="clear:left;"></div>
+                        <div class="preview-image" id="image-byroomid"></div>
+                        <div class="preview-image" id="image-byroomidEdit"></div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary btn-save-image-edit">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
 <script>
-     var pathArray = window.location.pathname.split('/');
-    var userId = pathArray[3];
-    let api = 'api/user/10'
-    let searchContent = '';
-    let pageIndex = 1;
-    let pageSize = 20;
-    let orderBy = 0;
-    //#region thong tin chi tiet phong
-    $(document).ready(function () {
-        load_data_with_jquery(api).then(function (e) {
-
-            let item = e.Data;
-        })
+    // #region cập nhật hình ảnh User
+    let listImageToDelete = [];
+    let listImage = [];
+    $('.btn-uploads-edit').on('click', function () {
+        $('.upload-image-temps-edit').click();
     });
-    //loadthong tin userid
-    let api_user = 'api/user/' + userId;
-    load_data_with_jquery(api_user).then(function (e) {
-        let user_data = e.Data;
-        $('#hdfId').val(user_data.Id);
+    // xóa img
+    function deleteImage(index) {
 
-        $('#avatar').val(user_data.Avatar);
-        $('#txt-name').html(user_data.FullName);
-        $('#user-name').val(user_data.UserName);
-        $('#txt-fullname').val(user_data.FullName);
+        //list.remove(index);
+        listImage.splice(index, 1);
+    }
+        //
+    function DetailImage(userId) {
+        listImageToDelete = [];
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/UserImage/GetUserImagesByUserID?userId=' + userId,
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    $('#hdfId-update-room-image').val(userId);
+                    let list = data.Data;
+                    let html = '';
+                    for (let i = 0; i < list.length; i++) {
+                        let item = list[i];
+                        let image = {};
+                        image["id"] = item.Id;
+                        image["link"] = item.Link;
+                        html += `<div class="image-wrap">
+                            <div class="image-box lightgallery">
+                                <a href="`+ item.Link + `" class=""> <img style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="` + item.Link +`" alt="image" class="img "></a>
+                            </div>
+                            <a href="javascript:;" class="delete-image" onClick="addImageIntoDelete(`+ item.Id +`)" ><i class="fas fa-times"></i></a>
+                        </div>`;
+                    }
+                    let a = $('#image-byroomid').html(html);
+                    $('#modal-room-image').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        }
 
+    function addImageIntoDelete(data) {
+        listImageToDelete.push(data);
+        console.log(listImageToDelete);
+    }
 
-        $('#txt-phone').val(user_data.Phone);
- 
-        var date = new Date(user_data.DateOfBirth);
-        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
-        $('#txt-dob').val(dob);
-
-        $('#txt-email').val(user_data.Email);
-        $('#txt-address').val(user_data.Address);
+    //on click
+    $('.btn-save-image-edit').on('click', function () {
+        let StringAddImageLinks = '';
+        let StringdeleteImageId = '';
+        // lay du lieu anh moi' load
+        console.log('them moi anh'+listImage);
+        // lay' danh sach anh muon' xoa'
+        console.log('xoa anh'+listImageToDelete);
+        // upload anh moi' va luu roomImage
+        if (listImage.length > 0) {
+            let ImageNames = upload_img(listImage);
+                for (let i = 0; i < ImageNames.length; i++) {
+                    ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                }
+            StringAddImageLinks = ImageNames.join(';');
+        }
+        // danh sach anh bi xoa' chuyen doi sang Chuoi String
+        if (listImageToDelete.length > 0) {
+            StringdeleteImageId = listImageToDelete.join(';');
+        }
+        if (ckstring(StringAddImageLinks) && ckstring(StringdeleteImageId)) {
+            Swal.fire(
+                'Cảnh báo',
+                'hình ảnh không thay đổi!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data['userId'] = $('#hdfId-update-room-image').val();
+            data['stringAddImageLinks'] = StringAddImageLinks;
+            data['stringdeleteImageId'] = StringdeleteImageId;
+            console.log(data.roomId, data.StringAddImageLinks, data.StringdeleteImageId);
+            update_image_room(data);
+        }
     });
+    // function updata anh
+    function update_image_room(data) {
+        $('.btn-save-image-edit').prop('disabled', true);
+        let type_request = 'POST';
+            $.ajax({
+                url: '@Model.Domain' + 'api/UserImage/UpdateUserImage',
+                data: JSON.stringify(data),
+                type: type_request,
+                dataType: 'JSON',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                contentType: "application/json",
+                success: function (data) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Cập nhật dữ liệu thành công!',
+                            'success'
+                        );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Rất tiếc đã xảy ra lỗi!',
+                        'error'
+                    );
+                    $('.btn-save-image-edit').prop('disabled', false);
+                    console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+    }
+    // lấy thông tin và hiển thị hình ảnh
+    function readURL(input, inputId, loadId) {
+        console.log(inputId, loadId);
+        console.log(input, input.files);
+        if (input.files && input.files[0]) {
+            let flag = false;
+            for (let i = 0; i < input.files.length; i++) {
+                if (input.files[i].size > 2000000) {
+                    console.log('file lon hon 10mb');
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == true) {
+                alert("File ảnh không được quá 2MB");
+            } else {
+                let html = '';
+                let tmp_function = 'deleteAvatar';
+                if (inputId == 'input-img-edit') {
+                    listImage = [];
+                    tmp_function = 'deleteImage';
+                }
+                for (let i = 0; i < input.files.length; i++) {
+                    //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
+                    html += `<div class="image-wrap">
+                            <div class="image-box lightgallery">
+                                <a id="room-img-href-` + i + `-` + inputId + `" href="#" class=""> <img id="room-img-` + i + `-` + inputId + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
+                            </div>
+                            <a id="img-` + i + `" onClick="` + tmp_function + `(` + i + `)" href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                        </div>`;
+                }
+                $('#' + loadId).hide().html(html).show('slow');
+                for (let i = 0; i < input.files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#' + 'room-img-' + i + `-` + inputId)
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(200);
+                        $('#' + 'room-img-href-' + i + `-` + inputId)
+                            .attr('href', e.target.result)
+                    };
+                    reader.readAsDataURL(input.files[i]);
+                }
+                if (inputId == 'input-img-edit') {
+                    let value = document.getElementById(inputId).files;
+                    for (let i of value) {
+                        listImage.push(i);
+                    }
+                }
+            }
+        }
+
+    }
+    //#endregion
 
     // bat loi form
     $('#txt-pass, #txt-passconfirm').on('keyup', function () {
@@ -172,41 +354,7 @@
     $('.btn-uploads').on('click', function () {
         $('.upload-image-temps').click();
     });
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            //listImage = [];
-            let html = '';
-            for (let i = 0; i < input.files.length; i++) {
-                //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
-                html += `<div class="image-wrap">
-                            <div class="image-box lightgallery">
-                                <a id="room-img-href-` + i + `" href="#" class=""> <img id="room-img-` + i + `" style=" margin-left: 20px; margin-right: 20px;" width="150" height="200" src="#" alt="image" class="img "></a>
-                            </div>
-                            <a id="img-` + i + `"  href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                        </div>`;
-                html += '<td class="text-table-center"><a href="javascript:;" data-id="' + item.UserId
-                    + '" class="btn-edit-user-in-group"  data-toggle="modal"><i class="fas fa-edit"></i></a></td>';
-                html += '</tr>';
-            }
-            $('#room-img').hide().html(html).show('slow');
-            for (let i = 0; i < input.files.length; i++) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#' + 'room-img-' + i)
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
-                    $('#' + 'room-img-href-' + i)
-                        .attr('href', e.target.result)
-                };
-                reader.readAsDataURL(input.files[i]);
-            }
-            let value = document.getElementById("input-img").files;
-            //for (let i of value) {
-            //    listImage.push(i);
-            //}
-        }
-    }
+
     function upload_img(files) {
             let rs = [];
             var formData = new FormData();
@@ -225,6 +373,8 @@
                 contentType: false,
                 processData: false,
                 success: function (data, status, xhr) {
+                    console.log("upload thanh cong");
+                    console.log(data);
                     rs = data.Data;
                 },
                 error: function (xhr, status, error) {
@@ -235,13 +385,15 @@
         }
     //
     //xu ly ngay thang nam
+    $(document).ready(function () {
+        var date = new Date('@user.DateOfBirth');
+        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        $('#txt-birthday').val(dob);
+    })
 
     // cap nhat thong tin user
-    @*$('.btn-updateuser').on('click', function () {
-        let id = $('input[name=hdfId]').val();
+    $('.btn-updateuser').on('click', function () {
         let fullname = $('#txt-fullname').val();
-        let username = $('#username').val();
-
         let phone = $('#txt-phone').val();
         let email= $('#txt-email').val();
         let address= $('#txt-address').val();
@@ -264,8 +416,8 @@
             if (images.length > 0) {
                 data["avatar"] = '@Model.Domain'+ images;
             }
-            data["hdfId"] = id;
-            data["userName"] = username;
+            data["id"] = '@user.Id';
+            data["userName"] = '@user.UserName';
             data["fullName"] = fullname;
             data["phone"] = phone;
             data["email"] = email;
@@ -276,9 +428,9 @@
             console.log(data);
             insert_or_update(data);
         }
-    });*@
+    });
     function insert_or_update(data) {
-        console.log(data);
+
         let url ='@Model.Domain'+'api/user';
         let type_request = '';
         if (ckstring(data.id) || data.id == 0) {
@@ -325,116 +477,9 @@
             }
         });
     }
-      // chinh sua khach hang
-
-    @*function UpdateUser(data) {
-        let user = data.Data;
-        console.log(user);
-        $('input[name=update-hdfId]').val(user.Id);
-        $('#username').val(user.UserName);
-        $('#txt-fullname').val(user.FullName);
-        $('#txt-phone').val(user.Phone);
-        $('#txt-email').val(user.Email);
-        //xu ly ngay thang nam
-        var date = new Date(user.DateOfBirth);
-        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
-        $('#txt-dob').val(dob.toString());
-        $('#txt-address').val(user.Address);
+    //
 
 
-        //// xu li doi mat khau rieng
-        ////$('#update-pwdold').val("");
-        ////$('#update-pwd').val("");
-        ////$('#update-pwdconfirm').val('');
-        //$('#modal-update-user').modal('show');
-    }*@
-    $('.btn-updateuser').click(function () {
-        const id = $('input[name=hdfId]').val();
-        const username = $('#user-name').val();
-        const fullname = $('#txt-fullname').val();
-        const phone = $('#txt-phone').val();
-        const email = $('#txt-email').val();
-        const dob = $('#txt-dob').val();
-
-        const address = $('#txt-address').val();
-
-
-        // change password
-        //const pwdold = $('#update-pwdold').val();
-        const pwd = $('#update-pwd').val();
-        const pwdconfirm = $('#update-pwdconfirm').val();
-
-
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(email) || ckstring(dob) || ckstring(address)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else if ( @*(ckstring(pwdold) == false) ||*@ (ckstring(pwd) == false) || (ckstring(pwdconfirm) == false)) {
-            if (@*(ckstring(pwdold) == false) &&*@ (ckstring(pwd) == false) && (ckstring(pwdconfirm) == false)) {
-                let data = {};
-                data["id"] = id;
-                data["userName"] = username;
-                data["fullName"] = fullname;
-                data["phone"] = phone;
-                data["email"] = email;
-                data["birthDate"] = dob.split("/").reverse().join("-");
-                console.log(dob.split("/").reverse().join("-"));
-                data["address"] = address;
-                //data["genderNumber"] = null;
-                //data["citizenIdentification"] = null;
-                data["status"] = 0;
-                data["isAdmin"] = false;
-                data["deleted"] = false;
-                data["active"] = true;
-                data["isResetPassword"] = true;
-                data["newPassWord"] = pwd;
-                data["confirmNewPassWord"] = pwdconfirm;
-                // update pwd
-                //let data_change_pwd = {}
-                //data_change_pwd["id"] = id;
-                //data_change_pwd["oldPassword"] = pwdold;
-                //data_change_pwd["newPassword"] = pwd;
-                //data_change_pwd["confirmNewPassword"] = pwdconfirm;
-                //Change_pwd(data_change_pwd)
-                console.log(data);
-                insert_or_update(data);
-            }
-            else {
-                Swal.fire(
-                    'Cảnh báo',
-                    'Vui lòng nhập đầy đủ thông tin để cập nhật mật khẩu!',
-                    'warning'
-                )
-            }
-        }
-        else if (@*(ckstring(pwdold) == true) && *@(ckstring(pwd) == true) && (ckstring(pwdconfirm) == true)) {
-            let data = {};
-            data["id"] = id;
-            data["userName"] = username;
-            data["fullName"] = fullname;
-            data["phone"] = phone;
-            data["email"] = email;
-            data["birthDate"] = dob.split("/").reverse().join("-");
-            console.log(dob.split("/").reverse().join("-"));
-            data["address"] = address;
-            //data["genderNumber"] = null;
-            //data["citizenIdentification"] = null;
-            data["status"] = 0;
-            data["isAdmin"] = false;
-            data["deleted"] = false;
-            data["active"] = true;
-            console.log(data);
-            insert_or_update(data);
-            
-        }
-
-        console.log(pwdold);
-        console.log(pwd);
-        console.log(pwdconfirm);
-    });
     // cap nhat mat khau
     $('.btn-updateuserpwd').on('click', function () {
         let oldPwd = $('#txt-passold').val();

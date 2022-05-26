@@ -57,11 +57,13 @@ namespace MyHouse.MVC.Controllers
         /// <param name="OrderBy"></param>
         /// <param name="SearchContent"></param>
         /// <returns></returns>
-        public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent,string roleNumber)
+        public async Task<IActionResult> UserOwnerPartial(int PageIndex, int PageSize, int OrderBy, string SearchContent , int Status, int PackageId ,string roleNumber)
         {
+            string search_param = "&SearchContent=" + SearchContent;
+            if (SearchContent == null) { search_param = ""; }
             string domain = GetCurrentDomain();
             string token = HttpContext.Session.GetString("token");
-            RestClient client = new RestClient(domain + "api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&RoleNumber="+roleNumber);
+            RestClient client = new RestClient(domain + "api/user?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + search_param + "&Status=" + Status + "&PackageId=" + PackageId + "&RoleNumber="+roleNumber);
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);

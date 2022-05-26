@@ -110,25 +110,24 @@
 <div class="container bootdey">
     <div class="col-md-12 bootstrap snippets">
 
-        <div class="panel">
+        <div class="panel" style=" background-color: #dcf6f6;">
             <div class="panel-body">
                 <div class="media-block">
                     <div class="media-body">
                         <div id="tbody-feedback" name="tbody-feedback"></div>
-                        <hr>
-                        <h6 style="text-align:center">Thảo luận</h6>
-                        <hr>
-                        <div>
-
-                            <div id="tbody-feedback-comment" name="tbody-feedback-comment"></div>
-                        </div>
-                        
                     </div>
                 </div>
-                
             </div>
+                <hr>
+                <h6 style="text-align:center">Thảo luận</h6>
+                <hr>
+                <div>
+                    <div class="panel-body" id="tbody-feedback-comment" name="tbody-feedback-comment"></div>
+                </div>
+                        
+                
         </div>
-        <div class="panel">
+        <div class="panel" style=" background-color: #dcf6f6;">
             <div class="panel-body">
                 <textarea id="comment-content" name="comment-content" class="form-control" rows="2" placeholder="Bạn có muốn bình luận gì đó ?"></textarea>
                 <div class="mar-top clearfix">
@@ -200,18 +199,21 @@
             success: function (data, status, xhr) {
                 //console.log('data: ', data);
                 let rs = data.Data;
+                let date = new Date(rs.Created);
                 console.log("result:" + rs.Title);
                 let html = '';
+                html += '<div class="commeent">';
                 html += '<a  class="media-left" href="#"><img style="border-right-width:10px;margin-right: 25px;" class="img-circle img-sm" alt="Profile Picture" src="' + rs.UserImg+'"></a>';
                 html += '<div class="mar-btm">';
-                
-                html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + rs.CreatedBy + ' - 11 min ago</p>';
+
+                html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + rs.CreatedBy + ' - ' + format_date(rs.Created) + ' - ' + date.getHours() + ':' + date.getMinutes() + '</p>';
                 html += '</div>';
                 html += '<div id="emoji-div"></div>';
                 html += '<h5 style="text-align:center" id="feedback-content" name="feedback-content"> Tiêu đề: ' + rs.Title + '</h5>';
                 html += '<p id="feedback-content" name="feedback-content">' + rs.Content+'</p>';
                 html += '<div class="pad-ver">';
                 html += '<div class="btn-group">';
+                html += '</div>';
                 html += '</div>';
                 html += '</div>';
                 $('#tbody-feedback').hide().html(html).show('slow');
@@ -243,16 +245,19 @@
                 //
                 for (let i = 0; i < list.length; i++) {
                     let item = list[i];
+                    let date = new Date(item.Created);
                     html += '<div class="media-block">';
                     html += '<div class="media-body">';
                     html += '<a  class="media-left" href="#"><img style="border-right-width:10px;margin-right: 25px;" class="img-circle img-sm" alt="Profile Picture" src="' + item.UserImg + '"></a>';
                     html += '<div class="mar-btm">';
-                    html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + item.CreatedBy + ' - 11 min ago</p>';
+                    html += '<p id="feedback-time" name="feedback-time" class="text-muted text-sm"> - ' + item.CreatedBy + ' - ' + format_date(item.Created) + ' - ' + date.getHours() + ':' + date.getMinutes() +  '</p>';
                     html += '</div>';
                     html += '<p id="feedback-content" name="feedback-content">' + item.Content + '</p>';
                     html += '<div class="pad-ver">';
                     html += '<div class="btn-group">';
                     html += '<hr>';
+                    html += '</div>';
+                    html += '</div>';
                     html += '</div>';
                     html += '</div>';
                     console.log(item.UserImg);

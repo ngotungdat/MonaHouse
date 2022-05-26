@@ -13,21 +13,21 @@ namespace Sample.Request
         [Required(ErrorMessage = "Vui lòng nhập User Name!")]
         public string UserName { get; set; }
 
-        [StringLength(12, ErrorMessage = "Số kí tự của số điện thoại phải lớn hơn 8 và nhỏ hơn 12!", MinimumLength = 9)]
-        [Required(ErrorMessage = "Vui lòng nhập Số điện thoại!")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^[0-9]+${9,11}", ErrorMessage = "Số điện thoại không hợp lệ")]
+        //[StringLength(12, ErrorMessage = "Số kí tự của số điện thoại phải lớn hơn 8 và nhỏ hơn 12!", MinimumLength = 9)]
+        //[Required(ErrorMessage = "Vui lòng nhập Số điện thoại!")]
+        //[DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^[0-9]+${9,11}", ErrorMessage = "Số điện thoại không hợp lệ")]
         public string Phone { get; set; }
 
-        [StringLength(50, ErrorMessage = "Số kí tự của email phải nhỏ hơn 50!")]
-        [Required(ErrorMessage = "Vui lòng nhập Email!")]
-        [EmailAddress(ErrorMessage = "Email có định dạng không hợp lệ!")]
+        //[StringLength(50, ErrorMessage = "Số kí tự của email phải nhỏ hơn 50!")]
+        //[Required(ErrorMessage = "Vui lòng nhập Email!")]
+        //[EmailAddress(ErrorMessage = "Email có định dạng không hợp lệ!")]
         public string Email { get; set; }
 
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        [StringLength(1000, ErrorMessage = "Số kí tự của email phải nhỏ hơn 1000!")]
+        //[StringLength(1000, ErrorMessage = "Số kí tự của email phải nhỏ hơn 1000!")]
         public string Address { get; set; }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Sample.Request
         /// 0 => Nữ
         /// 1 => Nam
         /// </summary>
-        [DefaultValue(1)]
-        public int GenderNumber { get; set; }
+        //[DefaultValue(1)]
+        public int? GenderNumber { get; set; }
 
         /// <summary>
         /// List id nhóm người dùng được chọn

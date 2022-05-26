@@ -8,21 +8,26 @@
         <tr class="tr-header-table">
             <th class="checkbox-col">
             </th>
-            <th class="sort-label" data-column="col-house">Họ và tên</th>
-            <th class="sort-label" data-column="col-room">Số điện thoại</th>
-            <th class="sort-label" data-column="col-people">Email</th>
+            @{
+                if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
+                {
+                    <th class="sort-label" data-column="col-house">Họ và tên</th>
+                    <th class="sort-label" data-column="col-room">Số điện thoại</th>
+                    <th class="sort-label" data-column="col-people">Email</th>
+                }
+            }
             <th class="sort-label" data-column="col-people">Gói Đăng kí</th>
             <th class="sort-label" data-column="col-status">Trạng thái</th>
             <th class="sort-label" data-column="col-electric">Ngày Duyệt</th>
             <th class="sort-label" data-column="col-deposit">Ngày hết hạn</th>
             @{
-                if (Model.Users.RoleNumber == 1|| Model.Users.RoleNumber == 2)
+                if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
                 {
                     <th class="sort-label" data-column="col-deposit" style="text-align:center">Thao tác</th>
                 }
             }
 
-            
+
         </tr>
     </thead>
     <tbody>
@@ -52,15 +57,21 @@
                     <td class="checkbox-col">
                         <a href="javascript:;" class="toggle-collapse" data-id="@item.Id" data-type="close" data-iscontent="false"><i class="fas fa-caret-down"></i></a>
                     </td>
-                    <td data-column="col-name">
-                        <a href="javascript:;">
-                            @item.FullName
-                        </a>
-                    </td>
-                    <td data-column="col-phone">
-                        <a href="room-detail.php">@item.Phone</a>
-                    </td>
-                    <td data-column="col-email">@item.Email</td>
+                    @{
+                        if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
+                        {
+                            <td data-column="col-name">
+                                <a href="javascript:;">
+                                    @item.FullName
+                                </a>
+                            </td>
+                            <td data-column="col-phone">
+                                <a href="room-detail.php">@item.Phone</a>
+                            </td>
+                            <td data-column="col-email">@item.Email</td>
+                        }
+                    }
+
                     <td data-column="col-deposit">
                         <span class="tx-danger tx-medium">@item.PackageName</span>
                     </td>
@@ -79,7 +90,7 @@
                             }
                             if (item.Status == 2)
                             {
-                                <span class="badge badge-danger wd-100 pd-5 tx-12">Không duyệt</span>
+                                <span class="badge badge-danger wd-100 pd-5 tx-12">Đã Hủy</span>
                             }
                             if (item.Status == 3)
                             {
@@ -103,38 +114,38 @@
                     @{
                         if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
                         {
-                                        <td class="action-col text-table-center">
-                                            @{
-                                                if (item.Status == 0)
-                                                {
-                                                    <a href="javascript:;" class="btn-accept " data-toogle="tooltip" title="Duyệt gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
+                            <td class="action-col text-table-center">
+                                @{
+                                    if (item.Status == 0)
+                                    {
+                                        <a href="javascript:;" class="btn-accept " data-toogle="tooltip" title="Duyệt gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
 
-                                                    <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
-                                                }
-                                                if (item.Status == 1)
-                                                {
-                                                    <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
-                                                }
-                                                if (item.Status == 2)
-                                                {
-                                                    <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã hủy" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
-                                                }
-                                                if (item.Status == 3)
-                                                {
-                                                    <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
+                                        <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                    }
+                                    if (item.Status == 1)
+                                    {
+                                        <a href="javascript:;" class=" btn-accept" data-toogle="tooltip" title="Hủy gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                    }
+                                    if (item.Status == 2)
+                                    {
+                                        <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã hủy" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
+                                    }
+                                    if (item.Status == 3)
+                                    {
+                                        <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="1"><i class="fas fa-check-circle"></i></a>
 
-                                                    <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="Hủy gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
-                                                }
-                                                if (item.Status == 4)
-                                                {
-                                                    <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã gia hạn" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
-                                                }
-                                            }
+                                        <a href="javascript:;" class=" btn-extend " data-toogle="tooltip" title="Hủy gia hạn gói" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId" data-status="2"><i class="fas fa-ban"></i></a>
+                                    }
+                                    if (item.Status == 4)
+                                    {
+                                        <a href="javascript:;" class="btn-canceled" data-toogle="tooltip" title=" đã gia hạn" data-id="@item.Id" data-user-id="@item.UserId" data-package-id="@item.PackageId"><i class="fas fa-ban"></i></a>
+                                    }
+                                }
 
-                                        </td>
+                            </td>
                         }
                     }
-                    
+
                 </tr>
                 <tr class="collapse-row">
                     <td colspan="10" class="detailsDiv-@item.Id">

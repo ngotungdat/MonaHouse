@@ -284,6 +284,37 @@
             load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
         })
     });
+    //#region khi đang chờ duyệt không cho khách hàng đăng kí or gia hạn gói
+    let checkPackageFlag = 0;
+    $(document).ready(function () {
+        // kiem tra package of user có cái nào đang ở trang thái chờ Duyệt ko
+        let api_get_packageofuser = 'api/PackageOfUser?UserId=@Model.Users.Id&Status=0&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+        load_data_with_jquery(api_get_packageofuser).then(function (e) {
+            if (e.Data.Items.length > 0) {
+                checkPackageFlag = 1;
+                console.log("Thăng này đang chờ duyệt nên không cho gia hạn hay đăng ký hay gia hạn");
+            }
+        }).then(function (e) {
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        })
+    });
+
+    $(document).ready(function () {
+        // kiem tra package of user có cái nào đang ở trang thái chờ gia hạn ko
+        let api_get_packageofuser = 'api/PackageOfUser?UserId=@Model.Users.Id&Status=3&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+        load_data_with_jquery(api_get_packageofuser).then(function (e) {
+            
+            console.log(e);
+            if (e.Data.Items.length > 0) {
+                checkPackageFlag = 1;
+                console.log("Thăng này đang chờ duyệt nên không cho gia hạn hay đăng ký hay gia hạn");
+            }
+        }).then(function (e) {
+            load_data(get_api(PageIndex, PageSize, SearchContent, OrderBy));
+        })
+    });
+    //#endregion
+
     //Load dữ liệu theo api
     function load_data(api) {
         $.ajax({
@@ -318,14 +349,21 @@
                             btn_edit = `<a href="javascript:;" class="btn btn-primary btn-detail-package" data-id="${item.Id}" data-active="${item.Active}" data-title="${item.Title}" data-usedtime="${item.UserdTime}" data-price="${item.Price}" data-LimitedRoom="${item.LimitedRoom}" data-Description="${item.Description}" data-titleDescription="${item.TitleDescription}" data-TypeOfRental="${item.TypeOfRental}" data-PackageType="${item.PackageType}"><i class="fas fa-edit"></i> Chỉnh sửa</a>`;
                         }
                         else if (@users.RoleNumber == 3) {
-                            console.log(item.Id);
-                            console.log(packageId);
-                            if (item.Id == packageId) {
-                                btn_action = `<button type="button" class="btn btn-danger btn-register-package" data-pou-id="${packOfUserId}" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Gia hạn gói</button>`;
+                            if (checkPackageFlag == 1) {
+                                btn_action = `<button type="button" class="btn btn-danger " data-pou-id="${packOfUserId}" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đang chờ duyệt</button>`;
                             }
                             else {
-                                btn_action = `<button type="button" class="btn btn-success btn-register-package" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                                console.log(item.Id);
+                                console.log(packageId);
+                                if (item.Id == packageId) {
+                                    btn_action = `<button type="button" class="btn btn-danger btn-register-package" data-pou-id="${packOfUserId}" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Gia hạn gói</button>`;
+                                }
+                                else {
+
+                                    btn_action = `<button type="button" class="btn btn-success btn-register-package" data-name="${item.Title}" data-id="${item.Id}" data-userid="@Model.Users.Id" ><i class="fas fa-check-circle"></i> Đăng Ký Ngay</button>`;
+                                }
                             }
+
                         }
                         html += ` <div class="house-wrap col-md-4">
                             <div class="house-item border">
@@ -449,6 +487,8 @@
                     let api_create_packageOfUser = 'api/PackageOfUser';
                     create_data(data, api_create_packageOfUser).then(function (e) {
                         console.log(e);
+                        $('#modal-register-package').modal('hide');
+                        location.reload(true);
                     });
                 }
             })
@@ -478,6 +518,7 @@
                     let api_create_packageOfUser = 'api/PackageOfUser';
                     create_data(data, api_create_packageOfUser).then(function (e) {
                         console.log(e);
+                        location.reload(true);
                     });
                 }
             })

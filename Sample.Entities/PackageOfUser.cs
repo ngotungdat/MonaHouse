@@ -82,6 +82,10 @@ namespace Sample.Entities
         [NotMapped]
         public string Avatar { get; set; }
         [NotMapped]
+        public string UserName { get; set; }
+        [NotMapped]
+        public int? UserStatus { get; set; }
+        [NotMapped]
         public string FullName { get; set; }
         [NotMapped]
         public string Address { get; set; }

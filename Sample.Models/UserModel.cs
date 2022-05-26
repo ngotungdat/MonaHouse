@@ -62,7 +62,7 @@ namespace Sample.Models
                 }
             }
         }
-        public int GenderNumber { get; set; }
+        public int? GenderNumber { get; set; }
         public string GenderName
         {
             get

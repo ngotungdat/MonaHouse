@@ -32,19 +32,19 @@ namespace Sample.Entities
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [StringLength(12)]
+        //[StringLength(12)]
         public string Phone { get; set; }
 
         /// <summary>
         /// Email
         /// </summary>
-        [StringLength(50)]
+        //[StringLength(50)]
         public string Email { get; set; }
 
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        [StringLength(1000)]
+        //[StringLength(1000)]
         public string Address { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Sample.Entities
         /// <summary>
         /// Giới tính
         /// </summary>
-        public int GenderNumber { get; set; }
+        public int? GenderNumber { get; set; }
         /// <summary>
         /// Chứng minh thư
         /// </summary>

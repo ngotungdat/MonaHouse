@@ -6,33 +6,40 @@
 }
 <div class="table-content">
     <div class="row flex-wrap-1 mg-t-15">
-        <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
-            <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin khách hàng">
-                <div class="info-list">
-                    <img class="avatar-@packageOfUser.Id" src="#" width="100px" height="100px"/>
-                    <dl class="row-info hide-on-print mg-t-10">
-                        <dd class="">Tài khoản</dd>
-                        <dt class="">
-                            <span tabindex="0" class="badge badge-success valign-middle user-status-@packageOfUser.Id" role="button">
+        @{
+            if (Model.Users.RoleNumber == 1 || Model.Users.RoleNumber == 2)
+            {
+                <div class="col-sm-12 col-md-4 mg-b-30 mg-md-b-0">
+                    <div class="room-infor legend-box pd-25  rounded " data-label="Thông tin khách hàng">
+                        <div class="info-list">
+                            
+                            <img class="avatar-@packageOfUser.Id" src="/house/images/favicon.ico" width="100px" height="100px" />
+                            <dl class="row-info hide-on-print mg-t-10">
+                                <dd class="">Tài khoản:</dd>
+                                <dt class="user-status-@packageOfUser.Id">
+                                    @*<span tabindex="0" class="badge badge-success valign-middle " role="button">
 
-                            </span>
-                        </dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Ngày sinh</dd>
-                        <dt class="user-dateofbirth-@packageOfUser.Id"></dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Tên đăng nhập</dd>
-                        <dt class="user-username-@packageOfUser.Id"></dt>
-                    </dl>
-                    <dl class="row-info mg-b-0">
-                        <dd class="">Địa chỉ</dd>
-                        <dt class=""><span class="tx-danger user-address-@packageOfUser.Id"> </span></dt>
-                    </dl>
+                                    </span>*@
+                                </dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Ngày sinh:</dd>
+                                <dt class="user-dateofbirth-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info">
+                                <dd class="">Tên đăng nhập:</dd>
+                                <dt class="user-username-@packageOfUser.Id"></dt>
+                            </dl>
+                            <dl class="row-info mg-b-0">
+                                <dd class="">Địa chỉ:</dd>
+                                <dt class=""><span class="tx-danger user-address-@packageOfUser.Id"> </span></dt>
+                            </dl>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        }
+        
         <div class="col-sm-12 col-md-8 ">
             <div class="legend-box pd-25  " data-label="Thông tin gói dịch vụ">
                 <div class="row">
@@ -43,7 +50,7 @@
                                 <dt class="title-package-@packageOfUser.Id"></dt>
                             </dl>
                             <dl class="row-info">
-                                <dd class="">Giá tiền</dd>
+                                <dd class="">Giá tiền:</dd>
                                 <dt class="package-price-@packageOfUser.Id"></dt>
                             </dl>
                             <dl class="row-info">
@@ -67,7 +74,7 @@
                                 <dd class="">Mô tả:</dd>
                                 <dt class="desc-@packageOfUser.Id"></dt>
                             </dl>
-                            
+
 
                         </div>
                     </div>
@@ -343,7 +350,7 @@
 <script>
     //tự gọi lấy data khi có view khác gọi đến
     $(function () {
-        load_packageOfUser('@Model.Domain' + 'api/PackageOfUser?PackageId=' +@packageOfUser.Id+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + @Model.Users.Id);
+        load_packageOfUser('@Model.Domain' + 'api/PackageOfUser?PackageOfUserId=' +@packageOfUser.Id+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' + @Model.Users.Id);
         //load_user_note('@Model.Domain' + 'api/UserNote?UserID='+'@packageOfUser.UserId'+'&PageIndex=1&PageSize=20&OrderBy=0');
     });
     //Load dữ liệu chi tiết user theo api
@@ -360,10 +367,11 @@
                 let packageOfUser = data.Data.Items[0];
                 console.log(data.Data);
                 console.log(packageOfUser);
-                $('.avatar-' + packageOfUser.Id).attr("src", packageOfUser.Avatar);
+                if (packageOfUser.Avatar == null) { $('.avatar-' + packageOfUser.Id).attr("src", "/house/images/favicon.ico");}
+                else { $('.avatar-' + packageOfUser.Id).attr("src", packageOfUser.Avatar); }
                 $('.user-status-' + packageOfUser.Id).html(packageOfUser.FullName);
                 $('.user-dateofbirth-' + packageOfUser.Id).html(moment(packageOfUser.DateOfBirth).format("DD-MM-YYYY"));
-                $('.user-username-' + packageOfUser.Id).html(packageOfUser.FullName);
+                $('.user-username-' + packageOfUser.Id).html(packageOfUser.UserName);
                 $('.user-address-' + packageOfUser.Id).html(packageOfUser.Address);
                 $('.title-package-' + packageOfUser.Id).html(packageOfUser.PackageName);
                 $('.package-price-' + packageOfUser.Id).html(format_money(packageOfUser.PackagePrice) + '/ Tháng');

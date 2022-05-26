@@ -1145,17 +1145,9 @@
                                 </tbody>
 
                             </table>
-                        </div>
-                        <nav aria-label="Page navigation text-right">
-                            <ul class="pagination mg-b-0">
                                 @await Html.PartialAsync("_PaginationPartial")
-                                <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link page-link-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a></li>
-                            </ul>
-                        </nav>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -2122,7 +2114,7 @@
     }
     //load phân trang
     $(function () {
-        load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+        load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
     });
     //load khi bấm chuyển trang
     function load_to_page(index_click) {

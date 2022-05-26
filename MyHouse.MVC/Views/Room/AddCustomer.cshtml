@@ -378,47 +378,10 @@
         alert('Chạy sau khi Submit form');
         var pathArray = window.location.pathname.split('/');
         let RoomID = pathArray[3];
-        // update phong
-        let room_type = $('#ListRoomType').val();
-        let room_price = $('#txt-room-price').val();
-        let Electric_Water_Package = $('#js-select-package').val();
-        let date_into_Room = $('#date-into-room').val().split("/").reverse().join("-");
-        let date_getout_Room = $('#date-getout-room').val().split("/").reverse().join("-");;
-        if (ckstring(RoomID) || ckstring(room_type) || ckstring(room_price) || ckstring(Electric_Water_Package) || ckstring(date_into_Room) || ckstring(date_getout_Room)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            let data = {};
-            data["id"] = RoomID;
-            data["roomTypeId"] = room_type;
-            data["price"] = room_price;
-            data["electricWaterPackage"] = Electric_Water_Package; // 1: bao dien nuoc, 0: khong bao dien nuoc
-            // nếu ngày vào phòng lơn hơn ngày hôm nay đổi trạng thái sang " sắp chuyển vào " ngược lại là đang thuê
-            if (new Date(date_into_Room).getTime() > new Date().getTime()) {
-                data["status"] = 1;
-            }
-            else {
-                data["status"] = 2;
-            }
-            
-            //
-            data["dateInToRoom"] = date_into_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
-            data["dateGetOutRoom"] = date_getout_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
-            console.log(RoomID);
-            console.log(room_type);
-            console.log(room_price);
-            console.log(Electric_Water_Package);
-            console.log(date_into_Room);
-            console.log(date_getout_Room);
-            let api_update_room = 'api/Room';
-            update_data(data, api_update_room);
-        }
-        // ghi dien nuoc hoac khong
+        // ghi điện nước sau đó mới dọn vào phòng
+        // nếu dọn vào phòng trước mới ghi điện thì phiếu điện nước đó sẽ tính luôn cho người mới dọn vào
 
+        // ghi dien nuoc hoac khong
         if ($('#js-select-package').val() == '1') {
             //bao điện nước => update phong
             console.log("bao điện nước");
@@ -478,6 +441,47 @@
                 create_data(data, api_Create_Electric_water_bill);
             }
         }
+
+        // update phong
+        let room_type = $('#ListRoomType').val();
+        let room_price = $('#txt-room-price').val();
+        let Electric_Water_Package = $('#js-select-package').val();
+        let date_into_Room = $('#date-into-room').val().split("/").reverse().join("-");
+        let date_getout_Room = $('#date-getout-room').val().split("/").reverse().join("-");;
+        if (ckstring(RoomID) || ckstring(room_type) || ckstring(room_price) || ckstring(Electric_Water_Package) || ckstring(date_into_Room) || ckstring(date_getout_Room)) {
+            Swal.fire(
+                'Cảnh báo',
+                'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else {
+            let data = {};
+            data["id"] = RoomID;
+            data["roomTypeId"] = room_type;
+            data["price"] = room_price;
+            data["electricWaterPackage"] = Electric_Water_Package; // 1: bao dien nuoc, 0: khong bao dien nuoc
+            // nếu ngày vào phòng lơn hơn ngày hôm nay đổi trạng thái sang " sắp chuyển vào " ngược lại là đang thuê
+            if (new Date(date_into_Room).getTime() > new Date().getTime()) {
+                data["status"] = 1;
+            }
+            else {
+                data["status"] = 2;
+            }
+
+            //
+            data["dateInToRoom"] = date_into_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
+            data["dateGetOutRoom"] = date_getout_Room; // 1: bao dien nuoc, 0: khong bao dien nuoc
+            console.log(RoomID);
+            console.log(room_type);
+            console.log(room_price);
+            console.log(Electric_Water_Package);
+            console.log(date_into_Room);
+            console.log(date_getout_Room);
+            let api_update_room = 'api/Room';
+            update_data(data, api_update_room);
+        }
+
 
 
         // update dich vu phong
@@ -607,13 +611,6 @@
                     create_data(data, api_create_user).then(function (e) {
                         console.log(e);
                     })
-                    // update người đại diện phòng đó
-                    let api_update_room_user = 'api/Room';
-                    let data_update_room_user = {};
-                    data_update_room_user["id"] = RoomID;
-                    data_update_room_user["active"] = true;
-                    data_update_room_user["userInRoomRepresentative"] = userId;
-                    update_data(data_update_room_user, api_update_room_user);
                     // thêm mới người vào phòng
                     let data_new_user_in_room = {};
                     data_new_user_in_room["id"] = 0;
@@ -624,6 +621,14 @@
                     data_new_user_in_room["roomId"] = RoomID;
                     let api_new_user_in_room = 'api/userinroom';
                     create_data(data_new_user_in_room, api_new_user_in_room);
+
+                    // update người đại diện phòng đó
+                    let api_update_room_user = 'api/Room';
+                    let data_update_room_user = {};
+                    data_update_room_user["id"] = RoomID;
+                    data_update_room_user["active"] = true;
+                    data_update_room_user["userInRoomRepresentative"] = userId;
+                    update_data(data_update_room_user, api_update_room_user);
                 }
             });
         }
@@ -632,7 +637,7 @@
     }
 
     function checkrequired(event, currentIndex, newIndex) {
-        
+
         load_room_utilities();
         load_total_money();
         if (currentIndex > newIndex) {

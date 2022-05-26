@@ -21,5 +21,7 @@ namespace Sample.Entities.Search
         /// </summary>
         public int? UserGroupId { get; set; }
         public int? RoleNumber { get; set; }
+        public int? Status { get; set; }
+        public int? PackageId { get; set; }
     }
 }

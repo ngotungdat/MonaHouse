@@ -114,9 +114,9 @@
         @*<div class="col-6 mg-t-15">
             <a href="javascript:;" id="take-debt" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
         </div>*@
-        <div class="col-6 mg-t-15">
+        @*<div class="col-6 mg-t-15">
             <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"> Xuất bill tháng này</a>
-        </div>
+        </div>*@
     </div>
     <!-- End thông tin phòng-->
     <div class="row">
@@ -142,7 +142,7 @@
                                 Thêm
                                 khách
                             </button>
-                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"> Xuất Excel</button>
+                            @*<button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"> Xuất Excel</button>*@
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -154,7 +154,7 @@
                                     <th>SĐT</th>
                                     <th>Người tạo</th>
                                     <th>Ngày cấp</th>
-                                    <th>Nơi cấp</th>
+                                    @*<th>Nơi cấp</th>*@
                                     <th>Tình trạng</th>
                                     <th></th>
                                 </tr>
@@ -162,7 +162,7 @@
                             <tbody id="tbody-userinroom">
                             </tbody>
                         </table>
-                        @await Html.PartialAsync("_PaginationPartial")
+                        @await Html.PartialAsync("_PaginationUserInRoomPartial")
                     </div>
 
                     @*<div class="upload-box mg-t-15 ">
@@ -194,9 +194,9 @@
                 <div class="tab-pane fade" id="js-history" role="tabpanel" aria-labelledby="history-tab">
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
                         <h5>Lịch sử điện nước</h5>
-                        <div class="right-action">
+                        @*<div class="right-action">
                             <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="table-responsive">
                         <table class="table  valign-center tx-nowrap table-striped tx-center table-bordered">
@@ -228,23 +228,15 @@
                             <tbody id="elctric-history">
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
+                        @await Html.PartialAsync("_PaginationElectricWaterBillPartial")
                     </div>
                 </div>
                 <div class="tab-pane fade" id="js-transaction" role="tabpanel" aria-labelledby="transaction-tab">
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
                         <h5>Lịch sử thanh toán</h5>
-                        <div class="right-action">
+                        @*<div class="right-action">
                             <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5">Xuất Excel</button>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="" id="history-room-receipt">
 
@@ -411,15 +403,17 @@
     //
     //load phân trang
     $(function () {
-        load_pagination(pagination(page_index_UserInRoom, page_size_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
+        load_pagination_UserInRoom(pagination_UserInRoom(page_index_UserInRoom, total_page_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
     });
-    //load khi bấm chuyển trang
-    function load_to_page(index_click) {
+    // load phan trang userInRoom
+    function load_to_page_UserInRoom(index_click) {
         page_index_UserInRoom = index_click;
+        console.log(pageindex);
         //load lại data
-        load_data();
+        Load_data();
     }
-    //
+
+
     //#region thong tin chi tiet phong
     let api_room_detail = 'api/room/' + roomId;
     load_data_with_jquery(api_room_detail).then(function (e) {
@@ -497,7 +491,7 @@
                     html += `<tr>
                                     <td>`+ stt + `</td>
                                     <td data-column="col-house">
-                                            <a href="/room/ProfileTenantDetail/`+ item.UsersId + `">
+                                            <a href="/room/ProfileTenantDetail?id=`+ item.UsersId + `">
                                                 `+ item.FullName +`
                                             </a>
                                     </td>
@@ -505,7 +499,7 @@
                                     <td>`+ item.Phone + `</td>
                                     <td>`+ item.CreatedBy + `</td>
                                     <td>`+ format_date(item.Created) +`</td>
-                                    <td>DAKLAK</td>
+                                    @*<td>DAKLAK</td>*@
                                     <td>`+ status + `</td>
                                     <td>
                                         <a href="javascript:;" data-user-id="`+item.UsersId+`" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
@@ -515,11 +509,12 @@
                 $('#tbody-userinroom').html(html);
                 total_item_UserInRoom = e.Data.TotalItem;
                 total_page_UserInRoom = e.Data.TotalPage;
-                load_pagination(pagination(page_index_UserInRoom, total_page_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
+                load_pagination_UserInRoom(pagination_UserInRoom(page_index_UserInRoom, total_page_UserInRoom), page_index_UserInRoom, total_page_UserInRoom, total_item_UserInRoom);
             })
             .then(function (e) { LoadFind(); }
             );
     }
+
     // them moi
     $('#add-userinroom').on('click', function () {
         $('input[name="txt-id"]').val(0);
@@ -655,9 +650,29 @@
             $('#RoomUtilities-details').html(html);
         })
     })
-    // load lịch sử điện nước
-    $(document).ready(function () {
-        let api_Load_electric_history = 'api/ElectricWaterBill?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+
+    // load phân trang điện nước
+
+    let page_index_ElectricWater = 1;
+    let page_size_ElectricWater = 20;
+    let SearchContent_ElectricWater = '';
+    let OrderBy_ElectricWater = 0;
+    let total_item_ElectricWater = 0;
+    let total_page_ElectricWater = 0;
+    //
+    //load phân trang
+    $(function () {
+        load_pagination_ElectricWaterBill(pagination_ElectricWaterBill(page_index_ElectricWater, total_page_ElectricWater), page_index_ElectricWater, total_page_ElectricWater, total_item_ElectricWater);
+    });
+    // load phan trang userInRoom
+    function load_to_page_ElectricWaterBill(index_click) {
+        page_index_ElectricWater = index_click;
+        console.log(pageindex);
+        //load lại data
+        load_ElectricWater();
+    }
+    function load_ElectricWater() {
+        let api_Load_electric_history = 'api/ElectricWaterBill?RoomId=' + roomId + '&PageIndex=' + page_index_ElectricWater + '&PageSize=' + page_size_ElectricWater + '&OrderBy=' + OrderBy_ElectricWater+'&TenantId=@Model.Users.Id';
         load_data_with_jquery(api_Load_electric_history).then(function (e) {
             let list = e.Data.Items;
             let html = '';
@@ -707,7 +722,14 @@
                                 </tr>`;
             }
             $('#elctric-history').html(html);
+            total_item_ElectricWater = e.Data.TotalItem;
+            total_page_ElectricWater = e.Data.TotalPage;
+            load_pagination_ElectricWaterBill(pagination_ElectricWaterBill(page_index_ElectricWater, total_page_ElectricWater), page_index_ElectricWater, total_page_ElectricWater, total_item_ElectricWater);
         })
+    }
+    // load lịch sử điện nước
+    $(document).ready(function () {
+        load_ElectricWater();
     });
 </script>
 <script>

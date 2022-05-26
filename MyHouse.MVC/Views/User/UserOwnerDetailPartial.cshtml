@@ -107,134 +107,7 @@
 </div>
 
 
-<!--Modal-->
-<!-- MODAL UPDATE USER-->
-<div class="modal fade modal-nopadding-right" id="modal-update-user" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
-        <div class="modal-content">
-            <div class="modal-header pd-y-20 pd-x-20 pd-sm-x-30">
-                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-                <div class="media align-items-center">
-                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-users"></i></span>
-                    <div class="media-body mg-sm-l-20">
-                        <input type="hidden" name="update-hdfId" value="0" />
-                        <h4 class="tx-18 tx-sm-20 mg-b-2 tx-uppercase"></h4>
-                        <p class="tx-13 tx-color-03 mg-b-0">Cập nhật thông tin người dùng </p>
-                    </div>
-                </div><!-- media -->
-            </div><!-- modal-header -->
-            <div class="modal-body pd-sm-t-30 pd-sm-x-30">
-                <input type="hidden" name="update-hdfId" value="0" />
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Tài khoản<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-username" id="update-username" required class="form-control" readonly>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Đầy Đủ<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-fullname" id="update-fullname" required class="form-control" placeholder="Ví dụ: Nguyễn Văn A">
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại <span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-phone" id="update-phone" data-type="number" required class="form-control" placeholder="Ví dụ: 0933110546">
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger">(*)</span></label>
-                            <div class="input-icon">
-                                <input id="update-dob" name="update-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/1999" autocomplete="off">
-                                <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Email<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-email" id="update-email" required class="form-control" placeholder="Ví dụ: nguyenvana99@gmail.com">
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giới tính<span class="text-danger">(*)</span></label>
-                            <select class="js-example-basic-single form-control select2" name="update-gender" id="update-gender">
-                                <option disabled="true" selected>Giới tính</option>
-                                <option value="0">Giới tính Nữ</option>
-                                <option value="1">Giới tính Nam</option>
-                                <option value="3">Không xác định</option>
-                            </select>
-                        </div>
-                    </div>
-                    @*<div class="row">
-                            <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
-                                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
-                            </div>
-                        </div>*@
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú<span class="text-danger">(*)</span></label>
-                        <input type="text" name="update-address" id="update-address" required class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Trạng thái<span class="text-danger">(*)</span></label>
-                        <select class="js-example-basic-single form-control select2" id="user-status">
-                            <option disabled="true" selected>Trạng thái</option>
-                            <option value="0">Đã kích hoạt</option>
-                            <option value="1">Đã khóa</option>
-                        </select>
-                    </div>
-                </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger">(*)</span></label>
-                            <input type="text" name="update-cmnd" id="update-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
-                        </div>
-                    </div>
-                    <hr />
-                    @*<div class="row">
-                            <div class="col-sm-6">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Nhập mật khẩu cũ<span class="text-danger">(*)</span></label>
-                                <input type="password" name="update-pwdold" id="update-pwdold" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                            </div>
-                        </div>*@
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu mới<span class="text-danger">(*)</span></label>
-                            <input type="password" name="update-pwd" id="update-pwd" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu mới<span class="text-danger">(*)</span></label>
-                            <input type="password" name="update-pwdconfirm" id="update-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                            <span id='message'></span>
-                        </div>
-                    </div>
-                    @*<div class="row">
-                            <div class="col-sm-12">
-                                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Chọn hình ảnh<span class="text-danger">(*)</span></label>
-                                <div style="clear:left;"></div>
-                                <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
-                                    <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
-                                </a>
-                                <input id="input-img" type='file' name="electricimg" class="hidden upload-image-temps remove-items" onchange="readURL(this);" multiple />
-                                <div style="clear:left;"></div>
-                                <div class="preview-image" id="room-img"></div>
-
-                            </div>
-                        </div>*@
-                </div>
-            </div><!-- modal-body -->
-            <div class="modal-footer pd-x-20 pd-y-15">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary btn-update-user">Lưu lại</button>
-            </div>
-        </div><!-- modal-content -->
-    </div><!-- modal-dialog -->
-</div><!-- modal -->
 <!--Modal note-->
 <div class="modal fade modal-nopadding-right" id="content_note_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered wd-sm-650" role="document">
@@ -341,6 +214,7 @@
                         'success'
                     );
                 }
+                load_data(1, 20, orderBy, SearchContent, Status, Package);
             },
             error: function (xhr, status, error) {
                 Swal.fire(
@@ -490,9 +364,11 @@
         $('#update-phone').val(user.Phone);
         $('#update-email').val(user.Email);
         //xu ly ngay thang nam
-        var date = new Date(user.DateOfBirth);
-        let dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
-
+        let dob = '';
+        if (user.DateOfBirth != null) {
+            var date = new Date(user.DateOfBirth);
+             dob = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        }
         $('#update-dob').val(dob.toString());
         $('#update-address').val(user.Address);
         $('#update-gender').val(user.GenderNumber).change();
@@ -528,7 +404,7 @@
         console.log(address);
         console.log(gender);
         console.log(cmnd);
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(status) || ckstring(cmnd) ) {
+        if (ckstring(fullname) || ckstring(username) @*|| ckstring(phone)*@ @*|| ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender)*@ || ckstring(status) @*|| ckstring(cmnd)*@ ) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
@@ -691,6 +567,7 @@
                         'success'
                     );
                 }
+                load_data(1, 20, orderBy, SearchContent, Status, Package);
                 $('.btn-save-user-in-group').prop('disabled', false);
             },
             error: function (xhr, status, error) {

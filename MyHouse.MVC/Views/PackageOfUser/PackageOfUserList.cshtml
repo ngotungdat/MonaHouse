@@ -77,9 +77,9 @@
 
                             <div class="select-sort">
                                 <span>Sắp xếp: </span>
-                                <select name="" class="form-control">
-                                    <option value="">Tên người dùng A-Z ↓</option>
-                                    <option value="">Tên người dùng Z-A ↑</option>
+                                <select name="" class="form-control" onchange="load_orderBy(this.value)">
+                                    <option value="0">Ngày đăng ký ↓</option>
+                                    <option value="1">Ngày đăng ký ↑</option>
 
                                     
                                 </select>
@@ -109,25 +109,26 @@
                         <div class="filter__form-col">
                             <div class="form__group">
                                 <label>Gói dịch vụ</label>
-                                <select name="" class="form-control">
+                                <select name="" id="slc-package" class="form-control" onchange="load_Package(this.value)">
                                     <option value="" selected="">-Tất cả-</option>
-                                    <option value="">Gói dùng thử</option>
-                                    <option value="">Gói chuyên nghiệp</option>
-                                    <option value="">Gói cá nhân</option>
+                                    
                                 </select>
                             </div>
                         </div>
                         <div class="filter__form-col">
                             <div class="form__group">
                                 <label>Trạng thái: </label>
-                                <select name="" class="form-control">
+                                <select name="" class="form-control" onchange="load_Status(this.value)">
                                     <option value="" selected="">-Tất cả-</option>
-                                    <option value="0">Đã kích hoạt</option>
-                                    <option value="1">Đã khóa</option>
+                                    <option value="0">đợi duyệt</option>
+                                    <option value="1">Đã Duyệt</option>
+                                    <option value="2">Đã hủy</option>
+                                    <option value="3">Đợi gia hạn</option>
+                                    <option value="4">Đã gia hạn</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="filter__form-col">
+                        @*<div class="filter__form-col">
                             <div class="form__group">
                                 <label>Ngày đăng ký</label>
                                 <div class="row from-to-group">
@@ -153,7 +154,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="filter__form-submit">
                         <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
@@ -173,17 +174,54 @@
 </div><!-- container -->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
-    $(function () {
-        load_data_package_user(1, 20, 0);
+    let Status = -1;
+    let Package = -1;
+    let orderBy = 0;
+    let SearchContent = '';
+    //nút tìm kiếm
+    $('#btn-search').on('click', function () {
+        SearchContent = $('input[name=search]').val();
+        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
     });
-    function load_data_package_user(pageindex, pagesize, orderby) {
+
+    function load_Status(val) {
+        Status = val;
+        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+    }
+    function load_Package(val) {
+        Package = val;
+        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+    }
+    function load_orderBy(val) {
+        orderBy = val;
+        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+    }
+    $(function () {
+        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+    });
+    function load_data_package_user(pageindex, pagesize, orderby, SearchContent, status, packageId) {
         var url_string = window.location.href; //
         var url = new URL(url_string);
         var UserId = url.searchParams.get("UserId");
         console.log(UserId);
         console.log(@Model.Users.TenantId);
-        $.get('/PackageOfUser/PackageOfUserPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + "&TenantId=" +@Model.Users.TenantId + "&UserId=" + UserId, function (data) {
+        $.get('/PackageOfUser/PackageOfUserPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby + '&SearchContent=' + SearchContent + "&TenantId=" +@Model.Users.TenantId + "&UserId=" + UserId + "&Status=" + status + "&PackageId=" + packageId, function (data) {
             $('.table-userlist').html(data);
         });
     }
+    //#region danh sách gói dịch vụ
+    let api_load_package = 'api/Package?PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
+    load_data_with_jquery(api_load_package).then(function (e) {
+        console.log(e);
+        let packages = e.Data.Items;
+        select = document.getElementById('slc-package');
+        for (let i = 0; i < packages.length; i++) {
+            console.log(packages[i]);
+            var opt = document.createElement('option');
+            opt.value = packages[i].Id;
+            opt.innerHTML = packages[i].Title;
+            select.appendChild(opt);
+        }
+    })
+    //#endregion
 </script>

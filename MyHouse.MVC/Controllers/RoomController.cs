@@ -70,11 +70,22 @@ namespace MyHouse.MVC.Controllers
         public async Task<IActionResult> ProfileTenantDetail(int id)
         {
             CoreModel coreModel = await GetCurrentSessionAsync();
+            //
+            string domain = GetCurrentDomain();
+            string token = HttpContext.Session.GetString("token");
+            RestClient client = new RestClient(domain + "api/user/"+id);
+            client.Timeout = -1;
+            RestRequest request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            IRestResponse response = await client.ExecuteAsync(request);
+            var obj = JObject.Parse(response.Content);
+            var data = obj["Data"];
+            //var items = data["Items"];
+            UserModel model = JsonConvert.DeserializeObject<UserModel>(data.ToString());
+            coreModel.MyProperty = model;
+            //
             if (coreModel == null)
                 return RedirectToAction("Login", "Login");
-
-            ViewBag.Id = id;
-
             return View(coreModel);
         }
         public async Task<IActionResult> HistoryRoomReceiptPartial()

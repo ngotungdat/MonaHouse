@@ -27,12 +27,12 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
-        public async Task<IActionResult> PackageOfUserPartial(int PageIndex, int PageSize, int OrderBy, int TenantId, int UserId=-1)
+        public async Task<IActionResult> PackageOfUserPartial(int PageIndex, int PageSize, int OrderBy, string searchContent , int TenantId, int UserId=-1, int Status =-1, int PackageId=-1)
         {
             string domain = GetCurrentDomain();
             CoreModel coreModel = await GetCurrentSessionAsync();
             string token = HttpContext.Session.GetString("token");
-            RestClient client = new RestClient(domain + "api/PackageOfUser?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&TenantId=" + TenantId + "&UserId=" + UserId);
+            RestClient client = new RestClient(domain + "api/PackageOfUser?PageIndex=" + PageIndex + "&PageSize=" + PageSize + "&OrderBy=" + OrderBy + "&SearchContent=" + searchContent + "&TenantId=" + TenantId + "&UserId=" + UserId + "&Status=" + Status + "&PackageId=" + PackageId);
             client.Timeout = -1;
             RestRequest request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);

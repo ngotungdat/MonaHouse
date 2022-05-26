@@ -76,6 +76,11 @@ namespace Sample.Models
         public int? UsedDate { get; set; }
 
         // not mapping
+
+        public string UserName { get; set; }
+
+        public int? UserStatus { get; set; }
+
         public string Avatar { get; set; }
         
         public string FullName { get; set; }
