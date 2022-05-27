@@ -13,5 +13,7 @@ namespace Sample.Models
         /// Link hình ảnh
         /// </summary>
         public string Link { get; set; }
+        public int? BranchId { get; set; }
+
     }
 }

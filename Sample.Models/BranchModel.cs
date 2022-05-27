@@ -30,6 +30,14 @@ namespace Sample.Models
         /// Danh sách hình ảnh nối chuỗi từ store
         /// </summary>
         public string LinkImages { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh thêm mới
+        /// </summary>
+        public string AddBranchImages { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh xóa
+        /// </summary>
+        public string DeleteBranchImages { get; set; }
 
         public int RoomCount { get; set; }
 

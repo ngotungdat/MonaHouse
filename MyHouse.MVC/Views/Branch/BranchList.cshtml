@@ -185,11 +185,12 @@
                 </div>
                 <div class="form-group">
                     <div class="upload-boxs mg-b-20">
-                        <a href="javascript:;" class="btn btn-outline-primary btn-uploads btn-block">
+                        <a href="javascript:;" class="btn btn-outline-primary btn-uploads-branch btn-block">
                             <i data-feather="camera" class="mg-r-5"></i> Ảnh nhà - dãy trọ
                         </a>
-                        <input type="file" name="electricimg" class="hidden upload-image-temps remove-items" accept="image/*" multiple>
-                        <div class="preview-image preview-electric"></div>
+                        <input type="file" id="branch-img" name="branch-img" class="hidden upload-image-temps-branch remove-items" accept="image/*" onchange="readURL(this,'branch-img','new-img-branch');" multiple>
+                        <div class="preview-image preview-branch" id="new-img-branch"></div>
+                        <div class="preview-image preview-branch" id="old-img-branch"></div>
                     </div>
                 </div>
                 
@@ -256,14 +257,109 @@
             $('.table-branchlist').html(data);
         });
     }
+    //#region CRUD BranchImage
+    $('.btn-uploads-branch').on('click', function () {
+        $('.upload-image-temps-branch').click();
+    });
+    // xóa img
+    let listImage = [];
+    function deleteImage(index) {
+        //list.remove(index);
+        listImage.splice(index, 1);
+        console.log(listImage);
+    }
+    //
+    // lấy thông tin và hiển thị hình ảnh
+    function readURL(input, inputId, loadId) {
+        console.log(inputId, loadId);
+        if (input.files && input.files[0]) {
+            listImage = [];
+            let html = '';
+            for (let i = 0; i < input.files.length; i++) {
+                //html += '<img id="room-img-' + i + '" src="#" alt="your image" width="150" height="200" />';
+                html += `<div class="image-wrap w-25">
+                            <div class="image-box lightgallery ">
+                                <a id="room-img-href-` + i + `" href="#" class=""> <img id="room-img-` + i + `" src="#" alt="image" class="img"></a>
+                            </div>
+                            <a id="img-` + i + `" onClick="deleteImage(` + i + `)" href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                        </div>`;
+            }
+            $('#' + loadId).hide().html(html).show('slow');
+            for (let i = 0; i < input.files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' + 'room-img-' + i)
+                        .attr('src', e.target.result)
 
+                    $('#' + 'room-img-href-' + i)
+                        .attr('href', e.target.result)
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+            let value = document.getElementById(inputId).files;
+            for (let i of value) {
+                listImage.push(i);
+            }
+            console.log(listImage);
+            console.log(value);
+        }
+
+    }
+
+    //load ảnh của tòa nhà
+    // cập nhật hình ảnh tòa nhà
+    let listImageToDelete = [];
+
+    function addImageIntoDelete(data) {
+        listImageToDelete.push(data);
+        console.log(listImageToDelete);
+    }
+    //
+    function upload_img(files) {
+            let rs = [];
+            var formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                },
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    console.log("upload thanh cong");
+                    console.log(data);
+                    rs = data.Data;
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return rs;
+        }
+    //#endregion
     $('.btn-add-branch').on('click', function () {
+        // clear ảnh thêm mới
+        listImage = [];
+        document.getElementById('branch-img').files.FileList = {};
+        console.log(document.getElementById('branch-img').files.FileList)
+        $('#new-img-branch').html('');
+        // clear ảnh của tòa nhà
+        listImageToDelete = [];
+        $('#old-img-branch').html('');
+
         $('input[name=hdfId]').val(0);
         $('input[name=txt-house-name]').val('');
         $('input[name=txt-house-address]').val('');
         $('select[name=dll-house-type]').val(1);
         $('textarea[name=txt-house-description]').val('');
-        $('input[name=hdfImage]').val('');
+        //$('input[name=hdfImage]').val('');
         $('#modal-branch').modal('show');
         $('select').select2({
             dropdownParent: $('#modal-branch')
@@ -274,6 +370,35 @@
     //load chi tiết nhà/dãy trọ
     $(document).on('click', '.btn-detail-house', function () {
         const data = JSON.parse($(this).attr('data-json'));
+        console.log(data['LinkImages']);
+        let LinkImages = data['LinkImages'];
+
+        // clear ảnh thêm mới
+        listImage = [];
+        document.getElementById('branch-img').files.FileList = {};
+        console.log(document.getElementById('branch-img').files.FileList)
+        $('#new-img-branch').html('');
+        // clear ảnh của tòa nhà
+        listImageToDelete = [];
+        $('#old-img-branch').html('');
+        //
+        let listImageAndId = LinkImages.split('|');
+        if (listImageAndId.length > 0) {
+            let html = '';
+            for (let i = 0; i < listImageAndId.length; i++) {
+                let id = listImageAndId[i].split(':space:')[0];
+                let link = listImageAndId[i].split(':space:')[1];
+                console.log(id + ': ' + link);
+                html += `<div class="image-wrap w-25">
+                            <div class="image-box lightgallery">
+                                <a href="`+ link + `" class=""> <img src="` + link + `" alt="image" class="img "></a>
+                            </div>
+                            <a href="javascript:;" class="delete-image" onClick="addImageIntoDelete(`+ id + `)" ><i class="fas fa-times"></i></a>
+                        </div>`;
+            }
+            $('#old-img-branch').html(html);
+        }
+
         $('input[name=hdfId]').val(data['Id']);
         $('input[name=txt-house-name]').val(data['Name']);
         $('select[name=dll-house-type]').val(data['Type']);
@@ -289,14 +414,7 @@
         const type = $('select[name=dll-house-type]').val();
         const address = $('input[name=txt-house-address]').val();
         const description = $('textarea[name=txt-house-description]').val();
-        //cho image vào list
-        let list_images = [];
-        $('.preview-image .image-wrap').each(function () {
-            let img = $(this).find('.image-box').find('a').attr('data-name');
-            let singleObj = {};
-            singleObj['link'] = img;
-            list_images.push(singleObj);
-        });
+
         //kiểm tra ràng buộc bắt buộc nhập
         if (ckstring(name) @*|| ckstring(list_images)*@) {
             Swal.fire(
@@ -306,12 +424,26 @@
             )
         }
         else {
+            // Ảnh mới
+            let ImageNames = upload_img(listImage);
+            let StringImageNames = '';
+            if (ImageNames != null) {
+                    for (let i = 0; i < ImageNames.length; i++) {
+                        ImageNames[i] = '@Model.Domain' + ImageNames[i];
+                    }
+                    StringImageNames = ImageNames.join(';');
+            }
+            // ảnh xóa
+            let deleteImage = '';
+            if (listImageToDelete.length > 0) {
+                deleteImage = listImageToDelete.join(';');
+            }
             $(this).prop('disabled', true);
-            insert_or_update(id, name, type, address, description, list_images)
+            insert_or_update(id, name, type, address, description, StringImageNames, deleteImage)
         }
     });
 
-    function insert_or_update(Id, name, type, address, description, list_images) {
+    function insert_or_update(Id, name, type, address, description, StringImageNames, deleteImage) {
         let data = {};
         //console.log(Id, name, type, address, description, list_images);
         data["id"] = Id;
@@ -319,7 +451,9 @@
         data["type"] = type;
         data["address"] = address;
         data["description"] = description;
-        data["branchimages"] = list_images;
+        data["addBranchImages"] = StringImageNames;
+        data["deleteBranchImages"] = deleteImage;
+
         data["deleted"] = false;
         data["active"] = true;
 
@@ -330,7 +464,6 @@
         }
         else {
             type_request = 'PUT';
-            console.log('aaaaaa');
         }
         $.ajax({
             url: domain,
@@ -427,7 +560,7 @@
             var optionOut = document.getElementById("dll-house-district");
             for (var i=0; i<optionOut.length; i++) {
                 if(optionOut.value != 0)
-                    optionOut.remove(i); 
+                    optionOut.remove(i);
             }
 
             for(var item of data.Data.Items)
@@ -438,7 +571,7 @@
                 document.getElementById('dll-house-district').appendChild(opption);
             }
         }
-        
+
     }
 
     async function getWard(districtId)
@@ -452,7 +585,7 @@
             var optionOut = document.getElementById("dll-house-ward");
             for (var i=0; i<optionOut.length; i++) {
                 if(optionOut.value != 0)
-                    optionOut.remove(i); 
+                    optionOut.remove(i);
             }
             for(var item of data.Data.Items)
             {
@@ -497,7 +630,7 @@
                 myUtilities.push(utilitiesConfig);
             }
     }
-    
+
     async function editUtilies(id)
     {
         let utilitiesConfig = utilitiesConfigs.find(id);

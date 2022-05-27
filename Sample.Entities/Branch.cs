@@ -94,6 +94,16 @@ namespace Sample.Entities
         [NotMapped]
         public IList<BranchImage> BranchImages { get; set; }
         /// <summary>
+        /// Danh sách hình ảnh thêm mới
+        /// </summary>
+        [NotMapped]
+        public string AddBranchImages { get; set; }
+        /// <summary>
+        /// Danh sách hình ảnh xóa
+        /// </summary>
+        [NotMapped]
+        public string DeleteBranchImages { get; set; }
+        /// <summary>
         /// Hình ảnh đại diện cho nhà
         /// </summary>
         [NotMapped]

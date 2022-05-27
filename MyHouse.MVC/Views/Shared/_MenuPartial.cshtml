@@ -38,7 +38,7 @@
                     <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-bell mr-3"></i>Trung Tâm Thông Báo</a></li>
                     @*<li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>*@
                     @*<li class="nav-sub-item"><a href="/UserGroup/UserGroup" class="nav-sub-link"><i data-feather="user"></i>User Group</a></li>
-        <li class="nav-sub-item"><a href="/UserGroup/UserInGroup" class="nav-sub-link"><i data-feather="user"></i>User In Group</a></li>*@
+                        <li class="nav-sub-item"><a href="/UserGroup/UserInGroup" class="nav-sub-link"><i data-feather="user"></i>User In Group</a></li>*@
                     @*<li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
                 </ul>
             </li>
@@ -57,20 +57,22 @@
 
         case 2: //CSKH của admin
             <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
+            <li class="nav-item">
+                <a href="/Home/Dashboard" class="nav-link"><i class="fas fa-chart-area"></i> <span class="mg-l-5">Thống kê</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="/User/UserOwner" class="nav-link"><i class="fas fa-users"></i><span class="mg-l-5">Khách hàng</span></a>
+            </li>
+            @*<li class="nav-item">
+                <a href="/User/UserCSKH" class="nav-link"><i class="fas fa-user-md"></i><span class="mg-l-5">Nhân viên</span></a>
 
-            <li class="nav-item @ViewBag.ListHouse">
-                <a href="@Url.Action("BranchList", "Branch", new { area = "" })" class="nav-link"><i class="fas fa-home"></i> <span class="mg-l-5">Nhà/Dãy trọ</span></a>
-            </li>
-            <li class="nav-item @ViewBag.ListRoom">
-                <a href="@Url.Action("RoomList", "Room", new { area = "" })" class="nav-link"><i class="fas fa-hospital-alt"></i> <span class="mg-l-5">Phòng</span></a>
-            </li>
+            </li>*@
             <li class="nav-item">
                 <a href="/Package/PackageList" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Dịch vụ</span></a>
             </li>
             <li class="nav-item">
                 <a href="/PackageOfUser/PackageOfUserList" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Đơn hàng</span></a>
             </li>
-
             <li class="nav-item with-sub">
                 <a href="javascript:;" class="nav-link"><i class="fas fa-cog"></i> <span class="mg-l-5">Cấu hình</span></a>
                 <ul class="navbar-menu-sub">
@@ -83,9 +85,9 @@
                     <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i class="fas fa-comment mr-3"></i>Phản hồi</a></li>
                     <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-bell mr-3"></i>Trung Tâm Thông Báo</a></li>
                     @*<li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>*@
-                    @*<li class="nav-sub-item"><a href="/Package/PackageList" class="nav-sub-link"><i data-feather="user"></i>Gói phần mềm</a></li>
-        <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
-        <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
+                    @*<li class="nav-sub-item"><a href="/UserGroup/UserGroup" class="nav-sub-link"><i data-feather="user"></i>User Group</a></li>
+                        <li class="nav-sub-item"><a href="/UserGroup/UserInGroup" class="nav-sub-link"><i data-feather="user"></i>User In Group</a></li>*@
+                    @*<li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
                 </ul>
             </li>
             <li class="nav-item with-sub">
@@ -156,8 +158,8 @@
                         <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i class="fas fa-comment mr-3"></i>Phản hồi</a></li>
                         <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-bell mr-3"></i>Trung Tâm Thông Báo</a></li>
                         @*<li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
-                        <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
-                        <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
+                            <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
+                            <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
                     </ul>
                 </li>
                 <li class="nav-item with-sub">
@@ -186,7 +188,7 @@
             else
             {
                 <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Trang điều hướng</li>
-                
+
                 <li class="nav-item with-sub">
                     <a href="javascript:;" class="nav-link"><i class="fas fa-archive"></i><span class="mg-l-5">Dịch vụ</span></a>
                     <ul class="navbar-menu-sub">
@@ -229,11 +231,11 @@
                         <li class="nav-sub-item"><a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-sub-link"><i class="fas fa-comment mr-3"></i>Phản hồi</a></li>
                         <li class="nav-sub-item"><a href="@Url.Action("NotificationCenter", "Notification", new { area = "" })" class="nav-sub-link"><i class="fas fa-bell mr-3"></i>Trung Tâm Thông Báo</a></li>
                         @*<li class="nav-sub-item"><a href="@Url.Action("ProfileUser", "Account", new { area = "" })" class="nav-sub-link"><i data-feather="user"></i>Đổi thông tin tài khoản</a></li>
-                        <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
-                        <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
+                            <li class="nav-sub-item"><a href="/User/UserOwner" class="nav-sub-link"><i data-feather="user"></i>Danh sách chủ nhà</a></li>
+                            <li class="nav-sub-item"><a href="javascript:;" class="nav-sub-link"><i data-feather="monitor"></i>Hướng dẫn sử dụng</a></li>*@
                     </ul>
                 </li>
-                
+
 
             }
 
@@ -252,7 +254,7 @@
                 <li class="nav-item @ViewBag.ListRoom">
                     <a href="@Url.Action("RoomDetailForRenter", "Room", new { area = "" })" class="nav-link"><i class="fas fa-hospital-alt"></i> <span class="mg-l-5">Thông tin phòng</span></a>
                 </li>
-                
+
                 <li class="nav-item ">
                     <a href="@Url.Action("UserFeedback", "Feedback", new { area = "" })" class="nav-link"><i class="fas fa-comment"></i><span class="mg-l-5">Phản hồi</span></a>
                 </li>

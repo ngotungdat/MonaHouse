@@ -20,9 +20,15 @@ namespace Sample.Service.Services
     public class BranchService : DomainService<Branch, BranchSearch>, IBranchService
     {
         protected IAppDbContext coreDbContext;
-        public BranchService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext) : base(unitOfWork, mapper)
+        protected IBranchImageService BranchImageService;
+        public BranchService(IAppUnitOfWork unitOfWork
+            , IMapper mapper
+            , IAppDbContext coreDbContext
+            , IBranchImageService branchImageService
+            ) : base(unitOfWork, mapper)
         {
             this.coreDbContext = coreDbContext;
+            this.BranchImageService = branchImageService;
         }
         protected override string GetStoreProcName()
         {
@@ -38,12 +44,25 @@ namespace Sample.Service.Services
                     {
                         await this.unitOfWork.Repository<Branch>().CreateAsync(item);
                         await this.unitOfWork.SaveAsync();
-                        foreach(BranchImage jtem in item.BranchImages)
+                        var addBranchImage = item.AddBranchImages.Split(";");
+                        if (addBranchImage.Length>0 && addBranchImage[0] == "") { return true; } 
+                        List<BranchImage> addBranchImages = new List<BranchImage>();
+                        for (int i = 0; i < addBranchImage.Count(); i++) {
+                            BranchImage branchImage = new BranchImage();
+                            branchImage.Id = 0;
+                            branchImage.BranchId = item.Id;
+                            branchImage.Link = addBranchImage[i];
+                            branchImage.CreatedBy = item.CreatedBy;
+                            //
+                            addBranchImages.Add(branchImage);
+                        }
+                        await this.unitOfWork.Repository<BranchImage>().CreateAsync(addBranchImages);
+                        /*foreach(BranchImage jtem in item.BranchImages)
                         {
                             jtem.BranchId = item.Id;
                             jtem.CreatedBy = item.CreatedBy;
                             await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
-                        }
+                        }*/
                         await unitOfWork.SaveAsync();
                         await dbContextTransaction.CommitAsync();
                         return true;
@@ -65,10 +84,8 @@ namespace Sample.Service.Services
             {
       
                 var existItem = await this.GetByIdAsync(item.Id);
-                using (var dbContextTransaction = coreDbContext.Database.BeginTransaction())
-                {
-                    try
-                    {
+                
+                    
                         //existItem =  this.GetById(item.Id);
                         if (existItem != null)
                         {
@@ -81,17 +98,44 @@ namespace Sample.Service.Services
                             //    await this.unitOfWork.Repository<BranchImage>().CreateAsync(jtem);
                             //}
                             //await unitOfWork.SaveAsync();
-                            await dbContextTransaction.CommitAsync();
+                            
+                            // thêm ảnh
+                            var addBranchImage = item.AddBranchImages.Split(";");
+                            if (addBranchImage.Length > 0 && addBranchImage[0] == "") { }
+                            else {
+                                List<BranchImage> addBranchImages = new List<BranchImage>();
+                                for (int i = 0; i < addBranchImage.Count(); i++)
+                                {
+                                    BranchImage branchImage = new BranchImage();
+                                    branchImage.Id = 0;
+                                    branchImage.BranchId = item.Id;
+                                    branchImage.Link = addBranchImage[i];
+                                    branchImage.CreatedBy = item.CreatedBy;
+                                    branchImage.Active = true;
+                                    branchImage.Deleted = false;
+                                    //
+                                    addBranchImages.Add(branchImage);
+                                }
+                                var rs= await BranchImageService.CreateAsync(addBranchImages);
+                                if (rs == false) return false;
+                            }
+
+                            // xóa ảnh
+                            var deleteBranchImage = item.DeleteBranchImages.Split(";");
+                            if (deleteBranchImage.Length > 0 && deleteBranchImage[0] == "") { return true; }
+                            List<BranchImage> deleteBranchImages = new List<BranchImage>();
+                            for (int i = 0; i < deleteBranchImage.Count(); i++)
+                            {
+                                //
+                                var res = await BranchImageService.DeleteAsync(Int32.Parse(deleteBranchImage[i]));
+                                if (res == false) return false;
+                            }
                             return true;
                         }
                         return false;
-                    }
-                    catch (Exception ex)
-                    {
-                        await dbContextTransaction.RollbackAsync();
-                        throw new Exception(ex.Message);
-                    }
-                }
+                    
+                    
+                
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);

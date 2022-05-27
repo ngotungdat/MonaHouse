@@ -42,6 +42,13 @@ namespace MyHouse.MVC.Controllers
         public async Task<IActionResult> Dashboard()
         {
             CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            // kiểm tra role của người đăng nhập
+            // khách trọ không có trang thống kê
+            if (coreModel.Users.RoleNumber == 5) {
+                return RedirectToAction("RoomDetailForRenter", "Room");
+            }
             // load chart
             StringBuilder ap = new StringBuilder();
             // lấy danh sách tất cả gói cước được đăng ký
@@ -79,8 +86,6 @@ namespace MyHouse.MVC.Controllers
             ap.Append("]");
             ViewBag.Data = ap.ToString();
             //chart
-            if (coreModel == null)
-                return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
 

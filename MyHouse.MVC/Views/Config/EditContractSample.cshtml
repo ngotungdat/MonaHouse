@@ -184,7 +184,8 @@
                 console.log('result: ', result);
                 console.log('result: ', result.description);
                 console.log('result: ', result.name);
-                $('#contract-content').val(result.Content);
+                tinyMCE.activeEditor.setContent($('#contract-content').val(result.Content));
+                //$('#contract-content').val(result.Content);
                 $('input[name=txt-title]').val(result.Name);
                 $('input[name=txt-description]').val(result.Description);
                 $('input[name=txt-code]').val(result.Code);
