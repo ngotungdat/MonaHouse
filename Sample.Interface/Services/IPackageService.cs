@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface IPackageService: IDomainService<Package, PackageSearch>
+    public interface IPackageService : IDomainService<Package, PackageSearch>
     {
     }
 }

@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.Search;
 using Sample.Interface.DbContext;
 using Sample.Interface.Services;
 using Sample.Interface.UnitOfWork;
 using Sample.Service.Services.DomainServices;
+using Sample.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,6 +148,44 @@ namespace Sample.Service.Services
                 result = await this.UpdateAsync(item);
             }
             return result;
+        }
+
+        public Task<List<ReportPackageOfUser>> ReportPackageOfUser(int year, int packageId)
+        {
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter("Year", year));
+            sqlParameters.Add(new SqlParameter("PackageId", packageId));
+
+            SqlParameter[] parameters = sqlParameters.ToArray();
+            return Task.Run(() =>
+            {
+                List<ReportPackageOfUser> pagedList = new List<ReportPackageOfUser>();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)coreDbContext.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = "GET_ReportPackageOfUser";
+                    command.Parameters.AddRange(parameters);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    pagedList = MappingDataTable.ConvertToList<ReportPackageOfUser>(dataTable);
+
+                    return pagedList;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
         }
     }
 }

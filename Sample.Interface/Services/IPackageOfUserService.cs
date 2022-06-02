@@ -13,5 +13,6 @@ namespace Sample.Interface.Services
     {
         Task<bool> AppceptPackage(PackageOfUser item);
         Task<bool> ExtendPackage(PackageOfUser item);
+        Task<List<ReportPackageOfUser>> ReportPackageOfUser(int year, int packageId);
     }
 }
