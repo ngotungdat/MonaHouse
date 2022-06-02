@@ -502,7 +502,7 @@
     //#region danh sách năm
     let date = new Date();
     select = document.getElementById('ddl-year');
-    for (let i = date.getFullYear() -10 ; i < date.getFullYear()+10; i++) {
+    for (let i = date.getFullYear() -10 ; i < date.getFullYear()+1; i++) {
             var opt = document.createElement('option');
             opt.value = i;
             opt.innerHTML = i;
