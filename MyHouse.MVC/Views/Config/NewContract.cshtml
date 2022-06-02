@@ -21,6 +21,7 @@
                     </nav>
                     <h4 class="mg-b-0 tx-spacing--1" id="title-h4"></h4>
                 </div>
+
             </div>
         </div>
     </div>
@@ -61,6 +62,7 @@
                             </nav>
                             <div class="input-group-prepend">
                                 <select class="js-example-basic-single form-control select2" name="ListUser" id="ListUser">
+                                    <option value="">-- Chọn khách hàng --</option>
                                 </select>
                             </div>
                         </div>
@@ -90,16 +92,38 @@
         </div>
     </div><!-- row -->
 </div>
-
+@await Html.PartialAsync("PartialView/_BaseScriptPartial", Model)
 <script src="~/house/lib/tinymce/tinymce.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.js-example-basic-multiple').select2();
     });
+    // khi chọn khách hàng
+    $('select[name="ListUser"]').on('change', function () {
+        console.log('aaaa');
+        // gọi API lấy thông tin user
+        let userid = $('select[name="ListUser"]').val();
+        let api_GetUserId = 'api/user/' + userid;
+        load_data_with_jquery(api_GetUserId).then(function (e) {
+            let ct = $('#contract-content').val();
+            console.log(e.Data.FullName);
+            let rs = ct.replace("{user-fullname}", e.Data.FullName);
+            rs = rs.replace("{user-email}", e.Data.Email);
+            rs = rs.replace("{user-phone}", e.Data.Phone);
+            rs = rs.replace("{user-address}", e.Data.Address);
+            rs = rs.replace("{user-avatar}", e.Data.Avatar);
+            rs = rs.replace("{user-cccd}", e.Data.CitizenIdentification);
+            rs = rs.replace("{user-dob}", format_date(e.Data.DateOfBirth));
+            rs = rs.replace("{user-gender}", e.Data.GenderName);
+            console.log(rs);
+            tinyMCE.activeEditor.setContent(rs);
+        })
+    })
+
     // danh sach tat ca User
     $(document).ready(function () {
         $.ajax({
-            url: '@Model.Domain' + 'api/user/GetAllUserByTenantId?TenantId=@Model.Users.TenantId',
+            url: '@Model.Domain' + 'api/user/GetAllCustomerByTenantId?TenantId=@Model.Users.TenantId&RoleNumber=@Model.Users.RoleNumber',
             type: 'GET',
             dataType: 'JSON',
             headers: {
@@ -130,7 +154,7 @@
         });
     })
 
-   
+
 </script>
 
 <script>
@@ -168,10 +192,31 @@
         });
         fileInput.click()
     }
-
-   @* tinymce.init({
+    tinymce.init({
+        readonly: false,
         selector: '#contract-content',
-    });*@
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
 
     let token = '@Model.Token';
     let domain = '@Model.Domain';
@@ -182,7 +227,7 @@
     domain += 'api/License';
     var pathArray = window.location.pathname.split('/');
     var Id = pathArray[3];
-    
+
     console.log(pathArray);
     console.log(Id);
     //
@@ -222,31 +267,7 @@
                 $('input[name=txt-code]').val(result.Code);
                 $('#title-h4').html(result.Name);
                 // init new tiny
-                tinymce.init({
-                    readonly: false,
-                    selector: '#contract-content',
-                    oninit: "setPlainText",
-                    plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
-                    paste_as_text: true,
-                    inline: false,
-                    menubar: false,
-                    toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
-                    content_css: [
-                        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
-                    ],
-                    height: 250,
-                    images_dataimg_filter: function (img) {
-                        return img.hasAttribute('internal-blob');
-                    },
-                    setup: (editor) => {
-                        editor.ui.registry.addButton('UploadImage', {
-                            text: 'Image',
-                            icon: 'image',
-                            onAction: uploadImage
-                        });
-                    },
-                    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
-                });
+                tinyMCE.activeEditor.setContent(result.Content);
                 //
                 console.log(result.Content);
             },

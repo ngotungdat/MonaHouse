@@ -76,5 +76,36 @@ namespace Sample.API.Controllers
             }
             return appDomainResult;
         }
+
+        [HttpGet]
+        [Description("Thông kê điện nước theo tòa nhà và năm")]
+        [Route("get_electric_water_bill_with_year_and_branchid")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> GetElectricWaterBillWitthBranchAndYear(int BranchId, int Year, int userId)
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+
+            if (ModelState.IsValid)
+            {
+                var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
+                if (user == null /*|| user.RoleNumber != 0 || user.RoleNumber != 3 || user.RoleNumber != 4*/) {
+                    throw new Exception("Không phải là admin, CSKH, chủ trọ, nhân viên chủ trọ");
+                }
+                List<ElectricWaterForYearAndBranchId> ElectricWaterBills = await ElectricWaterBillService.GetElectricWaterBillWitthBranchAndYear(BranchId, Year, userId);
+
+                appDomainResult = new AppDomainResult
+                {
+                    Data = ElectricWaterBills,
+                    Success = true,
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.GETALL_SUCCESS
+                };
+            }
+            else
+            {
+                throw new AppException(ModelState.GetErrorMessage());
+            }
+            return appDomainResult;
+        }
     }
 }

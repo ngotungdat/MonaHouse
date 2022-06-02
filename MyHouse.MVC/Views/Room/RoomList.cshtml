@@ -13,6 +13,7 @@
         position: absolute;
     }
 
+    
     .room .room-info {
         padding-top: 30px;
     }
@@ -64,8 +65,89 @@
     .col-sm-12 {
         padding-bottom: 15px;
     }
+
     .col-sm-6 {
         margin-bottom: 20px;
+    }
+
+    /* New CSS*/
+    @*img {
+        height: 150px;
+        width: 100%;
+    }*@
+
+    p {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .item {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .card-block {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1.25rem;
+    }
+
+    .item-card {
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    .item-card-title {
+        font-size: 15px;
+        transition: 1s;
+        cursor: pointer;
+    }
+
+        .item-card-title i {
+            font-size: 15px;
+            transition: 1s;
+            cursor: pointer;
+            color: #ffa710
+        }
+
+    .card-title i:hover {
+        transform: scale(1.25) rotate(100deg);
+        color: #18d4ca;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+    }
+
+    .card-text {
+        height: 80px;
+    }
+
+    .card::before, .card::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale3d(0, 0, 1);
+        transition: transform .3s ease-out 0s;
+        background: rgba(255, 255, 255, 0.1);
+        content: '';
+        pointer-events: none;
+    }
+
+    .card::before {
+        transform-origin: left top;
+    }
+
+    .card::after {
+        transform-origin: right bottom;
+    }
+
+    .card:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
+        transform: scale3d(1, 1, 1);
     }
 </style>
 <div class="content content-fixed">
@@ -92,12 +174,12 @@
                             </select>
                         </div>
                         @*<div class="form-group group-select">
-                    <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
-                    <select name="" class="form-control">
-                        <option value="">Tháng 1</option>
-                        <option value="" selected="">Tháng 2</option>
-                    </select>
-                </div>*@
+                                <label class="mg-b-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></label>
+                                <select name="" class="form-control">
+                                    <option value="">Tháng 1</option>
+                                    <option value="" selected="">Tháng 2</option>
+                                </select>
+                            </div>*@
                     </div>
                 </div>
             </div>
@@ -316,11 +398,11 @@
 
                         </div>
                         @*<div class="row">
-            <div class="col-sm-12">
-                <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
-                <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
-            </div>
-        </div>*@
+                                <div class="col-sm-12">
+                                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày Phòng trống khách<span class="text-danger">(*)</span></label>
+                                    <input type="text" name="txt-EmptyRoomDate" required class="form-control" placeholder="Ví dụ: 20/2/2023">
+                                </div>
+                            </div>*@
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -757,25 +839,25 @@
 
                     </div>
                     @*<div class="row mg-b-10 align-items-center">
-            <div class="col">
-                <span class="lb">Đã nhận:</span>
-            </div>
-            <div class="col">
-                <input type="tel" data-type="currency" class="form-control" placeholder="0">
-            </div>
+                            <div class="col">
+                                <span class="lb">Đã nhận:</span>
+                            </div>
+                            <div class="col">
+                                <input type="tel" data-type="currency" class="form-control" placeholder="0">
+                            </div>
 
-        </div>
-        <div class="row mg-b-10 align-items-center">
-            <div class="col">
-                <span class="lb">Hình thức:</span>
-            </div>
-            <div class="col">
-                <select name="" class="form-control">
-                    <option value="" selected="">Chuyển khoản</option>
-                    <option value="">Tiền mặt</option>
-                </select>
-            </div>
-        </div>*@
+                        </div>
+                        <div class="row mg-b-10 align-items-center">
+                            <div class="col">
+                                <span class="lb">Hình thức:</span>
+                            </div>
+                            <div class="col">
+                                <select name="" class="form-control">
+                                    <option value="" selected="">Chuyển khoản</option>
+                                    <option value="">Tiền mặt</option>
+                                </select>
+                            </div>
+                        </div>*@
 
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
@@ -998,21 +1080,21 @@
                                         <option value="1">Tên tòa nhà Z-A ↑</option>
 
                                         @*<option value="">Tiền nợ ↓</option>
-                                        <option value="">Tiền nợ ↑</option>*@
+                                            <option value="">Tiền nợ ↑</option>*@
                                     </select>
                                 </div>
                                 @*<div class="select-sort">
-                                    <span>Trạng thái: </span>
-                                    <select name="" class="form-control" onchange="sort_data_status(this.value)">
-                                        <option value="" selected="">-Tất cả-</option>
-                                        <option value="0">Phòng trống</option>
-                                        <option value="1">Sắp chuyển vào</option>
-                                        <option value="2">Đang ở</option>
-                                        <option value="3">Sắp dọn ra</option>
-                                        <option value="4">Đang sửa</option>
-                                        <option value="5">Đã Khóa</option>
-                                    </select>
-                                </div>*@
+                                        <span>Trạng thái: </span>
+                                        <select name="" class="form-control" onchange="sort_data_status(this.value)">
+                                            <option value="" selected="">-Tất cả-</option>
+                                            <option value="0">Phòng trống</option>
+                                            <option value="1">Sắp chuyển vào</option>
+                                            <option value="2">Đang ở</option>
+                                            <option value="3">Sắp dọn ra</option>
+                                            <option value="4">Đang sửa</option>
+                                            <option value="5">Đã Khóa</option>
+                                        </select>
+                                    </div>*@
                                 <div class="mg-b-15">
                                     <a href="#" class="btn btn-style control js-toggle-filter" id="js-toggle-filter"><i class="fa fa-filter" aria-hidden="true"></i></a>
                                     <a href="#" class="btn btn-style js-customize-column m-0" data-target="table-list-room"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a>
@@ -1050,32 +1132,32 @@
                             </div>
 
                             @*<div class="filter__form-col">
-                                <div class="form__group">
-                                    <label>Phòng sắp trống</label>
-                                    <div class="row from-to-group">
-                                        <div class="col-6">
-                                            <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                    <div class="form__group">
+                                        <label>Phòng sắp trống</label>
+                                        <div class="row from-to-group">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="filter__form-col">
-                                <div class="form__group">
-                                    <label>Ngày dọn vào</label>
-                                    <div class="row from-to-group">
-                                        <div class="col-6">
-                                            <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                <div class="filter__form-col">
+                                    <div class="form__group">
+                                        <label>Ngày dọn vào</label>
+                                        <div class="row from-to-group">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control datetimepicker date-only from-date" placeholder="Từ ngày" autocomplete="off">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control datetimepicker date-only to-date" placeholder="Đến ngày" autocomplete="off">
-                                        </div>
-                                    </div>
 
-                                </div>
-                            </div>*@
+                                    </div>
+                                </div>*@
 
 
                             <div class="filter__form-col">
@@ -1091,9 +1173,9 @@
                                 <div class="form__group">
                                     <label>Thu tiền</label>
                                     <select name="" class="form-control" onchange="sort_data_takeMoney(this.value)">
-                                        <option value="">-Tất cả-</option>
-                                        <option value="0" selected="">Chưa thu tiền</option>
-                                        <option value="1" selected="">Đã thu tiền</option>
+                                        <option value="" selected>-Tất cả-</option>
+                                        <option value="0" >Chưa thu tiền</option>
+                                        <option value="1" >Đã thu tiền</option>
                                     </select>
                                 </div>
                             </div>
@@ -1106,22 +1188,27 @@
                                 </div>
                             </div>
                             @*<div class="filter__form-col">
-                                <div class="form__group">
-                                    <label>Tiền nợ</label>
-                                    <select name="" class="form-control" onchange="sort_data_debtMoney(this.value)">
-                                        <option value="">-Tất cả-</option>
-                                        <option value="0" selected="">Không nợ</option>
-                                        <option value="1" selected="">Đang có nợ</option>
-                                    </select>
-                                </div>
-                            </div>*@
+                                    <div class="form__group">
+                                        <label>Tiền nợ</label>
+                                        <select name="" class="form-control" onchange="sort_data_debtMoney(this.value)">
+                                            <option value="">-Tất cả-</option>
+                                            <option value="0" selected="">Không nợ</option>
+                                            <option value="1" selected="">Đang có nợ</option>
+                                        </select>
+                                    </div>
+                                </div>*@
                         </div>
                         <div class="filter__form-submit">
                             <a href="javascript:;" class="btn btn-warning" id="js-filter-submit">Tìm nâng cao</a>
                         </div>
                     </div>
-                    <div class="table__filter-wrap">
+                    <div class="table__filter-wrap" >
                         <div class="table-responsive">
+                            <div class="container mt-2">
+                                <div class="row" id="customize-content">
+                                </div>
+
+                            </div>
                             <table class="table table-hover table-striped  border" id="table-list-room">
                                 <thead>
                                     <tr class="tr-header-table">
@@ -1144,9 +1231,9 @@
                                 </tbody>
 
                             </table>
-                                @await Html.PartialAsync("_PaginationPartial")
+                            @await Html.PartialAsync("_PaginationPartial")
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -1815,7 +1902,6 @@
         load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
         });
     function load_Room(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType, _BranchId, _Electric, _TakeMoney, _DebtMoney) {
-        let rooms = [];
         return $.ajax({
                 type: 'GET',
                 dataType: "json",
@@ -1826,7 +1912,6 @@
                 },
                 success: function (data, status, xhr) {
                     let list = data.Data.Items;
-                    rooms = list;
                     let html = '';
                     // Create our number formatter.
                     var formatter = new Intl.NumberFormat('en-US', {
@@ -2049,12 +2134,14 @@
                         //#endregion
                     }
                     $('#tbody-roomlist').hide().html(html).show('slow');
+                    $('#table-list-room').show();
 
+                    $('#customize-content').hide();
 
 
                     TotalItem = data.Data.TotalItem;
                     TotalPage = data.Data.TotalPage;
-                    load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
+                    load_pagination(pagination(PageIndex, TotalPage), PageIndex, TotalPage, TotalItem);
 
                     return data.Data;
                 },
@@ -2113,7 +2200,7 @@
     }
     //load phân trang
     $(function () {
-        load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
+        load_pagination(pagination(PageIndex, TotalPage), PageIndex, TotalPage, TotalItem);
     });
     //load khi bấm chuyển trang
     function load_to_page(index_click) {
@@ -2864,7 +2951,7 @@
                     console.log(e);
                     $('#user-debt-checkout-take-money').html(format_money(e.Data.DebtMoney));
                 })
-                
+
 
                 // disable nut
                 $('.btn-money-take').prop('disabled', false);
@@ -2984,4 +3071,174 @@
     }
     //#endregion
 </script>
-<!---->
+<script>
+    //#region load customize room
+    let flag = true;
+    $('.js-customize-column').on('click', function () {
+        if (flag == true) {
+            load_Room_orther(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+            flag = false;
+        }
+        else {
+            load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
+            flag = true;
+        }
+        
+    })
+
+    function load_Room_orther(_PageIndex, _PageSize, _SearchContent, _OrderBy, _Status, _RoomType, _BranchId, _Electric, _TakeMoney, _DebtMoney) {
+        let rooms = [];
+        return $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '@Model.Domain' + 'api/Room?PageIndex=' + _PageIndex + '&Electric=' + _Electric + '&TakeMoney=' + _TakeMoney + '&DebtMoney=' + _DebtMoney+ '&PageSize=' + _PageSize + '&status=' + _Status + '&roomtypeid=' + _RoomType + '&SearchContent=' + _SearchContent + '&OrderBy=' + _OrderBy + '&BranchId=' + _BranchId+'&TenantId=' + '@Model.Users.Id',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data, status, xhr) {
+                    let list = data.Data.Items;
+                    rooms = list;
+                    let html = '';
+                    // Create our number formatter.
+                    var formatter = new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'VND',
+
+                        // These options are needed to round to whole numbers if that's what you want.
+                        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+                        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+                    });
+
+                    for (let i = 0; i < list.length; i++) {
+                        let item = list[i];
+                        console.log(item);
+                        // xử lý dữ liệu và trang thái phòng
+                        let status = "";
+                        let CssClass=""
+                        if (item.Status == 0) {
+                            CssClass="badge badge-light wd-100 pd-5 tx-12";
+                            status = "Phòng trống";
+                        } if (item.Status == 1) {
+                            CssClass="badge badge-warning wd-100 pd-5 tx-12";
+                            status = "Sắp chuyển vào";
+                        }if (item.Status == 2) {
+                            CssClass="badge badge-primary wd-100 pd-5 tx-12";
+                            status = "Đang thuê";
+                        } if (item.Status == 3) {
+                            CssClass="badge badge-danger wd-100 pd-5 tx-12";
+                            status = "Sắp dọn ra";
+                        } if (item.Status == 4) {
+                            CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+                            status = "Đang sửa";
+                        } if (item.Status == 5) {
+                            CssClass = "badge badge-danger wd-100 pd-5 tx-12";
+                            status = "Đã khóa";
+                        }
+                        // nếu chưa có ngày dọn vào => phòng trống
+                        let date_into_room = item.DateInToRoom;
+                        if (date_into_room == null) {
+                            date_into_room = 'chưa có ngày dọn vào';
+                        }
+                        else {
+                            date_into_room = format_date(item.DateInToRoom);
+                        }
+                        // nếu không có người đại diện
+                        let user_name = item.FullName;
+                        let user_phone = item.Phone;
+                        let user_debt = item.DebtMoney;
+                        if (user_name == null) {
+                            user_name = 'Chưa có người đại diện';
+                            user_phone = 'chưa có số điện thoại';
+                            user_debt = 0;
+                        }
+                        //#region nội dung html
+                        html += `
+                            <div class="col-md-3 col-sm-6 item">
+                                <div class="card item-card card-block">
+                                    <h4 class="card-title text-right">
+                                        <div class="dropdown__wrap">
+                                            <a href="#" class="table-action">
+                                                <i class="material-icons" aria-hidden="true">settings</i>
+                                            </a>
+                                            <ul class="drop-menu">
+                                                    <li class="drop-menu-item"><a href="./RoomDetail/`+ item.Id + `" class="item-link"><span class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></span>Chi tiết</a></li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-electronicNote" data-toggle="modal" class="item-link" onclick="electricRecord(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>Ghi
+                                                            điện
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="DetailImage(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-image" aria-hidden="true" ></i></span>Hình ảnh
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="#js-ImageNote" data-toggle="modal" class="item-link" onclick="EditRoom(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-edit" aria-hidden="true"></i></span>Chỉnh sửa
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="CalMoney(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Tính tiền
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="takeMoney(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-hand-holding-usd" aria-hidden="true" ></i></span>Thu
+                                                            tiền
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="javascript:;" data-toggle="modal" class="item-link" onclick="goOut(`+ item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true" onclick="moveOut(`+ item.Id + `)"></i></span>Dọn
+                                                            ra
+                                                        </a>
+                                                    </li>
+                                                    <li class="drop-menu-item">
+                                                        <a href="javascript:;" class="item-link" onclick="goInRoom(` + item.Id + `)">
+                                                            <span class="icon"><i class="fas fa-sign-in-alt" aria-hidden="true"></i></span>Dọn vào
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                        </div>
+                                    </h4>
+                                    <img height:150px; width:100%; src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+                                    <h5 class="item-card-title mt-3 mb-3">` + item.BranchName + ` • ` + item.Name + ` </h5>
+                                    <p>Giá tiền: <span class="tx-success"> `+ formatter.format(item.Price) + `</span>/Tháng</p>
+                                    <p>Loại:<span class="mg-b-0 tx-medium" >`+ item.RoomTypeName + `</span> </p>
+                                    <p>Trạng thái:
+                                        <span class="`+ CssClass + `" name="status">
+                                                `+ status + `
+                                        </span>
+                                        <p class="mg-b-0 mg-t-5 tx-12">Dọn vào: `+ date_into_room + `</p>
+                                    </p>
+                                    <p>Thu tiền:</p>
+                                    <p>Điện nước:</p>
+                                </div>
+                            </div>
+                        `;
+                        //#endregion
+                    }
+                    $('#customize-content').hide().html(html).show('slow');
+                    $('#table-list-room').hide();
+                    $('#tbody-roomlist').hide();
+
+
+                    TotalItem = data.Data.TotalItem;
+                    TotalPage = data.Data.TotalPage;
+                    load_pagination(pagination(_PageIndex, TotalPage), _PageIndex, TotalPage, TotalItem);
+
+                    return data.Data;
+                },
+                error: function (xhr, status, error) {
+                    return null;
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+    }
+    //#endregion
+</script>
+
+

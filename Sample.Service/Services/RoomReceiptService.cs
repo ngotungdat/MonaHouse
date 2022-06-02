@@ -1,14 +1,19 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.DomainEntities;
 using Sample.Entities.Search;
+using Sample.Interface.DbContext;
 using Sample.Interface.Services;
 using Sample.Interface.UnitOfWork;
 using Sample.Request;
 using Sample.Service.Services.DomainServices;
+using Sample.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +27,10 @@ namespace Sample.Service.Services
         protected IRoomService roomService;
         protected IUserService userService;
         protected IRoomContractRepresentativeService roomContractRepresentativeService;
+        protected readonly IAppDbContext Context;
 
         public RoomReceiptService(IAppUnitOfWork unitOfWork, IMapper mapper
+            , IAppDbContext appDbContext
             , IElectricWaterBillService ElectricWaterBillService
             , IRoomUtilitiService RoomUtilitiService
             , IRoomService RoomService
@@ -36,6 +43,7 @@ namespace Sample.Service.Services
             this.roomUtilitiService = RoomUtilitiService;
             this.roomService = RoomService;
             this.roomContractRepresentativeService = roomContractRepresentativeService;
+            this.Context = appDbContext;
         }
         protected override string GetStoreProcName()
         {
@@ -189,6 +197,45 @@ namespace Sample.Service.Services
             
             // update hóa đươn thanh toán
             return await base.UpdateAsync(item);
+        }
+
+        public Task<List<RoomReceiptsForYearAndBranchId>> GetRoomReceiptsWitthBranchAndYear(int branchId, int year, int userId)
+        {
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter("BranchId", branchId));
+            sqlParameters.Add(new SqlParameter("Year", year));
+            sqlParameters.Add(new SqlParameter("TenantId", userId));
+
+            SqlParameter[] parameters = sqlParameters.ToArray();
+            return Task.Run(() =>
+            {
+                List<RoomReceiptsForYearAndBranchId> pagedList = new List<RoomReceiptsForYearAndBranchId>();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)Context.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = "Get_RoomReceiptsWithYearAndBranchId";
+                    command.Parameters.AddRange(parameters);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    pagedList = MappingDataTable.ConvertToList<RoomReceiptsForYearAndBranchId>(dataTable);
+
+                    return pagedList;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
         }
     }
 }

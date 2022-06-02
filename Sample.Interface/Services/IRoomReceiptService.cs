@@ -13,5 +13,6 @@ namespace Sample.Interface.Services
 {
     public interface IRoomReceiptService : IDomainService<RoomReceipt, RoomReceiptSearch>
     {
+        Task<List<RoomReceiptsForYearAndBranchId>> GetRoomReceiptsWitthBranchAndYear(int branchId, int year, int userId);
     }
 }

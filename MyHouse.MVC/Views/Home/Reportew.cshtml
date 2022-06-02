@@ -1,0 +1,440 @@
+﻿@model CoreModel;
+<style>
+    .table__filter__wrap .table-centered tr th, .table__filter__wrap .table-centered tr td {
+        text-align: left
+    }
+</style>
+<div class="fixed-filter sticky-top pd-b-15">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-flex align-items-center flex-wrap">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item active" aria-current="page">Thống kê điện nước</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-md-b-0 tx-spacing--1 mg-r-15">Báo cáo điện nước</h4>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                        <label class="mg-b-0"><i data-feather="home"></i></label>
+                        <select id="ddl-house" class="form-control">
+                            <option value="0">--- Tất cả ---</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                        <label class="mg-b-0">Năm</label>
+                        <select id="ddl-year" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row mg-t-30">
+        <div class="col-12">
+            <div class="card mg-b-30  rounded-0">
+                <div class="card-body tx-16">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="">Tổng điện: <strong id="tx-tien-dien">20.000.000</strong> / <span id="tx-so-dien"></span> kW </p>
+                            <p class="">Tổng nước: <strong id="tx-tien-nuoc">30.000.000</strong> / <span id="tx-so-nuoc"></span> m<sup>3</sup></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-sm-end">
+                <div class="col-12">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-electronic-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="row mg-t-30 table__filter__wrap">
+        <div class="table-responsive table__filter-wrap">
+            <div class="table-responsive">
+                <table class="table table-bordered table-centered table-block-mobile" id="js-visibility-column">
+                    <thead class="">
+                        <tr>
+                            <th class="sort-label text-left">Nhà/dãy trọ</th>
+                            <th class="sort-label text-left">Phòng</th>
+                            <th class="sort-label">Tháng/năm</th>
+                            <th class="sort-label text-left">Người thuê</th>
+                            <th class="sort-label text-center">Số điện</th>
+                            <th class="sort-label text-center">Số nước</th>
+                            <th class="sort-label">Ngày giờ nhập</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>*@
+</div>
+<div class="modal fade" id="js-electronicNote">
+    <div class="modal-dialog modal-dialog-centered">
+        @using (Html.BeginForm("UpdateElectrict", "ManagerElectrictWater", FormMethod.Post, new { id = "form-update-electrict", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="hdfEelctricID" value="" />
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block">
+                            <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                               aria-hidden="true"></i>
+                        </span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mb-0 elec-roomname">Phòng số 01</h4>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body ">
+                    <div class="form-row">
+                        <div class="col-sm-12  form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Chỉ số điện</label>
+                            <input type="number" name="txt-electric-number" class="form-control number-val" placeholder="0 0 0 0 0">
+                        </div>
+                        <div class="col-12 upload-box mg-b-20">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ điện
+                            </a>
+                            <input type="file" name="electricimg" class="hidden upload-image-temp remove-item" data-cate="2" accept="image/*">
+                            <input type="hidden" name="hdfElectric" class="hdfIMG" />
+                            <div class="preview-image preview-electric"></div>
+                        </div>
+                    </div>
+
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                </div>
+            </div><!-- modal-content -->
+        }
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal fade" id="js-waterNote">
+    <div class="modal-dialog modal-dialog-centered">
+        @using (Html.BeginForm("UpdateWater", "ManagerElectrictWater", FormMethod.Post, new { id = "form-update-water", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="hdfwaterID" value="" />
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                    <div class="media align-items-center">
+                        <span class="tx-color-03 d-none d-sm-block">
+                            <i class="fas fa-calendar-alt tx-24 tx-color-03"
+                               aria-hidden="true"></i>
+                        </span>
+                        <div class="media-body mg-sm-l-20">
+                            <h4 class="tx-18 tx-sm-20 mb-0 water-roomname">Phòng số 01</h4>
+                        </div>
+                    </div><!-- media -->
+                </div><!-- modal-header -->
+                <div class="modal-body ">
+                    <div class="form-row">
+                        <div class="col-sm-12  form-group">
+                            <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Chỉ số nước</label>
+                            <input type="number" name="txt-water-number" class="form-control number-val" placeholder="0 0 0 0 0">
+                        </div>
+                        <div class="col-12 upload-box mg-b-20">
+                            <a href="javascript:;" class="btn btn-outline-primary btn-upload btn-block">
+                                <i data-feather="camera" class="mg-r-5"></i> Ảnh đồng hồ nước
+                            </a>
+                            <input type="file" name="waterimg" class="hidden upload-image-temp remove-item" data-cate="3" accept="image/*">
+                            <input type="hidden" name="hdfWaterIMG" class="hdfIMG" />
+                            <div class="preview-image preview-water"></div>
+                        </div>
+                    </div>
+
+                </div><!-- modal-body -->
+                <div class="modal-footer pd-x-20 pd-y-15">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                </div>
+            </div><!-- modal-content -->
+        }
+    </div><!-- modal-dialog -->
+</div>
+@*<script src="~/App_Themes/HouseMona/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/App_Themes/HouseMona/lib/chart.js/Chart.bundle.min.js"></script>
+<script src="~/App_Themes/HouseMona/lib/chart.js/chartjs-plugin-datalabels.js"></script>*@
+@await Html.PartialAsync("PartialView/_BaseScriptPartial",Model)
+<script>
+    let electric = [];
+    let water = [];
+    $(window).scroll(function () {
+        let scrollY = $(window).scrollTop();
+        console.log('scrolled');
+        if (scrollY > 30) {
+            $('body').addClass('remove-hd-fixed');
+        } else {
+            $('body').removeClass('remove-hd-fixed');
+        }
+    });
+    var filterValues = {};
+    $(document).ready(function () {
+        function initLightGallery() {
+            $('.lightgallery').each((index, ele) => {
+                $(ele).lightGallery({
+                    thumbnail: false,
+                    animateThumb: false,
+                    showThumbByDefault: false,
+                    fullScreen: false
+                });
+            });
+        };
+        //Chart
+        //For padding between chart and legend
+        Chart.Legend.prototype.afterFit = function () {
+            this.height = this.height + 25;
+        };
+        //Random data
+        function getRandom(length, min, max, currency) {
+            const arr = [];
+            for (let i = 0; i <= length; i++) {
+                if (currency == true) {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min) * 1000;
+                } else {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min);
+                }
+            }
+            return arr;
+        }
+        const convertArrToFlotData = arr => {
+            return arr.map((x, index) => {
+                return [index, x];
+            });
+        }
+
+        const currencyFormat = value => value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        var ctx1 = document.getElementById('js-electronic-chart').getContext('2d');
+        const shortMonth = ['TH1', 'TH2', 'TH3', 'TH4', 'TH5', 'TH6', 'TH7', 'TH8', 'TH9', 'TH10', 'TH11', 'TH12'];
+        const longMonth = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+        const revenueChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: longMonth,
+                datasets: [{
+                    label: 'Số nước',
+                    data: water,
+                    //data: [],
+                    backgroundColor: '#1E90FF',
+                    borderColor: '#1E90FF',
+                    borderWidth: 2,
+                    fill: false
+                }, {
+                    label: 'Số điện',
+                    data: electric,
+                    //data: [],
+                    backgroundColor: '#DB7093',
+                    borderColor: '#DB7093',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        formatter: function (value, context) {
+                            return value;
+                        },
+                        clamp: true,
+                        align: 'top'
+                    }
+                },
+                title: {
+                    text: 'Thống kê tiêu thụ điện nước',
+                    display: true,
+                    position: 'top'
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        display: true,
+                        padding: 20,
+                    },
+                    position: 'bottom',
+                },
+                legendCallback: function (chart) {
+                    var text = [];
+                    text.push('<ul class="' + chart.id + '-legend legend-chart">');
+                    for (let i = 0; i < chart.data.datasets.length; i++) {
+                        text.push('<li><span class="block-color" style="background-color:' +
+                            chart.data.datasets[i].backgroundColor + '"></span>');
+                        if (chart.data.datasets[i].label) {
+                            text.push(chart.data.datasets[i].label);
+                        }
+                        text.push('</li>');
+                    }
+                    text.push('</ul>');
+                    return text.join("");
+                },
+
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            dipslay: false,
+                            color: '#ebeef3'
+                        },
+                        ticks: {
+                            fontColor: '#8392a5',
+                            fontSize: 10,
+                            callback: function (value, index, values) {
+                                if (parseInt(value) >= 1000000 && parseInt(value) < 1000000000) {
+                                    return (value / 1000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ",") + ' Triệu';
+                                } else if ((parseInt(value) >= 1000000000)) {
+                                    return (value / 1000000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g, ",") + ' Tỉ';
+                                }
+                                return value;
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            //  console.log(tooltipItem);
+                            //  console.log(tooltipItem);
+                            var label = data.datasets[tooltipItem.datasetIndex].label;
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            let result;
+                            if (parseInt(value) >= 1000) {
+                                result = label + ': ' + value.toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ",")
+                            } else {
+                                result = label + ': ' + value;
+                            }
+                            return result;
+
+                        }
+                    }
+                },
+            }
+
+        });
+        load_chart();
+        
+        //#region bắt sự kiện khi thay đổi năm
+        $('#ddl-house').on('change', function () {
+            load_chart();
+            
+        })
+        $('#ddl-year').on('change', function () {
+            load_chart();
+        })
+        function load_chart() {
+            
+            let branchid = $("#ddl-house").val();
+            let year = $("#ddl-year").val();
+            let userid = '@Model.Users.Id';
+
+            let api_load_ElectricWater = 'api/ElectricWaterBill/get_electric_water_bill_with_year_and_branchid?BranchId=' + branchid + '&Year=' + year + '&userId=@Model.Users.TenantId';
+            load_data_with_jquery(api_load_ElectricWater).then(function (e) {
+                electric = [];
+                water = [];
+                let totalnumberElectric = 0;
+                let totalnumberWater = 0;
+                let totalMoneyElectric = 0;
+                let totalMoneyrWater = 0;
+                for (let i = 0; i < e.Data.length; i++) {
+                    console.log(e.Data[i].dien);
+                    if (e.Data[i].dien == null) {
+                        totalnumberElectric += 0;
+                        totalMoneyElectric += 0;
+                        electric.push(0);
+                    }
+                    else {
+                        electric.push(e.Data[i].dien);
+                        totalnumberElectric += e.Data[i].dien;
+                        totalMoneyElectric += e.Data[i].tiendien;
+                    }
+                    if (e.Data[i].nuoc == null) {
+                        water.push(0);
+                        totalnumberWater += 0;
+                        totalMoneyrWater += 0;
+                    }
+                    else {
+                        water.push(e.Data[i].nuoc);
+                        totalnumberWater += e.Data[i].nuoc;
+                        totalMoneyrWater += e.Data[i].tiennuoc;
+                    }
+                }
+                $('#tx-tien-dien').html(format_money(totalMoneyElectric) + ' đ');
+                $('#tx-tien-nuoc').html(format_money(totalMoneyrWater) + ' đ');
+
+                $('#tx-so-dien').html(totalnumberElectric);
+                $('#tx-so-nuoc').html(totalnumberWater);
+                console.log(electric);
+                console.log(water);
+                revenueChart.data.datasets[0].data = electric;
+                revenueChart.data.datasets[1].data = water;
+                revenueChart.update();
+                
+            })
+        }
+        
+        //#endregion
+    });
+</script>
+<script>
+    
+    //#region danh sách tòa nhà
+    let api_load_list_branch = 'api/Branch?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+    load_data_with_jquery(api_load_list_branch).then(function (e) {
+        console.log(e);
+        let list = e.Data.Items;
+        select = document.getElementById('ddl-house');
+        for (let i = 0; i < list.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = list[i].Id;
+            opt.innerHTML = list[i].Name;
+            select.appendChild(opt);
+        }
+    })
+    //#endregion
+
+    //#region danh sách năm
+    let date = new Date();
+    select = document.getElementById('ddl-year');
+    for (let i = date.getFullYear() -10 ; i < date.getFullYear()+10; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+    }
+    $('#ddl-year').val(date.getFullYear()).change();
+    //#endregion
+
+    
+</script>
+

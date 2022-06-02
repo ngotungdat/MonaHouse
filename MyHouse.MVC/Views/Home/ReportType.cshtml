@@ -1,0 +1,239 @@
+﻿@*@using Motel.TableSQL
+@using Motel.Models
+@using MB.Extensions
+@{
+    ViewBag.Dashboard = "active";
+    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
+    tbl_Account aclog = AccountTable.getbyid(Session["UID"].ToString().ToInt(0));
+    List<tbl_Motel> houses = ViewBag.House;
+}*@
+<link href="~/App_Themes/HouseMona/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/App_Themes/HouseMona/assets/css/dashforge.dashboard.css">
+
+<div class="fixed-filter sticky-top pd-b-15">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-flex align-items-center flex-wrap">
+            <h4 class="mg-md-b-0 tx-spacing--1 mg-r-15">Thống kê loại phòng</h4>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                        <label class="mg-b-0"><i data-feather="home"></i></label>
+                        <select id="ddl-house" class="form-control">
+                            <option value="0">--- Tất cả ---</option>
+                            @*@{
+                                foreach (var item in houses)
+                                {
+                                    <option value="@item.ID">@item.MotelName</option>
+                                }
+                            }*@
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row mg-t-30">
+        <div class="col-12">
+            <div class="card mg-b-30  rounded-0">
+                <div class="card-body tx-16">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="">Phòng trọ: <strong>@*@MotelRoomTable.getbyuid(aclog.ID).Where(n => n.TypeRoom == 1).Count()*@ 10 Phòng</strong></p>
+                            <p class="">Ki-ốt: <strong>@*@MotelRoomTable.getbyuid(aclog.ID).Where(n => n.TypeRoom == 2).Count()*@ 5 Ki-ốt</strong></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="">Shop-house (mặt bằng kinh doanh): <strong>@*@MotelRoomTable.getbyuid(aclog.ID).Where(n => n.TypeRoom == 3).Count()*@ 3 Shop</strong></p>
+                            <p class="">Giường KTX: <strong>@*@MotelRoomTable.getbyuid(aclog.ID).Where(n => n.TypeRoom == 4).Count()*@ 20 Giường</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-sm-end">
+                <div class="col-6">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-phongtro-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-kiot-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-shop-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-giuong-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/App_Themes/HouseMona/lib/chart.js/Chart.bundle.min.js"></script>
+<script src="~/App_Themes/HouseMona/lib/chart.js/chartjs-plugin-datalabels.js"></script>
+<script src="~/App_Themes/HouseMona/lib/jquery-steps/build/jquery.steps.min.js"></script>
+<script>
+    $(window).scroll(function () {
+        let scrollY = $(window).scrollTop();
+        console.log('scrolled');
+        if (scrollY > 30) {
+            $('body').addClass('remove-hd-fixed');
+        } else {
+            $('body').removeClass('remove-hd-fixed');
+        }
+    });
+
+    $(document).ready(function () {
+        //Chart
+        //For padding between chart and legend
+        Chart.Legend.prototype.afterFit = function () {
+            this.height = this.height + 25;
+        };
+        //Random data
+        function getRandom(length, min, max, currency) {
+            const arr = [];
+            for (let i = 0; i <= length; i++) {
+                if (currency == true) {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min) * 1000;
+                } else {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min);
+                }
+            }
+            return arr;
+        }
+
+        /** PIE CHART **/
+        let dataKiot = {
+            labels: ['Còn trống', 'Đang thuê'],
+            datasets: [{
+                data: [7, 8],
+                backgroundColor: ['#7ebcff', '#f77eb9']
+            }]
+        };
+
+        let optionKiot = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    formatter: function (value, context) {
+                        return context.chart.data.labels[context.dataIndex] + ': ' + value;
+                    },
+                    color: '#fff'
+                }
+            },
+            title: {
+                text: 'Ki-ốt',
+                display: true,
+                position: 'bottom',
+                fontSize: 24
+            },
+            legend: {
+                display: false,
+                position: 'left'
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        };
+
+
+        // For a pie chart
+        //Kiot
+        let kiotctx = document.getElementById('js-kiot-chart');
+        let kiotChart = new Chart(kiotctx, {
+            type: 'pie',
+            data: dataKiot,
+            options: optionKiot
+        });
+
+        //Phòng trọ
+        let optionTro = { ...optionKiot };
+        optionTro.title.text = 'Phòng trọ';
+        let dataTro = {
+            labels: ['Còn trống', 'Đang thuê'],
+            datasets: [{
+                data: getRandom(1, 0, 15, false),
+                backgroundColor: ['#7ebcff', '#f77eb9']
+            }]
+        };
+
+        let phongtroCtx = document.getElementById('js-phongtro-chart');
+        let phongtroChart = new Chart(phongtroCtx, {
+            type: 'pie',
+            data: dataTro,
+            options: optionTro
+        });
+
+        //shop
+        let optionshop = { ...optionKiot };
+        optionshop.title.text = 'Shop';
+        let datashop = {
+            labels: ['Còn trống', 'Đang thuê'],
+            datasets: [{
+                data: getRandom(1, 0, 15, false),
+                backgroundColor: ['#7ebcff', '#f77eb9']
+            }]
+        };
+
+        let shopctx = document.getElementById('js-shop-chart');
+        let shopChart = new Chart(shopctx, {
+            type: 'pie',
+            data: datashop,
+            options: optionshop
+        });
+        //giuong
+        let optiongiuong = { ...optionKiot };
+        optiongiuong.title.text = 'Gường KTX';
+        let datagiong = {
+            labels: ['Còn trống', 'Đang thuê'],
+            datasets: [{
+                data: getRandom(1, 0, 15, false),
+                backgroundColor: ['#7ebcff', '#f77eb9']
+            }]
+        };
+
+        let giuongctx = document.getElementById('js-giuong-chart');
+        let giuongChart = new Chart(giuongctx, {
+            type: 'pie',
+            data: datagiong,
+            options: optiongiuong
+        });
+
+        loadchart()
+        function loadchart() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetDataReporttype",
+                data: '{id: ' + $('#ddl-house').val() + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    phongtroChart.data.datasets[0].data = JSON.parse(msg.data[0]);
+                    kiotChart.data.datasets[0].data = JSON.parse(msg.data[1]);
+                    shopChart.data.datasets[0].data = JSON.parse(msg.data[2]);
+                    giuongChart.data.datasets[0].data = JSON.parse(msg.data[3]);
+
+                    kiotChart.update();
+                    phongtroChart.update();
+                    shopChart.update();
+                    giuongChart.update();
+                },
+                error: function (xmlhttprequest, textstatus, errorthrow) {
+                    console.log("loadchart");
+                }
+            });
+        }
+        $('#ddl-house').change(function () {
+            loadchart();
+        })
+    });
+</script>

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MyHouse.MVC.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using Sample.Models;
 using System;
@@ -49,6 +51,12 @@ namespace MyHouse.MVC.Controllers
             if (coreModel.Users.RoleNumber == 5) {
                 return RedirectToAction("RoomDetailForRenter", "Room");
             }
+            // Chủ trọ có riêng 1 tản thống kê
+            if (coreModel.Users.RoleNumber == 3)
+            {
+                return RedirectToAction("DashboardCustomer", "Home");
+            }
+
             // load chart
             StringBuilder ap = new StringBuilder();
             // lấy danh sách tất cả gói cước được đăng ký
@@ -88,6 +96,67 @@ namespace MyHouse.MVC.Controllers
             //chart
             return View(coreModel);
         }
+        public async Task<IActionResult> DashboardCustomer()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+                return RedirectToAction("Login", "Login");
+            return View(coreModel);
+        }
 
+        public async Task<IActionResult> Reportew()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View(coreModel);
+        }
+        public async Task<IActionResult> ReportEmpty()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            RestClient client = new RestClient(coreModel.Domain + "api/Room/GetAllRoomByTenantId?userId="+coreModel.Users.TenantId);
+            client.Timeout = -1;
+            RestRequest request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + coreModel.Token);
+            IRestResponse response = await client.ExecuteAsync(request);
+            var obj = JObject.Parse(response.Content);
+            var data = obj["Data"];
+            List<ReportEmptyModel> model = JsonConvert.DeserializeObject<List<ReportEmptyModel>>(data.ToString());
+            coreModel.MyProperty = model;
+            return View(coreModel);
+        }
+        public async Task<IActionResult> ReportDebt()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View(coreModel);
+        }
+        public async Task<IActionResult> ReportType()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View(coreModel);
+        }
+        public async Task<IActionResult> ReportHouse()
+        {
+            CoreModel coreModel = await GetCurrentSessionAsync();
+            if (coreModel == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            return View(coreModel);
+        }
     }
 }

@@ -168,6 +168,45 @@ namespace Sample.BaseAPI.Controllers
             return appDomainResult;
         }
 
+        [HttpGet]
+        [Route("GetAllCustomerByTenantId")]
+        [AppAuthorize(new string[] { CoreContants.View })]
+        public async Task<AppDomainResult> GetAllCustomerByTenantId([FromQuery] int TenantId , int RoleNumber)
+        {
+            int role = 0;
+            if (RoleNumber==0) // la admin, cskh
+            {
+                TenantId = 0;
+                role = 3;
+            }
+            if (RoleNumber == 3 || RoleNumber == 4) // la chu tro, nhan vien
+            {
+                role = 5;
+            }
+            AppDomainResult appDomainResult = new AppDomainResult();
+            List<Users> items = (List<Users>)await this.domainService.GetAsync(p => p.TenantId == TenantId && p.RoleNumber== role);
+
+            if (items != null)
+            {
+                if (LoginContext.Instance.CurrentUser != null)
+                {
+                    var itemModel = mapper.Map<List<UserModel>>(items);
+                    appDomainResult = new AppDomainResult()
+                    {
+                        Success = true,
+                        Data = itemModel,
+                        ResultCode = (int)HttpStatusCode.OK
+                    };
+                }
+                else throw new KeyNotFoundException("Không có quyền truy cập");
+            }
+            else
+            {
+                throw new KeyNotFoundException("Item không tồn tại");
+            }
+            return appDomainResult;
+        }
+
         /// <summary>
         /// Cập nhật thông tin item
         /// </summary>

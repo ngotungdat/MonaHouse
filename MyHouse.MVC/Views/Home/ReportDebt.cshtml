@@ -1,0 +1,168 @@
+﻿@*
+@{
+    ViewBag.Dashboard = "active";
+    Layout = "~/Views/Shared/_LayoutMotel.cshtml";
+}*@
+<style>
+    .table__filter__wrap .table-centered tr th, .table__filter__wrap .table-centered tr td {
+        text-align: initial;
+    }
+</style>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row mg-t-30">
+        <div class="col-12">
+            <h4 class="mg-md-b-0 tx-spacing--1 mg-r-15">Thống kê nợ</h4>
+            <div class="row align-items-sm-end">
+                <div class="col-12">
+                    <div class="chart-six" style="height:325px;">
+                        <canvas id="js-customer-chart"></canvas>
+                    </div>
+                    <h6 class="tx-center">Tổng nợ tất cả: <span class="tx-danger">@ViewBag.Total</span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mg-t-30 table__filter__wrap">
+        <div class="table-responsive table__filter-wrap">
+            <div class="table-responsive">
+                <table class="table table-bordered table-centered table-block-mobile" id="js-visibility-column">
+                    <thead class="">
+                        <tr>
+                            <th class="sort-label text-left">Khách thuê</th>
+                            <th class="sort-label text-left">Số điện thoại</th>
+                            <th class="sort-label text-left">Phòng</th>
+                            <th class="sort-label text-left">Ngày vào</th>
+                            <th class="sort-label text-left">Trạng thái</th>
+                            <th class="sort-label text-left">Số tiền</th>
+
+                        </tr>
+                    </thead>
+                    @Html.Raw(ViewBag.TR)
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/App_Themes/HouseMona/lib/chart.js/Chart.bundle.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        //Chart
+        //For padding between chart and legend
+        Chart.Legend.prototype.afterFit = function () {
+            this.height = this.height + 25;
+        };
+        //Random data
+        function getRandom(length, min, max, currency) {
+            const arr = [];
+            for (let i = 0; i <= length; i++) {
+                if (currency == true) {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min) * 1000;
+                } else {
+                    arr[i] = Math.floor(Math.random() * (max - min) + min);
+                }
+            }
+            return arr;
+        }
+        const convertArrToFlotData = arr => {
+            return arr.map((x, index) => {
+                return [index, x];
+            });
+        }
+        const currencyFormat = value => value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        var ctx1 = document.getElementById('js-customer-chart').getContext('2d');
+        const shortMonth = ['TH1', 'TH2', 'TH3', 'TH4', 'TH5', 'TH6', 'TH7', 'TH8', 'TH9', 'TH10', 'TH11', 'TH12'];
+        const longMonth = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+        const revenueChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: longMonth,
+                datasets: @Html.Raw(ViewBag.Data)
+            },
+            options: {
+                maintainAspectRatio: false,
+                title: {
+                    text: 'Nợ theo nhà / tháng',
+                    display: true,
+                    position: 'top'
+                },
+                legend: {
+                    display: true,
+                    labels: {
+                        display: true,
+                        padding: 20,
+                    },
+                    position: 'bottom',
+                },
+                legendCallback: function (chart) {
+                    var text = [];
+                    text.push('<ul class="' + chart.id + '-legend legend-chart">');
+                    for (let i = 0; i < chart.data.datasets.length; i++) {
+                        text.push('<li><span class="block-color" style="background-color:' +
+                            chart.data.datasets[i].backgroundColor + '"></span>');
+                        if (chart.data.datasets[i].label) {
+                            text.push(chart.data.datasets[i].label);
+                        }
+                        text.push('</li>');
+                    }
+                    text.push('</ul>');
+                    return text.join("");
+                },
+
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            dipslay: false,
+                            color: '#ebeef3'
+                        },
+                        ticks: {
+                            fontColor: '#8392a5',
+                            fontSize: 10,
+                            callback: function (value, index, values) {
+                                if (parseInt(value) >= 1000000 && parseInt(value) < 1000000000) {
+                                    return (value / 1000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g,
+                                        ",") + ' Triệu';
+                                } else if ((parseInt(value) >= 1000000000)) {
+                                    return (value / 1000000000).toString().replace(
+                                        /\B(?=(\d{3})+(?!\d))/g, ",") + ' Tỉ';
+                                }
+                                return value;
+                            }
+                        }
+                    }]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            //  console.log(data);
+                            //  console.log(tooltipItem);
+                            var label = data.datasets[tooltipItem.datasetIndex].label;
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+
+                            if (parseInt(value) >= 1000) {
+                                return label + ': ' + value.toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                            } else {
+                                return label + ': ' + value + ' VNĐ';
+                            }
+
+                        }
+                    }
+                },
+            }
+        });
+
+    });
+</script>
+

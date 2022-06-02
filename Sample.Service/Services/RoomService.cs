@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.DomainEntities;
 using Sample.Entities.Search;
@@ -12,6 +14,7 @@ using Sample.Service.Services.DomainServices;
 using Sample.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -205,6 +208,43 @@ namespace Sample.Service.Services
             result = await this.UpdateAsync(room);
             result = await userInRoomService.UpdateAsync(userInRooms[0]);
             return result;
+        }
+
+        public Task<List<RoomReport>> GetReportRoom(int userId)
+        {
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+            sqlParameters.Add(new SqlParameter("UserId", userId));
+
+            SqlParameter[] parameters = sqlParameters.ToArray();
+            return Task.Run(() =>
+            {
+                List<RoomReport> rs = new List<RoomReport>();
+                DataTable dataTable = new DataTable();
+                SqlConnection connection = null;
+                SqlCommand command = null;
+                try
+                {
+                    connection = (SqlConnection)coreDbContext.Database.GetDbConnection();
+                    command = connection.CreateCommand();
+                    connection.Open();
+                    command.CommandText = "GET_reportRoom";
+                    command.Parameters.AddRange(parameters);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+                    sqlDataAdapter.Fill(dataTable);
+                    rs = MappingDataTable.ConvertToList<RoomReport>(dataTable);
+
+                    return rs;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+
+                    if (command != null)
+                        command.Dispose();
+                }
+            });
         }
 
         protected override string GetStoreProcName()

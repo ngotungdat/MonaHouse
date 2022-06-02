@@ -1,0 +1,270 @@
+﻿
+@model CoreModel;
+@using Sample.Models
+@{
+    List<ReportEmptyModel> ls = (List<ReportEmptyModel>)Model.MyProperty;
+}
+<style>
+    .x-nowrap {
+        text-align: left;
+    }
+    .table-fixed-head > thead tr th {
+        z-index: 1;
+    }
+    /* New CSS*/
+    .table {
+        overflow: hidden;
+        border-color: green;
+    }
+    .border-primary {
+        background-color: beige;
+        border-color: #1ec8c8 !important;
+        border-radius: 10px;
+    }
+    .branch {
+        font-size: x-large;
+    }
+</style>
+<div class="fixed-filter sticky-top pd-b-15">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-flex align-items-center flex-wrap">
+            
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item active" aria-current="page">Thống kê phòng</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-md-b-0 tx-spacing--1 mg-r-15">báo cáo phòng</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="row" id="main-content">
+        @{
+            var nha = ls.Select(i => new { i.BranchId, i.BranchName }).Distinct().ToList();
+            foreach (var n in nha)
+            {
+                <div class="col-6 mt-5">
+                    <div class="table-responsive" >
+                        <table class="table tx-center  table-striped  border table-bordered table-fixed-head " >
+                            <lable>
+                                <a><i class="fa fa-home mr-3" style="color:deepskyblue;" aria-hidden="true"></i><partial class="branch tx-medium">Tòa nhà @n.BranchName</partial></a>
+                            </lable>
+                            <tbody id="table-filled-body">
+                                @{
+                                    var tang = ls.Where(x => x.BranchId == n.BranchId).Select(j => new { j.FloorId, j.FloorName }).Distinct().ToList();
+                                    foreach (var t in tang)
+                                    {
+                                        <tr>
+                                            <td class="tx-medium" colspan="10">@t.FloorName</td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <div class="row" style=" margin:1px;">
+                                                    @{
+                                                        var rooms = ls.Where(r => r.FloorId == t.FloorId).Select(j => new { j.RoomId, j.RoomName,j.RoomStatus }).Distinct().ToList();
+                                                        foreach (var r in rooms)
+                                                        {
+                                                            string badge = "";
+                                                            string status = "";
+                                                            switch (r.RoomStatus)
+                                                            {
+                                                                case 0: badge = "badge-light";
+                                                                    status = "Phòng trống";
+                                                                    break;
+                                                                case 1:
+                                                                    badge = "badge-warning";
+                                                                    status = "Sắp chuyển vào";
+                                                                    break;
+                                                                case 2:
+                                                                    badge = "badge-primary";
+                                                                    status = "Đang thuê";
+                                                                    break;
+                                                                case 3:
+                                                                    badge = "badge-danger";
+                                                                    status = "Sắp dọn ra";
+                                                                    break;
+                                                                case 4:
+                                                                    badge = "badge-danger";
+                                                                    status = "Đang sửa";
+                                                                    break;
+                                                                case 5:
+                                                                    badge = "badge-danger";
+                                                                    status = "Đã khóa";
+                                                                    break;
+
+                                                                default:
+                                                                    badge = "badge-danger";
+                                                                    status = "Đã khóa";
+                                                                    break;
+                                                            }
+                                                            <div class="col-3" style=" padding: 8px 10px; line-height: 1.5; border: 1px ridge;">
+                                                                    <div class="border border-primary">
+                                                                        <div> @r.RoomName</div>
+                                                                         <span class="badge @badge wd-100 pd-5 tx-12" name="status">
+                                                                                     @status
+                                                                         </span>
+                                                                    </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <table class="clone-table"></table>
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+</div>
+@await Html.PartialAsync("PartialView/_BaseScriptPartial", Model)
+<script>
+    //$(window).scroll(function () {
+    //    let scrollY = $(window).scrollTop();
+    //    console.log('scrolled');
+    //    if (scrollY > 30) {
+    //        $('body').addClass('remove-hd-fixed');
+    //    } else {
+    //        $('body').removeClass('remove-hd-fixed');
+    //    }
+    //});
+    //#region cấu hình danh dách Tòa nhà, tầng, phòng
+    @*$(document).ready(function () {
+        let api_GetAllRoom_ByTenantId = 'api/Room/GetAllRoomByTenantId?userId=@Model.Users.TenantId';
+        load_data_with_jquery(api_GetAllRoom_ByTenantId).then(function (e) {
+            console.log(e.Data);
+            //#region cấu hình danh dách Tòa nhà, tầng, phòng
+            // kiểm tra có bn tòa nhà
+            let branchs = [];
+            branchs.push(e.Data[0]);
+
+            for (let i = 0; i < e.Data.length; i++) {
+                let flag = false;
+                let temp = e.Data[i];
+                for (let j = 0; j < branchs.length; j++) {
+                    if (temp.BranchId != branchs[j].BranchId) {
+                            flag = true;
+                    }
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag == true) {
+                    branchs.push(e.Data[i]);
+                }
+            }
+            // floor
+            for (let i = 0; i < branchs.length; i++) {
+                branchs[i].floors = [];
+                for (let j=0; j < e.Data.length; j++){
+                    if (e.Data[j].BranchId == branchs[i].BranchId) {
+                        if (branchs[i].floors.length == 0) {
+                            branchs[i].floors.push(e.Data[j]);
+                        }
+                        else {
+                            let tmp = false;
+                            for (let k = 0; k < branchs[i].floors.length; k++) {
+                                if (e.Data[j].FloorId == branchs[i].floors[k].FloorId) {
+                                    tmp = false;
+                                    break;
+                                }
+                                else {
+                                    tmp = true;
+                                }
+                            }
+                            if (tmp == true) {
+                                branchs[i].floors.push(e.Data[j]);
+                            }
+                        }
+                    }
+                }
+            }
+            //room
+            for (let i = 0; i < branchs.length; i++) {
+                for (let j = 0; j < branchs[i].floors.length; j++) {
+                    branchs[i].floors[j].rooms = [];
+                }
+            }
+
+            // room
+            for (let k = 0; k < e.Data.length; k++) {
+                let tmp = false;
+                for (let i = 0; i < branchs.length; i++) {
+                    if (tmp == true) { break; }
+                    for (let j = 0; j < branchs[i].floors.length; j++) {
+                        //branchs[i].floors[j].rooms = [];
+                        if (e.Data[k].FloorId == branchs[i].floors[j].FloorId) {
+                            branchs[i].floors[j].rooms.push(e.Data[k]);
+                            tmp = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            console.log(branchs);
+            //#endregion
+            //#region load tòa nhà, tầng, phòng theo danh sách
+            let html = '';
+            for (let i = 0; i < branchs.length; i++)
+            {
+                let floors = ``;
+                    console.log(branchs[i]);
+                for (let j = 0; j < branchs[i].floors.length; j++) {
+                    let Rooms = ``;
+                    for (let k = 0; k < branchs[i].floors[j].rooms.length; k++) {
+                        Rooms += `
+                                <td>
+                                    <div >
+                                        <div class="">`+ branchs[i].floors[j].rooms[k].RoomName+`</div>
+                                        <span class="badge badge-primary wd-100 pd-5 tx-12" name="status">
+                                            Đang thuê
+                                        </span>
+                                    </div>
+                                </td>
+                        `;
+
+                    }
+                    floors += `
+                        <tr>
+                              <td colspan="10">`+ branchs[i].floors[j].FloorName+`</td>
+                        </tr>
+                        <tr>
+                            `+Rooms+`
+                        </tr>
+                    `;
+
+                }
+                html += `
+                    <div class="col-12 mt-5">
+                    <div class="table-responsive ">
+                        <table class="table tx-center table-hover table-striped  border table-bordered table-fixed-head">
+                            <lable>
+                                <a><i class="fa fa-home mr-3" style="color:deepskyblue;" aria-hidden="true"></i><partial>`+ branchs[i].BranchName+`</partial></a>
+                            </lable>
+                            <tbody id="table-filled-body">
+                                `+ floors+`
+                            </tbody>
+                        </table>
+                        <table class="clone-table"></table>
+                    </div>
+
+                </div>
+                `;
+            }
+            $('#main-content').html(html);
+            //#endregion
+        })
+    });*@
+    //#endregion
+</script>
+

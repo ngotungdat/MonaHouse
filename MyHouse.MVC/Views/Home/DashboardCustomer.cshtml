@@ -20,48 +20,85 @@
 
         </div>
         @*<div class="d-none d-md-flex">
-            <div class="form-group mb-0 mg-r-10">
-                <select name="branch" id="jsft-branch" class="form-control">
-                    <option value="#">Tất cả chi nhánh</option>
-                    <option value="#">Chi nhánh 2</option>
-                    <option value="#">Chi nhánh 3</option>
-                </select>
-            </div>
-            <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="sliders" class="wd-10 mg-r-5"></i> Lọc dữ liệu</button>
-        </div>*@
+                <div class="form-group mb-0 mg-r-10">
+                    <select name="branch" id="jsft-branch" class="form-control">
+                        <option value="#">Tất cả chi nhánh</option>
+                        <option value="#">Chi nhánh 2</option>
+                        <option value="#">Chi nhánh 3</option>
+                    </select>
+                </div>
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="sliders" class="wd-10 mg-r-5"></i> Lọc dữ liệu</button>
+            </div>*@
     </div>
     <div class="row row-xs">
         <div class="col-lg-3 col-md-6 mg-b-10">
             <div class="card">
                 <div class="card-body pd-y-20 pd-x-25">
-                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-cus"></h3>
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-branch">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Nhà, dãy trọ</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số nhà, dãy trọ hiện có</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-room">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-room-empty">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng trống</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng đang trống</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-room-soonin">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng sắp chuyển vào</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng sắp chuyển vào</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-room-soonout">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">phòng sắp dọn ra</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng sắp dọn ra</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-room-using">0</h3>
+                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Phòng đang thuê</a></h6>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số phòng đang thuê</p>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-lg-3 col-md-6 mg-b-10">
+            <div class="card">
+                <div class="card-body pd-y-20 pd-x-25">
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-user">0</h3>
                     <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Khách hàng</a></h6>
-                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số khách hàng hiện có</p>
+                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số khách hàng</p>
                 </div><!-- card-body -->
             </div><!-- card -->
         </div><!-- col -->
         <div class="col-lg-3 col-md-6 mg-b-10">
             <div class="card">
                 <div class="card-body pd-y-20 pd-x-25">
-                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-packageofuser"></h3>
-                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Gói cước đăng ký</a></h6>
-                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số gói khách hàng đăng ký</p>
-                </div><!-- card-body -->
-            </div><!-- card -->
-        </div><!-- col -->
-        <div class="col-lg-3 col-md-6 mg-b-10">
-            <div class="card">
-                <div class="card-body pd-y-20 pd-x-25">
-                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28"><partial id="count-packageofuser-using"></partial> <span class="tx-color-04" id="count-packageofuser-hiden"></span></h3>
-                    <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Gói cước sử dụng</a></h6>
-                    <p class="tx-11 tx-color-03 mg-b-0">Tổng số gói khách hàng đang sử dụng</p>
-                </div><!-- card-body -->
-            </div><!-- card -->
-        </div><!-- col -->
-        <div class="col-lg-3 col-md-6 mg-b-10">
-            <div class="card">
-                <div class="card-body pd-y-20 pd-x-25">
-                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-staff"></h3>
+                    <h3 class="tx-normal tx-rubik tx-spacing--1 mg-b-5 tx-28" id="count-staff">0</h3>
                     <h6 class="tx-semibold tx-uppercase tx-spacing-1 tx-pink mg-b-5"><a href="javascript:;">Nhân viên</a></h6>
                     <p class="tx-11 tx-color-03 mg-b-0">Tổng số lượng nhân viên hiện có</p>
                 </div><!-- card-body -->
@@ -71,9 +108,44 @@
             <div class="card seperate-card">
                 <div class="card-header bd-b-0 pd-t-20 pd-lg-t-25 pd-l-20 pd-lg-l-25">
                     <div class="row">
-                        <div class="col-sm-6 col-md-4">
-                            <p class="mg-b-5 tx-color-03"><span class="tx-medium tx-color-01">Tổng doanh thu</span></p>
-                            <p class="tx-24 mg-b-0">1,000,000 $</p>
+                        <div class="col-sm-4 col-md-4">
+                            <p class="mg-b-5 tx-color-03"><span class="tx-medium tx-color-01">Tổng doanh thu và công nợ</span></p>
+                            <div>
+                                <label>
+                                    Doanh thu :
+                                    <span class="text-success" id="Revenue-id"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Công nợ :
+                                    <span class="text-danger" id="Debit-id"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 ">
+                            <div style="float:right">
+                                <div class="d-flex align-items-center" style="float:right">
+                                    <div class="d-flex">
+                                        <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                                            <label class="mg-b-0"><i data-feather="home"></i></label>
+                                            <select id="ddl-house" class="form-control">
+                                                <option value="0">--- Tất cả ---</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex">
+                                        <div class="form-group mg-sm-b-0 mg-r-15 group-select">
+                                            <label class="mg-b-0">Năm</label>
+                                            <select id="ddl-year" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div><!-- card-header -->
@@ -98,7 +170,7 @@
                         <span class="chart-image">
                             <img src="~/house/assets/img/line-chart.svg" alt="chart">
                         </span>
-                        <h6>Thống kê doanh thu</h6>
+                        <h6>Thống kê Điện nước</h6>
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -107,12 +179,12 @@
                         <span class="chart-image">
                             <img src="~/house/assets/img/spear-chart.svg" alt="chart">
                         </span>
-                        <h6>Tỉ lệ lấp đầy</h6>
+                        <h6>Thống kê phòng</h6>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="chart-ref">
-                        <a href="@Url.Action("Reportdebt", "Home", new { area = "" })" class="link" rel="noopener"> </a>
+                        <a href="#" class="link" rel="noopener"> </a>
                         <span class="chart-image">
                             <img src="~/house/assets/img/bar-chart.svg" alt="chart">
                         </span>
@@ -121,20 +193,20 @@
                 </div>
                 <div class="col-lg-2">
                     <div class="chart-ref">
-                        <a href="@Url.Action("Reporttype", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <a href="#" class="link" rel="noopener"></a>
                         <span class="chart-image">
                             <img src="~/house/assets/img/pie-chart.svg" alt="chart">
                         </span>
-                        <h6>Thống kê loại Gói</h6>
+                        <h6>Thống kê tỉ lệ</h6>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="chart-ref">
-                        <a href="@Url.Action("Reporthouse", "Home", new { area = "" })" class="link" rel="noopener"></a>
+                        <a href="#" class="link" rel="noopener"></a>
                         <span class="chart-image">
                             <img src="~/house/assets/img/spear-chart.svg" alt="chart">
                         </span>
-                        <h6>Nhân viên và chi phí</h6>
+                        <h6>Nhân viên và thu nợ</h6>
                     </div>
                 </div>
             </div>
@@ -144,7 +216,7 @@
     </div><!-- row -->
 </div><!-- container -->
 
-@await Html.PartialAsync("PartialView/_BaseScriptPartial",Model)
+@await Html.PartialAsync("PartialView/_BaseScriptPartial", Model)
 <script src="~/App_Themes/HouseMona/lib/chart.js/Chart.bundle.min.js"></script>
 <script>
 
@@ -180,13 +252,29 @@
             type: 'bar',
             data: {
                 labels: longMonth,
-                datasets: @Html.Raw(ViewBag.Data)
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    //data: [],
+                    backgroundColor: '#15af76',
+                    borderColor: '#15af76',
+                    borderWidth: 2,
+                    fill: false
+                }, {
+                    label: 'Công nợ',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    //data: [],
+                    backgroundColor: '#f5625a',
+                    borderColor: '#f5625a',
+                    borderWidth: 2,
+                    fill: false
+                }]
             },
             options: {
                 maintainAspectRatio: false,
                 title: {
-                    text: 'Doanh thu năm nay',
-                    display: false,
+                    text: 'Doanh thu, công nợ năm nay',
+                    display: true,
                     position: 'top'
                 },
                 legend: {
@@ -290,8 +378,56 @@
         [...seperateBtn].map(btn => btn.addEventListener('click', showSeperate));
         [...closeBtn].map(btn => btn.addEventListener('click', closeSeperate));
 
+        load_chart();
+        //#region bắt sự kiện khi thay đổi năm
+        $('#ddl-house').on('change', function () {
+            load_chart();
+        })
+        $('#ddl-year').on('change', function () {
+            load_chart();
+        })
+        function load_chart() {
+            let branchid = $("#ddl-house").val();
+            let year = $("#ddl-year").val();
+            let userid = '@Model.Users.Id';
+
+            let api_load_RoomReceipts = 'api/RoomReceipt/get_roomreceipts_with_year_and_branchid?BranchId=' + branchid + '&Year=' + year + '&userId=@Model.Users.TenantId';
+            load_data_with_jquery(api_load_RoomReceipts).then(function (e) {
+                let Revenue = [];
+                let Debit = [];
+                let totalRevenue = 0;
+                let totalDebit = 0;
+                
+                for (let i = 0; i < e.Data.length; i++) {
+                    console.log(e.Data[i]);
+                    if (e.Data[i].doanhthu == null) {
+                        totalRevenue += 0;
+                        Revenue.push(0);
+                    }
+                    else {
+                        Revenue.push(e.Data[i].doanhthu);
+                        totalRevenue += e.Data[i].doanhthu;
+                    }
+                    if (e.Data[i].congno == null) {
+                        Debit.push(0);
+                        totalDebit += 0;
+                    }
+                    else {
+                        Debit.push(e.Data[i].congno);
+                        totalDebit += e.Data[i].congno;
+                    }
+                }
+                revenueChart.data.datasets[0].data = Revenue;
+                revenueChart.data.datasets[1].data = Debit;
+                revenueChart.update();
+
+                $('#Revenue-id').text(format_money(totalRevenue));
+                $('#Debit-id').text(format_money(totalDebit));
+            })
+        }
+        //#endregion
         // load chart
-        loadchart()
+        @*loadchart()
         function loadchart() {
             $.ajax({
                 type: "POST",
@@ -312,37 +448,68 @@
                     console.log("loadchart");
                 }
             });
-        }
+        }*@
     });
 </script>
 <script>
+
+    //#region số lượng phòng
+    let api_getCountRoom = 'api/Room/GetReportRoom?userId=@Model.Users.TenantId';
+    load_data_with_jquery(api_getCountRoom).then(function (e) {
+        console.log(e.Data[0]);
+        $('#count-room').html(e.Data[0].Room);
+        $('#count-room-empty').html(e.Data[0].RoomEmpt);
+        $('#count-room-soonin').html(e.Data[0].RoomSoonIn);
+        $('#count-room-soonout').html(e.Data[0].RoomSoonOut);
+        $('#count-room-using').html(e.Data[0].RoomUsing);
+    })
+    //#endregion
+    
     //#region số lượng khách hàng
-    let api_getCountCustomer = 'api/user?UserGroupId=3&RoleNumber=3&PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
+    let api_getCountCustomer = 'api/user?UserGroupId=3&RoleNumber=3&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
     load_data_with_jquery(api_getCountCustomer).then(function (e) {
         console.log(e.Data.TotalItem);
-        $('#count-cus').html(e.Data.TotalItem);
+        $('#count-user').html(e.Data.TotalItem);
     })
     //#endregion
     //#region số lượng nhân viên
-    let api_getCountStaff = 'api/user?UserGroupId=2&RoleNumber=2&PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
+    let api_getCountStaff = 'api/user?UserGroupId=4&RoleNumber=4&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
     load_data_with_jquery(api_getCountStaff).then(function (e) {
         console.log(e.Data.TotalItem);
         $('#count-staff').html(e.Data.TotalItem);
     })
     //#endregion
-    //#region số lượng gói đã đăng ký
-    let api_getCountPackageOfUser = 'api/PackageOfUser?PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
-    load_data_with_jquery(api_getCountPackageOfUser).then(function (e) {
-        console.log(e.Data.TotalItem);
-        $('#count-packageofuser').html(e.Data.TotalItem);
-        $('#count-packageofuser-hiden').html('/ ' + e.Data.TotalItem);
+
+</script>
+<script>
+
+    //#region danh sách tòa nhà
+    let api_load_list_branch = 'api/Branch?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+    load_data_with_jquery(api_load_list_branch).then(function (e) {
+        console.log(e);
+        $('#count-branch').html(e.Data.TotalItem);
+        let list = e.Data.Items;
+        select = document.getElementById('ddl-house');
+        for (let i = 0; i < list.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = list[i].Id;
+            opt.innerHTML = list[i].Name;
+            select.appendChild(opt);
+        }
     })
     //#endregion
-    //#region số lượng gói đang được người dùng sử dụng
-    let api_getCountPackageOfUser_Using = 'api/PackageOfUser?Status=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=0';
-    load_data_with_jquery(api_getCountPackageOfUser_Using).then(function (e) {
-        console.log(e.Data.TotalItem);
-        $('#count-packageofuser-using').html(e.Data.TotalItem);
-    })
+
+    //#region danh sách năm
+    let date = new Date();
+    select = document.getElementById('ddl-year');
+    for (let i = date.getFullYear() -10 ; i < date.getFullYear()+10; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            select.appendChild(opt);
+    }
+    $('#ddl-year').val(date.getFullYear()).change();
     //#endregion
+
+
 </script>
