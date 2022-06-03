@@ -111,7 +111,7 @@
             success: function (data) {
                 console.log(data);
                 load_data(get_api(page_index, page_size, SearchContent, OrderBy));
-                if (type_request == 'POST') {
+                @*if (type_request == 'POST') {
                     Swal.fire(
                         'Thông báo!',
                         'Thêm dữ liệu thành công!',
@@ -125,7 +125,7 @@
                         'success'
                     );
                 }
-                $('.btn-save-customerresource').prop('disabled', false);
+                $('.btn-save-customerresource').prop('disabled', false);*@
             },
             error: function (xhr, status, error) {
                 Swal.fire(

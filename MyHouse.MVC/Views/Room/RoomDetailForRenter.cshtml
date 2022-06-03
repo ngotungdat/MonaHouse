@@ -64,10 +64,10 @@
                         <dd class="">Ngày dọn vào:</dd>
                         <dt class="room-dateinroom"></dt>
                     </dl>
-                    <dl class="row-info mg-b-0">
+                    @*<dl class="row-info mg-b-0">
                         <dd class="">Tiền nợ:</dd>
                         <dt class=""><span class="tx-danger room-userinroom-representative-debt">0</span></dt>
-                    </dl>
+                    </dl>*@
                 </div>
             </div>
         </div>
@@ -111,23 +111,24 @@
 
         </div>
         @*<div class="col-12 mg-t-15">
-            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Xuất bill tháng này</a>
-        </div>*@
+                <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Xuất bill tháng này</a>
+            </div>*@
     </div>
     <!-- End thông tin phòng-->
     <div class="row">
         <div class="col-12">
             <ul class="nav nav-line mg-b-30" id="pills-tab" role="tablist">
                 @{
-                    if (Model.Users.RoleNumber!=5) {
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="cus-info-tab" data-toggle="pill" href="#js-cus-info" role="tab" aria-controls="js-cus-info" aria-selected="true">Khách đang thuê</a>
-                                </li>
+                    if (Model.Users.RoleNumber != 5)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" id="cus-info-tab" data-toggle="pill" href="#js-cus-info" role="tab" aria-controls="js-cus-info" aria-selected="true">Khách đang thuê</a>
+                        </li>
                     }
 
 
-}
-                
+                }
+
                 <li class="nav-item">
                     <a class="nav-link" id="history-tab" data-toggle="pill" href="#js-history" role="tab" aria-controls="js-history" aria-selected="false">Lịch sử điện nước</a>
                 </li>

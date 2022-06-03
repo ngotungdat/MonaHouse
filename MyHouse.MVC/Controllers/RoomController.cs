@@ -47,6 +47,8 @@ namespace MyHouse.MVC.Controllers
             var data = obj["Data"];
             var items = data["Items"];
             List<UserInRoomModel> model = JsonConvert.DeserializeObject<List<UserInRoomModel>>(items.ToString());
+            if (model.Count == 0)
+                return RedirectToAction("Login", "Login");
             coreModel.MyProperty = model[0].RoomId;
             //
             if (coreModel == null)

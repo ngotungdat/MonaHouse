@@ -33,6 +33,7 @@ namespace Sample.BaseAPI.Controllers
         protected IUserService userService;
         protected IUserInGroupService userInGroupService;
         protected IUserGroupService userGroupService;
+        protected INotificationUserService notificationUserService;
         private IConfiguration configuration;
         public UserController(IServiceProvider serviceProvider, ILogger<BaseController<Users, UserModel, UserRequest, UserSearch>> logger
             , IConfiguration configuration
@@ -42,6 +43,7 @@ namespace Sample.BaseAPI.Controllers
             this.userService = serviceProvider.GetRequiredService<IUserService>();
             userInGroupService = serviceProvider.GetRequiredService<IUserInGroupService>();
             userGroupService = serviceProvider.GetRequiredService<IUserGroupService>();
+            this.notificationUserService = serviceProvider.GetRequiredService<INotificationUserService>();
             this.configuration = configuration;
         }
 
@@ -362,10 +364,32 @@ namespace Sample.BaseAPI.Controllers
             if (ModelState.IsValid)
             {
                     success = await userService.TakeDebt( UserId, debt ,note);
-                    if (success)
-                        appDomainResult.ResultCode = (int)HttpStatusCode.OK;
-                    else
+                // khi thu nợ thành công tạo thông báo đén người dùng/ viết ở controller vì lỗi service
+
+                if (success)
+                {
+                    // thông báo đến User
+                    // thông tin khách thuê
+                    var userCurrentLogin = LoginContext.Instance.CurrentUser;
+                    Users userlogin = domainService.GetById(userCurrentLogin.UserId);
+                    NotificationUser notificationUser = new NotificationUser();
+                    notificationUser.UsersId = UserId;
+                    // tiêu đề thông báo
+                    notificationUser.Title = "Thông báo nhận tiền trả nợ";
+                    // nội dung thông báo
+                    notificationUser.Content = "Thông báo nhận tiền trả nợ: số chúng tôi nhận được là : " + debt + " đ";
+                    notificationUser.isSeen = false;
+                    notificationUser.Active = true;
+                    notificationUser.Deleted = false;
+                    notificationUser.CreatedBy = userlogin.UserName;
+                    notificationUser.TenantId = userlogin.TenantId;
+                    await notificationUserService.CreateAsync(notificationUser);
+                    // dữ liệu trả ra
+                    appDomainResult.ResultCode = (int)HttpStatusCode.OK;
+                }
+                else { 
                         throw new Exception("Lỗi trong quá trình xử lý");
+                }
                     appDomainResult.Success = success;
                 }
             else { 

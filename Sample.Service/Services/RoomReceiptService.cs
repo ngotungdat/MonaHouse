@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.DomainEntities;
 using Sample.Entities.Search;
+using Sample.Extensions;
 using Sample.Interface.DbContext;
 using Sample.Interface.Services;
 using Sample.Interface.UnitOfWork;
@@ -26,6 +27,7 @@ namespace Sample.Service.Services
         protected IRoomUtilitiService roomUtilitiService;
         protected IRoomService roomService;
         protected IUserService userService;
+        protected INotificationUserService notificationUserService;
         protected IRoomContractRepresentativeService roomContractRepresentativeService;
         protected readonly IAppDbContext Context;
 
@@ -35,6 +37,7 @@ namespace Sample.Service.Services
             , IRoomUtilitiService RoomUtilitiService
             , IRoomService RoomService
             , IUserService UserService
+            , INotificationUserService notificationUserService
             , IRoomContractRepresentativeService roomContractRepresentativeService
             ) : base(unitOfWork, mapper)
         {
@@ -42,6 +45,7 @@ namespace Sample.Service.Services
             this.electricWaterBillService = ElectricWaterBillService;
             this.roomUtilitiService = RoomUtilitiService;
             this.roomService = RoomService;
+            this.notificationUserService = notificationUserService;
             this.roomContractRepresentativeService = roomContractRepresentativeService;
             this.Context = appDbContext;
         }
@@ -101,8 +105,30 @@ namespace Sample.Service.Services
             item.RoomBill = room_price_bill;
             item.TotalBill = total_money_bill;
             item.FinalBill = total_money_bill + item.PlusBill - item.SubBill;
-            
-            return await base.CreateAsync(item);
+            item.MoneyRecive = 0;
+            item.MoneyDebtRoomReceipt = item.FinalBill;
+            // khi tính tiền xong tạo phiếu thu đợ thanh thanh toán
+            bool res = await base.CreateAsync(item);
+            //Nếu tạo phiếu tính tiền thành công -> tạo thông báo đòi tiền khách hàng
+            if (res==true) {
+                // thông tin khách thuê
+                Users userInRoom= userService.GetById((int)room.UserInRoomRepresentative);
+                var user = LoginContext.Instance.CurrentUser;
+                NotificationUser notificationUser = new NotificationUser();
+                notificationUser.UsersId = room.UserInRoomRepresentative;
+                // tiêu đề thông báo
+                notificationUser.Title = "Thông báo thu tiền Phòng";
+                // nội dung thông báo
+                notificationUser.Content = "Thông báo thu tiền phòng: số tiền bạn phải đóng là : "+item.FinalBill+" đ";
+                notificationUser.isSeen = false;
+                notificationUser.Active = true;
+                notificationUser.Deleted = false;
+                notificationUser.CreatedBy = user.UserName;
+                notificationUser.TenantId = userInRoom.TenantId;
+                await notificationUserService.CreateAsync(notificationUser);
+            }
+
+            return res;
         }
 
         public override async Task<bool> UpdateAsync(RoomReceipt item)
@@ -122,6 +148,8 @@ namespace Sample.Service.Services
                     roomContractRepresentatives[0].UserMoney = UserMoneyLeft + item.MoneyRecive;
                     item.MoneyRecive = roomReceipt.FinalBill;
                     item.Status = 2;
+                    item.Active = true;
+
                 }
                 if (UserMoneyLeft == 0)
                 {
@@ -129,17 +157,19 @@ namespace Sample.Service.Services
                     roomContractRepresentatives[0].UserMoney = UserMoneyLeft + item.MoneyRecive;
                     item.MoneyRecive = roomReceipt.FinalBill;
                     item.Status = 2;
+                    item.Active = true;
+
                 }
                 if (UserMoneyLeft < 0)
                 {
+                    //RoomReceipt roomReceipt = this.GetById(item.Id);
+                    item.Active = true;
+                    item.MoneyRecive = item.MoneyRecive + roomContractRepresentatives[0].UserMoney;
                     roomContractRepresentatives[0].UserMoney = 0;
                     // nếu tài khoản hết tiền
                     double tmp = (double)item.MoneyRecive + UserMoneyLeft;
                     // => số tiên user nợ được là tmp
 
-                    //RoomReceipt roomReceipt = this.GetById(item.Id);
-                    item.Active = true;
-                    item.MoneyRecive = item.MoneyRecive - UserMoneyLeft;
                     item.MoneyDebtRoomReceipt = (double)(tmp);
                     if (item.MoneyDebtRoomReceipt < 0)
                     {
@@ -196,7 +226,26 @@ namespace Sample.Service.Services
             if (rs == false) { throw new Exception(" lỗi trong quá trình xử lý"); }
             
             // update hóa đươn thanh toán
-            return await base.UpdateAsync(item);
+            rs = await base.UpdateAsync(item);
+            // khi thu tiền thành công -> tạo thông báo đến khách hàng là đã nhận bao nhiêu tiền
+            if (rs== true) {
+                // thông tin khách thuê
+                var userCurrentLogin = LoginContext.Instance.CurrentUser;
+                Users userlogin = userService.GetById(userCurrentLogin.UserId);
+                NotificationUser notificationUser = new NotificationUser();
+                notificationUser.UsersId =Int32.Parse(roomReceipt.UserId);
+                // tiêu đề thông báo
+                notificationUser.Title = "Thông báo nhận tiền phòng";
+                // nội dung thông báo
+                notificationUser.Content = "Thông báo nhận tiền phòng: số chúng tôi nhận được là : " + item.MoneyRecive + " đ";
+                notificationUser.isSeen = false;
+                notificationUser.Active = true;
+                notificationUser.Deleted = false;
+                notificationUser.CreatedBy = userlogin.UserName;
+                notificationUser.TenantId = userlogin.TenantId;
+                await notificationUserService.CreateAsync(notificationUser);
+            }
+            return rs;
         }
 
         public Task<List<RoomReceiptsForYearAndBranchId>> GetRoomReceiptsWitthBranchAndYear(int branchId, int year, int userId)

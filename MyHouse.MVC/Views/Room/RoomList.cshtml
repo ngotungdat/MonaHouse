@@ -537,7 +537,7 @@
                     <div class="media align-items-center">
                         <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
                         <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mb-0">Phòng số 01</h4>
+                            <h4 class="tx-18 tx-sm-20 mb-0">Tính tiền</h4>
                         </div>
                     </div><!-- media -->
                 </div><!-- modal-header -->
@@ -705,7 +705,7 @@
                     <div class="media align-items-center">
                         <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
                         <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mb-0">Phòng số 01</h4>
+                            <h4 class="tx-18 tx-sm-20 mb-0">Thu tiền</h4>
                         </div>
                     </div><!-- media -->
                 </div><!-- modal-header -->
@@ -1828,6 +1828,12 @@
                                     $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Date));
                                     break;
                                 }
+                                else if (roomreceipts[j].Status > 0 && tmp == false) {
+                                    tmp = true;
+                                    $('#room-receipt-status-' + rooms[i].Id).html('---');
+                                    $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Date));
+                                    break;
+                                }
                                 else {
                                     tmp = false;
                                 }
@@ -2543,8 +2549,6 @@
 <!-- xu ly tien dien nuoc trong modal tien ich-->
 <script>
     //#region Tính tiền phòng theo tháng
-
-
     // chọn năm, tự động là năm hiện tại, lâu nhất là 5 năm
     let get_current_year = new Date().getFullYear();
     let ddl_year = document.getElementById('ddl-year');
@@ -2606,6 +2610,14 @@
                 Swal.fire(
                     'Cảnh báo',
                     'Phòng Trống không thể tính tiền',
+                    'warning'
+                )
+                $('.btn-checkout').prop('disabled', true);
+            }
+            else if (room.UserInRoomRepresentative == null) {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Phòng không có người đại diện không thể tính tiền',
                     'warning'
                 )
                 $('.btn-checkout').prop('disabled', true);
@@ -2754,9 +2766,14 @@
             data["deleted"] = false;
             data["active"] = true;
             data["userId"] = userId;
+            data["moneyRecive"] = 0;
+            data["moneyDebtRoomReceipt"] = 0;
             let api_Create_roomReceipt = 'api/RoomReceipt';
             create_data(data, api_Create_roomReceipt).then(function (e) {
                 console.log(e);
+                $('.btn-checkout').prop('disabled', false);
+                $('#js-payMoney').modal("hide");
+                load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
             })
         }
 
@@ -2791,6 +2808,7 @@
         $('#ddl-month-take-money').val(@DateTime.Now.Month);
         $('#ddl-year-take-money').val(@DateTime.Now.Year);
         $('#go-out-room').val(false);
+        $('.btn-money-take').prop("disabled", false);
         // nếu goOutRoom == true thì đang dọn ra
         if (goOutRoom == true) {
             $('#go-out-room').val(true);
@@ -2846,6 +2864,9 @@
             let api_update_room_receipt = 'api/RoomReceipt';
             update_data(data, api_update_room_receipt).then(function (e) {
                 console.log(e);
+                $('.btn-money-take').prop("disabled", true);
+                $('#js-takeMoney').modal("hide");
+                load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
                 let goOut = $('#go-out-room').val();
                 // nếu thu tiền thành công mở modal dọn ra
                 if (goOut == true) {
@@ -3045,20 +3066,20 @@
             create_data(data, api_go_out_room).then(function (e) {
                 console.log(e);
                 $('#js-goOut').modal('hide');
-                location.reload(true);
+                load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
             });
         }
 
     })
     //#endregion
-    //#region
+    //#region chức năng dọn vào
     function goInRoom(roomId) {
         let api_Get_room = 'api/Room/' + roomId;
         load_data_with_jquery(api_Get_room).then(function (e) {
             let room = e.Data;
             // phòng trống mới cho dọn vào
             if (room.Status == 0 ) {
-                window.location.href ='https://'+ window.location.host + "/Room/AddCustomer/199918";
+                window.location.href ='https://'+ window.location.host + "/Room/AddCustomer/"+roomId;
             }
             else {
                 Swal.fire(

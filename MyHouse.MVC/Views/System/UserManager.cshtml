@@ -711,7 +711,8 @@
                             </tr>`;
 
                 }
-                $('#tbody-user-in-group').hide().html(html).show('slow');
+                $('#tbody-user-in-group').html(html).show('slow');
+                console.log(data);
                 total_item = data.Data.TotalItem;
                 total_page = data.Data.TotalPage;
                 load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
@@ -786,7 +787,7 @@
     }
     //load phân trang
     $(function () {
-        load_pagination(pagination(page_index, page_size), page_index, total_page, total_item);
+        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
     });
     //load khi bấm chuyển trang
     function load_to_page(index_click) {
@@ -1077,32 +1078,34 @@
     })
     $('.btn-debt-take').on('click', function () {
         // lấy UserId, số tiền thu,
-        let debt = $('#debt-money').html();
+        let debt = $('#debt-money').html().replaceAll(",", "");
         let user_id = $('#debt-user-id').val();
-        let take_debt = $('#debt-take').val();
+        let take_debt = $('#debt-take').val().replaceAll(",","");
         let note = $('#debt-coll-note').val();
         console.log(debt);
         console.log(user_id);
         console.log(take_debt);
         console.log(note);
-        if (debt == 0) {
+        if (parseFloat(debt) == 0) {
             Swal.fire(
                 'Cảnh báo',
                 'Khách hàng không có nợ!',
                 'warning'
             )
         }
-        if (debt < take_debt || ckstring(take_debt)) {
+        if (parseFloat(debt) < parseFloat(take_debt) || ckstring(take_debt)) {
             Swal.fire(
                 'Cảnh báo',
                 'Tiền trả bé hơn tiền nợ hoặc tiền trả trống!',
                 'warning'
             )
         }
-        if (debt > 0 && debt > take_debt && take_debt > 0) {
-            let data = {};
+        if (parseFloat(debt) > 0 && parseFloat(debt) > parseFloat(take_debt) && parseFloat(take_debt) > 0) {
+            let debt_take = {};
             let api_TakeDebt = "api/user/take-debt?UserId=" + user_id + "&debt=" + take_debt + "&note=" + note;
-            update_data(data, api_TakeDebt).then(function (e) {
+            update_data(debt_take, api_TakeDebt).then(function (e) {
+                console.log(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
+                load_data(get_api(page_index, page_size, SearchContent, OrderBy, DebtMoney, Status));
                 $('#js-take-debt').modal('hide');
             })
         }

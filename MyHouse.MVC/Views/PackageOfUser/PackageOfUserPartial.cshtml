@@ -159,6 +159,10 @@
 
 
 <script>
+    pageindex = @ViewData["pageindex"];
+    pagesize = @ViewData["pagesize"];
+    Totalpage = @ViewData["totalpage"];
+    TotalItem = @ViewData["totalitem"];
     //load trang chi tiết, có gắn cờ để biết khỏi load lại
     $(document).on('click', '.toggle-collapse', function (event) {
         const id = $(this).attr('data-id');
@@ -182,21 +186,17 @@
         });
     }
 
-    let page_index = @ViewData["pageindex"];
-    let page_size = @ViewData["pagesize"];
-    let total_page = @ViewData["totalpage"];
-    let total_item = @ViewData["totalitem"];
     //load phân trang
     $(function () {
-        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+        load_pagination(pagination(pageindex, Totalpage), pageindex, Totalpage, TotalItem);
     });
     //load khi bấm chuyển trang
     function load_to_page(page_clicked) {
-        page_index = page_clicked;
+        pageindex = page_clicked;
         //load lại data
-        load_data_package_user(page_index, page_size, 0);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
         //load lại phân trang
-        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+        load_pagination(pagination(pageindex, Totalpage), pageindex, Totalpage, TotalItem);
     }
     //#region duyệt gia hạn hợp đồng
     $(document).on('click', '.btn-extend', function () {
@@ -234,7 +234,7 @@
                 //data["typeOfRental"] = null;
                 //data["userdTime"] = null;
                 update_data(data, api_update_packageOfUser).then(function (e) {
-                    load_data_package_user(page_index, page_size, 0);
+                    load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
                 });
                 
             } else {
@@ -281,7 +281,7 @@
                 //data["typeOfRental"] = null;
                 //data["userdTime"] = null;
                 update_data(data, api_update_packageOfUser).then(function (e) {
-                    load_data_package_user(page_index, page_size, 0);
+                    load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
                 });
 
             } else {

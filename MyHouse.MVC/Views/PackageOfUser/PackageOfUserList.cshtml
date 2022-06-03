@@ -174,30 +174,35 @@
 </div><!-- container -->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script>
-    let Status = -1;
-    let Package = -1;
+    let pageindex = 1;
+    let pagesize = 20;
     let orderBy = 0;
     let SearchContent = '';
+    let Totalpage = 0;
+    let TotalItem = 0;
+
+    let Status = -1;
+    let Package = -1;
     //nút tìm kiếm
     $('#btn-search').on('click', function () {
         SearchContent = $('input[name=search]').val();
-        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
     });
 
     function load_Status(val) {
         Status = val;
-        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
     }
     function load_Package(val) {
         Package = val;
-        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
     }
     function load_orderBy(val) {
         orderBy = val;
-        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
     }
     $(function () {
-        load_data_package_user(1, 20, orderBy, SearchContent, Status, Package);
+        load_data_package_user(pageindex, pagesize, orderBy, SearchContent, Status, Package);
     });
     function load_data_package_user(pageindex, pagesize, orderby, SearchContent, status, packageId) {
         var url_string = window.location.href; //

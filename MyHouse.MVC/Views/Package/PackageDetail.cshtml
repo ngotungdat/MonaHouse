@@ -28,8 +28,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="#">Danh sách Gói Dịch vụ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Gói dùng thử</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("PackageList","Package")">Danh sách Gói Dịch vụ</a></li>
+                    <li class="breadcrumb-item active title" aria-current="page"></li>
                 </ol>
             </nav>
         </div>
@@ -41,57 +41,43 @@
                 <div class="info-list">
                     <dl class="row-info">
                         <dd class="">Tên Gói dịch vụ:</dd>
-                        <dt class="title-name"></dt>
+                        <dt><span class="title"></span></dt>
                     </dl>
                     <dl class="row-info hide-on-print">
-                        <dd class="">Trạng thái:</dd>
+                        <dd class="">Thời gian sử dụng(Ngày):</dd>
                         <dt class="">
-                            <span tabindex="0" class="badge badge-warning valign-middle" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="Đặt cọc: 30.000.000 - Ngày chuyển vào: 30/03/2020" data-original-title="Trương Văn Lam ">
-                                Đã đặt cọc
+                            <span class="used-time tx-danger" >
+                            </span>
+                             Ngày
+                        </dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Giá thuê/ tháng:</dd>
+                        <dt class="">
+                            <span class="price tx-danger"></span> đ/  
+                            <span class="used-time tx-danger"></span> Ngày
+                        </dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Loại gói phần mềm:</dd>
+                        <dt class=""><span class="package-type-name"></span></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Số phòng tối đa:</dd>
+                        <dt class=""><span class="limited-room tx-danger"></span></dt>
+                    </dl>
+                    <dl class="row-info ">
+                        <dd class="">Loại hình cho thuê:</dd>
+                        <dt class=""><span class="type-of-rental-name"></span=></dt>
+                    </dl>
+                    <dl class="row-info">
+                        <dd class="">Mô tả tên gói:</dd>
+                        <dt class="">
+                            <span class="title-description">
                             </span>
                         </dt>
                     </dl>
-
-
-                    <dl class="row-info">
-                        <dd class="">Người đại diện:</dd>
-                        <dt class="">Trương Văn Lam</dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Điện thoại:</dd>
-                        <dt class="">0886706289</dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Ngày hét hạn:</dd>
-                        <dt class="">20/11/2020</dt>
-                    </dl>
-                    <dl class="row-info ">
-                        <dd class="">Tiêu đề mô tả:</dd>
-                        <dt class=""><span class="tx-danger title-description"></span></dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Giá gói dịch vụ:</dd>
-                        <dt class="price"></dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Mô tả chi tiết:</dd>
-                        <dt class="description"></dt>
-                    </dl>
-                    <dl class="row-info">
-                        <dd class="">Thể loại gói dịch vụ:</dd>
-                        <dt class="package-type"></dt>
-                    </dl>
-
-                    <dl class="row-info ">
-                        <dd class="">Số phòng giới hạn:</dd>
-                        <dt class=""><span class="tx-danger limit-room"></span></dt>
-                    </dl>
-                    <div class="text-center mg-t-10">
-                        @if (user.RoleNumber == 3)
-                        {
-                            <a href="javascript:;" class="btn btn-success"><i class="fas fa-check-circle"></i> Đăng Ký Ngay</a>
-                        }
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -99,8 +85,8 @@
             <div class="legend-box pd-25  " data-label="Chi tiết hạng mục">
                 <div class="row">
                     <div class="col-sm-10">
-                        <div class="info-list">
-                            <p>
+                        <div class="info-list description">
+                            @*<p>
                                 Chào mừng bạn đến với Mona Media!
                                 Cảm ơn bạn đã sử dụng các sản phẩm và dịch vụ của chúng tôi (“Dịch vụ”). Dịch vụ được cung cấp bởi Công ty TNHH Mona Media. Có trụ sở tại Số373/226 Lý Thường Kiệt, Phường 8, Quận Tân Bình, TP. Hồ Chí Minh, Việt Nam.
 
@@ -116,7 +102,7 @@
                                 Trong trường hợp máy chủ lưu trữ thông tin bị hacker tấn công dẫn đến mất mát dữ liệu cá nhân thành viên, ban quản trị website sẽ có trách nhiệm thông báo vụ việc cho cơ quan chức năng điều tra xử lý kịp thời và thông báo cho thành viên được biết.
 
                                 Trong trường hợp khách hàng phát hiện thông tin cá nhân bị  sử dụng sai mục đích hoặc bị xâm phạm thì khách hàng có thể gửi khiếu nại thông qua kênh chăm sóc khách hàng của chúng tôi, khi nhận được các thông tin khiếu nại của thành viên, chúng tôi sẽ dùng mọi biện pháp cần thiết để ngăn chặng không cho thông tin cá nhân đó bị tiếp tục xâm phạm, đồng thời có các biện pháp hỗ trợ  để bảo vệ quyền và lợi ích hợp pháp của khách hàng.Khách hàng có quyền gửi khiếu nại về việc lộ thông tin cá nhân cho bên thứ 3 đến Ban quản trị của website. Khi tiếp nhận những phản hồi này, chúng tôi sẽ xác nhận lại thông tin, phải có trách nhiệm trả lời lý do và hướng dẫn thành viên khôi phục và bảo mật lại thông tin.
-                            </p>
+                            </p>*@
                         </div>
                     </div>
                 </div>
@@ -126,248 +112,6 @@
 </div>
 
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
-<script>
-    var pathArray = window.location.pathname.split('/');
-    var roomId = pathArray[3];
-    console.log('roomId:' + roomId);
-    let api = 'api/userinroom?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' +'&RoomId='+roomId;
-    let searchContent = '';
-    let pageIndex = 1;
-    let pageSize = 20;
-    let orderBy = 0;
-    // danh sach khach hang trong phong
-    let customersInRoom = [];
-
-    $(document).ready(function () {
-        Load_data();
-    });
-    function Load_data() {
-        load_data_with_jquery(api, searchContent, pageIndex, pageSize, orderBy)
-            .then(function (e) {
-                let html = '';
-                console.log(e.Data.Items);
-                let List = e.Data.Items;
-                let stt = 0;
-                for (let i = 0; i < List.length; i++) {
-                    let item = List[i];
-                    console.log(item);
-                    customersInRoom.push(item.UsersId);
-                    console.log('cus:' + customersInRoom);
-
-                    let status = "";
-                    if (item.Status == 0) { // 0: don di; 1:dang o
-                        status = '<span class="tx-danger">Đã chuyển</span>';
-                    }
-                    if (item.Status == 1) {
-                        status = '<span class="tx-success">Đang ở</span>';
-                    }
-                    stt++;
-                    html += `<tr>
-                                    <td>`+ stt + `</td>
-                                    <td>`+ item.FullName + `</td>
-                                    <td>`+ item.Phone + `</td>
-                                    <td>`+ item.CMT + `</td>
-                                    <td>14/07/2022</td>
-                                    <td>DAKLAK</td>
-                                    <td>`+ status + `</td>
-                                    <td>
-                                        <a href="javascript:;" data-id="`+ item.Id + `" data-name="` + item.FullName + `" data-phone="` + item.Phone + `" data-cmnd="` + item.CMT + `" data-status="` + item.Status + `"  data-toggle="modal" class="btn btn-info js-edit-rent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg></a>
-                                    </td>
-                                </tr>`;
-                }
-                $('#tbody-userinroom').html(html);
-            })
-            .then(function (e) { LoadFind(); }
-            );
-    }
-    // them moi
-    $('#add-userinroom').on('click', function () {
-        $('input[name="txt-id"]').val(0);
-        $('select[name="ListUserSearch"]').val('');
-        $('select[name="Status"]').val(1).change();
-    });
-    // tim kiem
-    function LoadFind () {
-        let RoleNumber = 5; // khach hang
-
-        let apiUser = 'api/user?RoleNumber=' + RoleNumber+'&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +'@Model.Users.Id';
-
-        load_data_with_jquery(apiUser, searchContent, pageIndex, pageSize, orderBy)
-            .then(function (e) {
-                @*var length = select.options.length;
-                for (i = length - 1; i >= 0; i--) {
-                    select.options[i] = null;
-                }
-                var opt = document.createElement('option');
-                opt.innerHTML = 'Tìm kiếm ...';
-                select.appendChild(opt);
-                opt.setAttribute("disabled", "true");
-                opt.setAttribute("selected", "selected");*@
-                select = document.getElementById('ListUserSearch');
-                console.log('abc:'+e);
-                let list = e.Data.Items;
-
-                for (let i = 0; i < list.length; i++) {
-                    console.log(list[i].Id);
-                    let rs = customersInRoom.includes(list[i].Id);
-                    console.log(rs);
-                    console.log('cus:'+customersInRoom);
-                    if (rs) {
-                        console.log('user:' + list[i].Id + 'has in room');
-                    }
-                    else {
-                        var opti = document.createElement('option');
-                        opti.value = list[i].Id;
-                        opti.innerHTML = list[i].FullName;
-                        select.appendChild(opti);
-                    }
-                }
-                @*$("#ListUserSearch").select2({
-                    dropdownParent: $('#js-add-rentor .modal-content')
-                });*@
-            });
-    }
-    // edit
-    $(document).on('click','.js-edit-rent', function () {
-        console.log('edit:' + $(this).attr('data-id'));
-        $('input[name="txt-id-edit"]').val($(this).attr('data-id'));
-        $('select[name="Status-edit"]').val($(this).attr('data-status')).change();
-        $('#js-edit-rentor').modal('show');
-    });
-    $('.btn-primary').on('click', function () {
-        let id = $('input[name="txt-id"]').val();
-        let userid = $('select[name="ListUserSearch"]').val();
-        let status = $('select[name="Status"]').val();
-        console.log(id);
-        console.log(userid);
-        console.log(status);
-        if (ckstring(userid) || ckstring(status)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            let data = {};
-            data["id"] = id;
-            data["usersId"] = userid;
-            data["status"] = status;
-            data["deleted"] = false;
-            data["active"] = true;
-            data["roomId"] = roomId;
-
-            let apiCRUD = 'api/userinroom';
-            if (id == 0) {
-                create_data(data, apiCRUD).then(function (e) {
-                    location.reload(true);
-                });
-                $('#js-add-rentor').modal('hide');
-            }
-            else {
-                update_data(data, apiCRUD).then(function (e) {
-                    location.reload(true);
-                });;
-            }
-
-        }
-
-
-    });
-    $('.btn-primary-edit').on('click', function () {
-        let id = $('input[name="txt-id-edit"]').val();
-        let status = $('select[name="Status-edit"]').val();
-        console.log(id);
-        console.log(status);
-        if ( ckstring(status)) {
-            Swal.fire(
-                'Cảnh báo',
-                'Vui lòng nhập đầy đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            let data = {};
-            data["id"] = id;
-            data["status"] = status;
-            let apiCRUD = 'api/userinroom';
-            update_data(data, apiCRUD).then(function (e) { location.reload(true); });;
-            $('#js-add-rentor').modal('hide');
-        }
-    });
-    // xu ly danh sach tien ich
-    $(document).ready(function () {
-        let api_loadRoomUtilities = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
-        load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
-            let list = e.Data.Items;
-            let html = '';
-            console.log(list);
-            for (let i = 0; i < list.length; i++) {
-                let item = list[i];
-                html += `<dl class="row-info">
-                                <dd class="">`+ item.UtilitiName + `:</dd>
-                                <dt class="">`+ format_money(item.Price) + `</dt>
-                            </dl>`;
-            }
-            $('#RoomUtilities-details').html(html);
-        })
-    })
-    // load lịch sử điện nước
-    $(document).ready(function () {
-        let api_Load_electric_history ='api/ElectricWaterBill?RoomId=1&PageIndex=1&PageSize=20&OrderBy=0&TenantId=4';
-        load_data_with_jquery(api_Load_electric_history).then(function (e) {
-            let list = e.Data.Items;
-            let html = '';
-            console.log(list);
-            for (let i = 0; i < list.length; i++) {
-                let item = list[i];
-                // chỉnh sửa định dạng ngày
-                var date = new Date(item.WriteDate);
-                let dob = 'Ngày '+((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' +((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' +  date.getFullYear();
-                //
-                html += `<tr>
-                                    <td>`+(i+1)+`</td>
-                                    <td>`+ dob+`</td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberElectric+`</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberElectric+`</p>
-                                            <div class="lightgallery">
-                                                <a href="`+ item.ElectricImage+`" class="">
-                                                    Hình
-                                                    ảnh<img src="`+ item.ElectricImage+`" alt="" class="hidden">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="value tx-right tx-sm-center">
-                                            <p class="mg-b-0"><span class="tx-medium">Từ: </span>`+ item.OldNumberWater+`</p>
-                                            <p class="mg-b-0"><span class="tx-medium">Đến: </span>`+ item.NewNumberWater+`</p>
-                                            <div class="lightgallery">
-                                                <a href="`+ item.WaterImage +`" class="">
-                                                    Hình
-                                                    ảnh<img src="`+ item.WaterImage+`" alt="" class="hidden">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>`+ format_money(item.ElectricPrice) +`</td>
-                                    <td>`+ format_money(item.WaterPrice) +`</td>
-                                    <td>`+ format_money(item.ElectricBill) +`</td>
-                                    <td>`+ format_money(item.WaterBill) +`</td>
-                                    <td>0</td>
-                                    <td>
-                                        <a href="#js-updateWaterElectronic" class="btn btn-print" data-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 wd-20-f ht-20-f"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg></a>
-                                        <a href="#" class="btn btn-print"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer wd-20-f ht-20-f"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></a>
-                                    </td>
-                                </tr>`;
-            }
-            $('#elctric-history').html(html);
-        })
-    });
-</script>
 
 <script>
     //#region load title
@@ -389,15 +133,16 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (data, status, xhr) {
-                    //console.log('data: ', data);
+                    console.log(data.Data);
                     let result = data.Data;
-                    console.log(result.Description);
+                    $('.title').html(result.Title);
+                    $('.used-time').html(result.UserdTime);
+                    $('.price').html(format_money(result.Price));
+                    $('.package-type-name').html(result.PackageTypeName);
+                    $('.limited-room').html(result.LimitedRoom);
+                    $('.type-of-rental-name').html(result.TypeOfRentalName);
                     $('.title-description').html(result.TitleDescription);
-                    $('.price').html(result.Price);
                     $('.description').html(result.Description);
-                    $('.type-of-rental').html(result.TypeOfRental);
-                    $('.package-type').html(result.PackageType);
-                    $('.limit-room').html(result.LimitedRoom);
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)

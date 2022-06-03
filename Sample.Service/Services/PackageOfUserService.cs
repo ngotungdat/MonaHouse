@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Sample.Entities;
 using Sample.Entities.Search;
+using Sample.Extensions;
 using Sample.Interface.DbContext;
 using Sample.Interface.Services;
 using Sample.Interface.UnitOfWork;
@@ -20,15 +21,21 @@ namespace Sample.Service.Services
     public class PackageOfUserService : DomainService<PackageOfUser, PackageOfUserSearch>, IPackageOfUserService
     {
         protected IAppDbContext coreDbContext;
+        protected IUserService UserService;
         protected IPackageService packageService;
+        protected INotificationUserService notificationUserService;
         public PackageOfUserService(IAppUnitOfWork unitOfWork
             , IMapper mapper
             , IAppDbContext coreDbContext
+            , IUserService UserService
             , IPackageService packageService
+            , INotificationUserService notificationUserService
             ) : base(unitOfWork, mapper)
         {
             this.coreDbContext = coreDbContext;
+            this.UserService = UserService;
             this.packageService = packageService;
+            this.notificationUserService = notificationUserService;
         }
 
         public async Task<bool> AppceptPackage(PackageOfUser item)
@@ -40,16 +47,16 @@ namespace Sample.Service.Services
 
                 //danh sach pacckOfUser ma user dang su dung hien tai
                 List<PackageOfUser> PackageOfUsers = (List<PackageOfUser>)await this.GetAsync(p => p.UserId == item.UserId && p.Id != item.Id && p.Status == 1);
-                
+
                 // nếu người dùng đang kí gói dịc vụ mới khi vẫn còn gói dịch vụ cũ
-                if (PackageOfUsers.Count>0) {
+                if (PackageOfUsers.Count > 0) {
                     // TimeSpan DaysLeft = PackageOfUsers[0].ExpireDate.Value.Subtract(DateTime.Now);
                     // số tiền/ 1 ngày theo gói đang sử dụng
                     double MoneyPerDay = (double)(PackageOfUsers[0].PackagePrice / (double)(PackageOfUsers[0].UsedDate));
                     // số ngày còn lại
                     int DaysLeft = PackageOfUsers[0].ExpireDate.Value.Subtract(DateTime.Now).Days;
                     // số tiền dư của user
-                    double MoneyOfUser =(double)(DaysLeft) * MoneyPerDay;
+                    double MoneyOfUser = (double)(DaysLeft) * MoneyPerDay;
 
                     // lay package user ma admin duyet
                     PackageOfUser PackageOfUser = this.GetById(item.Id);
@@ -63,7 +70,7 @@ namespace Sample.Service.Services
 
                     item.TenantId = PackageOfUser.TenantId;
                     item.AcceptDate = DateTime.Now;
-                    item.ExpireDate = DateTime.Now.AddDays(package.UserdTime+DayAddPOU);
+                    item.ExpireDate = DateTime.Now.AddDays(package.UserdTime + DayAddPOU);
                     result = await this.UpdateAsync(item);
 
                     // udpate lai gói cũ
@@ -71,7 +78,7 @@ namespace Sample.Service.Services
                     result = await this.UpdateAsync(PackageOfUsers[0]);
                 }
 
-                else 
+                else
                 {
                     // lay package user ma admin duyet
                     PackageOfUser PackageOfUser = this.GetById(item.Id);
@@ -89,13 +96,33 @@ namespace Sample.Service.Services
                 item.TenantId = PackageOfUser.TenantId;
                 result = await this.UpdateAsync(item);
             }
+            if (result == true) {
+                var user = LoginContext.Instance.CurrentUser;
+                NotificationUser notificationUser = new NotificationUser();
+                Users us = UserService.GetById(item.UserId);
+                notificationUser.UsersId = item.UserId;
+                if (item.Status == 1) {
+                    notificationUser.Title = "Đăng kí gói cước: "+item.PackageName+" đã được duyệt";
+                    notificationUser.Content = "Đăng kí gói cước: " + item.PackageName + " đã được duyệt";
+                }
+                else if (item.Status == 2) {
+                    notificationUser.Title = "Đăng kí gói cước: " + item.PackageName + " đã bị hủy";
+                    notificationUser.Content = "Đăng gói cước: " + item.PackageName + " đã bị hủy";
+                }
+                notificationUser.isSeen = false;
+                notificationUser.Active = true;
+                notificationUser.Deleted = false;
+                notificationUser.CreatedBy = user.UserName;
+                notificationUser.TenantId = us.TenantId;
+                await notificationUserService.CreateAsync(notificationUser);
+            }
             return result;
         }
         protected override string GetStoreProcName()
         {
             return "Get_PackageOfUser";
         }
-        public override Task<bool> CreateAsync(PackageOfUser item)
+        public override async Task<bool> CreateAsync(PackageOfUser item)
         {
             Package package = packageService.GetById(item.PackageId);
             if (package == null)
@@ -109,7 +136,36 @@ namespace Sample.Service.Services
             item.RoomLimited = package.LimitedRoom;
             item.UsedDate = package.UserdTime;
 
-            return base.CreateAsync(item);
+            bool rs= await base.CreateAsync(item);
+            if (rs == true) {
+                var user = LoginContext.Instance.CurrentUser;
+                Users us = UserService.GetById(user.UserId);
+
+                // gửi đến admin và CSKH
+                List<Users> users = (List<Users>)await UserService.GetAsync(d => d.TenantId == 0);
+                foreach (Users u in users) {
+                    NotificationUser notificationUser = new NotificationUser();
+                    notificationUser.UsersId = u.Id;
+                    if (item.Status == 0)
+                    {
+                        notificationUser.Title = user.UserName+ " Đăng kí gói :" + item.PackageName;
+                        notificationUser.Content = user.UserName + " Đăng kí gói :" + item.PackageName + ", " + "Ghi chú: " + item.note;
+                    }
+                    else if (item.Status == 3)
+                    {
+                        notificationUser.Title = user.UserName + " Gia hạn gói :" + item.PackageName;
+                        notificationUser.Content = user.UserName + " Gia hạn gói :" + item.PackageName + ", " + "Ghi chú: " + item.note;
+                    }
+                    notificationUser.isSeen = false;
+                    notificationUser.Active = true;
+                    notificationUser.Deleted = false;
+                    notificationUser.CreatedBy = us.UserName;
+                    notificationUser.TenantId = us.TenantId;
+                    await notificationUserService.CreateAsync(notificationUser);
+                }
+                
+            }
+            return rs;
         }
 
         public async Task<bool> ExtendPackage(PackageOfUser item)
@@ -146,6 +202,29 @@ namespace Sample.Service.Services
                 // Package package = packageService.GetById(PackageOfUser.PackageId);
                 item.TenantId = PackageOfUser.TenantId;
                 result = await this.UpdateAsync(item);
+            }
+            if (result == true) {
+                var user = LoginContext.Instance.CurrentUser;
+                NotificationUser notificationUser = new NotificationUser();
+                Users us = UserService.GetById(item.UserId);
+
+                notificationUser.UsersId = item.UserId;
+                if (item.Status == 4)
+                {
+                    notificationUser.Title = "Gói cước: " + item.PackageName + " đã được gia hạn";
+                    notificationUser.Content = "Gói cước: " + item.PackageName + " đã được gia hạn";
+                }
+                else if (item.Status == 2)
+                {
+                    notificationUser.Title = "Gia hạn gói cước: " + item.PackageName + " đã bị hủy";
+                    notificationUser.Content = "Gia hạn gói cước: " + item.PackageName + " đã bị hủy";
+                }
+                notificationUser.isSeen = false;
+                notificationUser.Active = true;
+                notificationUser.Deleted = false;
+                notificationUser.CreatedBy = user.UserName;
+                notificationUser.TenantId = us.TenantId;
+                await notificationUserService.CreateAsync(notificationUser);
             }
             return result;
         }

@@ -196,17 +196,24 @@ namespace Sample.Service.Services
             Room room = this.GetById(roomId);
             
             //update thông tin UserInroom
-            var userInRooms = await userInRoomService.GetAsync(p=> p.UsersId==room.UserInRoomRepresentative&& p.RoomId==roomId);
-            // room
-            room.Status = 0; // phòng trống
+            var userInRoom = await userInRoomService.GetAsync(p=> p.UsersId==room.UserInRoomRepresentative&& p.RoomId==roomId);
+            // lấy thông tin khách hàng  trong phòng
+            // nếu khi người đại diện dọn đi mà vẫn còn người trong phòng\
+            // những khách hàng còn ở lại phòng
+            var UserInRooms = await userInRoomService.GetAsync(d=> d.UsersId!= room.UserInRoomRepresentative && d.RoomId == roomId && d.Status==1);
+            if (userInRoom.Count == 0)
+            {
+                room.Status = 0; // phòng trống
+            }
+
             room.UserInRoomRepresentative = -1; // không có người đại diện
             room.DateInToRoom = null;
             room.DateGetOutRoom = dateTime; 
             //user
-            userInRooms[0].Status = 0; //0: don di; 1:dang o
+            userInRoom[0].Status = 0; //0: don di; 1:dang o
             var result = false;
             result = await this.UpdateAsync(room);
-            result = await userInRoomService.UpdateAsync(userInRooms[0]);
+            result = await userInRoomService.UpdateAsync(userInRoom[0]);
             return result;
         }
 

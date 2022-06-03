@@ -60,7 +60,7 @@
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
                         <input type="hidden" id="electric-price-for-bill" />
                         <input type="hidden" id="electric-old-number" />
-                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
                     </div>
                     <div class="upload-box">
                         <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
@@ -73,7 +73,7 @@
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
                         <input type="hidden" id="water-price-for-bill" />
                         <input type="hidden" id="water-old-number" />
-                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number">
+                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
                     </div>
 
                     <div class="upload-box">
@@ -88,7 +88,7 @@
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Lựa chọn Tiện ích cho phòng<span class="text-danger">(*)</span></label>
                             <div class="table__filter-wrap">
                                 <div class="">
-                                    <table class="table table-hover table-striped">
+                                    <table class="table table-hover border table-striped">
                                         <thead class="">
                                             <tr class="tr-header-table">
                                                 <th class="sort-label" data-column="col-electronic">Tên tiện ích</th>
@@ -154,7 +154,7 @@
                 <div class="col-sm form-group">
                     <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh</label>
                     <div class="input-icon">
-                        <input id="txt-dob" name="txt-dob" type="tel" required class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/1999" readonly="true" autocomplete="off">
+                        <input id="txt-dob" name="txt-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy"  autocomplete="off">
                         <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
                     </div>
                 </div>
@@ -188,16 +188,16 @@
                     </select>
                 </div>*@
                 <div class="col-sm form-group">
-                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu<span class="text-danger">(*)</span></label>
-                    <input type="password" name="txt-pwd" id="txt-pwd" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                    <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Mật khẩu<span class="text-danger">(*) mặc định: 12345678 </span></label>
+                    <input type="password" name="txt-pwd" id="txt-pwd" value="12345678" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
                 </div>
                 <div class="col-sm form-group">
                     <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu<span class="text-danger">(*)</span></label>
-                    <input type="password" name="txt-pwdconfirm" id="txt-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
+                    <input type="password" name="txt-pwdconfirm" id="txt-pwdconfirm" value="12345678" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
                     <span id='message2'></span>
                 </div>
             </div>
-            <div class="row">
+            @*<div class="row">
                 <div class="col">
                     <div class="form-row">
                         <div class="col-12 upload-box mg-b-15">
@@ -211,7 +211,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>*@
         </section>
 
         <h3>Thanh toán</h3>
@@ -402,12 +402,13 @@
             console.log(new_water);
             console.log(img_electric);
             console.log(img_water);
-            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) || img_electric.length == 0 || img_water.length == 0) {
+            if (ckstring(old_electric) || ckstring(new_electric) || ckstring(old_water) || ckstring(new_water) @*|| img_electric.length == 0 || img_water.length == 0*@) {
                 Swal.fire(
                     'Cảnh báo',
                     'Vui lòng nhập đầy đủ thông tin!',
                     'warning'
                 )
+                event.preventDefault();
             }
             else {
                 let listImage = [];
@@ -427,18 +428,26 @@
                 data["oldNumberWater"] = old_water;
                 data["newNumberWater"] = new_water;
                 data["writeDate"] = new Date();
-                data["waterImage"] = '@Model.Domain' + ImageNames[1];
-                data["electricImage"] = '@Model.Domain' + ImageNames[0];
-                //  giá tiền điện và nước (đổi từ kiểu string -> number)
-                let eletric_price_edit = price_electric.replaceAll(",", "");
-                let water_price_edit = price_water.replaceAll(",", "");
-                let electricBill = (new_electric - old_electric) * eletric_price_edit;
-                let waterBill = (new_water - old_water) * water_price_edit;
-                data["electricBill"] = electricBill;
-                data["waterBill"] = waterBill;
-                //api to create bill electricwater
-                let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
-                create_data(data, api_Create_Electric_water_bill);
+                console.log(ImageNames);
+                if (ImageNames != null) {
+                    if (ImageNames.length>1) {
+                        data["waterImage"] = '@Model.Domain' + ImageNames[1];
+                    }
+                    if (ImageNames.length > 0) {
+                        data["electricImage"] = '@Model.Domain' + ImageNames[0];
+                    }
+                } else {
+                    //  giá tiền điện và nước (đổi từ kiểu string -> number)
+                    let eletric_price_edit = price_electric.replaceAll(",", "");
+                    let water_price_edit = price_water.replaceAll(",", "");
+                    let electricBill = (new_electric - old_electric) * eletric_price_edit;
+                    let waterBill = (new_water - old_water) * water_price_edit;
+                    data["electricBill"] = electricBill;
+                    data["waterBill"] = waterBill;
+                    //api to create bill electricwater
+                    let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
+                    create_data(data, api_Create_Electric_water_bill);
+                }
             }
         }
 
@@ -453,7 +462,8 @@
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
                 'warning'
-            )
+            );
+            event.preventDefault();
         }
         else {
             let data = {};
@@ -523,12 +533,13 @@
         console.log(cmnd);
         console.log(pwd);
         console.log(pwdconfirm);
-        if (ckstring(fullname) || ckstring(username) || ckstring(phone) || ckstring(username) || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) || ckstring(cmnd) || ckstring(pwd) || ckstring(pwdconfirm)) {
+        if (ckstring(fullname) || ckstring(username) @*|| ckstring(phone)  || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(role) || ckstring(cmnd) *@|| ckstring(pwd) || ckstring(pwdconfirm)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
                 'warning'
-            )
+            );
+            event.preventDefault();
         }
         else {
 
@@ -589,7 +600,8 @@
                         'Cảnh báo',
                         'Vui lòng nhập đầy đủ thông tin!',
                         'warning'
-                    )
+                    );
+                    event.preventDefault();
                 }
                 else {
                     let data = {};
@@ -638,6 +650,15 @@
 
     function checkrequired(event, currentIndex, newIndex) {
 
+        //#region Bắt lỗi form điền pwdconfirm
+            if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
+                $('#message2').html('Matching').css('color', 'green');
+            } else {
+                $('#message2').html('Not Matching').css('color', 'red');
+                return false;
+            }
+        //#endregion
+
         load_room_utilities();
         load_total_money();
         if (currentIndex > newIndex) {
@@ -677,49 +698,7 @@
         });
     }
     initForm();
-    $(document).ready(function () {
-
-        @*$('.js-add-service').on('click', function () {
-            const html = ` <div class="row align-items-center mg-b-20">
-                            <div class="col pl-r-5">
-                                <input type="tel" class="form-control" placeholder="Tên dịch vụ" ata-type="number" value="">
-                            </div>
-                            <div class="col pd-l-5">
-                                <input type="tel" class="form-control" placeholder="Giá" data-type="number" value="">
-                            </div>
-                            <div class="col pd-l-0 flex-grow-0">
-                                <a href="javascript:;" class="tx-danger delete-service"><i data-feather="minus-square"></i></a>
-                            </div>
-                        </div>`;
-            $('.list-services').append(html);
-            feather.replace();
-        });
-        $('.list-services').on('click', '.delete-service', function () {
-            $(this).closest('.row').remove();
-        });*@
-        // $('#js-select-package').on('change', function(e) {
-        //     let $fields = $('.toggle-field');
-        //     let $upload = $('.upload-box');
-        //     let value = $(this).val();
-        //     console.log($fields);
-        //     switch (value) {
-        //         case 'type-all': {
-        //             $fields.prop('disabled', true);
-        //             $fields.addClass('disabled');
-        //             $fields.attr('placeholder', 'Đã bao gồm tiền phòng');
-        //             $upload.fadeOut();
-        //             break;
-        //         }
-        //         case 'type-day': {
-        //             $fields.removeClass('disabled');
-        //             $fields.prop('disabled', false);
-        //             $fields.attr('placeholder', 'Số ban đầu');
-        //             $upload.fadeIn();
-        //             break;
-        //         }
-        //     }
-        // });
-    });
+    
 </script>
 <script>
     //#region load thong tin phong
@@ -794,6 +773,8 @@
             $('.water-price').html('<span class="tx-success">Đã bao gồm</span>');
             $('#electric_write').css("display", "none");
             $('#water_write').css("display", "none");
+            $('#electric-new-number').prop('required', false);
+            $('#water-new-number').prop('required', false);
             //
             $fields.prop('disabled', true);
             $fields.addClass('disabled');
@@ -806,6 +787,8 @@
             $('.water-price').html($('#water-price-for-bill').val() + 'đ');
             $('#electric_write').css("display", "block");
             $('#water_write').css("display", "block");
+            $('#electric-new-number').prop('required', true);
+            $('#water-new-number').prop('required', true);
             $fields.removeClass('disabled');
             $fields.prop('disabled', false);
             $fields.attr('placeholder', 'Số ban đầu');
@@ -866,6 +849,7 @@
             ListUtiliesConfig = list;
             for (var i = 0; i < list.length; i++) {
                 let item = list[i];
+                console.log('tien mat:' + format_money(item.Price));
                 html += '<tr>';
                 html += '<td>' + item.Name + '</td>';
                 html += '<td><input id="RoomUtilitiesPrice-' + item.Id + '" data-type="currency"  class="form-control" value="' + format_money(item.Price) + '" /></td>';
@@ -873,7 +857,7 @@
                     '<input type="checkbox" id="RoomUtilities-' + item.Id + '" data-price="'+item.Price+'" data-roomid="'+item.Id+'" onclick="RoomUtilitiesCheckBox(' + i + ')" ></td>';
                 html += '</tr>';
             }
-            $('#tbody-update-room-utilities').hide().html(html).show('slow');
+            $('#tbody-update-room-utilities').html(html);
             // check zo tiện ích nào mà phòng đó có
             // call api Room Utilities
             let api_RoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id' + '&RoomId=' + RoomID;
@@ -1071,17 +1055,12 @@
     //#endregion
 
     //#region Bắt lỗi form điền pwdconfirm
-    $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
-        if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {
-            $('#message').html('Matching').css('color', 'green');
-        } else
-            $('#message').html('Not Matching').css('color', 'red');
-    });
     $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
         if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
             $('#message2').html('Matching').css('color', 'green');
-        } else
+        } else {
             $('#message2').html('Not Matching').css('color', 'red');
+        }
     });
-    //#endregion
+        //#endregion
 </script>

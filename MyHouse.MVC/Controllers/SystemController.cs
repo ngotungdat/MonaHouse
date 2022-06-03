@@ -24,10 +24,7 @@ namespace MyHouse.MVC.Controllers
                 return RedirectToAction("Login", "Login");
             return View(coreModel);
         }
-        /// <summary>
-        /// quản lý nhân viên của chủ trọ
-        /// </summary>
-        /// <returns></returns>
+        
         public async Task<IActionResult> StaffManager()
         {
             CoreModel coreModel = await GetCurrentSessionAsync();
