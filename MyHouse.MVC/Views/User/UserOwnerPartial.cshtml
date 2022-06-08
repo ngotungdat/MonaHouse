@@ -113,22 +113,23 @@
             $('.detailsDiv-' + id).html(data);
         });
     }
+   
 
-    let page_index = @ViewData["pageindex"];
-    let page_size = @ViewData["pagesize"];
-    let total_page = @ViewData["totalpage"];
-    let total_item = @ViewData["totalitem"];
+    pageIndex = @ViewData["pageindex"];
+    pageSize = @ViewData["pagesize"];
+    totalPage = @ViewData["totalpage"];
+    totalItem = @ViewData["totalitem"];
     //load phân trang
     $(function () {
-        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+        load_pagination(pagination(pageIndex, totalPage), pageIndex, totalPage, totalItem);
     });
     //load khi bấm chuyển trang
     function load_to_page(page_clicked) {
-        page_index = page_clicked;
+        pageIndex = page_clicked;
         //load lại data
-        load_data(page_index, page_size, 0);
+        load_data(pageIndex, pageSize, orderBy, SearchContent, Status, Package);
         //load lại phân trang
-        load_pagination(pagination(page_index, total_page), page_index, total_page, total_item);
+        load_pagination(pagination(pageIndex, totalPage), pageIndex, totalPage, totalItem);
     }
 
 </script>

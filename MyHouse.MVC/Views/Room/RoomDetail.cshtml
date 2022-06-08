@@ -21,6 +21,19 @@
     .modal-dialog {
         max-width: 20%;
     }
+    .modal {
+       
+    }
+
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 40vh;
+        overflow-y: auto;
+    }
 </style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-md-flex align-items-center justify-content-between mg-b-20">
@@ -65,10 +78,20 @@
                         <dd class="">Ngày dọn vào:</dd>
                         <dt class="room-dateinroom"> trống</dt>
                     </dl>
+                    <dl class="row-info">
+                        <dd class="">Ngày hết hạn:</dd>
+                        <dt class="room-dateoutroom"> trống</dt>
+                    </dl>
                     @*<dl class="row-info mg-b-0">
-                        <dd class="">Tiền nợ:</dd>
-                        <dt class=""><span class="tx-danger room-userinroom-representative-debt">0</span></dt>
-                    </dl>*@
+                            <dd class="">Tiền nợ:</dd>
+                            <dt class=""><span class="tx-danger room-userinroom-representative-debt">0</span></dt>
+                        </dl>*@
+                    <dl id="upgrade-contract" hidden>
+                        <dd class="">Gia hạn:</dd>
+                        <dt class="">
+                            <button type="button" class="btn btn-danger" id="btn-upgrade-contract"><i class="fas fa-check-circle"></i> Gia hạn hợp đồng</button>
+                        </dt>
+                    </dl>
                 </div>
             </div>
         </div>
@@ -112,11 +135,11 @@
 
         </div>
         @*<div class="col-6 mg-t-15">
-            <a href="javascript:;" id="take-debt" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
-        </div>*@
+                <a href="javascript:;" id="take-debt" class="btn btn-info btn-print" data-print="print-bill-section">Thu nợ</a>
+            </div>*@
         @*<div class="col-6 mg-t-15">
-            <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"> Xuất bill tháng này</a>
-        </div>*@
+                <a href="#" class="btn btn-info btn-print" data-print="print-bill-section"> Xuất bill tháng này</a>
+            </div>*@
     </div>
     <!-- End thông tin phòng-->
     <div class="row">
@@ -131,7 +154,7 @@
                 <li class="nav-item">
                     <a class="nav-link" id="transaction-tab" data-toggle="pill" href="#js-transaction" role="tab" aria-controls="js-transaction" aria-selected="false">Lịch sử thanh toán</a>
                 </li>
-                
+
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="js-cus-info" role="tabpanel" aria-labelledby="cus-info-tab">
@@ -156,6 +179,7 @@
                                     <th>Ngày cấp</th>
                                     @*<th>Nơi cấp</th>*@
                                     <th>Tình trạng</th>
+
                                     <th></th>
                                 </tr>
                             </thead>
@@ -166,37 +190,37 @@
                     </div>
 
                     @*<div class="upload-box mg-t-15 ">
-                <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
-                    <h5 class="mg-b-0">Ảnh giấy tờ</h5>
-                    <div class="right-action">
-                        <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
-                    </div>
-                </div>
+                            <div class="top-panel d-flex justify-content-between align-items-center pd-b-15 bd-b">
+                                <h5 class="mg-b-0">Ảnh giấy tờ</h5>
+                                <div class="right-action">
+                                    <a href="javascript:;" class="btn btn-outline-primary btn-upload"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Tải ảnh lên</a>
+                                </div>
+                            </div>
 
-                <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
-                <div class="preview-image">
-                    <div class="image-wrap">
-                        <div class="image-box lightgallery">
-                            <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
-                        </div>
-                        <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                    </div>
-                    <div class="image-wrap">
-                        <div class="image-box lightgallery">
-                            <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
-                        </div>
-                        <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
-                    </div>
+                            <input type="file" class="hidden upload-image-input" accept="image/*" multiple="">
+                            <div class="preview-image">
+                                <div class="image-wrap">
+                                    <div class="image-box lightgallery">
+                                        <a href="assets/img/dongho.jpg" class=""> <img src="assets/img/dongho.jpg" alt="image" class="img "></a>
+                                    </div>
+                                    <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                                </div>
+                                <div class="image-wrap">
+                                    <div class="image-box lightgallery">
+                                        <a href="assets/img/anhdoc.jpg" class=""> <img src="assets/img/anhdoc.jpg" alt="image" class="img"></a>
+                                    </div>
+                                    <a href="javascript:;" class="delete-image"><i class="fas fa-times"></i></a>
+                                </div>
 
-                </div>
-            </div>*@
+                            </div>
+                        </div>*@
                 </div>
                 <div class="tab-pane fade" id="js-history" role="tabpanel" aria-labelledby="history-tab">
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
                         <h5>Lịch sử điện nước</h5>
                         @*<div class="right-action">
-                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
-                        </div>*@
+                                <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> Xuất Excel</button>
+                            </div>*@
                     </div>
                     <div class="table-responsive">
                         <table class="table  valign-center tx-nowrap table-striped tx-center table-bordered">
@@ -235,14 +259,14 @@
                     <div class="top-panel d-flex justify-content-between align-items-center mg-b-15">
                         <h5>Lịch sử thanh toán</h5>
                         @*<div class="right-action">
-                            <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5">Xuất Excel</button>
-                        </div>*@
+                                <button class="btn btn-sm pd-x-15 btn-outline-primary btn-uppercase mg-l-5">Xuất Excel</button>
+                            </div>*@
                     </div>
                     <div class="" id="history-room-receipt">
 
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -372,7 +396,7 @@
                         <div class="col-sm-12">
                             <div class="col-sm form-group">
                                 <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Nhập số tiền</label>
-                                <input type="text" data-type="currency"  class="form-control" id="debt-take" >
+                                <input type="text" data-type="currency" class="form-control" id="debt-take">
                             </div>
                         </div>
                     </div>
@@ -387,8 +411,121 @@
     </div><!-- modal-dialog -->
 </div>
 
+<!--modal gia hạn hợp đồng-->
+<div class="modal fade show" id="js-upgrade-contract" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:40%;">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+                <div class="media align-items-center">
+                    <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
+                    <div class="media-body mg-sm-l-20">
+                        <h4 class="tx-18 tx-sm-20 mb-0">Gia hạn hợp đồng</h4>
+                    </div>
+                </div><!-- media -->
+            </div><!-- modal-header -->
+            <div class="modal-body ">
+                <div class="">
+                    <div class="row mg-t-15">
+                        <input id="hdf-roomcontractid" hidden/>
+                        <input id="hdf-roomid" hidden/>
+                        <input id="hdf-userid" hidden/>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Mẫu hợp đồng <span class="text-danger">(*)</span></label>
+                                <select name="dll-license" id="dll-license" class="form-control">
+                                    <option value="" selected>-- mẫu hợp đồng --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                <input type="text" id="date-goout-room" class="form-control datetimepicker date-only" placeholder="20/11/2020" required="" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <textarea class="raw-txt mg-t-10" rows="10" name="contract-content" id="contract-content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- modal-body -->
+            <div class="modal-footer pd-x-20 pd-y-15">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary upgrade-roomcontract">Lưu lại</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
 <!-- javascript -->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    //#region load tinymce
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+    tinymce.init({
+        readonly: false,
+        selector: '#contract-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+    //#endregion
+</script>
 <script>
     var pathArray = window.location.pathname.split('/');
     var roomId = pathArray[3];
@@ -416,7 +553,7 @@
 
     //#region thong tin chi tiet phong
     let api_room_detail = 'api/room/' + roomId;
-    load_data_with_jquery(api_room_detail).then(function (e) {
+    load_data_with_jquery(api_room_detail).then( async function (e) {
         console.log(e.Data);
         let item = e.Data;
         $('.room-name').html(item.Name);
@@ -445,19 +582,46 @@
             //
             $('.room-dateinroom').html(dateInToRoom);
         }
+
         $('#use-repersen').val(item.UserInRoomRepresentative);
         $('.room-price').html(format_money(item.Price));
         $('.room-electric-price').html(format_money(item.ElectricPrice));
         $('.room-water-price').html(format_money(item.WaterPrice));
         // load thogn tin nguoi dai dien
         let api_room_representative = 'api/user/' + item.UserInRoomRepresentative;
-        load_data_with_jquery(api_room_representative).then(function (e) {
+        await load_data_with_jquery(api_room_representative).then(function (e) {
             let user_data = e.Data;
             console.log(user_data);
             $('.room-userinroom-representative-name').html(user_data.FullName);
             $('.room-userinroom-representative-phone').html(user_data.Phone);
             $('.room-userinroom-representative-debt').html(format_money(user_data.DebtMoney));
             $('#debt-money').html(format_money(user_data.DebtMoney));
+        });
+        //thong tin hợp đồng của phòng
+        let api_room_contract = 'api/RoomContractRepresentative?RoomId=' + roomId + '&UserId=' + item.UserInRoomRepresentative + '&Status=0&PageIndex=1&PageSize=20&OrderBy=0';
+        await load_data_with_jquery(api_room_contract).then(function (e) {
+            console.log(e);// luôn luôn lấy được 1 hợp đồng đang sử dụng
+            // chỉnh sửa định dạng ngày
+            let d = e.Data.Items[0];
+            if (e.Data.Items[0].DateGoOutRoom != null) {
+                var date = new Date(e.Data.Items[0].DateGoOutRoom);
+                console.log(date.getDate());
+                console.log(new Date().getDate()+5);
+                let dateExp = 'Ngày ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+                //
+                $('.room-dateoutroom').html(dateExp);
+                 date.setDate(date.getDate() - 5);
+                if (new Date() >= date) {
+                    $('#upgrade-contract').attr("hidden", false);
+                    $('#btn-upgrade-contract').attr("data-userid", item.UserInRoomRepresentative);
+                    $('#btn-upgrade-contract').attr("data-roomid", roomId);
+                    $('#btn-upgrade-contract').attr("data-roomcontractid", d.Id);
+                }
+                else {
+                    $('#upgrade-contract').attr("hidden", true);
+                }
+            }
+
         });
     });
     //#endregion
@@ -742,5 +906,97 @@
             $('#history-room-receipt').html(data);
         });
     }
+</script>
+<script>
+    //#region danh sách mẫu hợp đồng
+    $(document).ready(async function () {
+        let api_load_all_lincense = 'api/LicenseSample/GetAll';
+        await load_data_with_jquery(api_load_all_lincense).then(function (e) {
+            let Licenses = e.Data;
+            select = document.getElementById('dll-license');
+            for (let i = 0; i < Licenses.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = Licenses[i].Content;
+                opt.innerHTML = Licenses[i].Name;
+                opt.setAttribute("data-code", Licenses[i].Code);
+                opt.setAttribute("data-title", Licenses[i].Name);
+                opt.setAttribute("data-description", Licenses[i].Description);
+                select.appendChild(opt);
+            }
+        });
+    });
+    $('#dll-license').on('change', function () {
+        let content = $('#dll-license').val();
+        console.log($('#dll-license option:selected').attr("data-title"));
+        console.log($('#dll-license option:selected').attr("data-code"));
+        console.log($('#dll-license option:selected').attr("data-description"));
+        console.log(tinymce.editors[0].contentDocument.activeElement.innerHTML);
+
+        @*content = content.replaceAll("{room-type}", data_for_content.room_type);
+        content = content.replaceAll("{room-price}", data_for_content["room_price"]);
+        content = content.replaceAll("{room-package}", data_for_content["room_electric_water_package"]);
+        content = content.replaceAll("{room-goin}", data_for_content["room_date_into"]);
+        content = content.replaceAll("{room-goout}", data_for_content["room_date_goout"]);
+        content = content.replaceAll("{room-utilities}", data_for_content["ListUtiliti_service"]);
+        content = content.replaceAll("{user-username}", data_for_content["user-name"]);
+        content = content.replaceAll("{user-fullname}", data_for_content["full-name"]);
+        content = content.replaceAll("{user-phone}", data_for_content["phone"]);
+        content = content.replaceAll("{user-mail}", data_for_content["mail"]);
+        content = content.replaceAll("{user-dob}", data_for_content["dob"]);
+        content = content.replaceAll("{user-address}", data_for_content["address"]);
+        content = content.replaceAll("{user-gender}", data_for_content["gender"]);
+        content = content.replaceAll("{user-cmnd}", data_for_content["cmnd"]);
+        content = content.replaceAll("{user-deposit}", data_for_content["deposit"]);
+        content = content.replaceAll("{user-prepay}", data_for_content["prepay"]);
+        content = content.replaceAll("{user-deposit-money}", format_money(data_for_content["deposit-money"]));
+        content = content.replaceAll("{user-prepay-money}", format_money(data_for_content["prepay-money"]));
+        content = content.replaceAll("{user-payment-method}", data_for_content["payment_method"]);
+        content = content.replaceAll("{user-hometown}", data_for_content["hometown"]);
+        content = content.replaceAll("{user-relationship}", data_for_content["relationship"]);
+        content = content.replaceAll("{user-moneytake}", data_for_content["money_take"]);
+*@
+        tinyMCE.activeEditor.setContent(content);
+    })
+    $('#btn-upgrade-contract').on('click', async function () {
+        
+        $('#js-upgrade-contract').show();
+    })
+    $('.upgrade-roomcontract').on('click', async function () {
+        let roomContractId = $('#btn-upgrade-contract').attr('data-roomcontractid');
+        let roomId = $('#btn-upgrade-contract').attr('data-roomid');
+        let userId = $('#btn-upgrade-contract').attr('data-userid');
+        console.log(roomContractId);
+        console.log(roomId);
+        console.log(userId);
+        // update room contract
+        let api_update_roomContract = 'api/RoomContractRepresentative';
+        let room_contract = {};
+        room_contract["id"] = roomContractId;
+        room_contract["active"] = true;
+        room_contract["dateGoOutRoom"] = $('#date-goout-room').val().split("/").reverse().join("-");
+        await update_data(room_contract, api_update_roomContract)
+        // update room
+        let api_update_room = 'api/room';
+        let room = {};
+        room["id"] = roomId;
+        room["active"] = true;
+        room["dateGetOutRoom"] = $('#date-goout-room').val().split("/").reverse().join("-");
+        await update_data(room, api_update_room)
+        // Thêm mới phiếu gia hạn
+        let api_new_license = 'api/License';
+        let data_new_license = {};
+        data_new_license["id"] = 0
+        data_new_license["name"] = $('#dll-license option:selected').attr("data-title");
+        data_new_license["code"] = 'act' + new Date().getMinutes().toString() + new Date().getHours().toString() + new Date().getDate().toString() + new Date().getYear().toString() + Math.floor(Math.random() * 101).toString();
+        data_new_license["content"] = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+        data_new_license["active"] = true;
+        data_new_license["deleted"] = false;
+        data_new_license['description'] = $('#dll-license option:selected').attr("data-description");;
+        data_new_license["customerId"] = userId;
+        data_new_license["customerName"] = "";
+        data_new_license['licenseType'] = $('#dll-license option:selected').attr("data-code");
+        await create_data(data_new_license, api_new_license)
+    })
+    //#endregion
 </script>
 

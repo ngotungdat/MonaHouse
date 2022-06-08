@@ -221,4 +221,143 @@
             }
         });
     }
+
+    //#region CRUD BaoNguyen
+    //Thêm dữ liệu
+    async function create_data_BN(object, api_name) {
+        return $.ajax({
+            async: true,
+            url: '@Model.Domain' + api_name,
+            data: JSON.stringify(object),
+            type: 'POST',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                const resultCode = data.ResultCode;
+                if (resultCode == 401 || resultMessage == 'Unauthorized') {
+                    Swal.fire({
+                        title: 'Phiên làm việc đã hết hạn?',
+                        text: "Vui lòng đăng nhập lại để tiếp tục!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Login!'
+                    }).then((result) => {
+                        if (result.value == true) {
+                            window.location.href = '/login/login';
+                        }
+                    })
+                }
+                return data;
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                   'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Insert: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+                return null;
+            }
+        });
+    }
+    //Cập nhật dữ liệu
+    async function update_data_BN(object, api_name) {
+        $.ajax({
+            async: true,
+            url: '@Model.Domain' + api_name,
+            data: JSON.stringify(object),
+            type: 'PUT',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                const resultCode = data.ResultCode;
+                if (resultCode == 401 || resultMessage == 'Unauthorized') {
+                    Swal.fire({
+                        title: 'Phiên làm việc đã hết hạn?',
+                        text: "Vui lòng đăng nhập lại để tiếp tục!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Login!'
+                    }).then((result) => {
+                        if (result.value == true) {
+                            window.location.href = '/login/login';
+                        }
+                    })
+                }
+                return resultCode;
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                   'Thông báo!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Update: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                return null;
+            }
+        });
+    }
+    //Xóa dữ liệu
+    async function delete_data_BN(Id, api_name) {
+        $.ajax({
+            async: true,
+            url: '@Model.Domain' + api_name + '/' + Id,
+            type: 'DELETE',
+            dataType: 'JSON',
+            headers: {
+                'Authorization': 'Bearer ' + '@Model.Token',
+                'Content-Type': 'application/json'
+            },
+            success: function (data) {
+                const success = data.Success;
+                const resultMessage = data.ResultMessage;
+                const resultCode = data.ResultCode;
+                if (resultCode == 401 || resultMessage == 'Unauthorized') {
+                    Swal.fire({
+                        title: 'Phiên làm việc đã hết hạn?',
+                        text: "Vui lòng đăng nhập lại để tiếp tục!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Login!'
+                    }).then((result) => {
+                        if (result.value == true) {
+                            window.location.href = '/login/login';
+                        }
+                    })
+                }
+                
+            },
+            error: function (xhr, status, error) {
+                Swal.fire(
+                    'Error!',
+                    'Rất tiếc đã xảy ra lỗi!',
+                    'error'
+                );
+                console.log("Result Delete: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+    //Lấy danh sách dữ liệu
+    @*function load_data_with_partialview(api_name, searchcontent, pageindex, pagesize, orderby) {
+         $.get('/user/UserOwnerPartial?pageindex=' + pageindex + '&pagesize=' + pagesize + '&orderby=' + orderby, function (data) {
+            $('.table-userlist').html(data);
+        });
+    }*@
+    //#endregion
 </script>

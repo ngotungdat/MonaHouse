@@ -14,8 +14,11 @@ namespace Sample.Request
         public int? RoomId { get; set; }
         public int? UserId { get; set; }
         public DateTime? DateIntoRoom { get; set; }
+        public DateTime? DateGoOutRoom { get; set; }
         public int? Deposit { get; set; }
         public int? Prepay { get; set; }
+        public double? DepositMoney { get; set; }
+        public double? PrepayMoney { get; set; }
         public int? PaymentMethod { get; set; }
         public double? TotalMoney { get; set; }
         public double? TakeMoney { get; set; }

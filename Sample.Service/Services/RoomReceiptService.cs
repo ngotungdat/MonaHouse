@@ -58,7 +58,13 @@ namespace Sample.Service.Services
             // lấy thông tin phòng
             Room room = roomService.GetById((int)item.RoomId);
             // lấy ra danh sách ghi điện theo tháng và năm
-            IList<ElectricWaterBill> ElectricWaterBills = await electricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) > 0 && p.RoomId == item.RoomId && p.WriteDate.Value.Month == item.Date.Value.Month && p.WriteDate.Value.Year == item.Date.Value.Year);
+            IList<ElectricWaterBill> ElectricWaterBills = new List<ElectricWaterBill>();
+            if (room.ElectricWaterPackage == 0) {
+                ElectricWaterBills = await electricWaterBillService.GetAsync(p => p.WriteDate.Value.Day > room.DateInToRoom.Value.Day && p.RoomId == item.RoomId && p.WriteDate.Value.Month == item.Date.Value.Month && p.WriteDate.Value.Year == item.Date.Value.Year);
+            }
+            else if (room.ElectricWaterPackage ==1) {
+                ElectricWaterBills = new List<ElectricWaterBill>();
+            }
             // kiểm tra ngày dọn vào của người đại diện trong phòng để tính toán điện nước
             // chưa có chức năng dọn vào !!!!!!!!!!!!!!!
 

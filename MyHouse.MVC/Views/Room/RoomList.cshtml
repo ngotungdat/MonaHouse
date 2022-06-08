@@ -1755,7 +1755,7 @@
             console.log(rooms);
             // load thông tin Điện nước
 
-                        let api_load_Electric_water_bill_roomreceipt = 'api/ElectricWaterBill?&PageIndex=1&PageSize=20&OrderBy=0&TenantId=' +@Model.Users.Id;
+                        let api_load_Electric_water_bill_roomreceipt = 'api/ElectricWaterBill?&PageIndex=1&PageSize=100&OrderBy=0&TenantId=' +@Model.Users.Id;
                         load_data_with_jquery(api_load_Electric_water_bill_roomreceipt).then(function (e) {
                             let Electric_water_bill = e.Data.Items;
                             console.log(Electric_water_bill);
@@ -1768,7 +1768,6 @@
                                         if ((new Date(Electric_water_bill[j].WriteDate).getMonth() + 1) ==@DateTime.Now.Month && (new Date(Electric_water_bill[j].WriteDate).getFullYear()) ==@DateTime.Now.Year && tmp == false) {
                                             $('#electric-water-status-' + Electric_water_bill[j].RoomId).html('Đã ghi');
                                             $('#electric-water-status-' + Electric_water_bill[j].RoomId).addClass("badge badge-success wd-100 pd-5 tx-12");
-                                            $('#electric-water-date-' + Electric_water_bill[j].RoomId).html('Ngày ghi: ' + format_date(Electric_water_bill[0].WriteDate));
                                             tmp = true;
                                             break;
                                         } else {
@@ -1781,6 +1780,27 @@
                                     $('#electric-water-status-' + rooms[i].Id ).addClass("badge badge-danger wd-100 pd-5 tx-12");
                                 }
                             }
+                            // Lấy ra ngày ghi điện mới nhất của phòng đó
+                            for (let i = 0; i < rooms.length; i++) {
+                                let electric_month = [];
+                                for (let j = 0; j < Electric_water_bill.length; j++) {
+                                    if (rooms[i].Id == Electric_water_bill[j].RoomId) {
+                                        if ((new Date(Electric_water_bill[j].WriteDate).getMonth() + 1) ==@DateTime.Now.Month && (new Date(Electric_water_bill[j].WriteDate).getFullYear()) ==@DateTime.Now.Year) {
+                                            electric_month.push(Electric_water_bill[j]);
+                                        } 
+                                    }
+                                }
+                                if (electric_month.length > 0) {
+                                    let ElectricWaterSoonest = electric_month[0];
+                                    for (let j = 1; j < electric_month.length; j++) {
+                                        if ((new Date(electric_month[j].WriteDate)).getDate() > (new Date(ElectricWaterSoonest.WriteDate)).getDate()) {
+                                            ElectricWaterSoonest = electric_month[j];
+                                        }
+                                    }
+                                    $('#electric-water-date-' + ElectricWaterSoonest.RoomId).html('Ngày ghi: ' + format_date(ElectricWaterSoonest.WriteDate));
+                                }
+                            }
+                            
                                 @*if (Electric_water_bill.length <= 0) {
                                     console.log("không có hóa đơn điện nước");
                                 }
@@ -1825,13 +1845,13 @@
                                     tmp = true;
                                     $('#room-receipt-status-' + rooms[i].Id).html('Đã thu');
                                     $('#room-receipt-status-' + rooms[i].Id).addClass("badge badge-success wd-100 pd-5 tx-12");
-                                    $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Date));
+                                    $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Updated));
                                     break;
                                 }
                                 else if (roomreceipts[j].Status > 0 && tmp == false) {
                                     tmp = true;
                                     $('#room-receipt-status-' + rooms[i].Id).html('---');
-                                    $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Date));
+                                    $('#room-receipt-date-' + rooms[i].Id).html('Ngày thu: ' + format_date(roomreceipts[j].Updated));
                                     break;
                                 }
                                 else {
@@ -1878,7 +1898,7 @@
 
                 // xu ly danh sach tien ich
                 $(document).ready(function () {
-                    let api_loadRoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.TenantId';
+                    let api_loadRoomUtilities = 'api/RoomUtilities?PageIndex=1&PageSize=100&OrderBy=0&TenantId=@Model.Users.TenantId';
                     load_data_with_jquery(api_loadRoomUtilities).then(function (e) {
                         let roomUtilities = e.Data.Items;
                         console.log(roomUtilities);
@@ -2567,29 +2587,26 @@
         opt.innerHTML ='Tháng '+ i;
         ddl_month.appendChild(opt);
     }
-    function CalMoney(itemId) {
+    async function CalMoney(itemId) {
         // load phí dịch vụ của phòng
         checkout_room_ultilities(itemId);
-        checkout_room_price(itemId);
-        $('#room-id-checkout-month').val(itemId);
-        $('#ddl-month').val(@DateTime.Now.Month).change();
-        $('#ddl-year').val(@DateTime.Now.Year).change();
-        // sau khi chọn ngày tháng năm kiểm tra
-        $('#js-payMoney').modal('show');
+        // load Thông tin phong và kiểm tra điều kiện phòng có tính tiền đươc không
+        
+            $('#room-id-checkout-month').val(itemId);
+            $('#ddl-month').val(@DateTime.Now.Month).change();
+            $('#ddl-year').val(@DateTime.Now.Year).change();
+            // sau khi chọn ngày tháng năm kiểm tra
+            $('#js-payMoney').modal('show');
+        
+
     }
-    $('#ddl-month').on('change', function () {
+    $('#ddl-month').on('change', async function () {
         console.log('change month');
-        checkout_room();
-        // tính lai tổng tiền mỗi lân thay đổi tháng\
-
-        @*let electric_bill = $('#electric-bill-with-month').html().replace(",","");
-        let water_bill = $('#water-bill-with-month').html().replace(",", "");
-        let room_utilities_bill = $('#room-utilities-bill').html().replace(",", "");
-        let room_price_bill = $('#room-price-checkout').html().replace(",", "");
-        console.log("electric:"+electric_bill);
-        let total_money_checkout = electric_bill + water_bill + room_utilities_bill + room_price_bill;
-        $('#total-money-checkout').html(format_money(total_money_checkout));*@
-
+        let roomId = $('#room-id-checkout-month').val();
+        let flag_check = await checkout_room_price(roomId);
+        if (flag_check == true) {
+            checkout_room();
+        }
     });
     @*$('#ddl-year').on('change', function () {
         console.log('change year');
@@ -2602,50 +2619,7 @@
         let month = $('#ddl-month').val();
         let year = $('#ddl-year').val();
         console.log(roomId, month, year);
-        // phòng trọ đang ở trạng thái trống và sắp dọn vào thì không tính tiền
-        let api_Get_room = 'api/Room/' + roomId;
-        load_data_with_jquery(api_Get_room).then(function (e) {
-            let room = e.Data;
-            if (room.Status < 2 || room.Status > 4 ) {
-                Swal.fire(
-                    'Cảnh báo',
-                    'Phòng Trống không thể tính tiền',
-                    'warning'
-                )
-                $('.btn-checkout').prop('disabled', true);
-            }
-            else if (room.UserInRoomRepresentative == null) {
-                Swal.fire(
-                    'Cảnh báo',
-                    'Phòng không có người đại diện không thể tính tiền',
-                    'warning'
-                )
-                $('.btn-checkout').prop('disabled', true);
-            }
-            else {
-                $('.btn-checkout').prop('disabled', false);
-
-            }
-        });
-        // User đã tính tiền thì không cho tính nữa
-        let api_GetRoomReceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId='+roomId+'&month='+month+'&year='+year;
-        load_data_with_jquery(api_GetRoomReceipt).then(function (e) {
-            let userId = $('#user-id').val();
-            console.log(userId);
-            console.log(e.Data);
-            if (userId == e.Data[0].UserId) {
-                Swal.fire(
-                    'Cảnh báo',
-                    'Phòng đã tính tiền',
-                    'warning'
-                )
-                $('.btn-checkout').prop('disabled', true);
-            }
-            else {
-                $('.btn-checkout').prop('disabled', false);
-            }
-        })
-        //
+        
         let api_get_electricwaterbillformonth = 'api/ElectricWaterBill/get_electric_water_bill_with_month?RoomId='+roomId+'&Month='+month+'&Year='+year;
         load_data_with_jquery(api_get_electricwaterbillformonth).then(function (e) {
             //danh sách tiền điện theo tháng
@@ -2706,14 +2680,71 @@
             $('#room-ultilities-checkout').html(html);
         })
     }
-    function checkout_room_price(roomId) {
+    async function checkout_room_price(roomId) {
+        //let roomId = $('#room-id-checkout-month').val();
+        let flag_check = true;
+        let month = $('#ddl-month').val();
+        let year = $('#ddl-year').val();
         let api_get_roomprice_formonth = 'api/Room/' + roomId;
-        load_data_with_jquery(api_get_roomprice_formonth).then(function (e) {
+        await load_data_with_jquery(api_get_roomprice_formonth).then(function (e) {
             console.log(e.Data);
             let item = e.Data;
+            // phòng trọ đang ở trạng thái trống và sắp dọn vào thì không tính tiền
+            $('.btn-checkout').prop('disabled', false);
+            let room = e.Data;
+            if (room.Status < 2 || room.Status > 4) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Phòng Trống không thể tính tiền',
+                        'warning'
+                    )
+                $('.btn-checkout').prop('disabled', true);
+                flag_check = false;
+                return flag_check;
+            }
+            else if (room.UserInRoomRepresentative == null || room.UserInRoomRepresentative == -1) {
+                Swal.fire(
+                        'Cảnh báo',
+                        'Phòng không có người đại diện không thể tính tiền',
+                        'warning'
+                    )
+                $('.btn-checkout').prop('disabled', true);
+                flag_check = false;
+                console.log('duma' + flag_check);
+                return flag_check;
+
+            }
             $('#room-price-checkout').html(format_money(item.Price));
             $('#user-id').val(item.UserInRoomRepresentative);
+            console.log('gói điện nước: ' + item.ElectricWaterPackage);
+            if (item.ElectricWaterPackage == 1) {
+                $('#note-checkout').val("Phòng bao điện nước");
+            }
+            else {
+                $('#note-checkout').val("");
+            }
         })
+        // User đã tính tiền thì không cho tính nữa
+        console.log(roomId + month + year);
+        let api_GetRoomReceipt = 'api/RoomReceipt/GetRoomReceiptByRoomId-Month-Year?roomId=' + roomId + '&month=' + month + '&year=' + year;
+        await load_data_with_jquery(api_GetRoomReceipt).then(function (e) {
+            let userId = $('#user-id').val();
+            console.log(userId);
+            console.log(e.Data);
+            if (e.Data.length > 0) {
+                if (userId == e.Data[0].UserId) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Phòng đã tính tiền',
+                        'warning'
+                    )
+                    $('.btn-checkout').prop('disabled', true);
+                    flag_check = false;
+                    return flag_check;
+                }
+            }
+        })
+        return flag_check;
     }
 
     $('#price-plus').on('change', function () {

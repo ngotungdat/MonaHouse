@@ -61,14 +61,17 @@
                         <div class="col-md-4 form-group">
                             <label>Tên người dùng</label>
                             <input type="text" name="txt-fullname" id="txt-fullname" class="form-control" placeholder="Số điện thoại" value="@user.FullName" required>
+                            <span class='message-username'></span>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Số điện thoại</label>
                             <input type="number" name="txt-phone" id="txt-phone" class="form-control" placeholder="Số điện thoại" value="@user.Phone" required>
+                            <span class='message-phone'></span>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Email</label>
                             <input type="email" name="txt-email" id="txt-email" class="form-control" placeholder="Email" value="@user.Email">
+                            <span class='message-mail'></span>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Địa chỉ</label>
@@ -162,6 +165,9 @@
         </div><!-- modal-content -->
     </div><!-- modal-dialog -->
 </div><!-- modal -->
+<!-- bat loi form-->
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
+@await Html.PartialAsync("PartialView/UserCheckPartial", Model);
 <script>
     // #region cập nhật hình ảnh User
     let listImageToDelete = [];
@@ -354,7 +360,7 @@
     $('.btn-uploads').on('click', function () {
         $('.upload-image-temps').click();
     });
-    
+
     function upload_img(files) {
             let rs = [];
             var formData = new FormData();
@@ -392,7 +398,7 @@
     })
 
     // cap nhat thong tin user
-    $('.btn-updateuser').on('click', function () {
+    $('.btn-updateuser').on('click', async function () {
         let fullname = $('#txt-fullname').val();
         let phone = $('#txt-phone').val();
         let email= $('#txt-email').val();
@@ -400,10 +406,21 @@
         let birthday = $('#txt-birthday').val();
         let avatar = document.getElementById("input-img").files;
         let dob = birthday.split("/").reverse().join("-");
+        let userck = false;
+        await UserCheck("", email, phone, "", "", "", @user.Id).then(function (data) {
+            userck = data;
+        });
         if (ckstring(fullname) || ckstring(phone) || ckstring(email) || ckstring(address) || ckstring(birthday) || ckstring(dob)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ và chính xác thông tin!',
+                'warning'
+            )
+        }
+        else if (userck == false) {
+            Swal.fire(
+                'Cảnh báo',
+                'Thông tin bị trùng hoặc nhập sai định dạng!',
                 'warning'
             )
         }

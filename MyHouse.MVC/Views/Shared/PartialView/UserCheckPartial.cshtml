@@ -1,0 +1,57 @@
+﻿@model CoreModel
+<!--@@await Html.PartialAsync("PartialView/_BaseScriptPartial")-->
+<script>
+    let Users_all = [];
+    $(document).ready(async function () {
+        let api_load_all_user = 'api/user/GetAllUser';
+        await load_data_with_jquery(api_load_all_user).then(function (e) {
+            console.log(e);
+            Users_all = e.Data;
+        });
+    });
+    // User Check
+    async function UserCheck(username, email, phone, cmnd, pwd, pwdcf, tmp) {
+        // tmp = 0 -> thêm mới
+        // tmp =1 -> update
+        console.log("chay vo kiem tra");
+        // #region kiểm tra tính đúng của User
+        if (Users_all.some(d => d.UserName == username) || Users_all.some(d => d.Email == email) || Users_all.some(d => d.Phone == phone) || Users_all.some(d => d.CitizenIdentification == cmnd)) {
+            if (Users_all.some(d => d.UserName == username) && username != "" && tmp==0) {
+                $('.message-username').html('tên tài khoản đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('.message-username').html('');
+            }
+            if (Users_all.some(d => d.Email == email && d.UserName != username && d.Id != tmp ) && email != "") {
+                console.log(email);
+                $('.message-mail').html('email đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('.message-mail').html('');
+            }
+            if (Users_all.some(d => d.Phone == phone && d.UserName != username && d.Id != tmp ) && phone != "") {
+                $('.message-phone').html('sdt đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('.message-phone').html('');
+            }
+            if (Users_all.some(d => d.CitizenIdentification == cmnd && d.UserName != username && d.Id != tmp ) && cmnd != "") {
+                $('.message-cmnd').html('cmnd đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('.message-cmnd').html('');
+            }
+            if (pwd != pwdcf) {
+                $('.message-pwd').html('Không trùng khớp').css('color', 'red');
+                return false;
+            }
+            else {
+                $('.message-pwd').html('Trùng khớp').css('color', 'green');
+            }
+        }
+        return true;
+        // #endregion
+    }
+
+
+</script>

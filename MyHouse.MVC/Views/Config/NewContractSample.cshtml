@@ -26,14 +26,28 @@
                         <div>
                             <select class="js-example-basic-single select2" name="ddl-key" id="ddl-key">
                                 <option selected>Từ khóa</option>
-                                <option>{user-fullname}</option>
-                                <option>{user-email}</option>
-                                <option>{user-phone}</option>
-                                <option>{user-address}</option>
-                                <option>{user-avatar}</option>
-                                <option>{user-cccd}</option>
-                                <option>{user-dob}</option>
-                                <option>{user-gender}</option>
+                                <option value="{user-username}">Tên tài khoản</option>
+                                <option value="{user-fullname}">Họ và tên</option>
+                                <option value="{user-mail}">Email</option>
+                                <option value="{user-phone}">Số điện thoại</option>
+                                <option value="{user-address}">Địa chỉ</option>
+                                <option value="{user-cmnd}">Căn cước công dân</option>
+                                <option value="{user-dob}">Ngày sinh</option>
+                                <option value="{user-gender}">Giới tính</option>
+                                <option value="{room-type}">Loại phòng</option>
+                                <option value="{room-price}">Giá phòng</option>
+                                <option value="{room-package}">Loại gói điện nước</option>
+                                <option value="{room-goin}">ngày dọn vào</option>
+                                <option value="{room-goout}">Ngày hết hợp đồng</option>
+                                <option value="{room-utilities}">Tiện ích phòng</option>
+                                <option value="{user-deposit}">Cọc theo tháng</option>
+                                <option value="{user-prepay}">Trả trước theo tháng</option>
+                                <option value="{user-deposit-money}">Tiền cọc</option>
+                                <option value="{user-prepay-money}">Tiền trả trước</option>
+                                <option value="{user-payment-method}">Phương thức thanh toán</option>
+                                <option value="{user-hometown}">Quê quán</option>
+                                <option value="{user-relationship}">Quan hệ</option>
+                                <option value="{user-moneytake}">Số tiền nhận</option>
                             </select>
                         </div>
                         
@@ -273,5 +287,24 @@
 
 </script>
 
+<script>
+    //const answer = document.getElementById("copyResult");
+    const copy = document.getElementById("ddl-key");
+    const selection = window.getSelection();
+    const range = document.createRange();
+    const textToCopy = $("#ddl-key").val();
 
+    copy.addEventListener('onchange', function (e) {
+        range.selectNodeContents(textToCopy);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        const successful = document.execCommand('copy');
+        if (successful) {
+            //answer.innerHTML = 'Copied!';
+        } else {
+            //answer.innerHTML = 'Unable to copy!';
+        }
+        window.getSelection().removeAllRanges()
+    });
+</script>
 

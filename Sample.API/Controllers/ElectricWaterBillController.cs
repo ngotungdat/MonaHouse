@@ -55,13 +55,19 @@ namespace Sample.API.Controllers
             {
                 var user = userService.GetById(LoginContext.Instance.CurrentUser.UserId);
                 Room room = RoomService.GetById(request.RoomId);
+                IList<ElectricWaterBillModel> ElectricWaterBillModels = null;
                 if (room.DateInToRoom == null)
                 {
                     throw new AppException("Phòng trống không thể tính tiền");
                 }
-                IList<ElectricWaterBill> ElectricWaterBills = await ElectricWaterBillService.GetAsync(p => DateTime.Compare((DateTime)p.WriteDate, (DateTime)room.DateInToRoom) > 0 && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
-                IList<ElectricWaterBillModel> ElectricWaterBillModels = (IList<ElectricWaterBillModel>)mapper.Map<IList<ElectricWaterBillModel>>(ElectricWaterBills);
-
+                if (room.ElectricWaterPackage == 0)
+                {
+                    IList<ElectricWaterBill> ElectricWaterBills = await ElectricWaterBillService.GetAsync(p => p.WriteDate.Value.Day> room.DateInToRoom.Value.Day && p.RoomId == request.RoomId && p.WriteDate.Value.Month == request.Month && p.WriteDate.Value.Year == request.Year);
+                    ElectricWaterBillModels = (IList<ElectricWaterBillModel>)mapper.Map<IList<ElectricWaterBillModel>>(ElectricWaterBills);
+                }
+                else if (room.ElectricWaterPackage == 1) {
+                    ElectricWaterBillModels = new List<ElectricWaterBillModel>();
+                }
                 appDomainResult = new AppDomainResult
                 {
                     Data = ElectricWaterBillModels,

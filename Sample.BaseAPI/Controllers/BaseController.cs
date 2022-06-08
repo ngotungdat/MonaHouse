@@ -209,6 +209,44 @@ namespace Sample.BaseAPI.Controllers
         }
 
         /// <summary>
+        /// Lấy tất cả item
+        /// </summary>
+        /// <param name="baseSearch"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetAll")]
+        [AppAuthorize(new string[] { CoreContants.ViewAll })]
+        public virtual async Task<AppDomainResult> GetAll()
+        {
+            AppDomainResult appDomainResult = new AppDomainResult();
+
+            if (ModelState.IsValid)
+            {
+                int TenantId = userService.GetById(LoginContext.Instance.CurrentUser.UserId).TenantId;
+                List<E> Datas = null;
+                if (TenantId != 0)
+                {
+                    Datas = (List<E>)await this.domainService.GetAsync(d => d.TenantId == TenantId);
+                }
+                else {
+                    Datas = (List<E>) this.domainService.GetAll();
+                }
+                List<T> DatasModel = mapper.Map<List<T>>(Datas);
+                appDomainResult = new AppDomainResult
+                {
+                    Data = DatasModel,
+                    Success = true,
+                    ResultCode = (int)HttpStatusCode.OK,
+                    ResultMessage = ApiMessage.GETALL_SUCCESS
+                };
+            }
+            else
+                throw new AppException(ModelState.GetErrorMessage());
+
+            return appDomainResult;
+        }
+
+        /// <summary>
         /// Lấy thông tin quyền của chức năng
         /// </summary>
         /// <returns></returns>

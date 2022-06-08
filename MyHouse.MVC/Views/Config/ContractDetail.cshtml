@@ -5,7 +5,14 @@
         <div class="page-invoice-top">
             <div class="d-sm-flex align-items-center justify-content-between">
                 <div class="flex-print">
-                    <h4 class="mg-b-0">Phiếu thu #20220406-002</h4>
+                    <h4 class="mg-b-0" id="title-print">
+                        Phiếu thu
+                    </h4>
+                    <p>
+                        #
+                        <span id="code">
+                        </span>
+                    </p>
                 </div>
                 <div class="mg-t-20 mg-sm-t-0">
                     <button class="btn btn-success btn-send-mail hide-on-print mg-r-10"><i data-feather="mail"></i> Gửi Mail</button>
@@ -44,6 +51,9 @@
                     let result = data.Data;
                     console.log(result.Content);
                     $('#body-content').html(result.Content);
+                    $('#title-print').text(result.Name);
+                    $('#code').html(result.Code);
+                    console.log(result.Code);
 
                 },
                 error: function (xhr, status, error) {

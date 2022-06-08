@@ -254,7 +254,9 @@
                 else if (user.Status == 1) {
                     $('.user-status-' + user.Id).addClass('badge badge-danger valign-middle');
                 }
-                $('.user-dateofbirth-' + user.Id).html(moment(user.DateOfBirth).format("DD-MM-YYYY"));
+                if (user.DateOfBirth != null) {
+                    $('.user-dateofbirth-' + user.Id).html(format_date(user.DateOfBirth));
+                }
                 $('.user-username-' + user.Id).html(user.UserName);
                 $('.user-address-' + user.Id).html(user.Address);
             },
@@ -378,9 +380,16 @@
         $('#update-pwdold').val("");
         $('#update-pwd').val("");
         $('#update-pwdconfirm').val('');
+        // message
+        $('.message-pwd').html('');
+        $('.message-username').html('');
+        $('.message-mail').html('');
+        $('.message-phone').html('');
+        $('.message-cmnd').html('');
+        //
         $('#modal-update-user').modal('show');
     }
-    $('.btn-update-user').click(function () {
+    $('.btn-update-user').click( async function () {
         const id = $('input[name=update-hdfId]').val();
         const username = $('#update-username').val();
         const fullname = $('#update-fullname').val();
@@ -404,10 +413,21 @@
         console.log(address);
         console.log(gender);
         console.log(cmnd);
+        let userck = false;
+        await UserCheck(username, email, phone, cmnd, pwd, pwdconfirm, id).then(function (data) {
+            userck = data;
+        });
         if (ckstring(fullname) || ckstring(username) @*|| ckstring(phone)*@ @*|| ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender)*@ || ckstring(status) @*|| ckstring(cmnd)*@ ) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else if (userck == false) {
+            Swal.fire(
+                'Cảnh báo',
+                'Thông tin bị trùng hoặc nhập sai định dạng!',
                 'warning'
             )
         }

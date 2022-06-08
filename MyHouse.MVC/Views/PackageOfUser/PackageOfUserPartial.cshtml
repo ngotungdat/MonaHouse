@@ -17,6 +17,14 @@
                 }
             }
             <th class="sort-label" data-column="col-people">Gói Đăng kí</th>
+            @{
+                if (Model.Users.RoleNumber == 3 || Model.Users.RoleNumber == 4)
+                {
+                    <th class="sort-label" data-column="col-house">Giá tiền</th>
+                    <th class="sort-label" data-column="col-room">Số phòng giới hạn</th>
+                    <th class="sort-label" data-column="col-people">Thời gian giới hạn</th>
+                }
+            }
             <th class="sort-label" data-column="col-status">Trạng thái</th>
             <th class="sort-label" data-column="col-electric">Ngày Duyệt</th>
             <th class="sort-label" data-column="col-deposit">Ngày hết hạn</th>
@@ -75,6 +83,25 @@
                     <td data-column="col-deposit">
                         <span class="tx-danger tx-medium">@item.PackageName</span>
                     </td>
+                    @{
+                        double d = (double)item.PackagePrice;
+                        System.Globalization.CultureInfo cul = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+                        string a = d.ToString("#,###", cul.NumberFormat);
+                        if (Model.Users.RoleNumber == 3 || Model.Users.RoleNumber == 4)
+                        {
+
+                            <td data-column="col-deposit">
+                                <span class="tx-success tx-medium">@a</span> đ
+                            </td>
+                            <td data-column="col-deposit">
+                                <span class="tx-danger tx-medium">@item.RoomLimited</span> phòng
+                            </td>
+                            <td data-column="col-deposit">
+                                <span class="tx-danger tx-medium">@item.UserdTime </span> ngày
+                            </td>
+                        }
+                    }
+
 
                     <td data-column="col-package">
 

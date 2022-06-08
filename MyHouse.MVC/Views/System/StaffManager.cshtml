@@ -144,6 +144,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Tài khoản<span class="text-danger">(*)</span></label>
                             <input type="text" name="txt-username" id="txt-username" required class="form-control" placeholder="Ví dụ: NguyenVanA">
+                            <span class='message-username'></span>
                         </div>
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Đầy Đủ<span class="text-danger">(*)</span></label>
@@ -155,6 +156,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại <span class="text-danger"></span></label>
                             <input type="text" name="txt-phone" id="txt-phone" data-type="number" required class="form-control" placeholder="Ví dụ: 0933110546">
+                            <span class='message-phone'></span>
                         </div>
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger"></span></label>
@@ -169,6 +171,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Email<span class="text-danger"></span></label>
                             <input type="text" name="txt-email" id="txt-email" required class="form-control" placeholder="Ví dụ: nguyenvana99@gmail.com">
+                            <span class='message-mail'></span>
                         </div>
 
                         <div class="col-sm-6">
@@ -195,6 +198,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger"></span></label>
                             <input type="text" name="txt-cmnd" id="txt-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
+                            <span class='message-cmnd'></span>
                         </div>
                     </div>
                     <div class="row">
@@ -217,7 +221,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu<span class="text-danger">(*)</span></label>
                             <input type="password" name="txt-pwdconfirm" id="txt-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                            <span id='message2'></span>
+                            <span class='message-pwd'></span>
                         </div>
                     </div>
                     @*<div class="row">
@@ -266,6 +270,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Tài khoản<span class="text-danger">(*)</span></label>
                             <input type="text" name="update-username" id="update-username" required class="form-control" readonly>
+                            <span class='message-username'></span>
                         </div>
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Tên Đầy Đủ<span class="text-danger">(*)</span></label>
@@ -277,6 +282,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số điện thoại <span class="text-danger"></span></label>
                             <input type="text" name="update-phone" id="update-phone" data-type="number" required class="form-control" placeholder="Ví dụ: 0933110546">
+                            <span class='message-phone'></span>
                         </div>
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh<span class="text-danger"></span></label>
@@ -291,6 +297,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Email<span class="text-danger"></span></label>
                             <input type="text" name="update-email" id="update-email" required class="form-control" placeholder="Ví dụ: nguyenvana99@gmail.com">
+                            <span class='message-mail'></span>
                         </div>
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Giới tính<span class="text-danger"></span></label>
@@ -320,6 +327,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Số CMND<span class="text-danger"></span></label>
                             <input type="text" name="update-cmnd" id="update-cmnd" data-type="number" required class="form-control" placeholder="Ví dụ: 2417742266">
+                            <span class='message-cmnd'></span>
                         </div>
                     </div>
                     <hr />
@@ -337,7 +345,7 @@
                         <div class="col-sm-6">
                             <label class="tx-10 tx-uppercase tx-medium tx-spacing-1 mg-b-5 tx-color-03">Xác nhận Mật khẩu mới<span class="text-danger">(*)</span></label>
                             <input type="password" name="update-pwdconfirm" id="update-pwdconfirm" required class="form-control" placeholder="Nhập ít nhất 8 kí tự">
-                            <span id='message'></span>
+                            <span class='message-pwd'></span>
                         </div>
                     </div>
                     @*<div class="row">
@@ -364,20 +372,8 @@
 </div><!-- modal -->
 <!-- bat loi form-->
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
-<script>
-    $('#update-pwd, #update-pwdconfirm').on('keyup', function () {
-        if ($('#update-pwd').val() == $('#update-pwdconfirm').val()) {
-            $('#message').html('Matching').css('color', 'green');
-        } else
-            $('#message').html('Not Matching').css('color', 'red');
-    });
-    $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
-        if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
-            $('#message2').html('Matching').css('color', 'green');
-        } else
-            $('#message2').html('Not Matching').css('color', 'red');
-    });
-</script>
+@await Html.PartialAsync("PartialView/UserCheckPartial", Model);
+
 <!---->
 <!---->
 <script>
@@ -629,6 +625,13 @@
         $('#txt-cmnd').val("");
         $('#txt-pwd').val("");
         $('#txt-pwdconfirm').val('');
+        // message
+        $('.message-pwd').html('');
+        $('.message-username').html('');
+        $('.message-mail').html('');
+        $('.message-phone').html('');
+        $('.message-cmnd').html('');
+        //
         $('#modal-user-in-group').modal('show');
     });
     // chinh sua khach hang
@@ -677,9 +680,16 @@
         $('#update-pwdold').val("");
         $('#update-pwd').val("");
         $('#update-pwdconfirm').val('');
+        // message
+        $('.message-pwd').html('');
+        $('.message-username').html('');
+        $('.message-mail').html('');
+        $('.message-phone').html('');
+        $('.message-cmnd').html('');
+        //
         $('#modal-update-user').modal('show');
     }
-    $('.btn-update-user').click(function () {
+    $('.btn-update-user').click(async function () {
         const id = $('input[name=update-hdfId]').val();
         const username = $('#update-username').val();
         const fullname = $('#update-fullname').val();
@@ -702,10 +712,21 @@
         console.log(address);
         console.log(gender);
         console.log(cmnd);
+        let userck = false;
+        await UserCheck(username, email, phone, cmnd, pwd, pwdconfirm, id).then(function (data) {
+            userck = data;
+        });
         if (ckstring(fullname) || ckstring(username) @*|| ckstring(phone)  || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender) || ckstring(cmnd)*@ ) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else if (userck == false) {
+            Swal.fire(
+                'Cảnh báo',
+                'Thông tin bị trùng hoặc nhập sai định dạng!',
                 'warning'
             )
         }
@@ -770,7 +791,7 @@
         console.log(pwd);
         console.log(pwdconfirm);
     });
-    $('.btn-save-user-in-group').click(function () {
+    $('.btn-save-user-in-group').click( async function () {
         const id = $('input[name=hdfId]').val();
         const username = $('#txt-username').val();
         const fullname = $('#txt-fullname').val();
@@ -795,10 +816,21 @@
         console.log(cmnd);
         console.log(pwd);
         console.log(pwdconfirm);
+        let userck = false;
+        await UserCheck(username, email, phone, cmnd, pwd, pwdconfirm, id).then(function (data) {
+            userck = data;
+        });
         if (ckstring(fullname) || ckstring(username) @*|| ckstring(phone)  || ckstring(email) || ckstring(dob) || ckstring(address) || ckstring(gender)*@ || ckstring(role) @*|| ckstring(cmnd)*@ || ckstring(pwd) || ckstring(pwdconfirm)) {
             Swal.fire(
                 'Cảnh báo',
                 'Vui lòng nhập đầy đủ thông tin!',
+                'warning'
+            )
+        }
+        else if (userck == false) {
+            Swal.fire(
+                'Cảnh báo',
+                'Thông tin bị trùng hoặc nhập sai định dạng!',
                 'warning'
             )
         }

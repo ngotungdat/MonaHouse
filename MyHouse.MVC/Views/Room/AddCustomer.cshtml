@@ -1,4 +1,9 @@
-﻿<script src="~/house/lib/jqvmap/jquery.vmap.min.js"></script>
+﻿<style>
+    #js-step-goin-h-3 {
+        display: none;
+    }
+</style>
+<script src="~/house/lib/jqvmap/jquery.vmap.min.js"></script>
 <link rel="~/house//stylesheet" href="assets/css/dashforge.dashboard.css">
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="d-sm-flex align-items-center justify-content-between ">
@@ -6,7 +11,10 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Phòng số 01</li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="@Url.Action("RoomList","Room")">Danh sách phòng</a></li>
+                    <li class="breadcrumb-item house-name " aria-current="page"></li>
+                    <li class="breadcrumb-item floor-name " aria-current="page"></li>
+                    <li class="breadcrumb-item active room-name" aria-current="page"></li>
                 </ol>
             </nav>
         </div>
@@ -17,38 +25,38 @@
             <div class="row mg-t-15">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Loại thuê phòng</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Loại thuê phòng <span class="text-danger">(*)</span></label>
                         <select name="ListRoomType" id="ListRoomType" class="form-control">
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Gói điện nước <span class="text-danger">(*)</span></label>
                         <select name="" id="js-select-package" class="form-control">
-                            <option value="1">Bao điện nước</option>
                             <option value="0" selected="">Theo mức sử dụng</option>
+                            <option value="1">Bao điện nước</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">Giá thuê</label>
+                        <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">Giá thuê <span class="text-danger">(*)</span></label>
                         <input type="tel" id="txt-room-price" name="name=txt-room-price" class="form-control" placeholder="0" data-type="currency" required="">
                     </div>
                 </div>
                 <div class="col-md-6 ">
-                    
+
                 </div>
                 <div class="col-md-6 ">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn vào <span class="text-danger">(*)</span></label>
                         <input type="text" id="date-into-room" class="form-control datetimepicker date-only" placeholder="20/11/2020" required="" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-md-6 ">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra <span class="text-danger">(*)</span></label>
                         <input type="text" id="date-getout-room" class="form-control datetimepicker date-only" placeholder="20/11/2020" required="" autocomplete="off">
                     </div>
                 </div>
@@ -57,7 +65,7 @@
             <div class="row">
                 <div class="col-md-6" id="electric_write">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện <span class="text-danger">(*)</span></label>
                         <input type="hidden" id="electric-price-for-bill" />
                         <input type="hidden" id="electric-old-number" />
                         <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
@@ -70,7 +78,7 @@
                 </div>
                 <div class="col-md-6" id="water_write">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước</label>
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước <span class="text-danger">(*)</span></label>
                         <input type="hidden" id="water-price-for-bill" />
                         <input type="hidden" id="water-old-number" />
                         <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
@@ -112,7 +120,7 @@
         <section>
             <div class="row ">
                 <div class="col-sm form-group">
-                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên</label>
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Họ và tên <span class="text-danger">(*)</span></label>
                     <input type="text" class="form-control" id="fullname" placeholder="Họ tên" required="">
                 </div>
                 <div class="col-sm form-group">
@@ -121,13 +129,15 @@
                         thoại
                     </label>
                     <input type="tel" class="form-control" id="phone" placeholder="SĐT" data-type="number">
+                    <span id='message-phone'></span>
                 </div>
                 <div class="col-sm form-group">
                     <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
                         Địa chỉ
                         email
                     </label>
-                    <input type="email"  class="form-control" id="mail" placeholder="0">
+                    <input type="email" class="form-control" id="mail" placeholder="0">
+                    <span id='message-mail'></span>
                 </div>
 
             </div>
@@ -147,14 +157,15 @@
             </div>
             <div class="row ">
                 <div class="col-sm form-group">
-                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Tên tài khoản</label>
+                    <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Tên tài khoản <span class="text-danger">(*)</span></label>
                     <input type="text" required class="form-control" id="user-name" placeholder="NGUYENVANA">
+                    <span id='message-username'></span>
                 </div>
-                
+
                 <div class="col-sm form-group">
                     <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Ngày sinh</label>
                     <div class="input-icon">
-                        <input id="txt-dob" name="txt-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy"  autocomplete="off">
+                        <input id="txt-dob" name="txt-dob" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" autocomplete="off">
                         <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
                     </div>
                 </div>
@@ -171,11 +182,12 @@
                 </div>
                 <div class="col-sm form-group">
                     <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Địa chỉ thường trú</label>
-                    <input type="text" name="txt-address" id="txt-address"  class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
+                    <input type="text" name="txt-address" id="txt-address" class="form-control" placeholder="Ví dụ: Khu A 123, Nguyen van A,Go vap, TP.HCM">
                 </div>
                 <div class="col-sm form-group">
                     <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số CMND/CCCD</label>
                     <input type="text" name="txt-cmnd" id="txt-cmnd" data-type="number" class="form-control" placeholder="Ví dụ: 2417742266">
+                    <span id='message-cmnd'></span>
                 </div>
             </div>
             <div class="row ">
@@ -216,7 +228,7 @@
 
         <h3>Thanh toán</h3>
         <section>
-            <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin cấu hình">
+            <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin phòng và tiện ích">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="info-list">
@@ -250,16 +262,19 @@
                                     </span>
                                 </dt>
                             </dl>*@
-                            <dl class="row-info mg-b-15 mg-md-b-0">
+                            <dl class="row-info">
                                 <dd class="">Ngày dọn vào:</dd>
                                 <dt class=""><span class="date-into_room-replace"></span></dt>
                             </dl>
-
+                            <dl class="row-info ">
+                                <dd class="">Ngày hết hạn:</dd>
+                                <dt class=""><span class="date-goout_room-replace"></span></dt>
+                            </dl>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="info-list" id="room-utilities-pay">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -271,6 +286,7 @@
                             <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
                                 Cọc
                                 trước
+                                <span class="text-danger">(*)</span>
                             </label>
                             <select name="deposit" id="deposit" class="form-control">
                                 <option value="1">1 tháng</option>
@@ -293,6 +309,7 @@
                             <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
                                 Trả trước
                                 tới
+                                <span class="text-danger">(*)</span>
                             </label>
                             <select name="first-pay" id="first-pay" class="form-control">
                                 <option value="1">Hết tháng 1</option>
@@ -315,6 +332,7 @@
                             <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
                                 Hình
                                 thức
+                                <span class="text-danger">(*)</span>
                             </label>
                             <select name="payment-method" id="payment-method" class="form-control">
                                 <option value="0" selected="">Chuyển khoản</option>
@@ -333,7 +351,7 @@
                             </label>
                             <div class="input-group mg-b-10">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" >Tổng tiền = </span>
+                                    <span class="input-group-text">Tổng tiền = </span>
                                 </div>
                                 <input type="text" id="total-money" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="0" disabled="">
                             </div>
@@ -345,7 +363,7 @@
                                 Thực nhận của
                                 khách
                             </label>
-                            <input data-type="currency" id="money-take" class="form-control" placeholder="0"  disabled="">
+                            <input data-type="currency" id="money-take" class="form-control" placeholder="0" disabled="">
                         </div>
                     </div>
 
@@ -354,12 +372,111 @@
             </div>
 
         </section>
+
+        <h3>Hợp đồng</h3>
+        <section>
+            <div class="row mg-t-15">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Mẫu hợp đồng <span class="text-danger">(*)</span></label>
+                        <select name="dll-license" id="dll-license" class="form-control">
+                            <option value="" selected>-- mẫu hợp đồng --</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Từ khóa</label>
+                        <select name="" id="" class="form-control">
+                        </select>
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="raw-txt mg-t-10" rows="10" name="contract-content" id="contract-content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 @await Html.PartialAsync("PartialView/_BaseScriptPartial")
 <script src="~/house/lib/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="~/house/lib/moment/moment.js"></script>
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
 <script>
+    //#region load tinymce
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+    tinymce.init({
+        readonly: false,
+        selector: '#contract-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+    //#endregion
+</script>
+<script>
+    let data_for_content = {};
+    let Users_all = [];
+    $(document).ready(async function () {
+        let api_load_all_user = 'api/user/GetAllUser';
+        await load_data_with_jquery(api_load_all_user).then(function (e) {
+            console.log(e);
+            Users_all = e.Data;
+        });
+    });
+
     function onBeforeSubmitForm(event, currentIndex) {
         let $currentStepForm = $('#js-step-goin-p-' + currentIndex);
         console.log($currentStepForm);
@@ -374,8 +491,9 @@
         $currentStepForm.addClass('was-validated');
     }
 
-    function onAfterSubmitForm() {
+    async function onAfterSubmitForm() {
         alert('Chạy sau khi Submit form');
+        let flag_check = true;
         var pathArray = window.location.pathname.split('/');
         let RoomID = pathArray[3];
         // ghi điện nước sau đó mới dọn vào phòng
@@ -385,8 +503,10 @@
         if ($('#js-select-package').val() == '1') {
             //bao điện nước => update phong
             console.log("bao điện nước");
+            data_for_content["Electric_Water"] = "Bao điện nước";
         }
         else {
+            data_for_content["Electric_Water"] = "Theo mức sử dụng";
             // không bao điện nước
             let old_electric = $('#electric-old-number').val();
             let new_electric = $('#electric-new-number').val();
@@ -446,7 +566,12 @@
                     data["waterBill"] = waterBill;
                     //api to create bill electricwater
                     let api_Create_Electric_water_bill = 'api/ElectricWaterBill';
-                    create_data(data, api_Create_Electric_water_bill);
+                    await create_data_BN(data, api_Create_Electric_water_bill).then(function (e) {
+                        console.log(e.ResultCode);
+                        if (e.ResultCode != 200) {
+                            flag_check = false;
+                        }
+                    });
                 }
             }
         }
@@ -466,10 +591,12 @@
             event.preventDefault();
         }
         else {
+            
             let data = {};
             data["id"] = RoomID;
             data["roomTypeId"] = room_type;
             data["price"] = room_price;
+            data["active"] = true;
             data["electricWaterPackage"] = Electric_Water_Package; // 1: bao dien nuoc, 0: khong bao dien nuoc
             // nếu ngày vào phòng lơn hơn ngày hôm nay đổi trạng thái sang " sắp chuyển vào " ngược lại là đang thuê
             if (new Date(date_into_Room).getTime() > new Date().getTime()) {
@@ -489,7 +616,7 @@
             console.log(date_into_Room);
             console.log(date_getout_Room);
             let api_update_room = 'api/Room';
-            update_data(data, api_update_room);
+            await update_data_BN(data, api_update_room);
         }
 
 
@@ -506,7 +633,12 @@
         let api_update_utilities_room = 'api/RoomUtilities/Update_Utilities_RoomService';
         console.log(RoomID);
         console.log(lsUtilitiesAndPrice);
-        create_data(data_room_utilities, api_update_utilities_room);
+        await create_data_BN(data_room_utilities, api_update_utilities_room).then(function (e) {
+            console.log(e.ResultCode);
+            if (e.ResultCode != 200) {
+                flag_check = false;
+            }
+        });
 
         // them moi nguoi thue phong
         const id = 0;
@@ -571,22 +703,29 @@
             //
             console.log('add: ' + data);
             let api_create_user = 'api/user';
-            create_data(data, api_create_user).then(function (e) {
+            await create_data_BN(data, api_create_user).then( async function (e) {
+                console.log(e.ResultCode);
+                if (e.ResultCode != 200) {
+                    flag_check = false;
+                }
                 console.log(e.Data);
                 console.log(e.Data.Id);
                 // them moi hop dong( ngày dọn vào phòng, tiền cọc, tiền trả trước, phwuogn thức thanh toán, tổng tiền, tổng tiền nhận đươc, tiền khách hàng nợ
             //  roomid, userid )
                 let date_into_room = $('#date-into-room').val().split("/").reverse().join("-");
+                let date_getout_room = $('#date-getout-room').val().split("/").reverse().join("-");
                 let deposit = $('#deposit').val();
                 let first_pay = $('#first-pay').val();
                 let payment_method = $('#payment-method').val();
                 let hometown = $('#hometown').val();
                 let numCusInRoom = $('#number-cusinroom').val();
                 let relationship = $('#relationship').val();
+                let total_money= $('#total-money').val().replaceAll(",", "");
                 let money_take = $('#money-take').val().replaceAll(",", "");
                 let roomId = RoomID;
                 let userId = e.Data.Id;
                 let room_price = $('#txt-room-price').val().replaceAll(",", "");
+                let rp = $('#txt-room-price').val().replaceAll(",", "");
                 console.log(room_price);
                 console.log(date_into_room);
                 console.log(deposit);
@@ -608,20 +747,28 @@
                     data["roomId"] = roomId;
                     data["userId"] = userId;
                     data["dateIntoRoom"] = date_into_room;
+                    data["dateGoOutRoom"] = date_getout_room;
                     data["deposit"] = deposit;
                     data["prepay"] = first_pay;
+                    data["depositMoney"] = parseFloat(deposit) * parseFloat(rp);
+                    data["prepayMoney"] = parseFloat(first_pay) * parseFloat(rp);
                     data["homeTown"] = hometown;
                     data["numCusInRoom"] = numCusInRoom;
                     data["relationship"] = relationship;
                     data["paymentMethod"] = payment_method;
+                    data["totalMoney"] = total_money;
                     data["takeMoney"] = money_take;
                     data["userMoney"] = parseFloat(parseFloat(money_take) - (parseFloat(room_price)*parseFloat(deposit)) );
                     data["deleted"] = false;
                     data["status"] = 0; //status =0 hợp đồng đang sử dụng
                     data["active"] = true;
                     let api_create_user = 'api/RoomContractRepresentative';
-                    create_data(data, api_create_user).then(function (e) {
-                        console.log(e);
+                    await create_data_BN(data, api_create_user).then(function (e) {
+                        console.log(e.ResultCode);
+                        if (e.ResultCode != 200) {
+                            flag_check = false;
+                        }
+                        
                     })
                     // thêm mới người vào phòng
                     let data_new_user_in_room = {};
@@ -632,7 +779,7 @@
                     data_new_user_in_room["active"] = true;
                     data_new_user_in_room["roomId"] = RoomID;
                     let api_new_user_in_room = 'api/userinroom';
-                    create_data(data_new_user_in_room, api_new_user_in_room);
+                    await create_data_BN(data_new_user_in_room, api_new_user_in_room);
 
                     // update người đại diện phòng đó
                     let api_update_room_user = 'api/Room';
@@ -640,27 +787,175 @@
                     data_update_room_user["id"] = RoomID;
                     data_update_room_user["active"] = true;
                     data_update_room_user["userInRoomRepresentative"] = userId;
-                    update_data(data_update_room_user, api_update_room_user);
+                    await update_data_BN(data_update_room_user, api_update_room_user);
+                    @*.then(function () {
+                        if (flag_check == true) {
+                            Swal.fire({
+                                title: 'Thông báo!',
+                                text: "Dọn vào thành công!",
+                                type: 'success',
+                                //showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                //cancelButtonColor: '#d33',
+                                confirmButtonText: 'Đồng ý!'
+                            }).then((result) => {
+                                if (result.value == true) {
+                                    console.log("xongggggg");
+                                    var root = location.protocol + '//' + location.host;
+                                    window.location.replace(root + '/Room/RoomDetail/' + RoomID);
+                                }
+                                else {
+                                    console.log("xongggggg");
+                                    var root = location.protocol + '//' + location.host;
+                                    window.location.replace(root + '/Room/RoomDetail/' + RoomID);
+                                }
+                            })
+
+                            
+                        }
+                        else {
+                            console.log("looiiiiiii");
+                            Swal.fire(
+                                'Thông báo!',
+                                "Rất tiếc đã xảy ra lỗi!",
+                                'error'
+                            )
+                        }
+                    });*@
+                    // thêm mới giấy tờ đi kèm khách hàng
+                    
+                    let api_new_license = 'api/License';
+                    let data_new_license = {};
+                    data_new_license["id"]=0
+                    data_new_license["name"] = $('#dll-license option:selected').attr("data-title");
+                    data_new_license["code"] = 'act' + new Date().getMinutes().toString() + new Date().getHours().toString() + new Date().getDate().toString() + new Date().getYear().toString() + Math.floor(Math.random() * 101).toString();
+                    data_new_license["content"] = tinymce.editors[0].contentDocument.activeElement.innerHTML;
+                    data_new_license["active"] = true;
+                    data_new_license["deleted"] = false;
+                    data_new_license['description'] = $('#dll-license option:selected').attr("data-description");;
+                    data_new_license["customerId"] = userId;
+                    data_new_license["customerName"] = e.Data.UserName;
+                    data_new_license['licenseType'] = $('#dll-license option:selected').attr("data-code");
+                    await create_data_BN(data_new_license, api_new_license)
+                    .then(function () {
+                        if (flag_check == true) {
+                            Swal.fire({
+                                title: 'Thông báo!',
+                                text: "Dọn vào thành công!",
+                                type: 'success',
+                                //showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                //cancelButtonColor: '#d33',
+                                confirmButtonText: 'Đồng ý!'
+                            }).then((result) => {
+                                if (result.value == true) {
+                                    console.log("xongggggg");
+                                    var root = location.protocol + '//' + location.host;
+                                    window.location.replace(root + '/Room/RoomDetail/' + RoomID);
+                                }
+                                else {
+                                    console.log("xongggggg");
+                                    var root = location.protocol + '//' + location.host;
+                                    window.location.replace(root + '/Room/RoomDetail/' + RoomID);
+                                }
+                            })
+                        }
+                        else {
+                            console.log("looiiiiiii");
+                            Swal.fire(
+                                'Thông báo!',
+                                "Rất tiếc đã xảy ra lỗi!",
+                                'error'
+                            )
+                        }
+                    });
                 }
             });
         }
         console.log('Chạy sau khi Submit form');
-
+        
     }
 
     function checkrequired(event, currentIndex, newIndex) {
 
         //#region Bắt lỗi form điền pwdconfirm
-            if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
+        if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
                 $('#message2').html('Matching').css('color', 'green');
-            } else {
-                $('#message2').html('Not Matching').css('color', 'red');
-                return false;
-            }
+        } else {
+            $('#message2').html('Not Matching').css('color', 'red');
+            return false;
+        }
         //#endregion
+
+        // #region kiểm tra tính đúng của User
+        const username = $('#user-name').val();
+        const phone = $('#phone').val();
+        const email = $('#mail').val();
+        const cmnd = $('#txt-cmnd').val();
+        if (Users_all.some(d => d.UserName == username) || Users_all.some(d => d.Email == email) || Users_all.some(d => d.Phone == phone) || Users_all.some(d => d.CitizenIdentification == cmnd)) {
+            if (Users_all.some(d => d.UserName == username) && username != "") {
+                $('#message-username').html('tên tài khoản đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('#message-username').html('');
+            }
+            if (Users_all.some(d => d.Email == email) && email != "") {
+                console.log(email);
+                $('#message-mail').html('email đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('#message-mail').html('');
+            }
+            if (Users_all.some(d => d.Phone == phone) && phone != "") {
+                $('#message-phone').html('sdt đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('#message-phone').html('');
+            }
+            if (Users_all.some(d => d.CitizenIdentification == cmnd) && cmnd != "") {
+                $('#message-cmnd').html('cmnd đã tồn tại!').css('color', 'red');
+                return false;
+            } else {
+                $('#message-cmnd').html('');
+            }
+        }
+        // #endregion
 
         load_room_utilities();
         load_total_money();
+        //
+        //
+        let e = document.getElementById("ListRoomType");
+        data_for_content.room_type = e.options[e.selectedIndex].text;
+        data_for_content["room_price"] = $('#txt-room-price').val();
+        let d = document.getElementById("js-select-package");
+        data_for_content["room_electric_water_package"] = d.options[d.selectedIndex].text;
+        data_for_content["room_date_into"] = $('#date-into-room').val()
+        data_for_content["room_date_goout"] = $('#date-getout-room').val();
+        data_for_content["ListUtiliti_service"] = ListUtiliti_service_tmp;
+        data_for_content["user-name"] = $('#user-name').val();
+        data_for_content["full-name"] = $('#fullname').val();
+        data_for_content["phone"] = $('#phone').val();
+        data_for_content["mail"] = $('#mail').val();
+        data_for_content["dob"] = $('#txt-dob').val();
+        data_for_content["address"] = $('#txt-address').val();
+        let g = document.getElementById("ddl-gender");
+        data_for_content["gender"] = g.options[g.selectedIndex].text;
+        data_for_content["cmnd"] = $('#txt-cmnd').val();
+        data_for_content["deposit"]  = $('#deposit').val();
+        data_for_content["prepay"] = $('#first-pay').val();
+        data_for_content["deposit-money"] = parseFloat($('#deposit').val().replaceAll(",", "")) * parseFloat($('#txt-room-price').val().replaceAll(",", ""));
+        data_for_content["prepay-money"] = parseFloat($('#first-pay').val().replaceAll(",", "")) * parseFloat($('#txt-room-price').val().replaceAll(",", ""));
+        let pm = document.getElementById("payment-method");
+        data_for_content["payment_method"] = pm.options[pm.selectedIndex].text;
+        data_for_content["hometown"] = $('#hometown').val();
+        data_for_content["relationship"] = $('#relationship').val();
+        data_for_content["money_take"] = $('#money-take').val();
+        data_for_content["room_price"] = $('#txt-room-price').val();
+        console.log(data_for_content);
+        //
+        console.log(currentIndex);
+        console.log(newIndex);
         if (currentIndex > newIndex) {
             return true;
         }
@@ -692,6 +987,7 @@
             },
             titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
             startIndex: 0,
+
             onStepChanging: checkrequired,
             //onFinishing: onBeforeSubmitForm,
             onFinished:onAfterSubmitForm
@@ -737,11 +1033,21 @@
                             },
                             success: function (data, status, xhr) {
                                 let item = data.Data;
+                                console.log(item);
                                 // lấy giữ liệu từ api
                                 //$('#hdfId').val(item.Id);
-                                //$('input[name=txt-room-name-edit]').val(item.Name);
+                                $('.room-name').text(item.Name);
                                 //$('#ListBranch-edit').val(item.BranchId).change();
+                                load_data_with_jquery('api/branch/' + item.BranchId).then(function (e) {
+                                    console.log(e);
+                                    $('.house-name').text(e.Data.Name);
+
+                                })
                                 //$('#ListFloor-edit').val(item.BranchFloor).change();
+                                load_data_with_jquery('api/floor/' + item.BranchFloor).then(function (e) {
+                                    console.log(e);
+                                    $('.floor-name').text(e.Data.Name);
+                                })
                                 $('#txt-room-price').val(format_money(item.Price));
                                 $('#room-price').html(format_money(item.Price));
                                 //$('input[name=txt-Acreage-edit]').val(item.Acreage);
@@ -981,6 +1287,7 @@
         console.log('ahihihhihi' + room_utilities_price);
         // load lại ngày dọn vào phòng
         $('.date-into_room-replace').html($('#date-into-room').val());
+        $('.date-goout_room-replace').html($('#date-getout-room').val());
     }
     //#endregion
     //#region thông tin thanh toán
@@ -992,7 +1299,7 @@
         console.log(room_price);
         console.log(deposit);
         console.log(first_pay);
-        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) @*+ parseFloat(room_utilities_price)*@;
         $('#total-money').val(format_money(total_money));
         $('#money-take').val(format_money(total_money))
     }
@@ -1003,7 +1310,7 @@
         console.log(room_price);
         console.log(deposit);
         console.log(first_pay);
-        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) @*+ parseFloat(room_utilities_price)*@;
         $('#total-money').val(format_money(total_money));
         $('#money-take').val(format_money(total_money))
 
@@ -1015,7 +1322,7 @@
         console.log(room_price);
         console.log(deposit);
         console.log(first_pay);
-        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) + parseFloat(room_utilities_price);
+        let total_money = parseFloat(room_price) * (parseFloat(deposit) + parseFloat(first_pay)) @*+ parseFloat(room_utilities_price)*@;
         $('#total-money').val(format_money(total_money));
         $('#money-take').val(format_money(total_money))
 
@@ -1053,7 +1360,57 @@
             return rs;
         }
     //#endregion
+    //#region danh sách mẫu hợp đồng
+    $(document).ready(async function () {
+        let api_load_all_lincense = 'api/LicenseSample/GetAll';
+        await load_data_with_jquery(api_load_all_lincense).then(function (e) {
+            let Licenses = e.Data;
+            select = document.getElementById('dll-license');
+            for (let i = 0; i < Licenses.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = Licenses[i].Content; 
+                opt.innerHTML = Licenses[i].Name;
+                opt.setAttribute("data-code", Licenses[i].Code);
+                opt.setAttribute("data-title", Licenses[i].Name);
+                opt.setAttribute("data-description", Licenses[i].Description);
+                select.appendChild(opt);
+            }
+        });
+    });
+    $('#dll-license').on('change', function () {
+        let content = $('#dll-license').val();
+        let option = $('#dll-license option:selected');
+        console.log($('#dll-license option:selected').attr("data-title"));
+        console.log($('#dll-license option:selected').attr("data-code"));
+        console.log($('#dll-license option:selected').attr("data-description"));
+        console.log(tinymce.editors[0].contentDocument.activeElement.innerHTML);
 
+        content = content.replaceAll("{room-type}", data_for_content.room_type);
+        content = content.replaceAll("{room-price}", data_for_content["room_price"]);
+        content = content.replaceAll("{room-package}", data_for_content["room_electric_water_package"]);
+        content = content.replaceAll("{room-goin}", data_for_content["room_date_into"]);
+        content = content.replaceAll("{room-goout}", data_for_content["room_date_goout"]);
+        content = content.replaceAll("{room-utilities}", data_for_content["ListUtiliti_service"]);
+        content = content.replaceAll("{user-username}", data_for_content["user-name"]);
+        content = content.replaceAll("{user-fullname}", data_for_content["full-name"]);
+        content = content.replaceAll("{user-phone}", data_for_content["phone"]);
+        content = content.replaceAll("{user-mail}", data_for_content["mail"]);
+        content = content.replaceAll("{user-dob}", data_for_content["dob"]);
+        content = content.replaceAll("{user-address}", data_for_content["address"]);
+        content = content.replaceAll("{user-gender}", data_for_content["gender"]);
+        content = content.replaceAll("{user-cmnd}", data_for_content["cmnd"]);
+        content = content.replaceAll("{user-deposit}", data_for_content["deposit"]);
+        content = content.replaceAll("{user-prepay}", data_for_content["prepay"]);
+        content = content.replaceAll("{user-deposit-money}", format_money(data_for_content["deposit-money"]));
+        content = content.replaceAll("{user-prepay-money}", format_money(data_for_content["prepay-money"]));
+        content = content.replaceAll("{user-payment-method}", data_for_content["payment_method"]);
+        content = content.replaceAll("{user-hometown}", data_for_content["hometown"]);
+        content = content.replaceAll("{user-relationship}", data_for_content["relationship"]);
+        content = content.replaceAll("{user-moneytake}", data_for_content["money_take"]);
+        
+        tinyMCE.activeEditor.setContent(content);
+    })
+    //#endregion
     //#region Bắt lỗi form điền pwdconfirm
     $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
         if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
@@ -1062,5 +1419,5 @@
             $('#message2').html('Not Matching').css('color', 'red');
         }
     });
-        //#endregion
+    //#endregion
 </script>
