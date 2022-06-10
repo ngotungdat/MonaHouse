@@ -17,5 +17,6 @@ namespace Sample.Interface.Services
         Task<double> CheckOutRoomWithMonth(CheckOutRoomRequest request);
         Task<bool> GetOutRoom(int roomId, DateTime dateTime);
         Task<List<RoomReport>> GetReportRoom(int userId);
+        
     }
 }

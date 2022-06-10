@@ -9,6 +9,6 @@ namespace Sample.Entities.Search
 {
     public class LicenseSearch : DomainEntities.BaseSearch
     {
-        //public string CustomerId { get; set; }
+        public string LincenseType { get; set; }
     }
 }

@@ -1,0 +1,628 @@
+﻿<style>
+    #js-step-goin-h-3 {
+        display: none;
+    }
+</style>
+<script src="~/house/lib/jqvmap/jquery.vmap.min.js"></script>
+<link rel="~/house//stylesheet" href="assets/css/dashforge.dashboard.css">
+<div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item " aria-current="page"><a href="@Url.Action("RoomList","Room")">Danh sách phòng</a></li>
+                    <li class="breadcrumb-item house-name " aria-current="page"></li>
+                    <li class="breadcrumb-item floor-name " aria-current="page"></li>
+                    <li class="breadcrumb-item active room-name" aria-current="page"></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div id="js-step-goin">
+        <h3>Thông tin dọn ra</h3>
+        <section>
+            
+            <div class="row cl-electricwater">
+                <div class="col-md-6" id="electric_write">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện <span class="text-danger">(*)</span></label>
+                        <input type="hidden" id="electric-price-for-bill" />
+                        <input type="hidden" id="electric-old-number" />
+                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" value="1" required>
+                    </div>
+                    <div class="upload-box">
+                        <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
+                        <input id="image-electric" type="file" class="hidden upload-image-input toggle-field" accept="image/*" multiple="">
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+                <div class="col-md-6" id="water_write">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước <span class="text-danger">(*)</span></label>
+                        <input type="hidden" id="water-price-for-bill" />
+                        <input type="hidden" id="water-old-number" />
+                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" value="1" required>
+                    </div>
+
+                    <div class="upload-box">
+                        <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ nước</a>
+                        <input id="image-water" type="file" class="hidden upload-image-input  toggle-field" accept="image/*" multiple="">
+                        <div class="preview-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mg-t-30">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Chọn người đại diện thay thế <span class="text-danger">(*)</span></label>
+                        <select name="" id="" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <h3>Thông tin hóa đơn</h3>
+        <section>
+            <div class="row">
+                <div class="col-md-12" id="">
+                    <div class="form-group">
+                        <table class="table tx-center table-hover table-striped  border table-bordered ">
+                            <tr class="">
+                                <td>Tháng</td>
+                                <th>Tiền nhà</th>
+                                <th><span class="">Tiền điện<span></span></span></th>
+                                <th><span class="">Tiền nước</span></th>
+                                <th><span class="">Dịch vụ</span></th>
+                                <th><span class="">Tổng tiền</span></th>
+                                <th><span class="">Trạng thái</span></th>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="3"> tháng 5/2022</td>
+                                <td>2,000,000</td>
+                                <td>4465646465</td>
+                                <td>0</td>
+                                <td>300,000</td>
+                                <td>2,300,000</td>
+                                <td colspan="1" rowspan="3"><span class="room-status badge badge-success  pd-5 tx-12">Đã thu</span></td>
+                            </tr>
+                            <tr>
+                                <th><span class="">Phát sinh</span></th>
+                                <th><span class="">Được giảm</span></th>
+                                <th><span class="">Thực nhận</span></th>
+                                <th><span class="">Còn lại</span></th>
+                                <th><span class="">Hình thức</span></th>
+
+                            </tr>
+                            
+                            <tr class="">
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td>300,000,000</td>
+                                <td>
+                                    <select class="select2 form-control">
+                                        <option>Chuyển&nbsp;khoản</option>
+                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tiền&nbsp;mặt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" style="background-color: white; border-right-color: white; border-left-color: white;"></td>
+                            </tr>
+                            <tr class="">
+                                <td>Tháng</td>
+                                <th>Tiền nhà</th>
+                                <th><span class="">Tiền điện<span></span></span></th>
+                                <th><span class="">Tiền nước</span></th>
+                                <th><span class="">Dịch vụ</span></th>
+                                <th><span class="">Tổng tiền</span></th>
+                                <th><span class="">Trạng thái</span></th>
+                                
+
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="3"> tháng 5/2022</td>
+                                <td>2,000,000</td>
+                                <td>4465646465</td>
+                                <td>0</td>
+                                <td>300,000</td>
+                                <td>2,300,000</td>
+                                <td colspan="1" rowspan="3"><span class="room-status badge badge-success  pd-5 tx-12">Đã thu</span></td>
+                            </tr>
+                            <tr>
+                                <th><span class="">Phát sinh</span></th>
+                                <th><span class="">Được giảm</span></th>
+                                <th><span class="">Thực nhận</span></th>
+                                <th><span class="">Còn lại</span></th>
+                                <th><span class="">Hình thức</span></th>
+
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td><input class="form-control" data-type="currency" /></td>
+                                <td>300,000,000</td>
+                                <td>
+                                    <select class="select2 form-control">
+                                        <option>Chuyển&nbsp;khoản</option>
+                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tiền&nbsp;mặt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h3>Thanh toán</h3>
+        <section>
+            <div class="legend-box pd-15 pd-t-30 mg-b-30" data-label="Thông tin hóa đơn tổng hợp">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-list">
+                            
+                            <dl class="row-info">
+                                <dd class="">Ngày dọn vào:</dd>
+                                <dt class=""><span class="date-into_room-replace"></span></dt>
+                            </dl>
+                            <dl class="row-info ">
+                                <dd class="">Ngày hết hạn:</dd>
+                                <dt class=""><span class="date-goout_room-replace"></span></dt>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-list" id="room-utilities-pay">
+                            <dl class="row-info">
+                                <dd class="">Ngày dọn ra:</dd>
+                                <dt class=""><span class="date-into_room-replace"></span></dt>
+                            </dl>
+                            <dl class="row-info ">
+                                <dd class="">Tiền cọc của khách:</dd>
+                                <dt class=""><span class="date-goout_room-replace"></span></dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="legend-box pd-15" data-label="Thông tin thanh toán">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">
+                                Ghi chú
+                                <span class="text-danger">(*)</span>
+                            </label>
+                            <textarea name="" id="" class="form-control" >
+                                
+                            </textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Hình
+                                thức
+                                <span class="text-danger">(*)</span>
+                            </label>
+                            <select name="payment-method" id="payment-method" class="form-control">
+                                <option value="0" selected="">Chuyển khoản</option>
+                                <option value="1">Tiền mặt</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Tổng
+                                tiền
+                            </label>
+                            <div class="input-group mg-b-10">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Tổng tiền = </span>
+                                </div>
+                                <input type="text" id="total-money" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="0" disabled="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                                Thực nhận của
+                                khách
+                            </label>
+                            <input data-type="currency" id="money-take" class="form-control" placeholder="0" disabled="">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </section>
+
+        <h3>Phiếu thanh toán</h3>
+        <section>
+            <div class="row mg-t-15">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Mẫu hợp đồng <span class="text-danger">(*)</span></label>
+                        <select name="dll-license" id="dll-license" class="form-control">
+                            <option value="" selected>-- mẫu hợp đồng --</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="col-md-6">
+                    <div class="form-group">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Từ khóa</label>
+                        <select name="" id="" class="form-control">
+                        </select>
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="raw-txt mg-t-10" rows="10" name="contract-content" id="contract-content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@await Html.PartialAsync("PartialView/_BaseScriptPartial")
+<script src="~/house/lib/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="~/house/lib/moment/moment.js"></script>
+<script src="~/house/lib/tinymce/tinymce.min.js"></script>
+<script>
+    //#region load tinymce
+    function uploadImage() {
+        var editor = tinymce.activeEditor;
+        // create input element, call modal dialog w
+        var fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+        // if file is submitted run our key code
+        fileInput.addEventListener('change', () => {
+
+            if (fileInput.files != null && fileInput.files[0] != null) {
+                // create instance of FileReader()
+                var formData = new FormData();
+                formData.append("FileUpload", fileInput.files[0]);
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: '/Admin/PostNewFeed/UploadFilePost',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (msg) {
+                        console.log(msg.l);
+                        editor.insertContent('<img src="' + msg.l + '"/>');
+                    },
+                    error: function (error) {
+                        console.log('error upload file audio');
+                    }
+                });
+            }
+        });
+        fileInput.click()
+    }
+    tinymce.init({
+        readonly: false,
+        selector: '#contract-content',
+        oninit: "setPlainText",
+        plugins: 'paste autoresize stickytoolbar print autolink autosave save directionality fullscreen image link media charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help charmap emoticons',
+        paste_as_text: true,
+        inline: false,
+        menubar: false,
+        toolbar: 'formatselect | fontsizeselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i'
+        ],
+        height: 250,
+        images_dataimg_filter: function (img) {
+            return img.hasAttribute('internal-blob');
+        },
+        setup: (editor) => {
+            editor.ui.registry.addButton('UploadImage', {
+                text: 'Image',
+                icon: 'image',
+                onAction: uploadImage
+            });
+        },
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    });
+    //#endregion
+</script>
+<script>
+    let data_for_content = {};
+    let Users_all = [];
+    $(document).ready(async function () {
+        let api_load_all_user = 'api/user/GetAllUser';
+        await load_data_with_jquery(api_load_all_user).then(function (e) {
+            console.log(e);
+            Users_all = e.Data;
+        });
+    });
+
+    function onBeforeSubmitForm(event, currentIndex) {
+        let $currentStepForm = $('#js-step-goin-p-' + currentIndex);
+        console.log($currentStepForm);
+        let inputs = $currentStepForm.find('*:required');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "") {
+                $currentStepForm.addClass('was-validated');
+                return false;
+                break;
+            }
+        }
+        $currentStepForm.addClass('was-validated');
+    }
+
+    async function onAfterSubmitForm() {
+        console.log('Chạy sau khi Submit form');
+        
+    }
+
+    function checkrequired(event, currentIndex, newIndex) {
+        // thêm mới và cập nhật giá điện
+        if (currentIndex == 0) {
+            console.log("Thêm mới và cập nhật phiếu ghi điện nước")
+        }
+        
+
+       
+        //
+        //#region text
+        @*let e = document.getElementById("ListRoomType");
+        data_for_content.room_type = e.options[e.selectedIndex].text;
+        data_for_content["room_price"] = $('#txt-room-price').val();
+        let d = document.getElementById("js-select-package");
+        data_for_content["room_electric_water_package"] = d.options[d.selectedIndex].text;
+        data_for_content["room_date_into"] = $('#date-into-room').val()
+        data_for_content["room_date_goout"] = $('#date-getout-room').val();
+        data_for_content["ListUtiliti_service"] = ListUtiliti_service_tmp;
+        data_for_content["user-name"] = $('#user-name').val();
+        data_for_content["full-name"] = $('#fullname').val();
+        data_for_content["phone"] = $('#phone').val();
+        data_for_content["mail"] = $('#mail').val();
+        data_for_content["dob"] = $('#txt-dob').val();
+        data_for_content["address"] = $('#txt-address').val();
+        let g = document.getElementById("ddl-gender");
+        data_for_content["gender"] = g.options[g.selectedIndex].text;
+        data_for_content["cmnd"] = $('#txt-cmnd').val();
+        data_for_content["deposit"]  = $('#deposit').val();
+        data_for_content["prepay"] = $('#first-pay').val();
+        data_for_content["deposit-money"] = parseFloat($('#deposit').val().replaceAll(",", "")) * parseFloat($('#txt-room-price').val().replaceAll(",", ""));
+        data_for_content["prepay-money"] = parseFloat($('#first-pay').val().replaceAll(",", "")) * parseFloat($('#txt-room-price').val().replaceAll(",", ""));
+        let pm = document.getElementById("payment-method");
+        data_for_content["payment_method"] = pm.options[pm.selectedIndex].text;
+        data_for_content["hometown"] = $('#hometown').val();
+        data_for_content["relationship"] = $('#relationship').val();
+        data_for_content["money_take"] = $('#money-take').val();
+        data_for_content["room_price"] = $('#txt-room-price').val();
+        console.log(data_for_content);*@
+        //#endregion 
+        console.log(currentIndex);
+        console.log(newIndex);
+        if (currentIndex > newIndex) {
+            return true;
+        }
+        let $currentStepForm = $('#js-step-goin-p-' + currentIndex);
+        let inputs = $currentStepForm.find('*:required');
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "") {
+                $currentStepForm.addClass('was-validated');
+                return false;
+                break;
+            }
+        }
+        $currentStepForm.addClass('was-validated');
+        return true;
+    }
+    function initForm() {
+        $('#js-step-goin').steps({
+            headerTag: 'h3',
+            bodyTag: 'section',
+            transitionEffect: 'fade',
+            transitionEffectSpeed: 200,
+            stepsOrientation: "vertical",
+            autoFocus: true,
+            labels: {
+                cancel: 'Huỷ',
+                next: 'Tiếp tục',
+                previous: 'Quay lại',
+                finish: 'Xong',
+            },
+            titleTemplate: '<span class="number">#index#</span> <span class="title">#title#</span>',
+            startIndex: 0,
+
+            onStepChanging: checkrequired,
+            //onFinishing: onBeforeSubmitForm,
+            onFinished:onAfterSubmitForm
+        });
+    }
+    initForm();
+    
+</script>
+<script>
+    //#region load thong tin phong
+    $(document).ready(function () {
+        var pathArray = window.location.pathname.split('/');
+        var RoomID = pathArray[3];
+        console.log('roomId:' + RoomID);
+        //load roomType
+        let api_load_room_package = 'api/room/' + RoomID;
+        load_data_with_jquery(api_load_room_package).then(function (e) {
+            console.log(e);
+            let item = e.Data;
+            console.log(item);
+            // lấy giữ liệu từ api
+            //$('#hdfId').val(item.Id);
+            $('.room-name').text(item.Name);
+            //$('#ListBranch-edit').val(item.BranchId).change();
+            load_data_with_jquery('api/branch/' + item.BranchId).then(function (e) {
+                console.log(e);
+                $('.house-name').text(e.Data.Name);
+
+            })
+            //$('#ListFloor-edit').val(item.BranchFloor).change();
+            load_data_with_jquery('api/floor/' + item.BranchFloor).then(function (e) {
+                console.log(e);
+                $('.floor-name').text(e.Data.Name);
+            })
+            // nếu phòng bao điện nước thì không cần ghi điện nước
+            if (item.ElectricWaterPackage == 0) {
+                // theo mức sử dụng
+                console.log("theo mức sử dụng");
+                $('.cl-electricwater').prop("disabled", false);
+                $('.cl-electricwater').css("display", "block");
+            }
+            else {
+                // bao điện nước
+                console.log("bao điện nước");
+                $('.cl-electricwater').prop("disabled", true);
+                $('.cl-electricwater').css("display", "none");
+            }
+        })
+        
+    })
+    //#endregion
+
+    //#region Ghi điện trước kho dọn vào phòng
+    // lấy ra lần ghi điện mới nhât để làm số cũ
+    $(document).ready(function () {
+        var pathArray = window.location.pathname.split('/');
+        var RoomID = pathArray[3];
+        let api_Electric_water_bill = 'api/ElectricWaterBill?RoomId=' + RoomID + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
+                load_data_with_jquery(api_Electric_water_bill).then(function (e) {
+                    let list = e.Data.Items;
+                    console.log(list);
+                    // lay ra bill dau tien de lam so moi.
+                    // nếu chưa có hóa đơn nào
+                    if (list.length > 0) {
+                        $('#electric-old-number').val(list[0].NewNumberElectric);
+                        $('#water-old-number').val(list[0].NewNumberWater);
+                        console.log(list[0].NewNumberElectric);
+                        console.log(list[0].NewNumberWater);
+                    }
+                    else {
+                        $('#electric-old-number').val(0);
+                        $('#water-old-number').val(0);
+                    }
+                    // lấy giá điện nước
+                    let api_GetPrice_Electric_Water = 'api/Room/' + RoomID;
+                    load_data_with_jquery(api_GetPrice_Electric_Water).then(function (e) {
+                        let data = e.Data;
+                        // gan vao modal
+                        $('#electric-price-for-bill').val(format_money(data.ElectricPrice));
+                        $('#water-price-for-bill').val(format_money(data.WaterPrice));
+                        $('.electric-price').html(format_money(data.ElectricPrice)+'đ');
+                        $('.water-price').html(format_money(data.WaterPrice)+'đ');
+                        console.log(data.ElectricPrice);
+                        console.log(data.WaterPrice);
+                    })
+                });
+    })
+    //#endregion
+
+
+    //#region xử lý hình ảnh
+    //
+    function upload_img(files) {
+            let rs = [];
+            var formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: '@Model.Domain' + 'api/file/upload-multiple-files',
+                headers: {
+                    'Authorization': 'Bearer ' + '@Model.Token',
+                },
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data, status, xhr) {
+                    console.log("upload thanh cong");
+                    console.log(data);
+                    rs = data.Data;
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+            return rs;
+        }
+    //#endregion
+    //#region danh sách mẫu hợp đồng
+    $(document).ready(async function () {
+        let api_load_all_lincense = 'api/LicenseSample/GetAll';
+        await load_data_with_jquery(api_load_all_lincense).then(function (e) {
+            let Licenses = e.Data;
+            select = document.getElementById('dll-license');
+            for (let i = 0; i < Licenses.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = Licenses[i].Content; 
+                opt.innerHTML = Licenses[i].Name;
+                opt.setAttribute("data-code", Licenses[i].Code);
+                opt.setAttribute("data-title", Licenses[i].Name);
+                opt.setAttribute("data-description", Licenses[i].Description);
+                select.appendChild(opt);
+            }
+        });
+    });
+    $('#dll-license').on('change', function () {
+        let content = $('#dll-license').val();
+        let option = $('#dll-license option:selected');
+        console.log($('#dll-license option:selected').attr("data-title"));
+        console.log($('#dll-license option:selected').attr("data-code"));
+        console.log($('#dll-license option:selected').attr("data-description"));
+        console.log(tinymce.editors[0].contentDocument.activeElement.innerHTML);
+
+        content = content.replaceAll("{room-type}", data_for_content.room_type);
+        content = content.replaceAll("{room-price}", data_for_content["room_price"]);
+        content = content.replaceAll("{room-package}", data_for_content["room_electric_water_package"]);
+        content = content.replaceAll("{room-goin}", data_for_content["room_date_into"]);
+        content = content.replaceAll("{room-goout}", data_for_content["room_date_goout"]);
+        content = content.replaceAll("{room-utilities}", data_for_content["ListUtiliti_service"]);
+        content = content.replaceAll("{user-username}", data_for_content["user-name"]);
+        content = content.replaceAll("{user-fullname}", data_for_content["full-name"]);
+        content = content.replaceAll("{user-phone}", data_for_content["phone"]);
+        content = content.replaceAll("{user-mail}", data_for_content["mail"]);
+        content = content.replaceAll("{user-dob}", data_for_content["dob"]);
+        content = content.replaceAll("{user-address}", data_for_content["address"]);
+        content = content.replaceAll("{user-gender}", data_for_content["gender"]);
+        content = content.replaceAll("{user-cmnd}", data_for_content["cmnd"]);
+        content = content.replaceAll("{user-deposit}", data_for_content["deposit"]);
+        content = content.replaceAll("{user-prepay}", data_for_content["prepay"]);
+        content = content.replaceAll("{user-deposit-money}", format_money(data_for_content["deposit-money"]));
+        content = content.replaceAll("{user-prepay-money}", format_money(data_for_content["prepay-money"]));
+        content = content.replaceAll("{user-payment-method}", data_for_content["payment_method"]);
+        content = content.replaceAll("{user-hometown}", data_for_content["hometown"]);
+        content = content.replaceAll("{user-relationship}", data_for_content["relationship"]);
+        content = content.replaceAll("{user-moneytake}", data_for_content["money_take"]);
+        
+        tinyMCE.activeEditor.setContent(content);
+    })
+    //#endregion
+    //#region Bắt lỗi form điền pwdconfirm
+    $('#txt-pwd, #txt-pwdconfirm').on('keyup', function () {
+        if ($('#txt-pwd').val() == $('#txt-pwdconfirm').val()) {
+            $('#message2').html('Matching').css('color', 'green');
+        } else {
+            $('#message2').html('Not Matching').css('color', 'red');
+        }
+    });
+    //#endregion
+</script>

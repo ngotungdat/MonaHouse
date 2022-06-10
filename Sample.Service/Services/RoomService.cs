@@ -28,6 +28,7 @@ namespace Sample.Service.Services
         protected IAppDbContext coreDbContext;
         protected IUserService userService;
         protected IUserInRoomService userInRoomService;
+        protected IRoomContractRepresentativeService RoomContractRepresentativeService;
         protected IRoomImageService roomImageService;
         protected IElectricWaterBillService electricWaterBillService;
         protected IRoomUtilitiService roomUtilitiService;
@@ -36,6 +37,7 @@ namespace Sample.Service.Services
         public RoomService(IAppUnitOfWork unitOfWork, IMapper mapper, IAppDbContext coreDbContext
             ,IUserService UserService
             ,IUserInRoomService UserInRoomService
+            ,IRoomContractRepresentativeService RoomContractRepresentativeService
             , IRoomImageService RoomImageService
             ,IElectricWaterBillService ElectricWaterBillService
             ,IRoomUtilitiService RoomUtilitiService
@@ -45,6 +47,7 @@ namespace Sample.Service.Services
         {
             this.userService = UserService;
             this.userInRoomService = UserInRoomService;
+            this.RoomContractRepresentativeService = RoomContractRepresentativeService;
             this.roomImageService = RoomImageService;
             this.electricWaterBillService = ElectricWaterBillService;
             this.roomUtilitiService = RoomUtilitiService;
@@ -191,9 +194,26 @@ namespace Sample.Service.Services
             {
                 room_price_bill = this.GetById(request.RoomId).Price;
             }
+
+            // Nếu khách hàng ở tháng đầu tiên thiếu ngày tính tiền phòng và tiện ích tháng đầu tiên theo ngày
+            if (room.DateInToRoom.Value.Month == request.Month && room.DateInToRoom.Value.Year == request.Year) {
+                int dateInMonth = DateTime.DaysInMonth(request.Year, request.Month);
+                // Giá tiện ích phòng theo ngày
+                double room_utilitie_bill_PerDay = (double)(room_utilitie_bill / (double)dateInMonth);
+                // Giá phòng theo ngày
+                double roomPricePerDay = (double)(room_price_bill / (double)dateInMonth);
+                // Ngày khách ở trong tháng này
+                int daysInRoom = dateInMonth - room.DateInToRoom.Value.Day+1;
+                if (daysInRoom<1) {
+                    throw new Exception("Khách hàng chưa ở ngày nào!");
+                }
+                room_utilitie_bill = room_utilitie_bill_PerDay * daysInRoom;
+                room_price_bill = roomPricePerDay * daysInRoom;
+            }
             // tổng giá tiền phải chi chả theo tháng 
             double total_money_bill = 0;
             total_money_bill = (double)(room_price_bill+ electric_bill + water_bill + room_utilitie_bill );
+            total_money_bill = Math.Round(total_money_bill,0);
             return total_money_bill;
         }
 
@@ -260,6 +280,8 @@ namespace Sample.Service.Services
                 }
             });
         }
+
+        
 
         protected override string GetStoreProcName()
         {

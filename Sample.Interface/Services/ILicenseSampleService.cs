@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Interface.Services
 {
-    public interface ILicenseSampleService : ICatalogueService<LicenseSample, LicenseSampleSearch>
+    public interface ILicenseSampleService : IDomainService<LicenseSample, LicenseSampleSearch>
     {
     }
 }

@@ -13,6 +13,6 @@ namespace Sample.Models
         public string CustomerId { get; set; }
         public string LicenseType { get; set; }
         public string CustomerName { get; set; }
-
+        public string FullName { get; set; }
     }
 }

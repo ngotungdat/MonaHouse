@@ -9,6 +9,22 @@
         padding-bottom:20px;
     }
 </style>
+<style type="text/css">
+    .copy-notification {
+        color: #ffffff;
+        background-color: rgba(0,0,0,0.8);
+        padding: 20px;
+        border-radius: 30px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 150px;
+        margin-top: -30px;
+        margin-left: -85px;
+        display: none;
+        text-align: center;
+    }
+</style>
 <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
     <div class="row row-xs">
         <div class="col">
@@ -288,23 +304,39 @@
 </script>
 
 <script>
-    //const answer = document.getElementById("copyResult");
-    const copy = document.getElementById("ddl-key");
-    const selection = window.getSelection();
-    const range = document.createRange();
-    const textToCopy = $("#ddl-key").val();
+    $('#ddl-key').on('change', function () {
+        let text = $('#ddl-key').val();
+        CopyToClipboard(text,true,"Đã copy!");
+    })
 
-    copy.addEventListener('onchange', function (e) {
-        range.selectNodeContents(textToCopy);
-        selection.removeAllRanges();
-        selection.addRange(range);
-        const successful = document.execCommand('copy');
-        if (successful) {
-            //answer.innerHTML = 'Copied!';
-        } else {
-            //answer.innerHTML = 'Unable to copy!';
+    function CopyToClipboard(value, showNotification, notificationText) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(value).select();
+        document.execCommand("copy");
+        $temp.remove();
+
+        if (typeof showNotification === 'undefined') {
+            showNotification = true;
         }
-        window.getSelection().removeAllRanges()
-    });
+        if (typeof notificationText === 'undefined') {
+            notificationText = "Copied to clipboard";
+        }
+
+        var notificationTag = $("div.copy-notification");
+        if (showNotification && notificationTag.length == 0) {
+            notificationTag = $("<div/>", { "class": "copy-notification", text: notificationText });
+            $("body").append(notificationTag);
+
+            notificationTag.fadeIn("slow", function () {
+                setTimeout(function () {
+                    notificationTag.fadeOut("slow", function () {
+                        notificationTag.remove();
+                    });
+                }, 1000);
+            });
+        }
+    }
+    
 </script>
 

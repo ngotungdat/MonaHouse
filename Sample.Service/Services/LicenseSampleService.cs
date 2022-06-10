@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Sample.Service.Services
 {
-    public class LicenseSampleService : CatalogueService<LicenseSample, LicenseSampleSearch>, ILicenseSampleService
+    public class LicenseSampleService : DomainService<LicenseSample, LicenseSampleSearch>, ILicenseSampleService
     {
         public LicenseSampleService(IAppUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {

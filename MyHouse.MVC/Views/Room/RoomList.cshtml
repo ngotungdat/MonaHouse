@@ -575,6 +575,14 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <span class="lb">Gói điện nước:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium" id="Electric-wawter-package"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <span class="lb">Tiền điện theo tháng :</span>
                         </div>
                         <div class="col tx-right">
@@ -603,6 +611,15 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="lb">Số ngày ở:</span>
+                        </div>
+                        <div class="col tx-right">
+                            <span class="value tx-color-01 tx-medium" id="day-in-room">30<sup>ngày</sup></span>
+                        </div>
+                    </div>
+                    <hr class="mg-b-15 mg-t-5">
                     <div class="row">
                         <div class="col">
                             <span class="lb">Phí Dịch vụ:</span>
@@ -665,26 +682,7 @@
                         </div>
 
                     </div>
-                    @*<div class="row mg-b-10 align-items-center">
-                            <div class="col">
-                                <span class="lb">Đã nhận:</span>
-                            </div>
-                            <div class="col">
-                                <input type="tel" data-type="currency" class="form-control" placeholder="0">
-                            </div>
 
-                        </div>
-                        <div class="row mg-b-10 align-items-center">
-                            <div class="col">
-                                <span class="lb">Hình thức:</span>
-                            </div>
-                            <div class="col">
-                                <select name="" class="form-control">
-                                    <option value="" selected="">Chuyển khoản</option>
-                                    <option value="">Tiền mặt</option>
-                                </select>
-                            </div>
-                        </div>*@
 
                 </div><!-- modal-body -->
                 <div class="modal-footer pd-x-20 pd-y-15">
@@ -868,42 +866,7 @@
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div>
-    <!--modal don ra -->
-    <div class="modal fade show" id="js-goOut" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-hidden="true" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" style=" max-width: 30%;">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <a href="" role="button" class="close pos-absolute t-15 r-15" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </a>
-                    <div class="media align-items-center">
-                        <span class="tx-color-03 d-none d-sm-block"><i class="fas fa-calendar-alt tx-24 tx-color-03" aria-hidden="true"></i></span>
-                        <div class="media-body mg-sm-l-20">
-                            <h4 class="tx-18 tx-sm-20 mb-0">Dọn ra</h4>
-                        </div>
-                    </div><!-- media -->
-                </div><!-- modal-header -->
-                <div class="modal-body ">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="hidden" id="room-go-out-id" />
-                            <div class="form-group">
-                                <label class="tx-10 tx-spacing-1 mg-b-5 tx-color-03">Ngày dọn ra</label>
-                                <div class="input-icon">
-                                    <input id="date-go-out" type="tel" class="form-control datetimepicker date-only" placeholder="dd/mm/yyyy" value="20/10/2019" readonly="true" autocomplete="off">
-                                    <a href="javascript:;" class="datepicker-trigger icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- modal-body -->
-                <div class="modal-footer pd-x-20 pd-y-15">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary btn-go-out">Lưu lại</button>
-                </div>
-            </div><!-- modal-content -->
-        </div><!-- modal-dialog -->
-    </div>
+
     <!--Modal tien ich-->
     <div class="modal fade show" id="js-edit-service" padding-right: 17px;" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -1610,7 +1573,7 @@
 
         }
 
-        function upload_img(files) {
+    function upload_img(files) {
             let rs = [];
             var formData = new FormData();
             for (let i = 0; i < files.length; i++) {
@@ -1639,7 +1602,7 @@
             return rs;
         }
 
-        function load_branch()
+    function load_branch()
         {
             $.ajax({
                 type: 'GET',
@@ -1686,7 +1649,7 @@
                 }
             });
         }
-        function load_roomtype() {
+    function load_roomtype() {
             $.ajax({
                 type: 'GET',
                 dataType: "json",
@@ -1726,7 +1689,7 @@
                 }
             });
         }
-        $('.btn-add-room').on('click', function () {
+    $('.btn-add-room').on('click', function () {
 
             $('#modal-room').modal('show');
         });
@@ -1837,8 +1800,6 @@
                         let tmp = false;
                         let _tmp = false;
                         for (let j = 0; j < roomreceipts.length; j++) {
-                            console.log(rooms[i].Id);
-                            console.log(roomreceipts[j].RoomId);
                             if (rooms[i].Id == roomreceipts[j].RoomId) {
                                 _tmp = true;
                                 if (roomreceipts[j].Status > 0 && roomreceipts[j].UserId == rooms[i].UserInRoomRepresentative.toString() && tmp == false) {
@@ -2067,7 +2028,7 @@
                                                     </li>
                                                     <li class="drop-menu-item">
                                                         <a href="javascript:;" data-toggle="modal" class="item-link" onclick="goOut(`+ item.Id + `)">
-                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true" onclick="moveOut(`+ item.Id + `)"></i></span>Dọn
+                                                            <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>Dọn
                                                             ra
                                                         </a>
                                                     </li>
@@ -2355,8 +2316,8 @@
             });
             $('#js-electronicNote').modal('show');
         }
-        // bat su kien khi ghi dien
-        $('.electric-water-update').on('click', function () {
+    // bat su kien khi ghi dien
+    $('.electric-water-update').on('click', function () {
             let old_electric = $('#electric-old-number').val();
             let new_electric=$('#electric-new-number').val();
             let old_water = $('#water-old-number').val();
@@ -2428,10 +2389,6 @@
                 });
             }
         })
-
-        function moveOut(itemId) {
-            $('#js-goOut').modal('show');
-        }
 </script>
 <!--by baonguyen-->
 <!-- xu ly modal tien ich-->
@@ -2589,7 +2546,7 @@
     }
     async function CalMoney(itemId) {
         // load phí dịch vụ của phòng
-        checkout_room_ultilities(itemId);
+        await checkout_room_ultilities(itemId);
         // load Thông tin phong và kiểm tra điều kiện phòng có tính tiền đươc không
         
             $('#room-id-checkout-month').val(itemId);
@@ -2603,6 +2560,8 @@
     $('#ddl-month').on('change', async function () {
         console.log('change month');
         let roomId = $('#room-id-checkout-month').val();
+        // load phí dịch vụ của phòng
+        await checkout_room_ultilities(roomId);
         let flag_check = await checkout_room_price(roomId);
         if (flag_check == true) {
             checkout_room();
@@ -2661,9 +2620,9 @@
             $('#total-money-after-edit').html(format_money(total_money_after));
         })
     }
-    function checkout_room_ultilities(roomId) {
+    async function checkout_room_ultilities(roomId) {
         let api_get_roomutilities_formonth = 'api/RoomUtilities?RoomId=' + roomId + '&PageIndex=1&PageSize=20&OrderBy=0&TenantId=@Model.Users.Id';
-        load_data_with_jquery(api_get_roomutilities_formonth).then(function (e) {
+        await load_data_with_jquery(api_get_roomutilities_formonth).then(function (e) {
             console.log(e.Data);
             let items = e.Data.Items;
             let room_utilities_bill = 0;
@@ -2676,7 +2635,7 @@
                                     <td>`+ format_money(item.Price) + `</td>
                                 </tr>`;
             }
-            $('#room-utilities-bill').html(format_money(room_utilities_bill));
+            $('#room-utilities-bill').text(format_money(room_utilities_bill));
             $('#room-ultilities-checkout').html(html);
         })
     }
@@ -2714,14 +2673,58 @@
                 return flag_check;
 
             }
-            $('#room-price-checkout').html(format_money(item.Price));
+
+            var date = new Date(item.DateInToRoom);
+            console.log(date.getMonth());
+            if ((date.getMonth() + 1) == parseInt($('#ddl-month').val()) && date.getFullYear() == parseInt($('#ddl-year').val())) {
+               
+                var _month = date.getMonth() + 1;
+                var _year = date.getFullYear();
+                let dateInMonth = new Date(_year, _month, 0).getDate();
+                // giá phòng
+                let roomPrice = parseFloat(item.Price);
+                // giá tiện ích
+                console.log($('#room-utilities-bill').text());
+                let utilitiPrice = parseFloat($('#room-utilities-bill').text().replaceAll(",", ""));
+                console.log(utilitiPrice);
+                // Giá tiện ích phòng theo ngày
+                let room_utilitie_bill_PerDay = parseFloat(utilitiPrice) / parseFloat(dateInMonth);
+                // Giá phòng theo ngày
+                let roomPricePerDay = parseFloat(parseFloat(roomPrice) / parseFloat(dateInMonth));
+                // Ngày khách ở trong tháng này
+                let daysInRoom = dateInMonth - date.getDate() + 1;
+                console.log(date.getDate());
+                console.log(dateInMonth);
+                $('#day-in-room').text(daysInRoom);
+                if (daysInRoom < 1) {
+                    Swal.fire(
+                        'Cảnh báo',
+                        'Khách hàng chưa ở ngày nào, không thể tính tiền',
+                        'warning'
+                    )
+                    $('.btn-checkout').prop('disabled', true);
+                }
+                let room_utilitie_bill = parseFloat(room_utilitie_bill_PerDay) * parseFloat(daysInRoom);
+                console.log(room_utilitie_bill_PerDay);
+                console.log(daysInRoom);
+                console.log(room_utilitie_bill);
+                let room_price_bill = parseFloat(roomPricePerDay) * parseFloat(daysInRoom);
+                $('#room-price-checkout').text(format_money(room_price_bill));
+                $('#room-utilities-bill').text(format_money(room_utilitie_bill));
+            }
+            else {
+                let dateInMonth = new Date(parseInt($('#ddl-year').val()), parseInt($('#ddl-month').val()), 0).getDate();
+                $('#room-price-checkout').text(format_money(item.Price));
+                // nếu không phải tháng đầu tiên thì ở hết ngày trong tháng đó
+                $('#day-in-room').text(dateInMonth);
+            }
             $('#user-id').val(item.UserInRoomRepresentative);
             console.log('gói điện nước: ' + item.ElectricWaterPackage);
             if (item.ElectricWaterPackage == 1) {
-                $('#note-checkout').val("Phòng bao điện nước");
+                $('#Electric-wawter-package').html("Phòng bao điện nước");
             }
             else {
-                $('#note-checkout').val("");
+                $('#Electric-wawter-package').html("Theo mức sử dụng");
             }
         })
         // User đã tính tiền thì không cho tính nữa
@@ -2912,7 +2915,7 @@
         load_data_with_jquery(api_get_roomreceipt).then(function ( e) {
             console.log(e.Data);
             let roomreceipts = e.Data;
-            if (roomreceipts.length > 0) {
+            if (roomreceipts.length > 0) {                      
                 // danh sách người đại diện của phòng
                 let ddl_user = document.getElementById('ddl-user-take-money');
                 // xóa hết input cũ
@@ -2962,7 +2965,12 @@
         let userid = $('#ddl-user-take-money').val();
         for (let i = 0; i < roomreceipts.length; i++) {
             let roomReceipt = roomreceipts[i];
-            if (roomReceipt.UserId == userid && roomReceipt.Status==0) {
+            if (roomReceipt.UserId == userid && roomReceipt.Status == 0) {
+                Swal.fire(
+                    'Thông báo',
+                    'Thu tiền tháng bạn chọn!',
+                    'warning'
+                )
                 // đổ dữ liệu ra modal
                 // ID roomReceipt
                 $('#roomreceipt-take-money').val(roomReceipt.Id);
@@ -3068,41 +3076,7 @@
     }
     //#endregion
 
-    //#region chức năng dọn ra
-    function goOut(roomid) {
-        $('#room-go-out-id').val(roomid);
-        // Thu tiền -> nếu chưa tính tiền -> yêu cầu tính tiền -> nêu chưa ghi điện(hợp đồng không bao điện nước)-> yêu cầu ghi điện
-        takeMoney(roomid,true);
-    }
-    $('.btn-go-out-intakemoney').on('click', function () {
-        $('#js-goOut').modal('show');
-    })
-    $('.btn-go-out').on('click', function () {
-        // update room va userInRoom
-        let roomId = $('#room-go-out-id').val();
-        let date_goOut = $('#date-go-out').val();
-        console.log(roomId);
-        console.log(date_goOut);
-        console.log(date_goOut.split("/").reverse().join("-"));
-        if (ckstring(roomId) || ckstring(date_goOut)) {
-            Swal.fire(
-                'Thông báo',
-                'Bạn chưa nhập đủ thông tin!',
-                'warning'
-            )
-        }
-        else {
-            let data = {};
-            let api_go_out_room = 'api/Room/GoOutRoom?roomId=' + roomId + '&dateTime=' + date_goOut.split("/").reverse().join("-");
-            create_data(data, api_go_out_room).then(function (e) {
-                console.log(e);
-                $('#js-goOut').modal('hide');
-                load_room_detail(PageIndex, PageSize, SearchContent, OrderBy, Status, RoomType, BranchId, Electric, TakeMoney, DebtMoney);
-            });
-        }
 
-    })
-    //#endregion
     //#region chức năng dọn vào
     function goInRoom(roomId) {
         let api_Get_room = 'api/Room/' + roomId;
@@ -3111,6 +3085,26 @@
             // phòng trống mới cho dọn vào
             if (room.Status == 0 ) {
                 window.location.href ='https://'+ window.location.host + "/Room/AddCustomer/"+roomId;
+            }
+            else {
+                Swal.fire(
+                    'Cảnh báo',
+                    'Phòng đang sử dụng không thể dọn vào',
+                    'warning'
+                )
+            }
+        });
+    }
+    //#endregion
+
+    //#region chức năng dọn ra
+    function goOut(roomId) {
+        let api_Get_room = 'api/Room/' + roomId;
+        load_data_with_jquery(api_Get_room).then(function (e) {
+            let room = e.Data;
+            // phòng Có người mới cho dọn ra
+            if (room.Status != 0) {
+                window.location.href = 'https://' + window.location.host + "/Room/ExitCustomer/" + roomId;
             }
             else {
                 Swal.fire(
