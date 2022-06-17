@@ -22,14 +22,23 @@
     <div id="js-step-goin">
         <h3>Thông tin dọn ra</h3>
         <section>
-            
-            <div class="row cl-electricwater">
-                <div class="col-md-6" id="electric_write">
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div class="info-list">
+                        <dl class="row-info">
+                            <dd class="">Gói điện nước:</dd>
+                            <dt class=""> <span class="room-package"></span></dt>
+                        </dl>
+                    </div>
+                </div>
+                <div class="col-8">
+                </div>
+                <div class="col-md-6 cl-electricwater" id="electric_write">
                     <div class="form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số điện <span class="text-danger">(*)</span></label>
                         <input type="hidden" id="electric-price-for-bill" />
                         <input type="hidden" id="electric-old-number" />
-                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" value="1" required>
+                        <input type="tel" id="electric-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
                     </div>
                     <div class="upload-box">
                         <a href="javascript:;" class="btn btn-primary btn-upload d-block d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mg-r-5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Ảnh đồng hồ điện</a>
@@ -37,12 +46,12 @@
                         <div class="preview-image"></div>
                     </div>
                 </div>
-                <div class="col-md-6" id="water_write">
+                <div class="col-md-6 cl-electricwater" id="water_write">
                     <div class="form-group">
                         <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Số nước <span class="text-danger">(*)</span></label>
                         <input type="hidden" id="water-price-for-bill" />
                         <input type="hidden" id="water-old-number" />
-                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" value="1" required>
+                        <input type="tel" id="water-new-number" class="form-control  toggle-field" placeholder="Số ban đầu" data-type="number" required>
                     </div>
 
                     <div class="upload-box">
@@ -51,23 +60,23 @@
                         <div class="preview-image"></div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12 mg-t-30">
                     <div class="form-group">
-                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Chọn người đại diện thay thế <span class="text-danger">(*)</span></label>
-                        <select name="" id="" class="form-control">
+                        <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">Chọn người đại diện thay thế</label>
+                        <select name="users-in-room" id="users-in-room" class="form-control">
+                            <option selected>-- chọn người thay thế --</option>
                         </select>
                     </div>
                 </div>
-            </div>
+
+            </div> 
         </section>
         <h3>Thông tin hóa đơn</h3>
         <section>
             <div class="row">
                 <div class="col-md-12" id="">
                     <div class="form-group">
-                        <table class="table tx-center table-hover table-striped  border table-bordered ">
+                        <table id="table-receipt-room" class="table tx-center table-hover table-striped  border table-bordered ">
                             <tr class="">
                                 <td>Tháng</td>
                                 <th>Tiền nhà</th>
@@ -94,7 +103,6 @@
                                 <th><span class="">Hình thức</span></th>
 
                             </tr>
-                            
                             <tr class="">
                                 <td><input class="form-control" data-type="currency" /></td>
                                 <td><input class="form-control" data-type="currency" /></td>
@@ -107,9 +115,11 @@
                                     </select>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td colspan="7" style="background-color: white; border-right-color: white; border-left-color: white;"></td>
                             </tr>
+
                             <tr class="">
                                 <td>Tháng</td>
                                 <th>Tiền nhà</th>
@@ -138,7 +148,7 @@
                                 <th><span class="">Hình thức</span></th>
 
                             </tr>
-                            <tr>
+                            <tr class="">
                                 <td><input class="form-control" data-type="currency" /></td>
                                 <td><input class="form-control" data-type="currency" /></td>
                                 <td><input class="form-control" data-type="currency" /></td>
@@ -166,11 +176,11 @@
                             
                             <dl class="row-info">
                                 <dd class="">Ngày dọn vào:</dd>
-                                <dt class=""><span class="date-into_room-replace"></span></dt>
+                                <dt class=""><span class="date-into_room"></span></dt>
                             </dl>
                             <dl class="row-info ">
                                 <dd class="">Ngày hết hạn:</dd>
-                                <dt class=""><span class="date-goout_room-replace"></span></dt>
+                                <dt class=""><span class="date-goout_room"></span></dt>
                             </dl>
                         </div>
                     </div>
@@ -178,11 +188,11 @@
                         <div class="info-list" id="room-utilities-pay">
                             <dl class="row-info">
                                 <dd class="">Ngày dọn ra:</dd>
-                                <dt class=""><span class="date-into_room-replace"></span></dt>
+                                <dt class=""><span class="date-moveout_room"></span></dt>
                             </dl>
                             <dl class="row-info ">
                                 <dd class="">Tiền cọc của khách:</dd>
-                                <dt class=""><span class="date-goout_room-replace"></span></dt>
+                                <dt class=""><span class="room-deposit"></span></dt>
                             </dl>
                         </div>
                     </div>
@@ -196,7 +206,7 @@
                                 Ghi chú
                                 <span class="text-danger">(*)</span>
                             </label>
-                            <textarea name="" id="" class="form-control" >
+                            <textarea name="move-out-note" id="move-out-note" value="" class="form-control">
                                 
                             </textarea>
                         </div>
@@ -209,7 +219,7 @@
                                 thức
                                 <span class="text-danger">(*)</span>
                             </label>
-                            <select name="payment-method" id="payment-method" class="form-control">
+                            <select name="payment-method-move-out" id="payment-method-move-out" class="form-control">
                                 <option value="0" selected="">Chuyển khoản</option>
                                 <option value="1">Tiền mặt</option>
                             </select>
@@ -220,13 +230,13 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                            <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">
                                 Tổng
                                 tiền
                             </label>
                             <div class="input-group mg-b-10">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Tổng tiền = </span>
+                                    <span class="input-group-text">Tổng tiền cần thanh toán = </span>
                                 </div>
                                 <input type="text" id="total-money" class="form-control bg-light tx-danger tx-bold" placeholder="Tổng tiền" aria-describedby="total-money" value="0" disabled="">
                             </div>
@@ -234,7 +244,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="tx-12   tx-spacing-1 mg-b-5 tx-color-03">
+                            <label class="tx-12 tx-spacing-1 mg-b-5 tx-color-03">
                                 Thực nhận của
                                 khách
                             </label>
@@ -457,41 +467,143 @@
     $(document).ready(function () {
         var pathArray = window.location.pathname.split('/');
         var RoomID = pathArray[3];
-        console.log('roomId:' + RoomID);
         //load roomType
         let api_load_room_package = 'api/room/' + RoomID;
         load_data_with_jquery(api_load_room_package).then(function (e) {
-            console.log(e);
             let item = e.Data;
-            console.log(item);
             // lấy giữ liệu từ api
             //$('#hdfId').val(item.Id);
             $('.room-name').text(item.Name);
             //$('#ListBranch-edit').val(item.BranchId).change();
             load_data_with_jquery('api/branch/' + item.BranchId).then(function (e) {
-                console.log(e);
                 $('.house-name').text(e.Data.Name);
-
             })
             //$('#ListFloor-edit').val(item.BranchFloor).change();
             load_data_with_jquery('api/floor/' + item.BranchFloor).then(function (e) {
-                console.log(e);
                 $('.floor-name').text(e.Data.Name);
             })
             // nếu phòng bao điện nước thì không cần ghi điện nước
             if (item.ElectricWaterPackage == 0) {
                 // theo mức sử dụng
-                console.log("theo mức sử dụng");
+                $('.room-package').text("theo mức sử dụng");
                 $('.cl-electricwater').prop("disabled", false);
+                $('#electric-new-number').prop("required", true);
+                $('#water-new-number').prop("required", true);
                 $('.cl-electricwater').css("display", "block");
             }
             else {
                 // bao điện nước
-                console.log("bao điện nước");
+                $('.room-package').text("bao điện nước");
                 $('.cl-electricwater').prop("disabled", true);
+                $('#electric-new-number').prop("required", false);
+                $('#water-new-number').prop("required", false);
                 $('.cl-electricwater').css("display", "none");
             }
         })
+        // load thông tin hóa đơn phòng để dọn ra
+        let api_MoveOutRoom = "api/Room/MoveOutRoom?roomid=" + RoomID;
+        load_data_with_jquery(api_MoveOutRoom).then(function (e) {
+            // load danh sách người còn ở tropng phòng để thay thế người đại diện
+            let usersInRoom = e.Data.userInRooms;
+            let select = document.getElementById("users-in-room");
+            for (let i = 0; i < usersInRoom.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = usersInRoom[i].UsersId;
+                opt.innerHTML = usersInRoom[i].FullName;
+                select.appendChild(opt);
+            }
+            // thông tin hóa đơn phòng
+            let roomReceipts = e.Data.moveOut_RoomReceipts;
+            let html = "";
+            let totalMoney = 0;
+            
+            for (let i = 0; i < roomReceipts.length; i++) {
+                totalMoney += roomReceipts[i].MoneyDebtRoomReceipt;
+                let status_class = "";
+                let status_text = "";
+                let status = roomReceipts[i].Status; // 0:chưa thanh toán 1:còn thiếu 2: đã thanh toán
+                if (status == null) {
+                    status_class = "";
+                    status_text = "";
+                }
+                if (status == 0) {
+                    status_class = "room-status badge badge-danger pd-5 tx-12";
+                    status_text = "Chưa thanh toán";
+                }
+                if (status == 1) {
+                    status_class = "room-status badge badge-light pd-5 tx-12";
+                    status_text = "Còn thiếu";
+                }
+                if (status == 2) {
+                    status_class = "room-status badge badge-success pd-5 tx-12";
+                    status_text = "Đã thanh toán";
+                }
+                let paymentMethod_txt = "";
+                let paymentMethod = roomReceipts[i].PaymenMethod;
+                if (paymentMethod == null) {
+                    paymentMethod_txt = "";
+                }
+                if (status == 0) {
+                    paymentMethod_txt = "Chuyển&nbsp;khoản";
+                }
+                if (status == 1) {
+                    paymentMethod_txt = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tiền&nbsp;mặt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+                html += `<tr class="">
+                                <td>Tháng</td>
+                                <th>Tiền nhà</th>
+                                <th><span class="">Tiền điện<span></span></span></th>
+                                <th><span class="">Tiền nước</span></th>
+                                <th><span class="">Dịch vụ</span></th>
+                                <th><span class="">Tổng tiền</span></th>
+                                <th><span class="">Trạng thái</span></th>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="3">`+ format_date(roomReceipts[i].Date) + `</td>
+                                <td>`+ format_money(roomReceipts[i].RoomBill)+`</td>
+                                <td>`+ format_money(roomReceipts[i].ElectricBill) +`</td>
+                                <td>`+ format_money(roomReceipts[i].WaterBill) +`</td>
+                                <td>`+ format_money(roomReceipts[i].RoomUtilitieBill) +`</td>
+                                <td>`+ format_money(roomReceipts[i].TotalBill) +`</td>
+                                <td colspan="1" rowspan="3"><span class="`+ status_class + `">` + status_text+`</span></td>
+                            </tr>
+                            <tr>
+                                <th><span class="">Phát sinh</span></th>
+                                <th><span class="">Được giảm</span></th>
+                                <th><span class="">Thực nhận</span></th>
+                                <th><span class="">Còn lại</span></th>
+                                <th><span class="">Hình thức</span></th>
+
+                            </tr>
+                            <tr class="">
+                                <td>`+ format_money(roomReceipts[i].PlusBill) +`</td>
+                                <td>`+ format_money(roomReceipts[i].SubBill) +`</td>
+                                <td>`+ format_money(roomReceipts[i].MoneyRecive) +`</td>
+                                <td>`+ format_money(roomReceipts[i].MoneyDebtRoomReceipt) +`</td>
+                                <td>
+                                    `+ paymentMethod_txt+`
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="7" style="background-color: white; border-right-color: white; border-left-color: white;"></td>
+                            </tr>`;
+            }
+            
+            $("#table-receipt-room").html(html);
+            // thông tin hợp đồng
+            let roomContractRepresentative = e.Data.roomContractRepresentative
+            $(".date-into_room").text(format_date(roomContractRepresentative.DateIntoRoom));
+            $(".date-goout_room").text(format_date(roomContractRepresentative.DateGoOutRoom));
+            $(".date-moveout_room").text(format_date(new Date()));
+            let depositMoney = roomContractRepresentative.DepositMoney
+            if (depositMoney == null) {
+                depositMoney = 0;
+            }
+            $(".room-deposit").text(format_money(depositMoney));
+            $("#total-money").val(format_money(totalMoney));
+            $("#money-take").val(format_money(totalMoney));
+        });
         
     })
     //#endregion

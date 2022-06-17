@@ -42,6 +42,7 @@ namespace Sample.API.Controllers
             , IWebHostEnvironment env) : base(serviceProvider, logger, env)
         {
             this.userInRoomService = serviceProvider.GetRequiredService<IUserInRoomService>();
+            this.userService = serviceProvider.GetRequiredService<IUserService>();
             this.electricWaterBillService = serviceProvider.GetRequiredService<IElectricWaterBillService>();
             this.roomReceiptService = serviceProvider.GetRequiredService<IRoomReceiptService>();
             this.RoomContractRepresentativeService = serviceProvider.GetRequiredService<IRoomContractRepresentativeService>();
@@ -105,7 +106,16 @@ namespace Sample.API.Controllers
                 Room room = domainService.GetById(roomid);
                 // thông tin khách trong phòng
                 List<UserInRoom> userInRooms = (List<UserInRoom>)await userInRoomService.GetAsync(d => d.RoomId == room.Id && d.UsersId != room.UserInRoomRepresentative);
-
+                foreach (UserInRoom userInRoom in userInRooms) {
+                    Users user = userService.GetById((int)userInRoom.UsersId);
+                    if (user.FullName != null)
+                    {
+                        userInRoom.FullName = user.FullName;
+                    }
+                    else {
+                        userInRoom.FullName = "";
+                    }
+                }
                 // thông tin các hóa đơn đã có( đã tính tiền)
                 //List<RoomReceipt> roomReceipts = (List<RoomReceipt>)await roomReceiptService.GetAsync(d=>d.RoomId== roomid && Int32.Parse(d.UserId) == room.UserInRoomRepresentative && d.Date <= DateTime.Now);
 
@@ -228,8 +238,13 @@ namespace Sample.API.Controllers
                             }
                             // tính tiền phòng
                             double roomPriceBill = (double)room.Price;
-
-                            int dateInMonth = DateTime.DaysInMonth(DateTime.Now.Month, DateTime.Now.Year);
+                            int dateInMonth = 0;
+                            try { 
+                                dateInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+                            }
+                            catch (Exception ex) {
+                                throw new Exception("loi cmnr");
+                            }
                             // Giá tiện ích phòng theo ngày
                             double room_utilitie_bill_PerDay = (double)(roomUtilitiBill / (double)dateInMonth);
                             // Giá phòng theo ngày
@@ -266,7 +281,7 @@ namespace Sample.API.Controllers
                             RoomReceipt roomReceipt = new RoomReceipt();
                             roomReceipt.RoomId = roomid;
                             roomReceipt.UserId = room.UserInRoomRepresentative.ToString();
-                            roomReceipt.Date = DateTime.Now;
+                            roomReceipt.Date = date;
                             // tính tiền điện
                             MoveOut_RoomReceipts.Add(roomReceipt);
                             GetElectricWaterBillWithMonthRequest rq = new GetElectricWaterBillWithMonthRequest();

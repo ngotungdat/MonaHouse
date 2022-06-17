@@ -170,52 +170,65 @@ namespace Sample.Service.Services
                 {
                     //RoomReceipt roomReceipt = this.GetById(item.Id);
                     item.Active = true;
-                    item.MoneyRecive = item.MoneyRecive + roomContractRepresentatives[0].UserMoney;
-                    roomContractRepresentatives[0].UserMoney = 0;
+                    
                     // nếu tài khoản hết tiền
                     double tmp = (double)item.MoneyRecive + UserMoneyLeft;
                     // => số tiên user nợ được là tmp
-
-                    item.MoneyDebtRoomReceipt = (double)(tmp);
-                    if (item.MoneyDebtRoomReceipt < 0)
+                    
+                    if (tmp < 0)
                     {
+                        item.MoneyRecive = item.MoneyRecive + roomContractRepresentatives[0].UserMoney;
+                        item.MoneyDebtRoomReceipt = -(double)(tmp);
                         item.Status = 1; // 0:chưa thanh toán 1:còn thiếu 2: đã thanh toán
                                          // user chưa trả hết hóa đơn tiền phòng => tăng số tiền nợ của user
-                        user.DebtMoney = user.DebtMoney - item.MoneyDebtRoomReceipt;
+                        roomContractRepresentatives[0].UserMoney = 0;
                     }
-                    if (item.MoneyDebtRoomReceipt == 0)
+                    if (tmp == 0)
                     {
+                        item.MoneyRecive = item.MoneyRecive + roomContractRepresentatives[0].UserMoney;
+                        item.MoneyDebtRoomReceipt = 0;
                         item.Status = 2;
+                        roomContractRepresentatives[0].UserMoney = 0;
                     }
-                    if (item.MoneyDebtRoomReceipt > 0)
+                    if (tmp > 0)
                     {
                         if (user.DebtMoney > 0)
                         {
                             // trừ nợ
-                            var val = user.DebtMoney - item.MoneyDebtRoomReceipt; // ở đây do trả dư 
+                            var val = user.DebtMoney - tmp; // ở đây do trả dư 
                             if (val > 0)
                             {
+                                item.MoneyRecive = roomReceipt.FinalBill;
                                 // user sau khi trả nợ vẫn còn nợ
                                 item.MoneyDebtRoomReceipt = 0;
                                 item.Status = 2;
                                 user.DebtMoney = val;
-
+                                roomContractRepresentatives[0].UserMoney = 0;
                             }
                             if (val == 0)
                             {
+                                item.MoneyRecive = roomReceipt.FinalBill;
                                 // user trả hết nợ
                                 item.MoneyDebtRoomReceipt = 0;
+                                roomContractRepresentatives[0].UserMoney = 0;
                                 item.Status = 2;
                                 user.DebtMoney = 0;
                             }
                             if (val < 0)
                             {
+                                item.MoneyRecive = roomReceipt.FinalBill;
                                 // user trả dư số tiền
                                 item.MoneyDebtRoomReceipt = 0;
                                 roomContractRepresentatives[0].UserMoney = -val;
                                 item.Status = 2;
                                 user.DebtMoney = 0;
                             }
+                        }
+                        else {
+                            roomContractRepresentatives[0].UserMoney = roomContractRepresentatives[0].UserMoney-roomReceipt.FinalBill+ item.MoneyRecive;
+                            item.MoneyRecive = roomReceipt.FinalBill;
+                            item.MoneyDebtRoomReceipt = 0;
+                            item.Status = 2;
                         }
                     }
                 }

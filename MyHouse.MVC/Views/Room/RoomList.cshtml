@@ -2529,11 +2529,11 @@
     // chọn năm, tự động là năm hiện tại, lâu nhất là 5 năm
     let get_current_year = new Date().getFullYear();
     let ddl_year = document.getElementById('ddl-year');
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 20; i++) {
         var opt = document.createElement('option');
         opt.value = get_current_year;
         opt.innerHTML ='Năm '+ get_current_year;
-        get_current_year++;
+        get_current_year--;
         ddl_year.appendChild(opt);
     }
     // chọn tháng
